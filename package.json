@@ -1,7 +1,14 @@
 {
   "name": "palava-web",
   "version": "0.1.0",
-  "private": true,
+  "author": "palava e. V.",
+  "license": "MIT",
+  "description": "The 2020 web front-end of palava.tv",
+  "keywords": [
+    "palava",
+    "webrtc",
+    "video chat"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",

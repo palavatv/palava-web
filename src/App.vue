@@ -1,9 +1,12 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <nav id="nav">
+      <router-link to="/">palava</router-link> |
+      <router-link to="/info/how">How to Use</router-link> |
+      <router-link to="/info/ev">palava e. V.</router-link> |
+      <router-link to="/info/contact">Imprint</router-link> |
+      <router-link to="/info/privacy">Privacy Policy</router-link>
+    </nav>
     <router-view/>
   </div>
 </template>

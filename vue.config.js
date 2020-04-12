@@ -6,6 +6,6 @@ module.exports = {
       favicon16: 'palava-favicon-16.png',
       appleTouchIcon: 'palava-favicon-152.png',
       msTileImage: 'palava-favicon-152.png',
-    }
-  }
+    },
+  },
 }

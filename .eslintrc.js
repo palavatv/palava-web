@@ -16,6 +16,7 @@ module.exports = {
     semi: 'off',
     'max-len': 'off',
     quotes: 'off',
+    'import/prefer-default-export': 'off',
   },
   overrides: [
     {

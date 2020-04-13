@@ -2,7 +2,7 @@ export default {
   en: {
     home: {
       go: "go",
-      hiddenConversation: "hidden conversation",
+      hiddenRoom: "hidden conversation",
     },
     titles: {
       contact: "contact",
@@ -18,7 +18,7 @@ export default {
   de: {
     home: {
       go: "los",
-      hiddenConversation: "versteckte Unterhaltung",
+      hiddenRoom: "versteckte Unterhaltung",
     },
     titles: {
       contact: "kontakt",

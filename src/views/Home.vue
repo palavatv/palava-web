@@ -1,27 +1,43 @@
 <template>
   <div class="home">
-    <GithubRibbon />
     <img alt="palava papagei" src="@/assets/palava.svg">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    {{ $t("home.go") }}
 
+    <form @submit.prevent="goIntoRoom">
+      <br />
+      <input
+        v-model="roomId"
+        placeholder="Enter room id"
+        autofocus
+        />
+      <button type="submit">{{ $t("home.go") }}</button>
+      <br />
+      <br />
+      <a href="javascript:void(0)" @click.prevent="goIntoHiddenRoom">{{ $t("home.hiddenRoom") }}</a>
+    </form>
   </div>
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld.vue'
-import GithubRibbon from '@/components/GithubRibbon.vue'
+import { uuid } from '@/support'
 
 export default {
-  components: {
-    HelloWorld,
-    GithubRibbon,
+  data() {
+    return {
+      roomId: '',
+    }
   },
-}
-</script>
-
-<script>
-export default {
+  methods: {
+    goIntoRoom() {
+      if (this.roomId) {
+        this.$router.push({ path: encodeURIComponent(this.roomId) })
+      } else {
+        this.goIntoHiddenRoom()
+      }
+    },
+    goIntoHiddenRoom() {
+      this.$router.push({ path: uuid() })
+    },
+  },
   metaInfo() {
     return {
       titleTemplate: null,

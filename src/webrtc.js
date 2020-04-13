@@ -1,4 +1,5 @@
+import { browser } from 'palava-client'
+
 export function browserCanUseWebrtc() {
-  // TODO
-  return true
+  return !browser.checkForWebrtcError()
 }

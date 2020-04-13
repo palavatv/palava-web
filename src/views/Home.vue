@@ -1,18 +1,19 @@
 <template>
   <div class="home">
-    <img alt="palava papagei" src="@/assets/palava.svg">
+    <img alt="palava papagei" src="@/assets/palava.svg" @click="$refs.roomInput.focus()">
 
     <form @submit.prevent="goIntoRoom">
       <br />
       <input
         v-model="roomId"
         placeholder="Enter room id"
+        ref="roomInput"
         autofocus
         />
       <button type="submit">{{ $t("home.go") }}</button>
       <br />
       <br />
-      <a href="javascript:void(0)" @click.prevent="goIntoHiddenRoom">{{ $t("home.hiddenRoom") }}</a>
+      <button type="button" @click="goIntoHiddenRoom">{{ $t("home.hiddenRoom") }}</button>
     </form>
   </div>
 </template>

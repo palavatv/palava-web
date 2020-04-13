@@ -19,6 +19,14 @@ export default {
   components: {
     LanguageSwitcher,
   },
+  metaInfo() {
+    const lang = this.$root.$i18n.locale
+    return {
+      htmlAttrs: {
+        lang,
+      },
+    }
+  },
 }
 </script>
 

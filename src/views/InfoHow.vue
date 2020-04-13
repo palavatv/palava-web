@@ -19,3 +19,13 @@
     </p>
   </main>
 </template>
+
+<script>
+export default {
+  metaInfo() {
+    return {
+      title: this.$t('titles.info'),
+    }
+  },
+}
+</script>

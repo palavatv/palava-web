@@ -19,3 +19,13 @@ export default {
   },
 }
 </script>
+
+<script>
+export default {
+  metaInfo() {
+    return {
+      titleTemplate: null,
+    }
+  },
+}
+</script>

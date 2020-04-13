@@ -21,3 +21,13 @@
     <p>Marius Melzer, Jan Lelis, Alexandra Weiss</p>
   </main>
 </template>
+
+<script>
+export default {
+  metaInfo() {
+    return {
+      title: this.$t('titles.contact'),
+    }
+  },
+}
+</script>

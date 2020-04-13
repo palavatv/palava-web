@@ -19,3 +19,13 @@
     </div>
   </main>
 </template>
+
+<script>
+export default {
+  metaInfo() {
+    return {
+      title: this.$t('titles.palavaEv'),
+    }
+  },
+}
+</script>

@@ -25,6 +25,8 @@ export default {
       htmlAttrs: {
         lang,
       },
+      title: 'palava.tv',
+      titleTemplate: 'palava.tv | %s',
     }
   },
 }

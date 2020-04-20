@@ -1,6 +1,10 @@
 <template>
   <main class="building">
-    <component :is="roomComponent" />
+    <component
+      :is="uiStateComponent"
+      v-bind="uiStateProps"
+      @join-room="joinRoom"
+      />
   </main>
 </template>
 
@@ -11,24 +15,14 @@ import { createSession, createIdentity } from "@/webrtc"
 
 import UserMediaConfigurator from "@/components/UserMediaConfigurator.vue"
 import WaitingForUserMedia from "@/components/WaitingForUserMedia.vue"
-import UserMediaError from "@/components/UserMediaError.vue"
 import ConnectionError from "@/components/ConnectionError.vue"
 import RoomFullError from "@/components/RoomFullError.vue"
 import Party from "@/components/Party.vue"
 
-const UI_STATES = {
-  user_media_configurator: UserMediaConfigurator,
-  waiting_for_user_media: WaitingForUserMedia,
-  user_media_error: UserMediaError,
-  connection_error: ConnectionError,
-  room_full_error: RoomFullError,
-  party: Party,
-}
-
 export default {
   data() {
     return {
-      uiState: "user_media_configurator",
+      uiState: [UserMediaConfigurator, {}],
       peers: [],
       // rtc: null,
     }
@@ -42,8 +36,11 @@ export default {
     this.rtc.destroy()
   },
   computed: {
-    roomComponent() {
-      return UI_STATES[this.uiState]
+    uiStateComponent() {
+      return this.uiState[0]
+    },
+    uiStateProps() {
+      return this.uiState[1]
     },
   },
   methods: {
@@ -61,7 +58,7 @@ export default {
 
       rtc.on("signaling_not_reachable", () => {
         logger.error("signaling server not reachable")
-        this.uiState = "connection_error"
+        this.uiState = [ConnectionError]
       })
 
       rtc.on("signaling_error", (error) => {
@@ -74,25 +71,25 @@ export default {
       //   this.uiState = "maintenance"
       // })
 
-      rtc.on("local_stream_ready", (stream) => {
-        logger.log("local stream ready", stream)
-        this.uiState = "party"
-        rtc.room.join()
-      })
-
       rtc.on("local_stream_error", (error) => {
         logger.log("local stream error", error)
-        this.uiState = "user_media_error"
+        this.uiState = [UserMediaConfigurator, { error: "local_stream_error" }]
       })
 
       rtc.on("room_join_error", () => {
         logger.error("room not joinable (connection error)")
-        this.uiState = "connection_error"
+        this.uiState = [ConnectionError]
       })
 
       rtc.on("room_full", () => {
         logger.error("room not joinable (full)")
-        this.uiState = "room_full_error"
+        this.uiState = [RoomFullError]
+      })
+
+      rtc.on("local_stream_ready", (stream) => {
+        logger.log("local stream ready", stream)
+        this.uiState = [Party]
+        rtc.room.join()
       })
 
       rtc.on("room_joined", (room) => {
@@ -137,7 +134,7 @@ export default {
       return rtc
     },
     joinRoom(userMediaConfig) {
-      this.uiState = "waiting_for_user_media"
+      this.uiState = [WaitingForUserMedia]
       // $("#share-link").focus()
 
       this.rtc.init({

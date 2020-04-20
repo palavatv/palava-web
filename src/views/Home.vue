@@ -34,7 +34,9 @@ export default {
     }
   },
   computed: {
-    browserCanUseWebrtc,
+    browserCanUseWebrtc() {
+      return browserCanUseWebrtc() && this.$route.params.supported !== "0"
+    },
   },
   methods: {
     goIntoRoom() {

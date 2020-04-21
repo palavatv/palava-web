@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <nav id="nav">
+  <div class="world">
+    <nav class="navigation">
       <router-link to="/">palava</router-link> |
       <router-link to="/info/how">{{ $t('info') }}</router-link> |
       <router-link to="/info/ev">{{ $t('palavaEv') }}</router-link> |
@@ -8,6 +8,7 @@
       <router-link to="/info/privacy">{{ $t('privacyPolicy') }}</router-link> |
       <LanguageSwitcher />
     </nav>
+
     <router-view/>
   </div>
 </template>
@@ -33,24 +34,32 @@ export default {
 </script>
 
 <style lang="scss">
-#app {
+@import '@/css/support.scss';
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
-#nav {
-  padding: 30px;
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+a {
+  text-decoration: none;
+  color: $action-1;
+}
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.world {
+  margin-top: 4vh;
+  text-align: center;
 }
 </style>

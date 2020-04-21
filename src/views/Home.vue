@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <main class="home">
     <img alt="palava papagei" src="@/assets/palava.svg" @click="$refs.roomInput.focus()">
 
     <form v-if="browserCanUseWebrtc" @submit.prevent="goIntoRoom">
@@ -20,7 +20,7 @@
     <div v-else>
       <strong>Sorry!</strong> Your web browser is not compatible with the latest technologies for video communication on the web. In order to use <router-link to="/info/how">palava.tv</router-link>, you will need to install a web browser that supports WebRTC.
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -57,3 +57,7 @@ export default {
   },
 }
 </script>
+
+<style class="scss">
+
+</style>

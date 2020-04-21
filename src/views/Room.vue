@@ -1,5 +1,9 @@
 <template>
   <main class="building">
+    <transition name="fade">
+      <WaitingForUserMedia v-if="waiting" />
+    </transition>
+
     <component
       :is="uiStateComponent"
       v-bind="uiStateProps"
@@ -20,10 +24,14 @@ import RoomFullError from "@/components/RoomFullError.vue"
 import Party from "@/components/Party.vue"
 
 export default {
+  components: {
+    WaitingForUserMedia,
+  },
   data() {
     return {
       uiState: [UserMediaConfigurator, {}],
       peers: [],
+      waiting: false,
       // rtc: null,
     }
   },
@@ -73,7 +81,15 @@ export default {
 
       rtc.on("local_stream_error", (error) => {
         logger.log("local stream error", error)
+        this.waiting = false
         this.uiState = [UserMediaConfigurator, { error: "local_stream_error" }]
+      })
+
+      rtc.on("local_stream_ready", (stream) => {
+        logger.log("local stream ready", stream)
+        this.waiting = false
+        this.uiState = [Party]
+        rtc.room.join()
       })
 
       rtc.on("room_join_error", () => {
@@ -84,12 +100,6 @@ export default {
       rtc.on("room_full", () => {
         logger.error("room not joinable (full)")
         this.uiState = [RoomFullError]
-      })
-
-      rtc.on("local_stream_ready", (stream) => {
-        logger.log("local stream ready", stream)
-        this.uiState = [Party]
-        rtc.room.join()
       })
 
       rtc.on("room_joined", (room) => {
@@ -134,7 +144,7 @@ export default {
       return rtc
     },
     joinRoom(userMediaConfig) {
-      this.uiState = [WaitingForUserMedia]
+      this.waiting = true
       // $("#share-link").focus()
 
       this.rtc.init({

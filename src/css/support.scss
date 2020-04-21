@@ -1,0 +1,42 @@
+
+// VARIABLES
+
+$action-1: #2c5aa0;
+// $action-1: #d8dc7f;
+
+// Breakpoints
+
+$mobile: 768px;
+$small: 1000px;
+$regular: 1300px;
+$medium: 1600px;
+$big: 1800px;
+
+
+// MIXINS
+
+@mixin fontBig() {
+  font-size: 30px;
+  line-height: 34px;
+  text-transform: none;
+
+  @media (min-width: $small) {
+    font-size: 42px;
+    line-height: 48px;
+  }
+
+  @media (min-width: $regular) {
+    font-size: 54px;
+    line-height: 58px;
+  }
+
+  @media (min-width: $medium) {
+    font-size: 60px;
+    line-height: 68px;
+  }
+
+  @media (min-width: $big) {
+    font-size: 68px;
+    line-height: 74px;
+  }
+}

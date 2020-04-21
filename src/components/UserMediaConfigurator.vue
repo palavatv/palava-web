@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main>
     <h3>You are about to join a palava.tv room</h3>
 
     <p><router-link to="/info/how">click here to learn more about palava.tv</router-link></p>
@@ -21,7 +21,7 @@
       - You have previously denied palava.tv to access you microphone or camera. You will need to unblock it in your browser settings to be able to join this room. In most browsers, this can be done by clicking on a small camera symbol in the address bar<br/>
       - Another program on your computer is using the camera. Stop this program and try again.<br/>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <main class="building">
+  <div class="building">
     <transition name="fade">
       <WaitingForUserMedia v-if="waiting" />
     </transition>
@@ -8,8 +8,9 @@
       :is="uiStateComponent"
       v-bind="uiStateProps"
       @join-room="joinRoom"
+      :peers="peers"
       />
-  </main>
+  </div>
 </template>
 
 <script>
@@ -19,8 +20,7 @@ import { createSession, createIdentity } from "@/webrtc"
 
 import UserMediaConfigurator from "@/components/UserMediaConfigurator.vue"
 import WaitingForUserMedia from "@/components/WaitingForUserMedia.vue"
-import ConnectionError from "@/components/ConnectionError.vue"
-import RoomFullError from "@/components/RoomFullError.vue"
+import RoomError from "@/components/RoomError.vue"
 import Party from "@/components/Party.vue"
 
 export default {
@@ -66,18 +66,18 @@ export default {
 
       rtc.on("signaling_not_reachable", () => {
         logger.error("signaling server not reachable")
-        this.uiState = [ConnectionError]
+        this.uiState = [RoomError, { error: "connection_error" }]
       })
 
       rtc.on("signaling_error", (error) => {
         logger.error("signaling error", error)
-        // TODO UX?
+        this.uiState = [RoomError, { error: "connection_error" }]
       })
 
-      // rtc.on("signaling_shutdown", (seconds) => {
-      //   logger.warn("Sorry, your connection will be reset in " + seconds + " seconds!")
-      //   this.uiState = "maintenance"
-      // })
+      rtc.on("signaling_shutdown", (seconds) => {
+        logger.warn(`Sorry, your connection will be reset in ${seconds} seconds!`)
+        this.uiState = [RoomError, { error: "maintenance" }]
+      })
 
       rtc.on("local_stream_error", (error) => {
         logger.log("local stream error", error)
@@ -87,23 +87,25 @@ export default {
 
       rtc.on("local_stream_ready", (stream) => {
         logger.log("local stream ready", stream)
-        this.waiting = false
-        this.uiState = [Party]
         rtc.room.join()
       })
 
       rtc.on("room_join_error", () => {
-        logger.error("room not joinable (connection error)")
-        this.uiState = [ConnectionError]
+        logger.error("room join error")
+        this.uiState = [RoomError, { error: "connection_error" }]
+        this.waiting = false
       })
 
       rtc.on("room_full", () => {
-        logger.error("room not joinable (full)")
-        this.uiState = [RoomFullError]
+        logger.error("room full")
+        this.uiState = [RoomError, { error: "room_full" }]
+        this.waiting = false
       })
 
       rtc.on("room_joined", (room) => {
         logger.log(`room joined with ${room.getRemotePeers().length} other peers`)
+        this.uiState = [Party]
+        this.waiting = false
         // this.checkPeers()
       })
 
@@ -132,9 +134,9 @@ export default {
         // this.checkPeers()
       })
 
-      // rtc.on("session_before_destroy", () => {
-      //   logger.log("destroying rtc session")
-      // })
+      rtc.on("session_before_destroy", () => {
+        logger.log("destroying rtc session")
+      })
 
       // rtc.on("session_after_destroy", () => {
       //   $(".modal").modal("hide")

@@ -28,7 +28,9 @@ export function attachMediaStream(element, stream, muted = false) {
       element.muted = true // Chrome bug, cannot set via <video>
     }
     element.srcObject = stream
-    element.play()
+    if (element.paused) {
+      element.play()
+    }
   } else {
     if (element.srcObject) { element.pause() }
     element.srcObject = null

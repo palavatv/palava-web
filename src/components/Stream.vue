@@ -1,7 +1,9 @@
 <!-- TODO: poster -->
 
 <template>
-  <video ref="stream"
+  <video
+    ref="stream"
+    autoplay
   />
 </template>
 
@@ -37,8 +39,7 @@ export default {
       this.attachPeerStreamHandler = this.attachPeerStream.bind(this)
       this.peer.on("stream_ready", this.attachPeerStreamHandler)
 
-      // if (this.peer.isReady) {
-      if (this.peer.isReady && this.peer.getStream()) {
+      if (this.peer.isReady()) {
         this.attachPeerStream()
       }
     },

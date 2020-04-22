@@ -24,6 +24,7 @@ module.exports = {
     'prefer-destructuring': 'off',
     'vue-a11y/media-has-caption': 'off',
     'vue-a11y/no-autofocus': 'off',
+    'vue-a11y/click-events-have-key-events': 'off',
   },
   overrides: [
     {

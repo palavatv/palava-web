@@ -6,13 +6,6 @@ This repository contains the front-end web application of [palava.tv](https://pa
 
 ## Setup
 
-Clone this directory and checkout the submodule:
-
-    $ git clone https://github.com/palavatv/palava-portal
-    $ cd palava-portal
-    $ git submodule init
-    $ git submodule update
-
 Make sure you have NodeJS and the YARN package manager installed. Then run:
 
     $ yarn install

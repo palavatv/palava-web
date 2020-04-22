@@ -17,6 +17,7 @@
 import config from "@/config"
 import logger from "@/logger"
 import { createSession, createIdentity } from "@/webrtc"
+import { fancyNumber } from "@/support"
 
 import UserMediaConfigurator from "@/components/UserMediaConfigurator.vue"
 import WaitingForUserMedia from "@/components/WaitingForUserMedia.vue"
@@ -159,7 +160,8 @@ export default {
   },
   metaInfo() {
     return {
-      title: `${this.$t("titles.room")} | ${decodeURIComponent(this.$route.params.roomId)}`,
+      // title: `${this.$t("titles.room")} | ${decodeURIComponent(this.$route.params.roomId)}`,
+      title: `${fancyNumber(this.peers.length) || this.$t("titles.room")} | ${decodeURIComponent(this.$route.params.roomId)}`,
     }
   },
 }

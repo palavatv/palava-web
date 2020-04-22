@@ -20,3 +20,19 @@ export function createSession(roomId, rtcUrl) {
     channel: new WebSocketChannel(rtcUrl),
   })
 }
+
+export function attachMediaStream(element, stream, muted = false) {
+  /* eslint-disable no-param-reassign */
+  if (stream) {
+    if (muted) {
+      element.muted = true // Chrome bug, cannot set via <video>
+    }
+    element.srcObject = stream
+    element.play()
+  } else {
+    if (element.srcObject) { element.pause() }
+    element.srcObject = null
+    element.muted = false
+  }
+  /* eslint-enable no-param-reassign */
+}

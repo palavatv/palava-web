@@ -1,6 +1,8 @@
 <template>
   <main>
-    <Peer v-for="peer in peers" :key="peer.id" :peer="peer" />
+    <ul>
+      <Peer v-for="peer in peers" :key="peer.id" :peer="peer" />
+    </ul>
   </main>
 </template>
 

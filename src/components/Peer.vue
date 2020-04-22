@@ -1,14 +1,16 @@
 <template>
-  <div>Peer</div>
+  <li>
+    <Stream :peer="peer" />
+  </li>
 </template>
 
 <script>
-// import WebrtcVideo from "@/components/WebrtcVideo.vue"
+import Stream from "@/components/Stream.vue"
 
 export default {
   props: ["peer"],
   components: {
-    // WebrtcVideo,
+    Stream,
   },
 }
 </script>

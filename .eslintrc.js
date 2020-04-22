@@ -3,9 +3,13 @@ module.exports = {
   env: {
     node: true,
   },
+  plugins: [
+    'vue-a11y',
+  ],
   extends: [
     'plugin:vue/essential',
     '@vue/airbnb',
+    'plugin:vue-a11y/base',
   ],
   parserOptions: {
     parser: 'babel-eslint',
@@ -13,11 +17,13 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'semi': 'off',
+    semi: 'off',
     'max-len': 'off',
-    'quotes': 'off',
+    quotes: 'off',
     'import/prefer-default-export': 'off',
     'prefer-destructuring': 'off',
+    'vue-a11y/media-has-caption': 'off',
+    'vue-a11y/no-autofocus': 'off',
   },
   overrides: [
     {

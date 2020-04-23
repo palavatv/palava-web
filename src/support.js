@@ -10,8 +10,8 @@ export function uuid() {
 
 // Returns a circled number Unicode character for given JavaScript number
 export function fancyNumber(n) {
-  // return n ? String.fromCodePoint(9460 + n) : ""
+  return n ? String.fromCodePoint(9460 + n) : ""
   // return n ? String.fromCodePoint(10121 + n) : ""
   // return n ? String.fromCodePoint(65834 + n) : ""
-  return n ? String.fromCodePoint(65816 + n) : ""
+  // return n ? String.fromCodePoint(65816 + n) : ""
 }

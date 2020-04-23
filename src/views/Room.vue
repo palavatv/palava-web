@@ -1,5 +1,5 @@
 <template>
-  <div class="building">
+  <div class="room">
     <transition name="fade">
       <WaitingForUserMedia v-if="waiting" />
     </transition>
@@ -166,3 +166,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.room {
+  height: 100%;
+}
+</style>

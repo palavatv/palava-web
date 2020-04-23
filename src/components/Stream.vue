@@ -49,3 +49,11 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+video {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+</style>

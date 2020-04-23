@@ -1,7 +1,5 @@
 <template>
-  <div class="world">
-    <router-view/>
-  </div>
+  <router-view/>
 </template>
 
 <script>
@@ -25,6 +23,7 @@ export default {
 html, body {
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
 body {
@@ -33,6 +32,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -44,8 +45,17 @@ a {
   color: $action-1;
 }
 
-.world {
-  margin-top: 4vh;
+ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+.earth {
+  padding-top: 4vh;
   text-align: center;
+}
+
+ul {
+  list-style-type: none;
 }
 </style>

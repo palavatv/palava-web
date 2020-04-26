@@ -1,5 +1,9 @@
 <template>
-  <main class="party">
+  <main :class="{
+    'party': true,
+    'party--landscape': mode === 'landscape',
+    'party--portrait': mode === 'portrait',
+  }">
     <nav class="top-control">
       <span class="home-link">
         <router-link to="/">
@@ -31,16 +35,18 @@
       />
     </ul>
 
-    <ul :class="{
+    <div :class="{
       'lobby': true,
     }">
-      <Peer v-for="peer in lobbyPeers"
-        :key="peer.id"
-        type="lobby"
-        :peer="peer"
-        @togglePeer="togglePeer(peer.id)"
-        />
-    </ul>
+      <ul class="couch">
+        <Peer v-for="peer in lobbyPeers"
+          :key="peer.id"
+          type="lobby"
+          :peer="peer"
+          @togglePeer="togglePeer(peer.id)"
+          />
+      </ul>
+    </div>
   </main>
 </template>
 
@@ -51,11 +57,19 @@ export default {
   props: ["peers"], // TODO peer prop update or move peers to party
   data() {
     return {
+      mode: "landscape",
       peersInLobby: [],
     }
   },
   components: {
     Peer,
+  },
+  mounted() {
+    window.addEventListener("resize", this.onResize)
+    this.onResize()
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.onResize)
   },
   computed: {
     stagePeers() {
@@ -77,25 +91,27 @@ export default {
         this.peersInLobby = [...this.peersInLobby, peerId]
       }
     },
+    onResize() {
+      const width = window.innerWidth
+      const height = window.innerHeight
+      if (this.mode === "landscape" && width < height) {
+        this.mode = "portrait"
+      } else if (this.mode === "portrait" && width >= height) {
+        this.mode = "landscape"
+      }
+    },
   },
 }
 </script>
 
 <style lang="scss">
-.party {
-  height: 100%;
-  background: black;
-  display: flex;
-}
+@import '@/css/support.scss';
 
 .top-control {
   position: absolute;
-  top: 0;
-  left: 0;
+  z-index: 1000;
 
   /* debug start */
-  a { color: white; }
-  z-index: 1000;
   top: 10px;
   left: 10px;
   /* debug end */
@@ -114,15 +130,39 @@ export default {
 }
 
 .party {
+  position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
+  background: black;
+  display: flex;
+  &--landscape {
+    flex-direction: row;
+    .stage {
+      height: 100%;
+      width: calc(100% - #{$lobby-width});
+    }
+    .lobby {
+      height: 100%;
+      width: $lobby-width;
+    }
+  }
+  &--portrait {
+    flex-direction: column;
+    .stage {
+      height: calc(100% - #{$lobby-height});
+      width: 100%;
+    }
+    .lobby {
+      height: $lobby-height;
+      width: 100%;
+    }
+  }
 }
 
 .stage {
-  width: 90%;
-  height: 100%;
   overflow: hidden;
+  background: black;
   display: flex;
   > * {
     flex: 1;
@@ -130,12 +170,15 @@ export default {
 }
 
 .lobby {
-  width: 10%;
-  height: 100%;
   overflow: hidden;
+  background: #222;
+}
+
+.couch {
+  height: 100%;
+  width: 100%;
   display: flex;
   > * {
-    flex: 1;
   }
 }
 

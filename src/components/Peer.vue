@@ -12,7 +12,11 @@
     'peer--has-video': peer.hasVideo(),
     'peer--has-no-video': !peer.hasVideo(),
     'peer--has-error': peer.hasError(),
-  }">
+    'peer--in-lobby': type === 'lobby',
+    'peer--on-stage': type === 'lobby',
+  }"
+    @click="$emit('togglePeer')"
+  >
     <Placeholder v-if="showPlacholder" :peer="peer" />
     <Stream v-else :peer="peer" />
   </li>
@@ -26,6 +30,10 @@ export default {
   props: {
     peer: {
       type: Object,
+      required: true,
+    },
+    type: {
+      type: String,
       required: true,
     },
   },

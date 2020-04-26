@@ -23,7 +23,23 @@
       'stage--five': peers.length === 5,
       'stage--six': peers.length === 6,
     }">
-      <Peer v-for="peer in peers" :key="peer.id" :peer="peer" />
+      <Peer v-for="peer in stagePeers"
+      :key="peer.id"
+      type="stage"
+      :peer="peer"
+      @togglePeer="togglePeer(peer.id)"
+      />
+    </ul>
+
+    <ul :class="{
+      'lobby': true,
+    }">
+      <Peer v-for="peer in lobbyPeers"
+        :key="peer.id"
+        type="lobby"
+        :peer="peer"
+        @togglePeer="togglePeer(peer.id)"
+        />
     </ul>
   </main>
 </template>
@@ -32,24 +48,44 @@
 import Peer from "@/components/Peer.vue"
 
 export default {
-  props: ["peers"],
+  props: ["peers"], // TODO peer prop update or move peers to party
+  data() {
+    return {
+      peersInLobby: [],
+    }
+  },
   components: {
     Peer,
   },
   computed: {
+    stagePeers() {
+      return this.peers.filter((peer) => !this.peersInLobby.includes(peer.id))
+    },
+    lobbyPeers() {
+      return this.peers.filter((peer) => this.peersInLobby.includes(peer.id))
+    },
     shareLink() {
       if (!window) { return '' }
       return `${window.location.protocol}//${window.location.host}/${window.location.pathname}`
+    },
+  },
+  methods: {
+    togglePeer(peerId) {
+      if (this.peersInLobby.includes(peerId)) {
+        this.peersInLobby = this.peersInLobby.filter((id) => id !== peerId)
+      } else {
+        this.peersInLobby = [...this.peersInLobby, peerId]
+      }
     },
   },
 }
 </script>
 
 <style lang="scss">
-.dashboard {
+.party {
   height: 100%;
   background: black;
-  position: relative;
+  display: flex;
 }
 
 .top-control {
@@ -84,7 +120,17 @@ export default {
 }
 
 .stage {
-  width: 100%;
+  width: 90%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  > * {
+    flex: 1;
+  }
+}
+
+.lobby {
+  width: 10%;
   height: 100%;
   overflow: hidden;
   display: flex;

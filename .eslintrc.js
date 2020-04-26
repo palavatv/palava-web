@@ -22,6 +22,7 @@ module.exports = {
     quotes: 'off',
     'import/prefer-default-export': 'off',
     'prefer-destructuring': 'off',
+    'operator-linebreak': 'off',
     'vue-a11y/media-has-caption': 'off',
     'vue-a11y/no-autofocus': 'off',
     'vue-a11y/click-events-have-key-events': 'off',

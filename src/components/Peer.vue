@@ -7,28 +7,43 @@
     'peer--not-ready': !peer.isReady(),
     'peer--has-audio': !peer.hasAudio(),
     'peer--has-no-audio': !peer.hasAudio(),
-    // 'peer--text-only': !peer.hasAudio() && !peer.hasVideo(),
+    'peer--text-only': !peer.hasAudio() && !peer.hasVideo(),
     'peer--muted-by-user': mute,
-    // 'peer--has-video': !peer.hasVideo(),
-    // 'peer--has-no-video': !peer.hasVideo(),
-    'peer--has-error': !!peer.error,
+    'peer--has-video': peer.hasVideo(),
+    'peer--has-no-video': !peer.hasVideo(),
+    'peer--has-error': peer.hasError(),
   }">
-    <Stream :peer="peer" />
+    <Placeholder v-if="showPlacholder" :peer="peer" />
+    <Stream v-else :peer="peer" />
   </li>
 </template>
 
 <script>
 import Stream from "@/components/Stream.vue"
+import Placeholder from "@/components/Placeholder.vue"
 
 export default {
-  props: ["peer"],
+  props: {
+    peer: {
+      type: Object,
+      required: true,
+    },
+  },
   components: {
+    Placeholder,
     Stream,
   },
   data() {
     return {
       mute: false,
     }
+  },
+  computed: {
+    showPlacholder() {
+      return !this.peer.isReady() ||
+             this.peer.error ||
+             !this.peer.hasVideo()
+    },
   },
 }
 </script>

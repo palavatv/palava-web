@@ -5,17 +5,57 @@
     'party--portrait': mode === 'portrait',
   }">
     <nav class="top-control">
-      <span class="home-link">
-        <router-link to="/">
-          <img
-            alt="palava.tv logo, click here to get back to start page"
-            src="@/assets/palava.svg"
-            />
+      <button
+        :class="{
+          'logo-control': true,
+          'logo-control--active': controlsActive,
+          'logo-control--inactive': !controlsActive,
+          }"
+        title="Toggle controls"
+        @click="toggleControls"
+        >
+        <img
+          alt="palava.tv logo, click here to toggle controls"
+          src="@/assets/palava.svg"
+          />
+      </button>
+
+      <transition name="fade-control">
+        <button title="Copy link" class="control control--copy-link" v-if="controlsActive">
+          <span role="img" aria-label="clipboard">📋︎</span>
+        </button>
+      </transition>
+
+      <transition name="fade-control">
+        <button title="Camera" class="control control--camera" v-if="controlsActive">
+          <span role="img" aria-label="camera">📷︎</span>
+        </button>
+      </transition>
+
+      <transition name="fade-control">
+        <button title="Microphone" class="control control--microphone" v-if="controlsActive">
+          <span role="img" aria-label="microphone">🎙︎</span>
+        </button>
+      </transition>
+
+      <transition name="fade-control">
+        <button title="Screen sharing" class="control control--screen-share" v-if="controlsActive">
+          <span role="img" aria-label="computer">🖳</span>
+        </button>
+      </transition>
+
+      <transition name="fade-control">
+        <button title="Text chat" class="control control--text-chat" v-if="controlsActive">
+          <span role="img" aria-label="speech bubbles">🗪</span>
+        </button>
+      </transition>
+
+      <transition name="fade-control">
+        <router-link to="/" title="Hang up" class="control control--hang-up" v-if="controlsActive">
+          <span role="img" aria-label="cross mark">❌︎</span>
         </router-link>
-      </span>
-      <span class="share-link">
-        {{ shareLink }}
-      </span>
+      </transition>
+
     </nav>
     <ul :class="{
       'stage': true,
@@ -59,6 +99,7 @@ export default {
     return {
       mode: "landscape",
       peersInLobby: [],
+      controlsActive: true,
     }
   },
   components: {
@@ -91,6 +132,9 @@ export default {
         this.peersInLobby = [...this.peersInLobby, peerId]
       }
     },
+    toggleControls() {
+      this.controlsActive = !this.controlsActive
+    },
     onResize() {
       const width = window.innerWidth
       const height = window.innerHeight
@@ -110,22 +154,88 @@ export default {
 .top-control {
   position: absolute;
   z-index: 1000;
+  top: 15px;
+  display: flex;
+  align-items: center;
 
-  /* debug start */
-  top: 10px;
-  left: 10px;
-  /* debug end */
+  .logo-control, .control {
+    border-radius: 50%;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0.7;
+    margin-left: $controls-height / 2.5;
+  }
 
-  .home-link {
-    opacity: 0.6;
+  .logo-control {
+    border: 0;
+    height: $logo-control-height;
+    width: $logo-control-height;
     img {
-      height: 40px;
+      height: 100%;
+      width: 100%;
+    }
+    // &--inactive {
+    //   opacity: 0.4;
+    // }
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px white;
     }
   }
 
-  .share-link {
-    display: none;
-    text-decoration: underline;
+  .control {
+    height: $controls-height;
+    width: $controls-height;
+    border: 1px solid $action-1;
+    box-sizing: border-box;
+    color : $action-1;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    transition: opacity .5s ease;
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px white;
+    }
+    > * {
+      display: inline-block;
+    }
+    &--copy-link > * {
+      transform: translate(-1px, 2px);
+    }
+    &--camera > * {
+      transform: translate(-1px, 2px);
+    }
+    &--microphone > * {
+      transform: translate(-2px, 2px);
+    }
+    &--screen-share > * {
+      transform: translate(0, 1px);
+    }
+    &--text-chat > * {
+      transform: translate(-1px, 2px);
+    }
+    &--hang-up > * {
+      transform: translate(-1px, 0px);
+    }
+    &--hidden {
+      opacity: 0;
+      display: none;
+    }
+  }
+
+  .fade-control-enter-active {
+    transition: opacity 0.4s ease;
+  }
+
+  .fade-control-leave-active {
+    transition: opacity 0.4s ease;
+  }
+
+  .fade-control-enter, .fade-control-leave-to {
+    opacity: 0;
   }
 }
 

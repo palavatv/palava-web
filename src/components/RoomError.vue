@@ -27,7 +27,12 @@
 </template>
 
 <script>
+import Navigation from "@/components/Navigation.vue"
+
 export default {
   props: ['error'],
+  components: {
+    Navigation,
+  },
 }
 </script>

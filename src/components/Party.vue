@@ -64,13 +64,13 @@
     </nav>
     <ul :class="{
       'stage': true,
-      'stage--empty': peers.length === 0,
-      'stage--one': peers.length === 1,
-      'stage--two': peers.length === 2,
-      'stage--three': peers.length === 3,
-      'stage--four': peers.length === 4,
-      'stage--five': peers.length === 5,
-      'stage--six': peers.length === 6,
+      'stage--empty': stagePeers.length === 0,
+      'stage--one': stagePeers.length === 1,
+      'stage--two': stagePeers.length === 2,
+      'stage--three': stagePeers.length === 3,
+      'stage--four': stagePeers.length === 4,
+      'stage--five': stagePeers.length === 5,
+      'stage--six': stagePeers.length === 6,
     }">
       <Peer v-for="peer in stagePeers"
       :key="peer.id"
@@ -81,9 +81,7 @@
       />
     </ul>
 
-    <div :class="{
-      'lobby': true,
-    }">
+    <div class="lobby" v-if="lobbyPeers.length > 0">
       <ul class="couch">
         <Peer v-for="peer in lobbyPeers"
           :key="peer.id"
@@ -262,7 +260,7 @@ export default {
   display: flex;
   &--landscape {
     flex-direction: row;
-    .stage {
+    .lobby ~ .stage {
       height: 100%;
       width: calc(100% - #{$lobby-width});
     }
@@ -273,7 +271,7 @@ export default {
   }
   &--portrait {
     flex-direction: column;
-    .stage {
+    .lobby ~ .stage {
       height: calc(100% - #{$lobby-height});
       width: 100%;
     }
@@ -285,6 +283,8 @@ export default {
 }
 
 .stage {
+  height: 100%;
+  width: 100%;
   overflow: hidden;
   background: black;
   display: flex;

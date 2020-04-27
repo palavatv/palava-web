@@ -20,6 +20,11 @@ export default {
 <style lang="scss">
 @import '@/css/support.scss';
 
+@font-face {
+  font-family: NotoSansSymbols2;
+  src: url('/NotoSansSymbols2.ttf') format('truetype');
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -50,12 +55,17 @@ ul, li {
   padding: 0;
 }
 
+ul {
+  list-style-type: none;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+}
+
 .earth {
   padding-top: 4vh;
   text-align: center;
 }
 
-ul {
-  list-style-type: none;
-}
 </style>

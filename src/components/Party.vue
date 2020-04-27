@@ -204,6 +204,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: NotoSansSymbols2;
     font-size: 20px;
     transition: opacity .5s ease;
     &:focus {
@@ -229,7 +230,7 @@ export default {
       transform: translate(-1px, 2px);
     }
     &--hang-up > * {
-      transform: translate(-1px, 0px);
+      transform: translate(-1px, 2px);
     }
     &--hidden {
       opacity: 0;

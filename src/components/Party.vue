@@ -75,6 +75,7 @@
       <Peer v-for="peer in stagePeers"
       :key="peer.id"
       type="stage"
+      :mode="mode"
       :peer="peer"
       @togglePeer="togglePeer(peer.id)"
       />
@@ -87,6 +88,7 @@
         <Peer v-for="peer in lobbyPeers"
           :key="peer.id"
           type="lobby"
+          :mode="mode"
           :peer="peer"
           @togglePeer="togglePeer(peer.id)"
           />
@@ -300,8 +302,16 @@ export default {
   height: 100%;
   width: 100%;
   display: flex;
-  > * {
+  .party--portrait & {
+    flex-direction: row;
+    overflow-x: auto;
   }
+  .party--landscape & {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  // > * {
+  // }
 }
 
 </style>

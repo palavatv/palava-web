@@ -13,7 +13,9 @@
     'peer--has-no-video': !peer.hasVideo(),
     'peer--has-error': peer.hasError(),
     'peer--in-lobby': type === 'lobby',
-    'peer--on-stage': type === 'lobby',
+    'peer--on-stage': type === 'stage',
+    'peer--landscape': mode === 'landscape',
+    'peer--portrait': mode === 'portrait',
   }"
     @click="$emit('togglePeer')"
   >
@@ -33,6 +35,10 @@ export default {
       required: true,
     },
     type: {
+      type: String,
+      required: true,
+    },
+    mode: {
       type: String,
       required: true,
     },
@@ -58,17 +64,46 @@ export default {
 
 <style lang="scss">
 .peer {
-  &:not(:first-child) {
-    margin-top: 2px;
-    margin-left: 2px;
-  }
-  &:not(:last-child) {
-    border-right: 2px solid black;
-    border-bottom: 2px solid black;
-  }
+  font-size: 0;
+
   &--is-local {
     video {
       transform: scale(-1, 1);
+    }
+  }
+
+  &--on-stage {
+    &:not(:first-child) {
+      margin-top: 2px;
+      margin-left: 2px;
+    }
+    &:not(:last-child) {
+      border-right: 2px solid black;
+      border-bottom: 2px solid black;
+    }
+    video {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &--in-lobby {
+    video {
+      display: inline-block;
+    }
+  }
+
+  &--in-lobby.peer--landscape {
+    video {
+      width: 100%;
+      height: auto;
+    }
+  }
+  &--in-lobby.peer--portrait {
+    video {
+      height: 100%;
+      width: auto;
     }
   }
 }

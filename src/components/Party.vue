@@ -88,10 +88,15 @@
           type="lobby"
           :mode="mode"
           :peer="peer"
+          @click="togglePeerMenu(peer)"
           @togglePeer="togglePeer(peer.id)"
           />
       </ul>
     </div>
+
+    <aside class="peer-menu" v-if="peerInMenu">
+
+    </aside>
   </main>
 </template>
 
@@ -105,6 +110,7 @@ export default {
       mode: "landscape",
       peersInLobby: [],
       controlsActive: true,
+      peerInMenu: null,
     }
   },
   components: {
@@ -137,6 +143,13 @@ export default {
         this.peersInLobby = this.peersInLobby.filter((id) => id !== peerId)
       } else {
         this.peersInLobby = [...this.peersInLobby, peerId]
+      }
+    },
+    togglePeerMenu(peer) {
+      if (this.peerInMenu === peer) {
+        this.peerInMenu = null
+      } else {
+        this.peerInMenu = peer
       }
     },
     toggleControls() {

@@ -17,7 +17,7 @@
     'peer--landscape': mode === 'landscape',
     'peer--portrait': mode === 'portrait',
   }"
-    @click="$emit('togglePeer')"
+    @dblclick="$emit('togglePeer')"
   >
     <Placeholder v-if="showPlacholder" :peer="peer" />
     <Stream v-else :peer="peer" />
@@ -89,6 +89,7 @@ export default {
   }
 
   &--in-lobby {
+    cursor: pointer;
     video {
       display: inline-block;
     }

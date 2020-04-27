@@ -6,12 +6,12 @@
   }">
     <nav class="top-control">
       <button
+        title="Toggle controls"
         :class="{
           'logo-control': true,
           'logo-control--active': controlsActive,
           'logo-control--inactive': !controlsActive,
           }"
-        title="Toggle controls"
         @click="toggleControls"
         >
         <img
@@ -21,7 +21,12 @@
       </button>
 
       <transition name="fade-control">
-        <button title="Copy link" class="control control--copy-link" v-if="controlsActive">
+        <button
+          title="Copy link"
+          class="control control--copy-link"
+          @click="copyShareLink"
+          ref="copyLink"
+          v-if="controlsActive && canUseClipboard">
           <span role="img" aria-label="clipboard">📋︎</span>
         </button>
       </transition>
@@ -120,8 +125,10 @@ export default {
       return this.peers.filter((peer) => this.peersInLobby.includes(peer.id))
     },
     shareLink() {
-      if (!window) { return '' }
       return `${window.location.protocol}//${window.location.host}/${window.location.pathname}`
+    },
+    canUseClipboard() {
+      return navigator.clipboard && navigator.clipboard.writeText
     },
   },
   methods: {
@@ -134,6 +141,10 @@ export default {
     },
     toggleControls() {
       this.controlsActive = !this.controlsActive
+    },
+    copyShareLink() {
+      navigator.clipboard.writeText(this.shareLink)
+      this.$refs.copyLink.blur()
     },
     onResize() {
       const width = window.innerWidth

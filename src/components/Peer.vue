@@ -14,8 +14,10 @@
     'peer--has-error': peer.hasError(),
     'peer--in-lobby': type === 'lobby',
     'peer--on-stage': type === 'stage',
-    'peer--landscape': mode === 'landscape',
-    'peer--portrait': mode === 'portrait',
+    'peer--party-landscape': partyMode === 'landscape',
+    'peer--party-portrait': partyMode === 'portrait',
+    'peer--stage-landscape': stageMode === 'landscape',
+    'peer--stage-portrait': stageMode === 'portrait',
   }"
   >
     <Placeholder
@@ -114,7 +116,11 @@ export default {
       type: String,
       required: true,
     },
-    mode: {
+    partyMode: {
+      type: String,
+      required: true,
+    },
+    stageMode: {
       type: String,
       required: true,
     },
@@ -174,19 +180,34 @@ export default {
   }
 
   &--on-stage {
-    &:not(:first-child) {
-      margin-top: 2px;
-      margin-left: 2px;
-    }
-    &:not(:last-child) {
-      border-right: 2px solid black;
-      border-bottom: 2px solid black;
-    }
+    background: transparent;
+    margin: 5px;
     video {
-      height: 100%;
-      width: 100%;
-      object-fit: contain;
+      border-radius: 24px;
+      background: black;
     }
+  }
+
+  &--on-stage.peer--stage-landscape {
+    // height: 100%;
+    // width: auto;
+    // max-width: 100%;
+    // video {
+    //   height: 100%;
+    //   width: auto;
+    //   max-width: 100%;
+    // }
+  }
+
+  &--on-stage.peer--stage-portrait {
+    // height: auto;
+    // width: 100%;
+    // max-height: 100%;
+    // video {
+    //   height: auto;
+    //   width: 100%;
+    //   max-height: 100%;
+    // }
   }
 
   &--in-lobby {
@@ -199,7 +220,7 @@ export default {
     }
   }
 
-  &--in-lobby.peer--landscape {
+  &--in-lobby.peer--party-landscape {
     border-right: 5px solid transparent;
     &:last-child {
       border-bottom: 5px solid transparent;
@@ -209,7 +230,7 @@ export default {
       height: auto;
     }
   }
-  &--in-lobby.peer--portrait {
+  &--in-lobby.peer--party-portrait {
     border-bottom: 5px solid transparent;
     &:last-child {
       border-right: 5px solid transparent;

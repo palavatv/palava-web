@@ -1,8 +1,8 @@
 <template>
   <main :class="{
     'party': true,
-    'party--landscape': mode === 'landscape',
-    'party--portrait': mode === 'portrait',
+    'party--landscape': partyMode === 'landscape',
+    'party--portrait': partyMode === 'portrait',
   }">
     <nav class="top-control">
       <button
@@ -62,20 +62,24 @@
       </transition>
 
     </nav>
-    <ul :class="{
-      'stage': true,
-      'stage--empty': stagePeers.length === 0,
-      'stage--one': stagePeers.length === 1,
-      'stage--two': stagePeers.length === 2,
-      'stage--three': stagePeers.length === 3,
-      'stage--four': stagePeers.length === 4,
-      'stage--five': stagePeers.length === 5,
-      'stage--six': stagePeers.length === 6,
-    }">
+    <ul ref="stage"
+      :class="{
+        'stage': true,
+        'stage--empty': stagePeers.length === 0,
+        'stage--one': stagePeers.length === 1,
+        'stage--two': stagePeers.length === 2,
+        'stage--three': stagePeers.length === 3,
+        'stage--four': stagePeers.length === 4,
+        'stage--five': stagePeers.length === 5,
+        'stage--six': stagePeers.length === 6,
+        'stage--landscape': stageMode === 'landscape',
+        'stage--portrait': stageMode === 'portrait',
+      }">
       <Peer v-for="peer in stagePeers"
       :key="peer.id"
       type="stage"
-      :mode="mode"
+      :partyMode="partyMode"
+      :stageMode="stageMode"
       :peer="peer"
       @togglePeer="togglePeer(peer)"
       />
@@ -86,7 +90,8 @@
         <Peer v-for="peer in lobbyPeers"
           :key="peer.id"
           type="lobby"
-          :mode="mode"
+          :partyMode="partyMode"
+          :stageMode="stageMode"
           :peer="peer"
           @togglePeer="togglePeer(peer)"
           />
@@ -102,7 +107,8 @@ export default {
   props: ["peers", "localPeer"],
   data() {
     return {
-      mode: "landscape",
+      partyMode: "landscape",
+      stageMode: "landscape",
       peersInLobby: [],
       controlsActive: true,
     }
@@ -171,12 +177,21 @@ export default {
       this.$refs.copyLink.blur()
     },
     onResize() {
-      const width = window.innerWidth
-      const height = window.innerHeight
-      if (this.mode === "landscape" && width < height) {
-        this.mode = "portrait"
-      } else if (this.mode === "portrait" && width >= height) {
-        this.mode = "landscape"
+      const partyWidth = window.innerWidth
+      const partyHeight = window.innerHeight
+      const stageWidth = this.$refs.stage.clientWidth
+      const stageHeight = this.$refs.stage.clientHeight
+
+      if (this.partyMode === "landscape" && partyWidth < partyHeight) {
+        this.partyMode = "portrait"
+      } else if (this.partyMode === "portrait" && partyWidth >= partyHeight) {
+        this.partyMode = "landscape"
+      }
+
+      if (this.stageMode === "landscape" && stageWidth < stageHeight) {
+        this.stageMode = "portrait"
+      } else if (this.stageMode === "portrait" && stageWidth >= stageHeight) {
+        this.stageMode = "landscape"
       }
     },
   },
@@ -308,9 +323,11 @@ export default {
   overflow: hidden;
   background: transparent;
   display: flex;
-  > * {
-    flex: 1;
-  }
+  justify-content: center;
+  align-items: center;
+  // > * {
+  //   flex: 1;
+  // }
 }
 
 .lobby {

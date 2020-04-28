@@ -77,7 +77,7 @@
       type="stage"
       :mode="mode"
       :peer="peer"
-      @togglePeer="togglePeer(peer.id)"
+      @togglePeer="togglePeer(peer)"
       />
     </ul>
 
@@ -88,7 +88,7 @@
           type="lobby"
           :mode="mode"
           :peer="peer"
-          @togglePeer="togglePeer(peer.id)"
+          @togglePeer="togglePeer(peer)"
           />
       </ul>
     </div>
@@ -99,7 +99,7 @@
 import Peer from "@/components/Peer.vue"
 
 export default {
-  props: ["peers"], // TODO peer prop update or move peers to party
+  props: ["peers", "localPeer"],
   data() {
     return {
       mode: "landscape",
@@ -113,9 +113,16 @@ export default {
   mounted() {
     window.addEventListener("resize", this.onResize)
     this.onResize()
+    this.autoAdjustPeers(this.peers)
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.onResize)
+  },
+  watch: {
+    peers(newPeers) {
+      // TODO watch peer changes (clean lobby)
+      this.autoAdjustPeers(newPeers)
+    },
   },
   computed: {
     stagePeers() {
@@ -132,11 +139,28 @@ export default {
     },
   },
   methods: {
-    togglePeer(peerId) {
-      if (this.peersInLobby.includes(peerId)) {
-        this.peersInLobby = this.peersInLobby.filter((id) => id !== peerId)
+    togglePeer(peer) {
+      if (this.peersInLobby.includes(peer.id)) {
+        this.peersInLobby = this.peersInLobby.filter((id) => id !== peer.id)
       } else {
-        this.peersInLobby = [...this.peersInLobby, peerId]
+        this.peersInLobby = [...this.peersInLobby, peer.id]
+      }
+    },
+    sendPeerToLobby(peer) {
+      if (!this.peersInLobby.includes(peer.id)) {
+        this.peersInLobby = [...this.peersInLobby, peer.id]
+      }
+    },
+    sendPeerToStage(peer) {
+      if (this.peersInLobby.includes(peer.id)) {
+        this.peersInLobby = this.peersInLobby.filter((id) => id !== peer.id)
+      }
+    },
+    autoAdjustPeers(peers) {
+      const remotePeers = peers.filter((peer) => !peer.isLocal())
+      if (remotePeers.length === 1) {
+        this.sendPeerToLobby(this.localPeer)
+        this.sendPeerToStage(remotePeers[0])
       }
     },
     toggleControls() {

@@ -18,6 +18,17 @@
     'peer--portrait': mode === 'portrait',
   }"
   >
+    <Placeholder
+      v-if="showPlacholder"
+      :peer="peer"
+      @click="togglePeerMenu()"
+      />
+    <Stream
+      v-else
+      :peer="peer"
+      :requestFullscreen="requestFullscreen"
+      @click="togglePeerMenu()"
+      />
     <aside :class="{
         'peer-menu': true,
         'peer-menu--in-lobby': type === 'lobby',
@@ -84,18 +95,6 @@
         </button>
       </transition>
     </aside>
-
-    <Placeholder
-      v-if="showPlacholder"
-      :peer="peer"
-      @click="togglePeerMenu()"
-      />
-    <Stream
-      v-else
-      :peer="peer"
-      :requestFullscreen="requestFullscreen"
-      @click="togglePeerMenu()"
-      />
   </li>
 </template>
 
@@ -191,19 +190,30 @@ export default {
   }
 
   &--in-lobby {
-    cursor: pointer;
+    background: transparent;
+    border-top: 5px solid transparent;
+    border-left: 5px solid transparent;
     video {
-      display: inline-block;
+      border-radius: 14px;
+      background: black;
     }
   }
 
   &--in-lobby.peer--landscape {
+    border-right: 5px solid transparent;
+    &:last-child {
+      border-bottom: 5px solid transparent;
+    }
     video {
       width: 100%;
       height: auto;
     }
   }
   &--in-lobby.peer--portrait {
+    border-bottom: 5px solid transparent;
+    &:last-child {
+      border-right: 5px solid transparent;
+    }
     video {
       height: 100%;
       width: auto;
@@ -235,7 +245,7 @@ export default {
       }
 
       &--full-screen > * {
-        transform: translate(-1px, -3px);
+        transform: translate(0px, -3px);
       }
 
       &--network-info > * {

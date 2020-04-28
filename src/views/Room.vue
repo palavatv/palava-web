@@ -9,6 +9,7 @@
       v-bind="uiStateProps"
       @join-room="joinRoom"
       :peers="peers"
+      :localPeer="localPeer"
       />
   </div>
 </template>
@@ -33,6 +34,7 @@ export default {
       uiState: [UserMediaConfigurator, {}],
       waiting: false,
       peers: [],
+      localPeer: null,
     }
   },
   created() {
@@ -105,9 +107,9 @@ export default {
       rtc.on("room_joined", (room) => {
         logger.log(`room joined with ${room.getRemotePeers().length} other peers`)
         this.peers = this.rtc.room.getAllPeers()
+        this.localPeer = this.rtc.room.getLocalPeer()
         this.uiState = [Party]
         this.waiting = false
-        // this.checkPeers()
       })
 
       rtc.on("peer_joined", (peer) => {

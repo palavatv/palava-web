@@ -88,15 +88,10 @@
           type="lobby"
           :mode="mode"
           :peer="peer"
-          @click="togglePeerMenu(peer)"
           @togglePeer="togglePeer(peer.id)"
           />
       </ul>
     </div>
-
-    <aside class="peer-menu" v-if="peerInMenu">
-
-    </aside>
   </main>
 </template>
 
@@ -110,7 +105,6 @@ export default {
       mode: "landscape",
       peersInLobby: [],
       controlsActive: true,
-      peerInMenu: null,
     }
   },
   components: {
@@ -143,13 +137,6 @@ export default {
         this.peersInLobby = this.peersInLobby.filter((id) => id !== peerId)
       } else {
         this.peersInLobby = [...this.peersInLobby, peerId]
-      }
-    },
-    togglePeerMenu(peer) {
-      if (this.peerInMenu === peer) {
-        this.peerInMenu = null
-      } else {
-        this.peerInMenu = peer
       }
     },
     toggleControls() {
@@ -188,6 +175,7 @@ export default {
     cursor: pointer;
     opacity: 0.7;
     margin-left: $controls-height / 2.5;
+    user-select: none;
   }
 
   .logo-control {
@@ -219,7 +207,6 @@ export default {
     align-items: center;
     font-family: NotoSansSymbols2;
     font-size: 20px;
-    transition: opacity .5s ease;
     &:focus {
       outline: none;
       box-shadow: 0 0 0 3px white;
@@ -244,10 +231,6 @@ export default {
     }
     &--hang-up > * {
       transform: translate(-1px, 2px);
-    }
-    &--hidden {
-      opacity: 0;
-      display: none;
     }
   }
 
@@ -299,7 +282,7 @@ export default {
   height: 100%;
   width: 100%;
   overflow: hidden;
-  background: black;
+  background: transparent;
   display: flex;
   > * {
     flex: 1;
@@ -326,5 +309,4 @@ export default {
   // > * {
   // }
 }
-
 </style>

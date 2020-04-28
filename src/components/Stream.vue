@@ -2,8 +2,9 @@
 
 <template>
   <video
-    ref="stream"
     autoplay
+    @click="$emit('click')"
+    @dblclick="$emit('dblclick')"
   />
 </template>
 
@@ -24,6 +25,9 @@ export default {
       type: Boolean,
       default: false,
     },
+    requestFullscreen: {
+      type: String,
+    },
   },
   mounted() {
     this.attachPeerStreamWhenReady()
@@ -31,9 +35,14 @@ export default {
   beforeDestroy() {
     this.peer.off("stream_ready", this.attachPeerStreamHandler)
   },
+  watch: {
+    requestFullscreen() {
+      this.$el.requestFullscreen()
+    },
+  },
   methods: {
     attachPeerStream() {
-      attachMediaStream(this.$refs.stream, this.peer.getStream(), this.isMuted())
+      attachMediaStream(this.$el, this.peer.getStream(), this.isMuted())
     },
     attachPeerStreamWhenReady() {
       this.attachPeerStreamHandler = this.attachPeerStream.bind(this)

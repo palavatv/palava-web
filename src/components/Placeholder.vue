@@ -3,6 +3,8 @@
     src="@/assets/placeholder.png"
     alt="someone"
     ref="placeholder"
+    @click="$emit('click')"
+    @dblclick="$emit('dblclick')"
   />
 </template>
 

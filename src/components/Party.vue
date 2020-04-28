@@ -174,7 +174,7 @@ export default {
     padding: 0;
     cursor: pointer;
     opacity: 0.7;
-    margin-left: $controls-height / 2.5;
+    margin-left: $control-size / 3;
     user-select: none;
   }
 
@@ -196,8 +196,8 @@ export default {
   }
 
   .control {
-    height: $controls-height;
-    width: $controls-height;
+    height: $control-size;
+    width: $control-size;
     border: 1px solid $action-1;
     box-sizing: border-box;
     color : $action-1;
@@ -206,7 +206,7 @@ export default {
     justify-content: center;
     align-items: center;
     font-family: NotoSansSymbols2;
-    font-size: 20px;
+    font-size: $control-size / 2;
     &:focus {
       outline: none;
       box-shadow: 0 0 0 3px white;

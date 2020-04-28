@@ -127,7 +127,7 @@ export default {
   data() {
     return {
       muted: false,
-      peerMenuActiveInLobby: false,
+      peerMenuActiveInLobby: true,
       requestFullscreen: null,
     }
   },
@@ -146,11 +146,9 @@ export default {
       this.peerMenuActiveInLobby = !this.peerMenuActiveInLobby
     },
     togglePeer() {
-      this.peerMenuActiveInLobby = false
       this.$emit('togglePeer')
     },
     makePeerFullScreen() {
-      this.peerMenuActiveInLobby = false
       this.requestFullscreen = uuid()
     },
     toggleMute() {
@@ -168,6 +166,7 @@ export default {
 
 .peer {
   font-size: 0;
+  position: relative;
 
   &--is-local {
     video {
@@ -176,8 +175,6 @@ export default {
   }
 
   &--on-stage {
-    position: relative;
-
     &:not(:first-child) {
       margin-top: 2px;
       margin-left: 2px;
@@ -221,16 +218,68 @@ export default {
   align-items: center;
   justify-content: center;
   flex-direction: row-reverse;
+  left: 0px;
+  right: 0px;
 
   &--in-lobby {
-    right: $lobby-width; // TODO
-    margin-top: 15px;
+    bottom: $lobby-control-size / 5;
+    .menu-control {
+      height: $lobby-control-size;
+      width: $lobby-control-size;
+      font-size: $lobby-control-size / 2;
+      margin: auto $lobby-control-size / 6;
+      // box-shadow: 0 0 0 1px $action-1;
+
+      &--toggle > * {
+        transform: translate(-1px, 1px);
+      }
+
+      &--full-screen > * {
+        transform: translate(-1px, -3px);
+      }
+
+      &--network-info > * {
+        transform: translate(-1px, 1px);
+      }
+
+      &--mute > * {
+        transform: translate(-1px, 1px);
+      }
+
+      &--unmute > * {
+        transform: translate(-5px, 1px);
+      }
+    }
   }
 
   &--on-stage {
-    bottom: 15px;
-    left: 0px;
-    right: 0px;
+    bottom: $control-size / 5;
+    .menu-control {
+      height: $control-size;
+      width: $control-size;
+      font-size: $control-size / 2;
+      margin: auto $control-size / 5;
+
+      &--toggle > * {
+        transform: translate(-1px, 2px);
+      }
+
+      &--full-screen > * {
+        transform: translate(-1px, -4px);
+      }
+
+      &--network-info > * {
+        transform: translate(0px, 2px);
+      }
+
+      &--mute > * {
+        transform: translate(-1px, 3px);
+      }
+
+      &--unmute > * {
+        transform: translate(-5px, 3px);
+      }
+    }
   }
 
   .menu-control {
@@ -238,48 +287,20 @@ export default {
     padding: 0;
     cursor: pointer;
     opacity: 0.6;
-    margin-right: 15px;
     user-select: none;
-    height: $controls-height;
-    width: $controls-height;
     border: 1px solid $action-1;
     box-sizing: border-box;
-    color : $action-1;
+    color: $action-1;
     background: white;
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: NotoSansSymbols2;
-    font-size: 20px;
     transition: opacity .5s ease;
 
     &:focus {
       outline: none;
       box-shadow: 0 0 0 3px white;
-    }
-
-    > * {
-      display: inline-block;
-    }
-
-    &--toggle > * {
-      transform: translate(0px, 2px);
-    }
-
-    &--full-screen > * {
-      transform: translate(-1px, -4px);
-    }
-
-    &--network-info > * {
-      transform: translate(-1px, 2px);
-    }
-
-    &--mute > * {
-      transform: translate(-1px, 2px);
-    }
-
-    &--unmute > * {
-      transform: translate(-5px, 2px);
     }
   }
 

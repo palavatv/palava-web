@@ -62,7 +62,10 @@
       </transition>
 
     </nav>
-    <ul ref="stage"
+    <transition-group
+      tag="ul"
+      ref="stage"
+      name="fade-control"
       :class="{
         'stage': true,
         'stage--empty': stagePeers.length === 0,
@@ -83,20 +86,22 @@
       :peer="peer"
       @togglePeer="togglePeer(peer)"
       />
-    </ul>
+    </transition-group>
 
-    <div class="lobby" v-if="lobbyPeers.length > 0">
-      <ul class="couch">
-        <Peer v-for="peer in lobbyPeers"
-          :key="peer.id"
-          type="lobby"
-          :partyMode="partyMode"
-          :stageMode="stageMode"
-          :peer="peer"
-          @togglePeer="togglePeer(peer)"
-          />
-      </ul>
-    </div>
+    <transition name="fade-control" @after-leave="onResize">
+      <div class="lobby" v-if="lobbyPeers.length > 0">
+        <transition-group name="fade-control" tag="ul" class="couch">
+          <Peer v-for="peer in lobbyPeers"
+            :key="peer.id"
+            type="lobby"
+            :partyMode="partyMode"
+            :stageMode="stageMode"
+            :peer="peer"
+            @togglePeer="togglePeer(peer)"
+            />
+        </transition-group>
+      </div>
+    </transition>
   </main>
 </template>
 
@@ -273,17 +278,7 @@ export default {
     }
   }
 
-  .fade-control-enter-active {
-    transition: opacity 0.4s ease;
-  }
-
-  .fade-control-leave-active {
-    transition: opacity 0.4s ease;
-  }
-
-  .fade-control-enter, .fade-control-leave-to {
-    opacity: 0;
-  }
+  @include fadeControl();
 }
 
 .party {
@@ -293,6 +288,8 @@ export default {
   overflow: hidden;
   background: black;
   display: flex;
+  @include fadeControl();
+
   &--landscape {
     flex-direction: row;
     .lobby ~ .stage {
@@ -333,6 +330,7 @@ export default {
 .lobby {
   overflow: hidden;
   background: #222;
+  opacity: 1;
 }
 
 .couch {
@@ -349,5 +347,6 @@ export default {
   }
   // > * {
   // }
+  @include fadeControl();
 }
 </style>

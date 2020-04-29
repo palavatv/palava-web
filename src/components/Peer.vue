@@ -172,6 +172,8 @@ export default {
 .peer {
   font-size: 0;
   position: relative;
+  opacity: 1;
+  @include fadeControl();
 
   &--is-local {
     video {
@@ -251,6 +253,7 @@ export default {
   flex-direction: row-reverse;
   left: 0px;
   right: 0px;
+  @include fadeControl();
 
   &--in-lobby {
     bottom: $lobby-control-size / 5;
@@ -327,24 +330,11 @@ export default {
     justify-content: center;
     align-items: center;
     font-family: NotoSansSymbols2;
-    transition: opacity .5s ease;
 
     &:focus {
       outline: none;
       box-shadow: 0 0 0 3px white;
     }
-  }
-
-  .fade-control-enter-active {
-    transition: opacity 0.4s ease;
-  }
-
-  .fade-control-leave-active {
-    transition: opacity 0.4s ease;
-  }
-
-  .fade-control-enter, .fade-control-leave-to {
-    opacity: 0;
   }
 }
 

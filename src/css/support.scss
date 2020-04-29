@@ -47,3 +47,21 @@ $lobby-control-size: 30px;
     line-height: 74px;
   }
 }
+
+@mixin fadeControl() {
+  .fade-control-enter-active {
+    transition: opacity 0.4s ease;
+  }
+
+  .fade-control-leave-active {
+    transition: opacity 0.4s ease;
+  }
+
+  .fade-control-enter, .fade-control-leave-to {
+    opacity: 0;
+  }
+
+  // .fade-control-move {
+  //   transition: transform 1s;
+  // }
+}

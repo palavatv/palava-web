@@ -1,5 +1,6 @@
 <template>
   <img
+    class="media"
     src="@/assets/placeholder.png"
     alt="someone"
     ref="placeholder"
@@ -21,6 +22,6 @@ export default {
 
 <style lang="scss" scoped>
 img {
-  background: black;
+  background: transparent;
 }
 </style>

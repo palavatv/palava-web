@@ -3,6 +3,7 @@
 <template>
   <video
     autoplay
+    class="media"
     @click="$emit('click')"
     @dblclick="$emit('dblclick')"
   />

@@ -9,7 +9,7 @@
     'peer--has-no-audio': !peer.hasAudio(),
     'peer--text-only': !peer.hasAudio() && !peer.hasVideo(),
     'peer--muted-by-user': muted,
-    'peer--has-video': peer.hasVideo(),
+    'peer--has-media': peer.hasVideo(),
     'peer--has-no-video': !peer.hasVideo(),
     'peer--has-error': peer.hasError(),
     'peer--in-lobby': type === 'lobby',
@@ -184,7 +184,7 @@ export default {
   &--on-stage {
     background: transparent;
     margin: 5px;
-    video {
+    .media {
       border-radius: 24px;
       background: black;
     }
@@ -194,7 +194,7 @@ export default {
     // height: 100%;
     // width: auto;
     // max-width: 100%;
-    // video {
+    // .media {
     //   height: 100%;
     //   width: auto;
     //   max-width: 100%;
@@ -205,7 +205,7 @@ export default {
     // height: auto;
     // width: 100%;
     // max-height: 100%;
-    // video {
+    // .media {
     //   height: auto;
     //   width: 100%;
     //   max-height: 100%;
@@ -216,7 +216,7 @@ export default {
     background: transparent;
     border-top: 5px solid transparent;
     border-left: 5px solid transparent;
-    video {
+    .media {
       border-radius: 14px;
       background: black;
     }
@@ -227,7 +227,7 @@ export default {
     &:last-child {
       border-bottom: 5px solid transparent;
     }
-    video {
+    .media {
       width: 100%;
       height: auto;
     }
@@ -237,7 +237,7 @@ export default {
     &:last-child {
       border-right: 5px solid transparent;
     }
-    video {
+    .media {
       height: 100%;
       width: auto;
     }

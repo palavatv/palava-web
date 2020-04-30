@@ -74,7 +74,7 @@
         <button
           title="Network info"
           class="menu-control menu-control--network-info"
-          v-if="peerMenuActive"
+          v-if="peerMenuActive && !peer.isLocal()"
           @click="showNetworkInfo()"
           >
           <span role="img" aria-label="network of three computers">🖧</span>
@@ -105,6 +105,7 @@ import Stream from "@/components/Stream.vue"
 import Placeholder from "@/components/Placeholder.vue"
 
 import { uuid } from "@/support"
+import { getRemoteNetworkInfo, getLocalNetworkInfo } from "@/webrtc"
 
 export default {
   props: {
@@ -160,7 +161,13 @@ export default {
       this.muted = !this.muted
     },
     showNetworkInfo() {
-      alert(`peer is ${this.peer.isLocal() ? 'local' : 'remote'}`)
+      console.log('network info')
+      const networkInfo = getRemoteNetworkInfo(this.peer.peerConnection)
+      const networkInfo2 = getLocalNetworkInfo(this.peer.peerConnection)
+      console.log("remote ip", networkInfo.ipAddress)
+      console.log("other remote ips", networkInfo.otherIps)
+      console.log("loal ip", networkInfo2.ipAddress)
+      alert(`peer is ${this.peer.isLocal() ? 'local' : 'remote'}. check console for more`)
     },
   },
 }

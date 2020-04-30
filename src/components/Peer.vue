@@ -20,92 +20,101 @@
     'peer--stage-portrait': stageMode === 'portrait',
   }"
   >
-    <Placeholder
-      v-if="showPlacholder"
-      :peer="peer"
-      @click="togglePeerMenu()"
-      />
-    <Stream
-      v-else
-      :peer="peer"
-      :requestFullscreen="requestFullscreen"
-      @click="togglePeerMenu()"
-      />
-    <aside :class="{
-        'peer-menu': true,
-        'peer-menu--in-lobby': type === 'lobby',
-        'peer-menu--on-stage': type === 'stage',
-      }"
-      >
-      <transition name="fade-control">
-        <button
-          title="Enlarge"
-          class="menu-control menu-control--toggle"
-          v-if="peerMenuActive && type === 'lobby'"
-          @click="togglePeer()"
-          >
-          <span role="img" aria-label="arrow pointing upwards left">⇱</span>
-        </button>
-      </transition>
+    <transition name="fade-control">
+      <NetworkInfo
+        v-if="networkInfoActive"
+        @close="hideNetworkInfo()"
+        :peer="peer"
+        />
+    </transition>
+    <div class="frame">
+      <Placeholder
+        v-if="showPlacholder"
+        :peer="peer"
+        @click="togglePeerMenu()"
+        />
+      <Stream
+        v-else
+        :peer="peer"
+        :requestFullscreen="requestFullscreen"
+        @click="togglePeerMenu()"
+        />
+      <nav :class="{
+          'peer-menu': true,
+          'peer-menu--in-lobby': type === 'lobby',
+          'peer-menu--on-stage': type === 'stage',
+        }"
+        >
+        <transition name="fade-control">
+          <button
+            title="Enlarge"
+            class="menu-control menu-control--toggle"
+            v-if="peerMenuActive && type === 'lobby'"
+            @click="togglePeer()"
+            >
+            <span role="img" aria-label="arrow pointing upwards left">⇱</span>
+          </button>
+        </transition>
 
-      <transition name="fade-control">
-        <button
-          title="Minimize"
-          class="menu-control menu-control--toggle"
-          v-if="peerMenuActive && type === 'stage'"
-          @click="togglePeer()"
-          >
-          <span role="img" aria-label="arrow pointing downards rights">⇲</span>
-        </button>
-      </transition>
+        <transition name="fade-control">
+          <button
+            title="Minimize"
+            class="menu-control menu-control--toggle"
+            v-if="peerMenuActive && type === 'stage'"
+            @click="togglePeer()"
+            >
+            <span role="img" aria-label="arrow pointing downards rights">⇲</span>
+          </button>
+        </transition>
 
-      <transition name="fade-control">
-        <button
-          title="Full screen"
-          class="menu-control menu-control--full-screen"
-          v-if="peerMenuActive"
-          @click="makePeerFullScreen()"
-          >
-          <span role="img" aria-label="square of four corners">⛶</span>
-        </button>
-      </transition>
+        <transition name="fade-control">
+          <button
+            title="Full screen"
+            class="menu-control menu-control--full-screen"
+            v-if="peerMenuActive"
+            @click="makePeerFullScreen()"
+            >
+            <span role="img" aria-label="square of four corners">⛶</span>
+          </button>
+        </transition>
 
-      <transition name="fade-control">
-        <button
-          title="Network info"
-          class="menu-control menu-control--network-info"
-          v-if="peerMenuActive && !peer.isLocal()"
-          @click="showNetworkInfo()"
-          >
-          <span role="img" aria-label="network of three computers">🖧</span>
-        </button>
-      </transition>
+        <transition name="fade-control">
+          <button
+            title="Network info"
+            class="menu-control menu-control--network-info"
+            v-if="peerMenuActive && !peer.isLocal()"
+            @click="toggleNetworkInfo()"
+            >
+            <span role="img" aria-label="network of three computers">🖧</span>
+          </button>
+        </transition>
 
-      <transition name="fade-control">
-        <button
-          :title="muted ? 'Unmute' : 'Mute'"
-          :class="{
-            'menu-control': true,
-            'menu-control--mute': !muted,
-            'menu-control--unmute': muted,
-          }"
-          v-if="peerMenuActive && !peer.isLocal() && peer.hasAudio()"
-          @click="toggleMute()"
-          >
-          <span v-if="muted" role="img" aria-label="speaker without noise">🔈︎</span>
-          <span v-else role="img" aria-label="speaker with noise">🔊︎</span>
-        </button>
-      </transition>
-    </aside>
+        <transition name="fade-control">
+          <button
+            :title="muted ? 'Unmute' : 'Mute'"
+            :class="{
+              'menu-control': true,
+              'menu-control--mute': !muted,
+              'menu-control--unmute': muted,
+            }"
+            v-if="peerMenuActive && !peer.isLocal() && peer.hasAudio()"
+            @click="toggleMute()"
+            >
+            <span v-if="muted" role="img" aria-label="speaker without noise">🔈︎</span>
+            <span v-else role="img" aria-label="speaker with noise">🔊︎</span>
+          </button>
+        </transition>
+      </nav>
+    </div>
   </li>
 </template>
 
 <script>
 import Stream from "@/components/Stream.vue"
 import Placeholder from "@/components/Placeholder.vue"
+import NetworkInfo from "@/components/NetworkInfo.vue"
 
 import { uuid } from "@/support"
-import { getRemoteNetworkInfo, getLocalNetworkInfo } from "@/webrtc"
 
 export default {
   props: {
@@ -129,12 +138,14 @@ export default {
   components: {
     Placeholder,
     Stream,
+    NetworkInfo,
   },
   data() {
     return {
       muted: false,
       peerMenuActiveInLobby: true,
       requestFullscreen: null,
+      networkInfoActive: false,
     }
   },
   computed: {
@@ -160,14 +171,11 @@ export default {
     toggleMute() {
       this.muted = !this.muted
     },
-    showNetworkInfo() {
-      console.log('network info')
-      const networkInfo = getRemoteNetworkInfo(this.peer.peerConnection)
-      const networkInfo2 = getLocalNetworkInfo(this.peer.peerConnection)
-      console.log("remote ip", networkInfo.ipAddress)
-      console.log("other remote ips", networkInfo.otherIps)
-      console.log("loal ip", networkInfo2.ipAddress)
-      alert(`peer is ${this.peer.isLocal() ? 'local' : 'remote'}. check console for more`)
+    toggleNetworkInfo() {
+      this.networkInfoActive = !this.networkInfoActive
+    },
+    hideNetworkInfo() {
+      this.networkInfoActive = false
     },
   },
 }
@@ -178,9 +186,13 @@ export default {
 
 .peer {
   font-size: 0;
-  position: relative;
   opacity: 1;
   @include fadeControl();
+
+  .frame {
+    position: relative;
+    display: inline;
+  }
 
   &--is-local {
     video {

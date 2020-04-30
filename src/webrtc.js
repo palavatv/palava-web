@@ -42,21 +42,26 @@ export function attachMediaStream(element, stream, muted = false) {
 function getNetworkInfo(sdp) {
   const res = {}
 
-  const cLine = sdp.match(/^c=IN (IP4|IP6) (.*)$/m)
-  if (cLine) {
-    res.ipAddress = cLine[2]
-    res.ipType = cLine[1]
+  const cLines = sdp.match(/^c=IN (?:IP4|IP6) .*$/gm)
+  if (cLines) {
+    res.primaryIps = cLines.
+      map((cLine) => cLine.match(/^c=IN (?:IP4|IP6) (.*)$/m)[1]).
+      filter((un, i, que) => que.indexOf(un) === i).
+      map((ip) => ({
+        address: ip,
+        type: ip.includes(':') ? 'IP6' : 'IP4',
+      }))
   }
 
   const candidates = sdp.match(/^a=candidate:.+? .+? .+? .+? .+? /gm)
   if (candidates) {
-    res.otherIps = candidates.
+    res.candidateIps = candidates.
       map((aLine) => aLine.match(/^.* (.+?) $/m)[1]).
       filter((un, i, que) => que.indexOf(un) === i).
-      filter((ip) => ip !== res.ipAddress).
+      filter((ip) => res.primaryIps.map((pip) => pip.address).indexOf(ip) === -1).
       map((ip) => ({
-        ipType: ip.includes(':') ? 'IP6' : 'IP4',
-        ipAddress: ip,
+        address: ip,
+        type: ip.includes(':') ? 'IP6' : 'IP4',
       }))
   }
 

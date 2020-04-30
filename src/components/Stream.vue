@@ -1,9 +1,12 @@
-<!-- TODO: poster -->
-
 <template>
   <video
     autoplay
-    class="media"
+    :class="{
+      'media': true,
+      'media--orientation-landscape': this.orientation === 'landscape',
+      'media--orientation-portrait': this.orientation === 'portrait',
+      'media--orientation-unknown': this.orientation === 'unknown',
+    }"
     @click="$emit('click')"
     @dblclick="$emit('dblclick')"
   />
@@ -12,7 +15,6 @@
 <script>
 import { attachMediaStream } from "@/webrtc"
 // TODO stream becomes unready?
-// TODO register full-screen
 
 // FIXME isMuted
 
@@ -30,6 +32,11 @@ export default {
       type: String,
     },
   },
+  data() {
+    return {
+      attached: false,
+    }
+  },
   mounted() {
     this.attachPeerStreamWhenReady()
   },
@@ -41,9 +48,23 @@ export default {
       this.$el.requestFullscreen()
     },
   },
+  computed: {
+    orientation() {
+      if (!this.attached) {
+        return 'unknown'
+      }
+
+      if (this.$el.videoWidth < this.$el.videoHeight) {
+        return 'portrait'
+      }
+
+      return 'landscape'
+    }
+  },
   methods: {
     attachPeerStream() {
       attachMediaStream(this.$el, this.peer.getStream(), this.isMuted())
+      this.attached = true
     },
     attachPeerStreamWhenReady() {
       this.attachPeerStreamHandler = this.attachPeerStream.bind(this)

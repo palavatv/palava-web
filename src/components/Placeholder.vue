@@ -1,6 +1,6 @@
 <template>
   <img
-    class="media"
+    class="media media--orientation-landscape"
     src="@/assets/placeholder.png"
     alt="someone"
     ref="placeholder"

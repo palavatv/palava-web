@@ -60,33 +60,37 @@
           <span role="img" aria-label="cross mark">❌︎</span>
         </router-link>
       </transition>
-
     </nav>
-    <transition-group
-      tag="ul"
-      ref="stage"
-      name="fade-control"
+
+    <div
       :class="{
         'stage': true,
-        'stage--empty': stagePeers.length === 0,
-        'stage--one': stagePeers.length === 1,
-        'stage--two': stagePeers.length === 2,
-        'stage--three': stagePeers.length === 3,
-        'stage--four': stagePeers.length === 4,
-        'stage--five': stagePeers.length === 5,
-        'stage--six': stagePeers.length === 6,
         'stage--landscape': stageMode === 'landscape',
         'stage--portrait': stageMode === 'portrait',
-      }">
-      <Peer v-for="peer in stagePeers"
-      :key="peer.id"
-      type="stage"
-      :partyMode="partyMode"
-      :stageMode="stageMode"
-      :peer="peer"
-      @togglePeer="togglePeer(peer)"
-      />
-    </transition-group>
+      }"
+      ref="stage"
+      >
+      <transition-group name="fade-control" tag="ul"
+        :class="{
+          'spotlight': true,
+          'spotlight--empty': stagePeers.length === 0,
+          'spotlight--one': stagePeers.length === 1,
+          'spotlight--two': stagePeers.length === 2,
+          'spotlight--three': stagePeers.length === 3,
+          'spotlight--four': stagePeers.length === 4,
+          'spotlight--five': stagePeers.length === 5,
+          'spotlight--six': stagePeers.length === 6,
+        }">
+        <Peer v-for="peer in stagePeers"
+          :key="peer.id"
+          type="stage"
+          :partyMode="partyMode"
+          :stageMode="stageMode"
+          :peer="peer"
+          @togglePeer="togglePeer(peer)"
+          />
+      </transition-group>
+    </div>
 
     <transition name="fade-control" @after-leave="onResize">
       <div class="lobby" v-if="lobbyPeers.length > 0">
@@ -283,9 +287,11 @@ export default {
 
 .party {
   position: relative;
-  width: 100%;
   height: 100%;
-  overflow: hidden;
+  width: 100%;
+  min-height: 250px;
+  min-width: 500px;
+  overflow: auto;
   background: black;
   display: flex;
   @include fadeControl();
@@ -318,13 +324,11 @@ export default {
   height: 100%;
   width: 100%;
   overflow: hidden;
-  background: transparent;
+  background: black;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  // > * {
-  //   flex: 1;
-  // }
 }
 
 .lobby {

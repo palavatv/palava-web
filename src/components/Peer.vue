@@ -280,6 +280,7 @@ export default {
 }
 
 .stage--landscape {
+  .spotlight--empty,
   .spotlight--one {
     text-align: center;
     .peer, .peer .media {
@@ -289,12 +290,27 @@ export default {
   }
 
   /* tricky case... */
+  // .spotlight--two {
+  //   padding: $stage-gap;
+  //   display: flex;
+  //   flex-direction: column;
+  //   flex-wrap: wrap;
+  //   justify-content: center;
+  //   .peer, .peer .media {
+  //     max-height: 100%;
+  //   }
+  //   .peer {
+  //     width: 50%;
+  //   }
+  //   .media {
+  //     width: 100%;
+  //   }
+  // }
   .spotlight--two {
     padding: $stage-gap;
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
+    align-items: center;
+
     .peer, .peer .media {
       max-height: 100%;
     }
@@ -314,6 +330,7 @@ export default {
 }
 
 .stage--portrait {
+  .spotlight--empty,
   .spotlight--one {
     display: flex;
     justify-content: center;

@@ -47,6 +47,7 @@ function getNetworkInfo(sdp) {
     res.primaryIps = cLines.
       map((cLine) => cLine.match(/^c=IN (?:IP4|IP6) (.*)$/m)[1]).
       filter((un, i, que) => que.indexOf(un) === i).
+      filter((ip) => ip !== "0.0.0.0").
       map((ip) => ({
         address: ip,
         type: ip.includes(':') ? 'IP6' : 'IP4',
@@ -58,6 +59,7 @@ function getNetworkInfo(sdp) {
     res.candidateIps = candidates.
       map((aLine) => aLine.match(/^.* (.+?) $/m)[1]).
       filter((un, i, que) => que.indexOf(un) === i).
+      filter((ip) => ip !== "0.0.0.0").
       filter((ip) => res.primaryIps.map((pip) => pip.address).indexOf(ip) === -1).
       map((ip) => ({
         address: ip,

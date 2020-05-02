@@ -228,8 +228,8 @@ export default {
 
   .logo-control {
     border: 0;
-    height: $logo-control-height;
-    width: $logo-control-height;
+    height: $logo-control-size;
+    width: $logo-control-size;
     img {
       height: 100%;
       width: 100%;

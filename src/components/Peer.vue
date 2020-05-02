@@ -206,7 +206,7 @@ export default {
     border-top: $lobby-peer-padding solid transparent;
     border-left: $lobby-peer-padding solid transparent;
     .media {
-      border-radius: 14px;
+      border-radius: $lobby-border-radius;
       background: black;
       width: auto;
       height: auto;
@@ -253,7 +253,7 @@ export default {
     width: auto;
     background: black;
     object-fit: cover;
-    border-radius: 24px;
+    border-radius: $stage-border-radius;
   }
 
   .spotlight--three,

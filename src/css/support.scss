@@ -34,12 +34,16 @@ $lobby-height-desktop-plus: 140px;
 $lobby-height-desktop-large: 200px;
 $lobby-height-desktop-huge: 250px;
 
-$logo-control-height: 54px;
+// SPACINGS / OTHER
+
+$stage-gap: 5px;
+$stage-border-radius: 24px;
+$logo-control-size: 54px;
 $control-size: 40px;
-$lobby-control-size: 30px;
 
 $lobby-peer-padding: 5px;
-$stage-gap: 5px;
+$lobby-border-radius: 14px;
+$lobby-control-size: 30px;
 
 // MIXINS
 

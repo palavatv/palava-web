@@ -1,25 +1,44 @@
-
-// VARIABLES
+// COLORS
 
 $action-1: #2c5aa0;
 // $action-1: #d8dc7f;
 
-// Breakpoints
+// BREAKPOINTS
 
-$mobile: 768px;
-$small: 1000px;
-$regular: 1300px;
-$medium: 1600px;
-$big: 1800px;
+$mobile: 576px;
+$mobile-plus: 768px;
+$desktop: 1024px;
+$desktop-plus: 1300px;
+$desktop-large: 1600px;
+$desktop-huge: 1900px;
 
-// MEASURES
+$mobile-plus-height: 600px;
+$desktop-height: 700px;
+$desktop-plus-height: 900px;
+$desktop-large-height: 1200px;
+$desktop-huge-height: 1400px;
 
-$lobby-width: 220px;
-$lobby-height: 170px;
+// RESPONSIVE MEASURES
+
+$lobby-width-mobile: 160px;
+$lobby-width-mobile-plus: 190px;
+$lobby-width-desktop: 230px;
+$lobby-width-desktop-plus: 270px;
+$lobby-width-desktop-large: 280px;
+$lobby-width-desktop-huge: 370px;
+
+$lobby-height-mobile: 90px;
+$lobby-height-mobile-plus: 110px;
+$lobby-height-desktop: 120px;
+$lobby-height-desktop-plus: 140px;
+$lobby-height-desktop-large: 200px;
+$lobby-height-desktop-huge: 250px;
+
 $logo-control-height: 54px;
 $control-size: 40px;
 $lobby-control-size: 30px;
 
+$lobby-peer-padding: 5px;
 $stage-gap: 5px;
 
 // MIXINS
@@ -28,22 +47,22 @@ $stage-gap: 5px;
   font-size: 30px;
   line-height: 34px;
 
-  @media (min-width: $small) {
+  @media (min-width: $mobile-plus) {
     font-size: 42px;
     line-height: 48px;
   }
 
-  @media (min-width: $regular) {
+  @media (min-width: $desktop) {
     font-size: 54px;
     line-height: 58px;
   }
 
-  @media (min-width: $medium) {
+  @media (min-width: $desktop-plus) {
     font-size: 60px;
     line-height: 68px;
   }
 
-  @media (min-width: $big) {
+  @media (min-width: $desktop-large) {
     font-size: 68px;
     line-height: 74px;
   }
@@ -53,22 +72,22 @@ $stage-gap: 5px;
   font-size: 11px;
   // line-height: 34px;
 
-  @media (min-width: $small) {
+  @media (min-width: $mobile-plus) {
     font-size: 13px;
     // line-height: 48px;
   }
 
-  @media (min-width: $regular) {
+  @media (min-width: $desktop) {
     font-size: 14px;
     // line-height: 58px;
   }
 
-  @media (min-width: $medium) {
+  @media (min-width: $desktop-plus) {
     font-size: 15px;
     // line-height: 68px;
   }
 
-  @media (min-width: $big) {
+  @media (min-width: $desktop-large) {
     font-size: 16px;
     // line-height: 74px;
   }

@@ -82,11 +82,21 @@ export default {
   @include fontDefault();
 
   .peer--party-landscape & {
-    right: 192px;
+    right: $lobby-width-mobile + $lobby-peer-padding;
+    @media (min-width: $mobile-plus)  { right: $lobby-width-mobile-plus + $lobby-peer-padding; }
+    @media (min-width: $desktop)      { right: $lobby-width-desktop + $lobby-peer-padding; }
+    @media (min-width: $desktop-plus) { right: $lobby-width-desktop-plus + $lobby-peer-padding; }
+    @media (min-width: $desktop-large){ right: $lobby-width-desktop-large + $lobby-peer-padding; }
+    @media (min-width: $desktop-huge) { right: $lobby-width-desktop-huge + $lobby-peer-padding; }
   }
 
   .peer--party-portrait & {
-    bottom: 144px;
+    bottom: $lobby-height-mobile + $lobby-peer-padding;
+    @media (min-height: $mobile-plus-height)  { bottom: $lobby-height-mobile-plus + $lobby-peer-padding; }
+    @media (min-height: $desktop-height)      { bottom: $lobby-height-desktop + $lobby-peer-padding; }
+    @media (min-height: $desktop-plus-height) { bottom: $lobby-height-desktop-plus + $lobby-peer-padding; }
+    @media (min-height: $desktop-large-height){ bottom: $lobby-height-desktop-large + $lobby-peer-padding; }
+    @media (min-height: $desktop-huge-height) { bottom: $lobby-height-desktop-huge + $lobby-peer-padding; }
   }
 
   li {

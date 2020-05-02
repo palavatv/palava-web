@@ -300,14 +300,24 @@ export default {
     flex-direction: row;
     .lobby {
       height: 100%;
-      width: $lobby-width;
+      width: $lobby-width-mobile;
+      @media (min-width: $mobile-plus)  { width: $lobby-width-mobile-plus; }
+      @media (min-width: $desktop)      { width: $lobby-width-desktop; }
+      @media (min-width: $desktop-plus) { width: $lobby-width-desktop-plus; }
+      @media (min-width: $desktop-large){ width: $lobby-width-desktop-large; }
+      @media (min-width: $desktop-huge) { width: $lobby-width-desktop-huge; }
     }
   }
   &--portrait {
     flex-direction: column;
     .lobby {
-      height: $lobby-height;
       width: 100%;
+      height: $lobby-height-mobile;
+      @media (min-height: $mobile-plus-height)   { height: $lobby-height-mobile-plus; }
+      @media (min-height: $desktop-height)       { height: $lobby-height-desktop; }
+      @media (min-height: $desktop-plus-height)  { height: $lobby-height-desktop-plus; }
+      @media (min-height: $desktop-large-height) { height: $lobby-height-desktop-large; }
+      @media (min-height: $desktop-huge-height)  { height: $lobby-height-desktop-huge; }
     }
   }
 }

@@ -203,8 +203,8 @@ export default {
 
 .lobby {
   .peer {
-    border-top: 5px solid transparent;
-    border-left: 5px solid transparent;
+    border-top: $lobby-peer-padding solid transparent;
+    border-left: $lobby-peer-padding solid transparent;
     .media {
       border-radius: 14px;
       background: black;
@@ -214,9 +214,9 @@ export default {
   }
 
   .peer--party-landscape {
-    border-right: 5px solid transparent;
+    border-right: $lobby-peer-padding solid transparent;
     &:last-child {
-      border-bottom: 5px solid transparent;
+      border-bottom: $lobby-peer-padding solid transparent;
     }
     .media {
       width: 100%;
@@ -224,9 +224,9 @@ export default {
   }
 
   .peer--party-portrait {
-    border-bottom: 5px solid transparent;
+    border-bottom: $lobby-peer-padding solid transparent;
     &:last-child {
-      border-right: 5px solid transparent;
+      border-right: $lobby-peer-padding solid transparent;
     }
     .media {
       height: 100%;

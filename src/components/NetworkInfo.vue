@@ -71,6 +71,11 @@ export default {
 <style lang="scss">
 @import '@/css/support.scss';
 
+// TODO (see below)
+.peer--on-stage {
+  position: relative;
+}
+
 .network-info {
   position: absolute;
   z-index: 700;
@@ -81,7 +86,13 @@ export default {
   padding: 7px 8px 1px;
   @include fontDefault();
 
-  .peer--party-landscape & {
+  // TODO improve this (needs different concept...)
+  .peer--on-stage & {
+    bottom: 60px;
+    left: calc(50% - 150px);
+  }
+
+  .peer--in-lobby.peer--party-landscape & {
     right: $lobby-width-mobile + $lobby-peer-padding;
     @media (min-width: $mobile-plus)  { right: $lobby-width-mobile-plus + $lobby-peer-padding; }
     @media (min-width: $desktop)      { right: $lobby-width-desktop + $lobby-peer-padding; }
@@ -90,7 +101,7 @@ export default {
     @media (min-width: $desktop-huge) { right: $lobby-width-desktop-huge + $lobby-peer-padding; }
   }
 
-  .peer--party-portrait & {
+  .peer--in-lobby.peer--party-portrait & {
     bottom: $lobby-height-mobile + $lobby-peer-padding;
     @media (min-height: $mobile-plus-height)  { bottom: $lobby-height-mobile-plus + $lobby-peer-padding; }
     @media (min-height: $desktop-height)      { bottom: $lobby-height-desktop + $lobby-peer-padding; }

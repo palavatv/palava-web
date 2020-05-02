@@ -298,10 +298,6 @@ export default {
 
   &--landscape {
     flex-direction: row;
-    .lobby ~ .stage {
-      height: 100%;
-      width: calc(100% - #{$lobby-width});
-    }
     .lobby {
       height: 100%;
       width: $lobby-width;
@@ -309,10 +305,6 @@ export default {
   }
   &--portrait {
     flex-direction: column;
-    .lobby ~ .stage {
-      height: calc(100% - #{$lobby-height});
-      width: 100%;
-    }
     .lobby {
       height: $lobby-height;
       width: 100%;
@@ -321,8 +313,7 @@ export default {
 }
 
 .stage {
-  height: 100%;
-  width: 100%;
+  flex: 1;
   overflow: hidden;
   background: black;
 
@@ -349,8 +340,6 @@ export default {
     flex-direction: column;
     overflow-y: auto;
   }
-  // > * {
-  // }
   @include fadeControl();
 }
 </style>

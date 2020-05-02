@@ -8,7 +8,7 @@
         <p>You cannot enter this room, because the maximum number of participants is reached</p>
         <p><a href="javascript:window.location.reload()">Try again!</a></p>
       </div>
-      <div v-if="error === 'maintenance'">
+      <div v-else-if="error === 'maintenance'">
         <h3>Sorry, your connection will be reset</h3>
 
         <p>Because of a palava.tv server maintenance, your connection is being lost.<br/>

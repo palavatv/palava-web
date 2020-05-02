@@ -106,7 +106,16 @@ export default {
 
       rtc.on("room_joined", (room) => {
         logger.log(`room joined with ${room.getRemotePeers().length} other peers`)
-        this.peers = this.rtc.room.getAllPeers()
+        const peers = this.rtc.room.getAllPeers()
+
+        if (peers.length > config.maximumPeers) {
+          this.uiState = [RoomError, { error: "room_full" }]
+          this.waiting = false
+          this.rtc.destroy()
+          return
+        }
+
+        this.peers = peers
         this.localPeer = this.rtc.room.getLocalPeer()
         this.uiState = [Party]
         this.waiting = false

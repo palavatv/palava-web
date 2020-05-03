@@ -40,7 +40,7 @@ export default {
   created() {
     const roomId = this.$route.params.roomId
     this.catchInvalidRoomId(roomId)
-    this.rtc = this.setupRtc(createSession(roomId, config.env.rtcUrl || config.detaultRtcUrl))
+    this.rtc = this.setupRtc(createSession(roomId, config.env.rtcUrl || config.defaultRtcUrl))
   },
   beforeDestroy() {
     this.rtc.destroy()

@@ -24,7 +24,9 @@ The following ENV variables can be passed to the above commands, or configured v
 
 ### `VUE_APP_RTC_URL`
 
-Sets the location to the palava signaling server. To use a local [signaltower](https://github.com/farao/signaltower/) (or the [palava-machine](https://github.com/palavatv/palava-machine/)) on the default port 4233, use `ws://localhost:4233`
+Sets the location to the palava signaling server. By default, it tries to reach a local [signaltower](https://github.com/farao/signaltower/) (or [palava-machine](https://github.com/palavatv/palava-machine/)) on port 4233. To use the palava.tv signaling server, start with:
+
+     VUE_APP_RTC_URL=wss://machine.palava.tv yarn serve
 
 ### `VUE_APP_STUN_URL`
 

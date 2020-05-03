@@ -3,7 +3,7 @@ export default {
     rtcUrl: process.env.VUE_APP_RTC_URL,
     stunUrl: process.env.VUE_APP_STUN_URL,
   },
-  defaultRtcUrl: 'wss://machine.palava.tv',
+  defaultRtcUrl: 'ws://localhost:4233',
   defaultStunUrl: 'stun:stun.palava.tv',
   defaultJoinTimeout: 500,
   maximumPeers: 6,

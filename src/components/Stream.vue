@@ -83,6 +83,6 @@ export default {
 
 <style lang="scss" scoped>
 video {
-  background: transparent;
+  background: black;
 }
 </style>

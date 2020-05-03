@@ -31,6 +31,7 @@
       <Placeholder
         v-if="showPlacholder"
         :peer="peer"
+        :colorIndex="colorIndex"
         @click="togglePeerMenu()"
         />
       <Stream
@@ -122,6 +123,10 @@ export default {
       type: Object,
       required: true,
     },
+    colorIndex: {
+      type: Number,
+      default: 0,
+    },
     type: {
       type: String,
       required: true,
@@ -207,7 +212,6 @@ export default {
     border-left: $lobby-peer-padding solid transparent;
     .media {
       border-radius: $lobby-border-radius;
-      background: black;
       width: auto;
       height: auto;
     }
@@ -251,7 +255,6 @@ export default {
   .media {
     height: auto;
     width: auto;
-    background: black;
     object-fit: cover;
     border-radius: $stage-border-radius;
   }

@@ -87,6 +87,7 @@
           :partyMode="partyMode"
           :stageMode="stageMode"
           :peer="peer"
+          :colorIndex="getColorIndex(peer)"
           @togglePeer="togglePeer(peer)"
           />
       </transition-group>
@@ -101,6 +102,7 @@
             :partyMode="partyMode"
             :stageMode="stageMode"
             :peer="peer"
+            :colorIndex="getColorIndex(peer)"
             @togglePeer="togglePeer(peer)"
             />
         </transition-group>
@@ -119,6 +121,7 @@ export default {
       partyMode: "landscape",
       stageMode: "landscape",
       peersInLobby: [],
+      peerColors: [null, null, null, null, null, null],
       controlsActive: true,
     }
   },
@@ -128,14 +131,18 @@ export default {
   mounted() {
     window.addEventListener("resize", this.onResize)
     this.onResize()
+    this.assignColorIndexes(this.peers)
     this.autoAdjustPeers(this.peers)
   },
   beforeDestroy() {
     window.removeEventListener("resize", this.onResize)
   },
   watch: {
-    peers(newPeers) {
-      // TODO watch peer changes (clean lobby)
+    peers(newPeers, oldPeers) {
+      const introducedPeers = newPeers.filter((newPeer) => !oldPeers.includes(newPeer))
+      const removedPeers = oldPeers.filter((oldPeer) => !newPeers.includes(oldPeer))
+      this.cleanLobby(removedPeers)
+      this.assignColorIndexes(introducedPeers, removedPeers)
       this.autoAdjustPeers(newPeers)
     },
   },
@@ -170,6 +177,33 @@ export default {
       if (this.peersInLobby.includes(peer.id)) {
         this.peersInLobby = this.peersInLobby.filter((id) => id !== peer.id)
       }
+    },
+    cleanLobby(removedPeers) {
+      this.peersInLobby = this.peersInLobby.filter((id) => removedPeers.includes((rp) => rp.id === id))
+    },
+    getColorIndex(peer) {
+      return this.peerColors.indexOf(peer.id) + 1
+    },
+    assignColorIndexes(introducedPeers, removedPeers = []) {
+      // Remove old peers from color index list
+      this.peerColors = this.peerColors.map((idOrNull) => {
+        const removedPeersIds = removedPeers.map((rp) => rp.id)
+        if (removedPeersIds.includes(idOrNull)) {
+          return null
+        }
+
+        return idOrNull
+      })
+
+      // Assign random color index (which is not taken yet)
+      introducedPeers.forEach((peer) => {
+        if (!this.peerColors.includes(null)) { return }
+        let newIndex = null
+        do {
+          newIndex = Math.floor(Math.random() * Math.floor(6))
+        } while (this.peerColors[newIndex] !== null)
+        this.peerColors = this.peerColors.map((idOrNull, index) => (index === newIndex ? peer.id : idOrNull))
+      })
     },
     autoAdjustPeers(peers) {
       const remotePeers = peers.filter((peer) => !peer.isLocal())

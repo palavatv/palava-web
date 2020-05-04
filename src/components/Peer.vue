@@ -27,16 +27,25 @@
         :peer="peer"
         />
     </transition>
+
+    <PeerStatus
+      v-if="status !== 'video'"
+      :status="status"
+      :error="peer.error"
+      @click="togglePeerMenu()"
+      />
+
     <div class="frame">
       <Placeholder
-        v-if="showPlacholder"
+        v-if="status !== 'video'"
         :peer="peer"
         :colorIndex="colorIndex"
         @click="togglePeerMenu()"
         />
       <Stream
-        v-else
+        v-if="status === 'video' || status === 'audio'"
         :peer="peer"
+        :status="status"
         :requestFullscreen="requestFullscreen"
         @click="togglePeerMenu()"
         />
@@ -72,7 +81,7 @@
           <button
             title="Full screen"
             class="menu-control menu-control--full-screen"
-            v-if="peerMenuActive"
+            v-if="peerMenuActive && peer.hasVideo()"
             @click="makePeerFullScreen()"
             >
             <span role="img" aria-label="square of four corners">⛶</span>
@@ -112,6 +121,7 @@
 
 <script>
 import Stream from "@/components/Stream.vue"
+import PeerStatus from "@/components/PeerStatus.vue"
 import Placeholder from "@/components/Placeholder.vue"
 import NetworkInfo from "@/components/NetworkInfo.vue"
 
@@ -141,6 +151,7 @@ export default {
     },
   },
   components: {
+    PeerStatus,
     Placeholder,
     Stream,
     NetworkInfo,
@@ -157,11 +168,13 @@ export default {
     peerMenuActive() {
       return this.type === "stage" || this.peerMenuActiveInLobby
     },
-    showPlacholder() {
-      return !this.peer.isReady() ||
-             this.peer.error ||
-             !this.peer.hasVideo()
-    },
+    status() {
+      if (this.peer.error) { return "error" }
+      if (!this.peer.isReady()) { return "not-ready" }
+      if (this.peer.hasVideo()) { return "video" }
+      if (this.peer.hasAudio()) { return "audio" }
+      return "no-media"
+    }
   },
   methods: {
     togglePeerMenu() {
@@ -192,6 +205,7 @@ export default {
 .peer {
   font-size: 0;
   opacity: 1;
+  position: relative;
   @include fadeControl();
 
   .frame {

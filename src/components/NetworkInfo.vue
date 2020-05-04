@@ -71,13 +71,13 @@ export default {
 <style lang="scss">
 @import '@/css/support.scss';
 
-// TODO (see below)
-.peer--on-stage {
-  position: relative;
-}
+// TODO see comments below
+// .peer--on-stage {
+//   position: relative;
+// }
 
 .network-info {
-  position: absolute;
+  position: fixed; // this is not correct...
   z-index: 700;
   border: 1px solid $action-1;
   border-radius: 14px;

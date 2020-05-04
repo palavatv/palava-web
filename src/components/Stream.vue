@@ -2,10 +2,11 @@
   <video
     autoplay
     :class="{
-      'media': true,
-      'media--orientation-landscape': this.orientation === 'landscape',
-      'media--orientation-portrait': this.orientation === 'portrait',
-      'media--orientation-unknown': this.orientation === 'unknown',
+      'media': this.status === 'video',
+      'media--hidden': this.status !== 'video',
+      'media--orientation-landscape': this.status === 'video' && this.orientation === 'landscape',
+      'media--orientation-portrait': this.status === 'video' && this.orientation === 'portrait',
+      'media--orientation-unknown': this.status === 'video' && this.orientation === 'unknown',
     }"
     @click="$emit('click')"
     @dblclick="$emit('dblclick')"
@@ -22,6 +23,10 @@ export default {
   props: {
     peer: {
       type: Object,
+      required: true,
+    },
+    status: {
+      type: String,
       required: true,
     },
     mute: {
@@ -84,5 +89,9 @@ export default {
 <style lang="scss" scoped>
 video {
   background: black;
+}
+
+.media--hidden {
+  height: 0;
 }
 </style>

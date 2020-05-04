@@ -1,0 +1,1 @@
+VUE_APP_RTC_URL=wss://machine.palava.tv yarn build

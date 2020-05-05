@@ -207,11 +207,19 @@ export default {
   font-size: 0;
   opacity: 1;
   position: relative;
+  box-sizing: border-box;
+  width: auto;
+  height: auto;
   @include fadeControl();
 
   .frame {
     position: relative;
     display: inline;
+  }
+
+  .media {
+    height: auto;
+    width: auto;
   }
 
   &--is-local {
@@ -227,8 +235,6 @@ export default {
     border-left: $lobby-peer-padding solid transparent;
     .media {
       border-radius: $lobby-border-radius;
-      width: auto;
-      height: auto;
     }
   }
 
@@ -262,14 +268,9 @@ export default {
 
   .peer {
     padding: $stage-gap;
-    height: auto;
-    width: auto;
-    box-sizing: border-box;
   }
 
   .media {
-    height: auto;
-    width: auto;
     object-fit: cover;
     border-radius: $stage-border-radius;
   }

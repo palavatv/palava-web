@@ -324,6 +324,9 @@ export default {
     flex-direction: row;
     .lobby {
       height: 100%;
+    }
+
+    .lobby, .lobby .peer {
       width: $lobby-width-mobile;
       @media (min-width: $mobile-plus)  { width: $lobby-width-mobile-plus; }
       @media (min-width: $desktop)      { width: $lobby-width-desktop; }
@@ -336,6 +339,8 @@ export default {
     flex-direction: column;
     .lobby {
       width: 100%;
+    }
+    .lobby, .lobby .peer {
       height: $lobby-height-mobile;
       @media (min-height: $mobile-plus-height)   { height: $lobby-height-mobile-plus; }
       @media (min-height: $desktop-height)       { height: $lobby-height-desktop; }
@@ -366,6 +371,7 @@ export default {
   height: 100%;
   width: 100%;
   display: flex;
+
   .party--portrait & {
     flex-direction: row;
     overflow-x: auto;

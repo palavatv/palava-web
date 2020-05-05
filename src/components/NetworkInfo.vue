@@ -77,7 +77,10 @@ export default {
 // }
 
 .network-info {
-  position: fixed; // this is not correct...
+  position: absolute;
+  .lobby & {
+    position: fixed; // this is not correct...
+  }
   z-index: 700;
   border: 1px solid $action-1;
   border-radius: 14px;

@@ -1,6 +1,8 @@
 // COLORS
 
 $action-1: #2c5aa0;
+$black: black;
+$white: white;
 
 // BREAKPOINTS
 
@@ -112,4 +114,32 @@ $lobby-control-size: 30px;
   // .fade-control-move {
   //   transition: transform 1s;
   // }
+}
+
+@mixin knob() {
+  border-radius: 50%;
+  border: 0px solid $black;
+  box-shadow: 1px 1px 4px $black;
+  color: $black;
+  background: $white;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.5;
+  font-family: NotoSansSymbols2;
+  user-select: none;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:focus {
+    outline: none;
+    opacity: 1;
+    color: $action-1;
+    box-shadow: 1px 1px 3px #555;
+  }
+
+  > * {
+    display: inline-block;
+  }
 }

@@ -166,7 +166,8 @@ export default {
   },
   computed: {
     peerMenuActive() {
-      return this.type === "stage" || this.peerMenuActiveInLobby
+      // return this.type === "stage" || this.peerMenuActiveInLobby
+      return this.peerMenuActiveInLobby
     },
     status() {
       if (this.peer.error) { return "error" }
@@ -390,8 +391,12 @@ export default {
   right: 0px;
   @include fadeControl();
 
+  .menu-control {
+    @include knob();
+  }
+
   &--in-lobby {
-    bottom: $lobby-control-size / 5;
+    bottom: $lobby-control-size / 3;
     .menu-control {
       height: $lobby-control-size;
       width: $lobby-control-size;
@@ -422,7 +427,7 @@ export default {
   }
 
   &--on-stage {
-    bottom: $control-size / 5;
+    bottom: $control-size / 2;
     .menu-control {
       height: $control-size;
       width: $control-size;
@@ -448,27 +453,6 @@ export default {
       &--unmute > * {
         transform: translate(-5px, 3px);
       }
-    }
-  }
-
-  .menu-control {
-    border-radius: 50%;
-    padding: 0;
-    cursor: pointer;
-    opacity: 0.6;
-    user-select: none;
-    border: 1px solid $action-1;
-    box-sizing: border-box;
-    color: $action-1;
-    background: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: NotoSansSymbols2;
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px white;
     }
   }
 }

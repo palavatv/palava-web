@@ -247,23 +247,24 @@ export default {
 .top-control {
   position: absolute;
   z-index: 1000;
-  top: 15px;
+  top: $control-size / 3;
   display: flex;
   align-items: center;
 
   .logo-control, .control {
-    border-radius: 50%;
-    padding: 0;
-    cursor: pointer;
-    opacity: 0.7;
     margin-left: $control-size / 3;
-    user-select: none;
   }
 
   .logo-control {
+    border-radius: 50%;
     border: 0;
+    padding: 0;
+    opacity: 0.7;
+    cursor: pointer;
+    user-select: none;
     height: $logo-control-size;
     width: $logo-control-size;
+    filter: grayscale(1);
     img {
       height: 100%;
       width: 100%;
@@ -271,31 +272,20 @@ export default {
     // &--inactive {
     //   opacity: 0.4;
     // }
+
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 2px white;
+      filter: none;
+      opacity: 0.9;
     }
   }
 
   .control {
     height: $control-size;
     width: $control-size;
-    border: 1px solid $action-1;
-    box-sizing: border-box;
-    color : $action-1;
-    background: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: NotoSansSymbols2;
     font-size: $control-size / 2;
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px white;
-    }
-    > * {
-      display: inline-block;
-    }
+    @include knob();
+
     &--copy-link > * {
       transform: translate(-1px, 2px);
     }

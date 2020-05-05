@@ -1,7 +1,7 @@
 <template>
   <div class="peer-status" @click="$emit('click')">
     <div v-if="status === 'audio'">
-      <span class="symbol" role="img" aria-label="megaphone">☎︎</span>
+      <span class="symbol" role="img" aria-label="old telephone">☎︎</span>
     </div>
     <!-- <div v-else-if="status === 'not-ready'">
       <span class="symbol" role="img" aria-label=""></span>
@@ -49,33 +49,41 @@ export default {
   align-items: center;
   text-align: center;
   z-index: 400;
+  > * {
+    transform: translateY(-15%);
+  }
 
   .symbol, .description {
-    color: white;
-    text-shadow: 1px 1px 1px $action-1;
+    color: $white;
     opacity: 0.6;
     cursor: default;
     user-select: none;
-    line-height: 100%;
   }
 
   .symbol {
+    text-shadow: 1px 1px 5px $black;
+
     .peer--on-stage & {
       font-size: 10vw;
+      line-height: 100%;
     }
     .peer--in-lobby & {
       @include fontBig();
+      line-height: 100%;
     }
   }
 
   .description {
     white-space: nowrap;
+    text-shadow: 1px 1px 3px $black;
 
     .peer--on-stage & {
       font-size: 4vw;
+      line-height: 100%;
     }
     .peer--in-lobby & {
       @include fontDefault();
+      line-height: 100%;
     }
   }
 }

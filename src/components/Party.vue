@@ -181,7 +181,7 @@ export default {
       }
     },
     cleanLobby(removedPeers) {
-      this.peersInLobby = this.peersInLobby.filter((id) => removedPeers.includes((rp) => rp.id === id))
+      this.peersInLobby = this.peersInLobby.filter((id) => !removedPeers.map((peer) => peer.id).includes(id))
     },
     getColorIndex(peer) {
       return this.peerColors.indexOf(peer.id) + 1

@@ -114,6 +114,8 @@
 <script>
 import Peer from "@/components/Peer.vue"
 
+import config from '@/config'
+
 export default {
   props: ["peers", "localPeer"],
   data() {
@@ -121,7 +123,7 @@ export default {
       partyMode: "landscape",
       stageMode: "landscape",
       peersInLobby: [],
-      peerColors: [null, null, null, null, null, null],
+      peerColors: Array(config.peerColors.length - 1).fill(null),
       controlsActive: true,
     }
   },
@@ -200,7 +202,7 @@ export default {
         if (!this.peerColors.includes(null)) { return }
         let newIndex = null
         do {
-          newIndex = Math.floor(Math.random() * Math.floor(6))
+          newIndex = Math.floor(Math.random() * Math.floor(config.peerColors.length - 1))
         } while (this.peerColors[newIndex] !== null)
         this.peerColors = this.peerColors.map((idOrNull, index) => (index === newIndex ? peer.id : idOrNull))
       })

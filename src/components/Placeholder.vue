@@ -12,15 +12,7 @@
 </template>
 
 <script>
-const COLORS = [
-  'transparent',
-  '#ffe6c0',
-  '#ffc0cb',
-  '#c0dcff',
-  '#caa5a5',
-  '#c7ffce',
-  '#dac7ff',
-]
+import config from '@/config'
 
 export default {
   props: {
@@ -35,7 +27,7 @@ export default {
   },
   computed: {
     background() {
-      return COLORS[this.colorIndex]
+      return config.peerColors[this.colorIndex]
     }
   }
 }

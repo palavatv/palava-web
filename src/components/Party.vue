@@ -49,11 +49,11 @@
         </button>
       </transition>
 
-      <transition name="fade-control">
+      <!-- <transition name="fade-control">
         <button title="Text chat" class="control control--text-chat" v-if="controlsActive">
           <span role="img" aria-label="speech bubbles">🗪</span>
         </button>
-      </transition>
+      </transition> -->
 
       <transition name="fade-control">
         <router-link to="/" title="Hang up" class="control control--hang-up" v-if="controlsActive">

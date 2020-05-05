@@ -71,6 +71,7 @@ export default {
 <style lang="scss">
 @import '@/css/support.scss';
 
+// TODO style
 // TODO see comments below
 // .peer--on-stage {
 //   position: relative;
@@ -83,8 +84,9 @@ export default {
   }
   z-index: 700;
   border: 1px solid $action-1;
-  border-radius: 14px;
+  border-radius: $lobby-border-radius;
   background: white;
+  opacity: 0.9;
   color: $action-1;
   padding: 7px 8px 1px;
   @include fontDefault();
@@ -149,10 +151,11 @@ export default {
   h2, h3 {
     font-weight: bold;
     cursor: default;
+    margin-bottom: 4px;
   }
 
   section {
-    margin-bottom: 6px;
+    margin-bottom: 7px;
   }
 }
 </style>

@@ -10,9 +10,9 @@
       <p>Please select the video and audio streams you want to send to other participants:</p>
 
       <ul>
-        <li><button @click="$emit('join-room', {video: true, audio:true})" autofocus>Video &amp; Audio</button></li>
-        <li><button @click="$emit('join-room', {video: true, audio:false})">Only Video</button></li>
-        <li><button @click="$emit('join-room', {video: false, audio:true})">Only Audio</button></li>
+        <li><button @click="$emit('join-room', { video: { facingMode: 'user' }, audio:true })" autofocus>Video &amp; Audio</button></li>
+        <li><button @click="$emit('join-room', { video: { facingMode: 'user' }, audio:false })">Only Video</button></li>
+        <li><button @click="$emit('join-room', { video: false, audio:true })">Only Audio</button></li>
       </ul>
 
       <div v-if="error">

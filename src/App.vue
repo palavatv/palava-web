@@ -40,6 +40,7 @@ body {
   overflow-x: hidden;
   box-sizing: border-box;
   min-height: 100%;
+  overscroll-behavior: none;
 }
 
 *, *:before, *:after {

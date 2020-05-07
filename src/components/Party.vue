@@ -317,8 +317,6 @@ export default {
   left: 0;
   height: 100%;
   width: 100%;
-  min-height: 250px;
-  min-width: 500px;
   overflow: auto;
   background: black;
   display: flex;

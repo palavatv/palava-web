@@ -1,10 +1,10 @@
 <template>
   <nav class="navigation">
     <router-link to="/">palava</router-link> |
-    <router-link to="/info/how">{{ $t('info') }}</router-link> |
-    <router-link to="/info/ev">{{ $t('palavaEv') }}</router-link> |
-    <router-link to="/info/contact">{{ $t('imprint') }}</router-link> |
-    <router-link to="/info/privacy">{{ $t('privacyPolicy') }}</router-link> |
+    <router-link to="/info/how">{{ $t('infoPages.how.title') }}</router-link> |
+    <router-link to="/info/ev">{{ $t('infoPages.ev.title') }}</router-link> |
+    <router-link to="/info/contact">{{ $t('infoPages.contact.title') }}</router-link> |
+    <router-link to="/info/privacy">{{ $t('infoPages.privacy.title') }}</router-link> |
     <LanguageSwitcher />
   </nav>
 </template>

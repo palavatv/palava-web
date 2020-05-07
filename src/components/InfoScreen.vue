@@ -79,18 +79,11 @@ export default {
   justify-content: center;
   color: $black;
   @include fontDefault();
-
-  .info-title {
-    color: $action-1;
-    @include fontBig();
-    margin-bottom: 30px; // TODO responsive
-    a { color: inherit }
-  }
+  padding: 20px; // TODO responsive
 
   .info-content {
     flex: 1;
     overflow-y: auto;
-    padding: 20px; // TODO responsive
   }
 
   .logo {
@@ -99,6 +92,21 @@ export default {
       width: 15vw;
       height: 15vw;
     }
+  }
+
+  h1 {
+    color: $action-1;
+    @include fontBig();
+    margin-bottom: 30px; // TODO responsive
+    text-transform: capitalize;
+    a { color: inherit }
+  }
+
+  h2 {
+    color: $action-1;
+    font-weight: bold;
+    font-size: 20px; // TODO responsive
+    margin-top: $default-spacing * 2;
   }
 }
 

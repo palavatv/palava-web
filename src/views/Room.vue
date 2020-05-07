@@ -187,14 +187,13 @@ export default {
       this.infoPage = null
     },
     openInfoScreen(page) {
-      console.log("got event", page)
       this.infoPage = page
     }
   },
   metaInfo() {
     return {
       // title: `${this.$t("titles.room")} | ${decodeURIComponent(this.$route.params.roomId)}`,
-      title: `${fancyNumber(this.peers.length) || this.$t("titles.room")} | ${decodeURIComponent(this.$route.params.roomId)}`,
+      title: `${fancyNumber(this.peers.length) || this.$t("room.emptyTitle")} | ${decodeURIComponent(this.$route.params.roomId)}`,
     }
   },
 }

@@ -67,6 +67,11 @@ ul {
   list-style-type: none;
 }
 
+p, address {
+  font-variant: normal;
+  margin: $default-spacing auto;
+}
+
 button::-moz-focus-inner {
   border: 0;
 }

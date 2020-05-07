@@ -24,7 +24,7 @@
         <button
           title="Info"
           class="control control--info"
-          @click="$emit('open-info-screen', 'test')"
+          @click="$emit('open-info-screen', 'how')"
           v-if="controlsActive"
           >
           <span role="img" aria-label="info sign">ℹ︎</span>

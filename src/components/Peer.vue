@@ -390,6 +390,7 @@ export default {
   align-items: center;
   justify-content: center;
   flex-direction: row-reverse;
+  flex-wrap: wrap-reverse;
   left: 0px;
   right: 0px;
   @include fadeControl();
@@ -399,12 +400,12 @@ export default {
   }
 
   &--in-lobby {
-    bottom: $lobby-control-size / 3;
+    bottom: $lobby-control-size / 6;
     .menu-control {
       height: $lobby-control-size;
       width: $lobby-control-size;
       font-size: $lobby-control-size / 2;
-      margin: auto $lobby-control-size / 6;
+      margin: $lobby-control-size / 6;
       // box-shadow: 0 0 0 1px $action-1;
 
       &--toggle > * {
@@ -430,12 +431,12 @@ export default {
   }
 
   &--on-stage {
-    bottom: $control-size / 2;
+    bottom: $control-size / 5;
     .menu-control {
       height: $control-size;
       width: $control-size;
       font-size: $control-size / 2;
-      margin: auto $control-size / 5;
+      margin: $control-size / 5;
 
       &--toggle > * {
         transform: translate(-1px, 2px);

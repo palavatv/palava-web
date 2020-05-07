@@ -68,6 +68,26 @@ export default {
           </p>
         `
       },
+      network: {
+        title: 'Network Info',
+        content: `
+          <h2>Connection Type</h2>
+          <p>There are two different ways in which you can connect to someone via palava.tv:</p>
+          <ul>
+            <li><strong>Direct:</strong> Your device is directly connected to the other device</li>
+            <li><strong>Relayed:</strong> Both devices send there data to a relay server. Sometimes, this is necessary to successfully enable the connection. The relay server has no access to the data.</li>
+          </ul>
+          <p>As of now, all connections are <strong>direct</strong>. We are working on providing relay servers soon.</p>
+
+          <h2>Remote &amp; Local IPs</h2>
+          <p>
+            In order to establish a working connection, both parties send all their IP addresses to each other, including ones from your local network.
+          </p>
+          <p>
+            IP addresses can come in IPv4 format (X.X.X.X) or IPv6 format (X:X:X:X:X:X:X:X).
+          </p>
+        `
+      },
       privacy: {
         title: 'privacy policy',
         content: `

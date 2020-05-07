@@ -5,7 +5,7 @@
     <section>
       <h2>
         {{ isRelayed ? "Relayed" : "Direct" }} connection
-        <button class="more-info" @click="$emit('open-info-screen', 'relay')" title="more info">
+        <button class="more-info" @click="$emit('open-info-screen', 'network')" title="more info">
           <span role="img" aria-label="info sign">ℹ︎</span>
         </button>
       </h2>
@@ -14,9 +14,6 @@
     <section>
       <h3>
         Remote IPs
-        <button class="more-info" @click="$emit('open-info-screen', 'remote-ips')" title="more info">
-          <span role="img" aria-label="info sign">ℹ︎</span>
-        </button>
       </h3>
       <ul>
         <li v-for="ip in remotePrimaryIps" :key="ip" title="Primary IP">
@@ -31,9 +28,6 @@
     <section>
       <h3>
         Local IPs
-        <button class="more-info" @click="$emit('open-info-screen', 'local-ips')" title="more info">
-          <span role="img" aria-label="info sign">ℹ︎</span>
-        </button>
       </h3>
       <ul>
         <li v-for="ip in localPrimaryIps" :key="ip" title="Primary IP">

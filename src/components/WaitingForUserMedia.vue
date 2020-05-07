@@ -10,6 +10,7 @@
 .waiting-for-user-media {
   background: black;
   position: fixed;
+  z-index: 800;
   left: 0;
   right: 0;
   top: 0;

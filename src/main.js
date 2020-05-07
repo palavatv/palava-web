@@ -17,6 +17,7 @@ Vue.use(VueMeta, {
 
 const i18n = new VueI18n({
   locale: config.defaultLocale,
+  fallbackLocale: config.defaultLocale,
   messages,
 })
 

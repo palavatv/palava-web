@@ -1,13 +1,23 @@
 <template>
   <aside class="network-info">
-    <button @click="$emit('close')"><span role="img" aria-label="cross mark">❌︎</span></button>
+    <button class="close" @click="$emit('close')"><span role="img" aria-label="cross mark">❌︎</span></button>
 
     <section>
-      <h2>{{ isRelayed ? "Relayed" : "Direct" }} connection</h2>
+      <h2>
+        {{ isRelayed ? "Relayed" : "Direct" }} connection
+        <button class="more-info" @click="$emit('open-info-screen', 'relay')" title="more info">
+          <span role="img" aria-label="info sign">ℹ︎</span>
+        </button>
+      </h2>
     </section>
 
     <section>
-      <h3>Remote IPs</h3>
+      <h3>
+        Remote IPs
+        <button class="more-info" @click="$emit('open-info-screen', 'remote-ips')" title="more info">
+          <span role="img" aria-label="info sign">ℹ︎</span>
+        </button>
+      </h3>
       <ul>
         <li v-for="ip in remotePrimaryIps" :key="ip" title="Primary IP">
           <span role="img" aria-label="star">★</span>{{ ip }}
@@ -19,7 +29,12 @@
     </section>
 
     <section>
-      <h3>Local IPs</h3>
+      <h3>
+        Local IPs
+        <button class="more-info" @click="$emit('open-info-screen', 'local-ips')" title="more info">
+          <span role="img" aria-label="info sign">ℹ︎</span>
+        </button>
+      </h3>
       <ul>
         <li v-for="ip in localPrimaryIps" :key="ip" title="Primary IP">
           <span role="img" aria-label="star">★</span>{{ ip }}
@@ -83,13 +98,14 @@ export default {
     position: fixed; // this is not correct...
   }
   z-index: 700;
-  border: 1px solid $action-1;
   border-radius: $lobby-border-radius;
   background: white;
-  opacity: 0.9;
+  opacity: 0.8;
   color: $action-1;
   padding: 7px 8px 1px;
+  @include defaultShadow();
   @include fontDefault();
+  text-align: left;
 
   // TODO improve this (needs different concept...)
   .peer--on-stage & {
@@ -125,27 +141,15 @@ export default {
   }
 
   button {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    user-select: none;
-    box-sizing: border-box;
-    color: $action-1;
-    background: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: NotoSansSymbols2;
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 3px $action-1;
-    }
+    @include inlineButton();
+  }
+
+  .close {
+    @include closeButton(20px);
+  }
+
+  .more-info {
+    color: red;
   }
 
   h2, h3 {

@@ -144,3 +144,40 @@ $lobby-control-size: 30px;
     display: inline-block;
   }
 }
+
+@mixin inlineButton() {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  user-select: none;
+  box-sizing: border-box;
+  color: $action-1;
+  background: white;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-family: NotoSansSymbols2;
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px $action-1;
+  }
+}
+
+@mixin closeButton($size) {
+  position: absolute;
+  height: $size;
+  width: $size;
+  font-size: $size / 1.7;
+  top: $size / 4;
+  right: $size / 4;
+  > * {
+    transform: translate(0, 3px);
+  }
+}
+
+@mixin defaultShadow() {
+  box-shadow: 1px 1px 4px $black;
+}

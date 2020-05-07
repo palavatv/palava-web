@@ -24,6 +24,7 @@
       <NetworkInfo
         v-if="networkInfoActive"
         @close="hideNetworkInfo()"
+        @open-info-screen="(page) => $emit('open-info-screen', page)"
         :peer="peer"
         />
     </transition>

@@ -15,6 +15,12 @@ export default {
     info: "Info",
     palavaEv: "palava e. V.",
     privacyPolicy: "Privacy Policy",
+    infoPages: {
+      test: {
+        title: "Info about something",
+        content: "content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content "
+      }
+    }
   },
   de: {
     home: {
@@ -32,5 +38,11 @@ export default {
     info: "Info",
     palavaEv: "palava e. V.",
     privacyPolicy: "Datenschutz",
+    infoPages: {
+      test: {
+        title: "Info about something",
+        content: "content content content"
+      }
+    }
   },
 }

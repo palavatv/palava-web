@@ -4,12 +4,21 @@
       <WaitingForUserMedia v-if="waiting" />
     </transition>
 
+    <transition name="fade">
+      <InfoScreen
+        v-if="showInfoScreen"
+        :page="infoPage"
+        @close="closeInfoScreen"
+        />
+    </transition>
+
     <component
       :is="uiStateComponent"
       v-bind="uiStateProps"
-      @join-room="joinRoom"
       :peers="peers"
       :localPeer="localPeer"
+      @join-room="joinRoom"
+      @open-info-screen="openInfoScreen"
       />
   </div>
 </template>
@@ -22,12 +31,14 @@ import { fancyNumber } from "@/support"
 
 import UserMediaConfigurator from "@/components/UserMediaConfigurator.vue"
 import WaitingForUserMedia from "@/components/WaitingForUserMedia.vue"
+import InfoScreen from "@/components/InfoScreen.vue"
 import RoomError from "@/components/RoomError.vue"
 import Party from "@/components/Party.vue"
 
 export default {
   components: {
     WaitingForUserMedia,
+    InfoScreen,
   },
   data() {
     return {
@@ -35,6 +46,7 @@ export default {
       waiting: false,
       peers: [],
       localPeer: null,
+      infoPage: null,
     }
   },
   created() {
@@ -52,6 +64,9 @@ export default {
     uiStateProps() {
       return this.uiState[1]
     },
+    showInfoScreen() {
+      return this.uiState[0] === Party && !!this.infoPage
+    }
   },
   methods: {
     catchInvalidRoomId(roomId) {
@@ -168,6 +183,13 @@ export default {
         },
       })
     },
+    closeInfoScreen() {
+      this.infoPage = null
+    },
+    openInfoScreen(page) {
+      console.log("got event", page)
+      this.infoPage = page
+    }
   },
   metaInfo() {
     return {

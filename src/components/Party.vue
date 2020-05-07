@@ -22,6 +22,17 @@
 
       <transition name="fade-control">
         <button
+          title="Info"
+          class="control control--info"
+          @click="$emit('open-info-screen', 'test')"
+          v-if="controlsActive"
+          >
+          <span role="img" aria-label="info sign">ℹ︎</span>
+        </button>
+      </transition>
+
+      <transition name="fade-control">
+        <button
           title="Copy link"
           class="control control--copy-link"
           @click="copyShareLink"
@@ -89,6 +100,7 @@
           :peer="peer"
           :colorIndex="getColorIndex(peer)"
           @togglePeer="togglePeer(peer)"
+          @open-info-screen="(page) => $emit('open-info-screen', page)"
           />
       </transition-group>
     </div>
@@ -104,6 +116,7 @@
             :peer="peer"
             :colorIndex="getColorIndex(peer)"
             @togglePeer="togglePeer(peer)"
+            @open-info-screen="(page) => $emit('open-info-screen', page)"
             />
         </transition-group>
       </div>
@@ -289,6 +302,9 @@ export default {
     font-size: $control-size / 2;
     @include knob();
 
+    &--info > * {
+      transform: translate(0, 3px);
+    }
     &--copy-link > * {
       transform: translate(-1px, 2px);
     }

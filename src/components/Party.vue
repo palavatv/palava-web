@@ -266,6 +266,7 @@ export default {
     user-select: none;
     height: $logo-control-size;
     width: $logo-control-size;
+    box-shadow: 1px 1px 4px $black;
     filter: grayscale(1);
     img {
       height: 100%;

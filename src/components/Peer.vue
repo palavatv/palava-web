@@ -388,7 +388,7 @@ export default {
   z-index: 500;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: row-reverse;
   flex-wrap: wrap-reverse;
   left: 0px;
@@ -400,12 +400,13 @@ export default {
   }
 
   &--in-lobby {
-    bottom: $lobby-control-size / 6;
+    bottom: $lobby-control-size / 8;
+    right: $lobby-control-size / 8;
     .menu-control {
       height: $lobby-control-size;
       width: $lobby-control-size;
       font-size: $lobby-control-size / 2;
-      margin: $lobby-control-size / 6;
+      margin: $lobby-control-size / 8;
       // box-shadow: 0 0 0 1px $action-1;
 
       &--toggle > * {
@@ -431,12 +432,13 @@ export default {
   }
 
   &--on-stage {
-    bottom: $control-size / 5;
+    bottom: $control-size / 8;
+    right: $control-size / 8;
     .menu-control {
       height: $control-size;
       width: $control-size;
       font-size: $control-size / 2;
-      margin: $control-size / 5;
+      margin: $control-size / 8;
 
       &--toggle > * {
         transform: translate(-1px, 2px);

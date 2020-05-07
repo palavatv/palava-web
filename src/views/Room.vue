@@ -141,23 +141,21 @@ export default {
         this.peers = this.rtc.room.getAllPeers()
       })
 
-      // rtc.on("peer_stream_ready", (peer) => {
-      //   logger.log("peer stream ready", peer)
-      // })
+      rtc.on("peer_stream_ready", (peer) => {
+        logger.log("peer stream ready", peer)
+      })
 
       // rtc.on("peer_update", (peer) => {
       //   logger.log("peer updated status", peer)
       // })
 
-      // rtc.on("peer_stream_removed", (peer) => {
-      //   logger.log("peer stream removed", peer)
-      // })
+      rtc.on("peer_stream_removed", (peer) => {
+        logger.log("peer stream removed", peer)
+      })
 
       rtc.on("peer_left", (peer) => {
         logger.log("peer left", peer)
         this.peers = this.rtc.room.getAllPeers()
-        // this.checkStage()
-        // this.checkPeers()
       })
 
       rtc.on("session_before_destroy", () => {
@@ -165,15 +163,13 @@ export default {
       })
 
       // rtc.on("session_after_destroy", () => {
-      //   $(".modal").modal("hide")
-      //   $(".modal-backdrop").hide()
+      //   logger.log("rtc session destroyed", peer)
       // })
 
       return rtc
     },
     joinRoom(userMediaConfig) {
       this.waiting = true
-      // $("#share-link").focus()
 
       this.rtc.init({
         identity: createIdentity(userMediaConfig),
@@ -192,7 +188,6 @@ export default {
   },
   metaInfo() {
     return {
-      // title: `${this.$t("titles.room")} | ${decodeURIComponent(this.$route.params.roomId)}`,
       title: `${fancyNumber(this.peers.length) || this.$t("room.emptyTitle")} | ${decodeURIComponent(this.$route.params.roomId)}`,
     }
   },

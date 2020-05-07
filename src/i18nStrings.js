@@ -88,6 +88,12 @@ export default {
           </p>
         `
       },
+      'not-found': {
+        title: '404',
+        content: `
+          <h2>Page could not be found</h2>
+        `
+      },
       privacy: {
         title: 'privacy policy',
         content: `

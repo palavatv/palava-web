@@ -1,10 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Home from '../views/Home.vue'
-import Room from '../views/Room.vue'
+import Home from '@/views/Home.vue'
+import Room from '@/views/Room.vue'
+import NotFound from '@/views/NotFound.vue'
 
-import InfoPage from '../views/InfoPage.vue'
+import InfoPage from '@/views/InfoPage.vue'
+import i18nStrings from '@/i18nStrings'
+
+const validInfoPages = Object.keys(i18nStrings.en.infoPages) // please note: no regex escape
 
 Vue.use(VueRouter)
 
@@ -15,7 +19,7 @@ const routes = [
     component: Home,
   },
   {
-    path: '/info/:page',
+    path: `/info/:page(${validInfoPages.join('|')})`,
     name: 'InfoPage',
     component: InfoPage,
     props: (route) => ({ page: route.params.page }),
@@ -24,6 +28,11 @@ const routes = [
     path: '/:roomId',
     name: 'Room',
     component: Room,
+  },
+  {
+    path: '/*',
+    name: 'NotFound',
+    component: NotFound,
   },
 ];
 

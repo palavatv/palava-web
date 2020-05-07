@@ -1,15 +1,23 @@
 export default {
   en: {
+    palavaLogoAlt: "palava.tv logo",
     home: {
       go: "go",
       hiddenRoom: "hidden conversation",
     },
     room: {
-      emptyTitle: 'room',
+      emptyTitle: "room",
+    },
+    party: {
+      toggleControls: "Toggle controls",
+      infoControlTitle: "Info",
+      infoControlAlt: "Info sign",
+      copyLinkControlTitle: "Copy link",
+      copyLinkControlAlt: "Clipboard",
     },
     infoPages: {
       contact: {
-        title: 'contact info',
+        title: "contact info",
         content: `
           <h2>Get in Touch</h2>
           <p>You can reach us at <a href="mailto:contact@palava.tv">contact@palava.tv</a></p>

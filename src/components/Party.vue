@@ -6,7 +6,7 @@
   }">
     <nav class="top-control">
       <button
-        title="Toggle controls"
+        :title="$t('party.toggleControls')"
         :class="{
           'logo-control': true,
           'logo-control--active': controlsActive,
@@ -15,30 +15,30 @@
         @click="toggleControls"
         >
         <img
-          alt="palava.tv logo, click here to toggle controls"
+          :alt="$t('palavaLogoAlt')"
           src="@/assets/palava.svg"
           />
       </button>
 
       <transition name="fade-control">
         <button
-          title="Info"
+          :title="$t('party.infoControlTitle')"
           class="control control--info"
           @click="$emit('open-info-screen', 'how')"
           v-if="controlsActive"
           >
-          <span role="img" aria-label="info sign">ℹ︎</span>
+          <span role="img" :aria-label="$t('party.infoControlAlt')">ℹ︎</span>
         </button>
       </transition>
 
       <transition name="fade-control">
         <button
-          title="Copy link"
+          :title="$t('party.copyLinkControlTitle')"
           class="control control--copy-link"
           @click="copyShareLink"
           ref="copyLink"
           v-if="controlsActive && canUseClipboard">
-          <span role="img" aria-label="clipboard">📋︎</span>
+          <span role="img" :aria-label="$t('party.copyLinkControlAlt')">📋︎</span>
         </button>
       </transition>
 

@@ -67,6 +67,17 @@
       </transition> -->
 
       <transition name="fade-control">
+        <button
+          title="Swtich language"
+          class="control control--swtich-language"
+          @click="switchLanguage"
+          v-if="controlsActive"
+          >
+          <span role="img" aria-label="language code">{{ currentLocale }}</span>
+        </button>
+      </transition>
+
+      <transition name="fade-control">
         <router-link to="/" title="Hang up" class="control control--hang-up" v-if="controlsActive">
           <span role="img" aria-label="cross mark">❌︎</span>
         </router-link>
@@ -174,6 +185,9 @@ export default {
     canUseClipboard() {
       return navigator.clipboard && navigator.clipboard.writeText
     },
+    currentLocale() {
+      return this.$root.$i18n.locale
+    }
   },
   methods: {
     togglePeer(peer) {
@@ -233,6 +247,9 @@ export default {
     copyShareLink() {
       navigator.clipboard.writeText(this.shareLink)
       this.$refs.copyLink.blur()
+    },
+    switchLanguage() {
+      this.$root.$i18n.locale = this.$root.$i18n.locale === 'de' ? 'en' : 'de'
     },
     onResize() {
       const partyWidth = window.innerWidth
@@ -319,6 +336,12 @@ export default {
     }
     &--text-chat > * {
       transform: translate(-1px, 2px);
+    }
+    &--swtich-language > * {
+      font-family: sans; // TODO
+      font-size: $control-size / 2.5;
+      text-transform: uppercase;
+      transform: translate(0px, 0px);
     }
     &--hang-up > * {
       transform: translate(-1px, 2px);

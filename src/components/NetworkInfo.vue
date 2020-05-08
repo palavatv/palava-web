@@ -1,40 +1,36 @@
 <template>
   <aside class="network-info">
-    <button class="close" @click="$emit('close')"><span role="img" aria-label="cross mark">❌︎</span></button>
+    <button class="close" @click="$emit('close')"><span role="img" :aria-label="$t('closeAlt')">❌︎</span></button>
 
     <section>
       <h2>
-        {{ isRelayed ? "Relayed" : "Direct" }} connection
-        <button class="more-info" @click="$emit('open-info-screen', 'network')" title="more info">
-          <span role="img" aria-label="info sign">ℹ︎</span>
+        {{ isRelayed ? $t('networkInfo.relayedConnection') : $t('networkInfo.directConnection') }}
+        <button class="more-info" @click="$emit('open-info-screen', 'network')" :title="$t('moreInfoTitle')">
+          <span role="img" :aria-label="$t('moreInfoAlt')">ℹ︎</span>
         </button>
       </h2>
     </section>
 
     <section>
-      <h3>
-        Remote IPs
-      </h3>
+      <h3>{{ $t('networkInfo.remoteIps') }}</h3>
       <ul>
-        <li v-for="ip in remotePrimaryIps" :key="ip" title="Primary IP">
-          <span role="img" aria-label="star">★</span>{{ ip }}
+        <li v-for="ip in remotePrimaryIps" :key="ip" :title="$t('networkInfo.cLineIpTitle')">
+          <span role="img" :aria-label="$t('networkInfo.cLineIpAlt')">★</span>{{ ip }}
         </li>
-        <li v-for="ip in remoteCandidateIps" :key="ip"  title="Candidate IP">
-          <span role="img" aria-label="circle">⚪︎</span>{{ ip }}
+        <li v-for="ip in remoteCandidateIps" :key="ip"  :title="$t('networkInfo.iceIpTitle')">
+          <span role="img" :aria-label="$t('networkInfo.iceIpAlt')">⚪︎</span>{{ ip }}
         </li>
       </ul>
     </section>
 
     <section>
-      <h3>
-        Local IPs
-      </h3>
+      <h3>{{ $t('networkInfo.localIps') }}</h3>
       <ul>
-        <li v-for="ip in localPrimaryIps" :key="ip" title="Primary IP">
-          <span role="img" aria-label="star">★</span>{{ ip }}
+        <li v-for="ip in localPrimaryIps" :key="ip" :title="$t('networkInfo.cLineIpTitle')">
+          <span role="img" :aria-label="$t('networkInfo.cLineIpAlt')">★</span>{{ ip }}
         </li>
-        <li v-for="ip in localCandidateIps" :key="ip"  title="Candidate IP">
-          <span role="img" aria-label="circle">⚪︎</span>{{ ip }}
+        <li v-for="ip in localCandidateIps" :key="ip"  :title="$t('networkInfo.iceIpTitle')">
+          <span role="img" :aria-label="$t('networkInfo.iceIpAlt')">⚪︎</span>{{ ip }}
         </li>
       </ul>
     </section>

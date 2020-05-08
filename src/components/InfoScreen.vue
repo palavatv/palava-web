@@ -1,9 +1,9 @@
 <template>
   <aside class="info-screen" tabindex="0" @keydown.esc="$emit('close')">
-    <button class="close" @click="$emit('close')"><span role="img" aria-label="cross mark">❌︎</span></button>
+    <button class="close" @click="$emit('close')"><span role="img" :aria-label="$t('closeAlt')">❌︎</span></button>
 
     <div class="logo">
-      <img alt="palava papagei" src="@/assets/palava.svg">
+      <img :alt="$t('palavaLogoAlt')" src="@/assets/palava.svg">
     </div>
 
     <h1 class="info-title">
@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     confirmLeave($event) {
-      if (!window.confirm("This will exit the current session. Continue?")) {
+      if (!window.confirm(this.$t("info.confirmLeave"))) {
         $event.preventDefault()
       }
     }

@@ -9,7 +9,6 @@
       'media--orientation-unknown': this.status === 'video' && this.orientation === 'unknown',
     }"
     @click="$emit('click')"
-    @dblclick="$emit('dblclick')"
   />
 </template>
 

@@ -22,64 +22,85 @@
 
       <transition name="fade-control">
         <button
-          :title="$t('party.infoControlTitle')"
+          :title="$t('party.infoTitle')"
           class="control control--info"
           @click="$emit('open-info-screen', 'how')"
           v-if="controlsActive"
           >
-          <span role="img" :aria-label="$t('party.infoControlAlt')">ℹ︎</span>
+          <span role="img" :aria-label="$t('party.infoAlt')">ℹ︎</span>
         </button>
       </transition>
 
       <transition name="fade-control">
         <button
-          :title="$t('party.copyLinkControlTitle')"
+          :title="$t('party.copyLinkTitle')"
           class="control control--copy-link"
           @click="copyShareLink"
           ref="copyLink"
-          v-if="controlsActive && canUseClipboard">
-          <span role="img" :aria-label="$t('party.copyLinkControlAlt')">📋︎</span>
+          v-if="controlsActive && canUseClipboard"
+          >
+          <span role="img" :aria-label="$t('party.copyLinkAlt')">📋︎</span>
         </button>
       </transition>
 
       <transition name="fade-control">
-        <button title="Camera" class="control control--camera" v-if="controlsActive">
-          <span role="img" aria-label="camera">📷︎</span>
+        <button
+          :title="$t('party.turnOffCameraTitle')"
+          class="control control--camera"
+          v-if="controlsActive"
+          >
+          <span role="img" :aria-label="$t('party.cameraAlt')">📷︎</span>
         </button>
       </transition>
 
       <transition name="fade-control">
-        <button title="Microphone" class="control control--microphone" v-if="controlsActive">
-          <span role="img" aria-label="microphone">🎙︎</span>
+        <button
+          :title="$t('party.muteMicrophoneTitle')"
+          class="control control--microphone"
+          v-if="controlsActive"
+          >
+          <span role="img" :aria-label="$t('party.microphoneAlt')">🎙︎</span>
         </button>
       </transition>
 
       <transition name="fade-control">
-        <button title="Screen sharing" class="control control--screen-share" v-if="controlsActive">
-          <span role="img" aria-label="computer">🖳</span>
+        <button
+          :title="$t('party.screenShareTitle')"
+          class="control control--screen-share"
+          v-if="controlsActive"
+          >
+          <span role="img" :aria-label="$t('party.screenShareAlt')">🖳</span>
         </button>
       </transition>
 
       <!-- <transition name="fade-control">
-        <button title="Text chat" class="control control--text-chat" v-if="controlsActive">
-          <span role="img" aria-label="speech bubbles">🗪</span>
+        <button
+          :title="$t('party.openTextChatTitle')"
+          class="control control--text-chat"
+          v-if="controlsActive"
+          >
+          <span role="img" :aria-label="$t('party.textChatAlt')">🗪</span>
         </button>
       </transition> -->
 
       <transition name="fade-control">
         <button
-          title="Swtich language"
-          class="control control--swtich-language"
+          :title="$t('party.switchLanguageTitle')"
+          class="control control--switch-language"
           @click="switchLanguage"
           v-if="controlsActive"
           >
-          <span role="img" aria-label="language code">{{ currentLocale }}</span>
+          <span :aria-label="$t('party.switchLanguageAlt')">{{ currentLocale }}</span>
         </button>
       </transition>
 
       <transition name="fade-control">
-        <router-link to="/" title="Hang up" class="control control--hang-up" v-if="controlsActive">
-          <span role="img" aria-label="cross mark">❌︎</span>
+        <router-link to="/"
+          :title="$t('party.hangUpTitle')"
+          class="control control--hang-up"
+          v-if="controlsActive"
+          >
+          <span role="img" :aria-label="$t('party.hangUpAlt')">❌︎</span>
         </router-link>
       </transition>
     </nav>
@@ -337,11 +358,11 @@ export default {
     &--text-chat > * {
       transform: translate(-1px, 2px);
     }
-    &--swtich-language > * {
+    &--switch-language > * {
       font-family: sans; // TODO
       font-size: $control-size / 2.5;
       text-transform: uppercase;
-      transform: translate(0px, 0px);
+      transform: translate(-1px, 0px);
     }
     &--hang-up > * {
       transform: translate(-1px, 2px);

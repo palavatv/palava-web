@@ -58,51 +58,51 @@
         >
         <transition name="fade-control">
           <button
-            title="Enlarge"
+            :title="$t('peer.toggleEnlargeTitle')"
             class="menu-control menu-control--toggle"
             v-if="peerMenuActive && type === 'lobby'"
             @click="togglePeer()"
             >
-            <span role="img" aria-label="arrow pointing upwards left">⇱</span>
+            <span role="img" :aria-label="$t('peer.toggleEnlargeAlt')">⇱</span>
           </button>
         </transition>
 
         <transition name="fade-control">
           <button
-            title="Minimize"
+            :title="$t('peer.toggleMinimizeTitle')"
             class="menu-control menu-control--toggle"
             v-if="peerMenuActive && type === 'stage'"
             @click="togglePeer()"
             >
-            <span role="img" aria-label="arrow pointing downards rights">⇲</span>
+            <span role="img" :aria-label="$t('peer.toggleMinimizeAlt')">⇲</span>
           </button>
         </transition>
 
         <transition name="fade-control">
           <button
-            title="Full screen"
+            :title="$t('peer.fullScreenTitle')"
             class="menu-control menu-control--full-screen"
             v-if="peerMenuActive && peer.hasVideo()"
             @click="makePeerFullScreen()"
             >
-            <span role="img" aria-label="square of four corners">⛶</span>
+            <span role="img" :aria-label="$t('peer.fullScreenAlt')">⛶</span>
           </button>
         </transition>
 
         <transition name="fade-control">
           <button
-            title="Network info"
+            :title="$t('peer.networkInfoTitle')"
             class="menu-control menu-control--network-info"
             v-if="peerMenuActive && !peer.isLocal()"
             @click="toggleNetworkInfo()"
             >
-            <span role="img" aria-label="network of three computers">🖧</span>
+            <span role="img" :aria-label="$t('peer.networkInfoAlt')">🖧</span>
           </button>
         </transition>
 
         <transition name="fade-control">
           <button
-            :title="muted ? 'Unmute' : 'Mute'"
+            :title="muted ? $t('peer.unmuteAudioTitle') : $t('peer.muteAudioTitle')"
             :class="{
               'menu-control': true,
               'menu-control--mute': !muted,
@@ -111,8 +111,8 @@
             v-if="peerMenuActive && !peer.isLocal() && peer.hasAudio()"
             @click="toggleMute()"
             >
-            <span v-if="muted" role="img" aria-label="speaker without noise">🔈︎</span>
-            <span v-else role="img" aria-label="speaker with noise">🔊︎</span>
+            <span v-if="muted" role="img" :aria-label="$t('peer.mutedAudio')">🔈︎</span>
+            <span v-else role="img" :aria-label="$t('peer.withAudio')">🔊︎</span>
           </button>
         </transition>
       </nav>
@@ -408,7 +408,6 @@ export default {
       width: $lobby-control-size;
       font-size: $lobby-control-size / 2;
       margin: $lobby-control-size / 8;
-      // box-shadow: 0 0 0 1px $action-1;
 
       &--toggle > * {
         transform: translate(-1px, 1px);

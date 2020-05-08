@@ -2,7 +2,7 @@
   <img
     class="media media--orientation-landscape"
     src="@/assets/placeholder.png"
-    alt="someone"
+    :alt="$t('peer.placeholderAlt', { color: background })"
     ref="placeholder"
     :style="{
       'background': background,
@@ -32,7 +32,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-
-</style>

@@ -1,21 +1,21 @@
 <template>
   <div class="peer-status" @click="$emit('click')">
     <div v-if="status === 'audio'">
-      <span class="symbol" role="img" aria-label="old telephone">☎︎</span>
+      <span class="symbol" role="img" :aria-label="$t('peer.statusAudioAlt')">☎︎</span>
     </div>
     <div v-else-if="status === 'not-ready'">
-      <span class="symbol" role="img" aria-label="pulsating rectangels">
+      <span class="symbol" role="img" :aria-label="$t('peer.statusNotReadyAlt')">
         <div class="lds-grid"><div/><div/><div/><div/><div/><div/><div/><div/><div/></div>
       </span>
     </div>
     <div v-else-if="status === 'no-media'">
-      <span class="symbol" role="img" aria-label="speech bubble">🗨︎</span>
+      <span class="symbol" role="img" :aria-label="$t('peer.statusNoMediaAlt')">🗨︎</span>
     </div>
     <div v-else-if="status === 'error'">
-      <span class="symbol" role="img" aria-label="cross mark">✖</span>
-      <div v-if="error === 'connection_closed'" class="description">Connection closed</div>
-      <div v-else-if="error === 'connection_failed'" class="description">No connection</div>
-      <div v-else-if="error === 'connection_disconnected'" class="description">Disconnected</div>
+      <span class="symbol" role="img" :aria-label="$t('peer.statusErrorAlt')">✖</span>
+      <div v-if="error === 'connection_closed'" class="description">{{ $t('peer.errorConnectionClosed') }}</div>
+      <div v-else-if="error === 'connection_failed'" class="description">{{ $t('peer.errorConnectionFailed') }}</div>
+      <div v-else-if="error === 'connection_disconnected'" class="description">{{ $t('peer.errorConnectionDisconnected') }}</div>
     </div>
   </div>
 </template>

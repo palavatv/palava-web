@@ -1,6 +1,6 @@
 <template>
   <aside class="waiting-for-user-media">
-    waiting for your media
+    {{ $t("room.waitingForUserMedia") }}
   </aside>
 </template>
 

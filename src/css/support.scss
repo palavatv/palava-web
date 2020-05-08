@@ -163,7 +163,6 @@ $lobby-border-radius: 0px;
   padding: 0;
   cursor: pointer;
   opacity: 0.5;
-  font-family: NotoSansSymbols2;
   user-select: none;
   box-sizing: border-box;
   display: flex;
@@ -175,10 +174,18 @@ $lobby-border-radius: 0px;
     opacity: 1;
     color: $action-1;
     box-shadow: 1px 1px 3px #555;
+
+    > * {
+      filter: grayscale(0);
+    }
   }
 
   > * {
     display: inline-block;
+    fill: $action-1;
+    filter: grayscale(1);
+    width: 22px;
+    height: 22px;
   }
 }
 
@@ -210,9 +217,7 @@ $lobby-border-radius: 0px;
   font-size: $size / 1.7;
   top: $size / 4;
   right: $size / 4;
-  > * {
-    transform: translate(0, 3px);
-  }
+  fill: $action-1;
 }
 
 @mixin defaultShadow() {

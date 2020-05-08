@@ -14,9 +14,9 @@
           }"
         @click="toggleControls"
         >
-        <img
+        <inline-svg
           :alt="$t('palavaLogoAlt')"
-          src="@/assets/palava.svg"
+          :src="require('../assets/palava.svg')"
           />
       </button>
 
@@ -27,7 +27,11 @@
           @click="$emit('open-info-screen', 'how')"
           v-if="controlsActive"
           >
-          <span role="img" :aria-label="$t('party.infoAlt')">ℹ︎</span>
+          <inline-svg
+            :alt="$t('party.infoAlt')"
+            :aria-label="$t('party.infoAlt')"
+            :src="require('../assets/info-with-circle.svg')"
+            />
         </button>
       </transition>
 
@@ -39,7 +43,11 @@
           ref="copyLink"
           v-if="controlsActive && canUseClipboard"
           >
-          <span role="img" :aria-label="$t('party.copyLinkAlt')">📋︎</span>
+          <inline-svg
+            :alt="$t('party.copyLinkAlt')"
+            :aria-label="$t('party.copyLinkAlt')"
+            :src="require('../assets/link.svg')"
+            />
         </button>
       </transition>
 
@@ -49,7 +57,11 @@
           class="control control--camera"
           v-if="controlsActive"
           >
-          <span role="img" :aria-label="$t('party.cameraAlt')">📷︎</span>
+          <inline-svg
+            :alt="$t('party.cameraAlt')"
+            :aria-label="$t('party.cameraAlt')"
+            :src="require('../assets/video-camera.svg')"
+            />
         </button>
       </transition>
 
@@ -59,7 +71,11 @@
           class="control control--microphone"
           v-if="controlsActive"
           >
-          <span role="img" :aria-label="$t('party.microphoneAlt')">🎙︎</span>
+          <inline-svg
+            :alt="$t('party.microphoneAlt')"
+            :aria-label="$t('party.microphoneAlt')"
+            :src="require('../assets/mic.svg')"
+            />
         </button>
       </transition>
 
@@ -69,7 +85,11 @@
           class="control control--screen-share"
           v-if="controlsActive"
           >
-          <span role="img" :aria-label="$t('party.screenShareAlt')">🖳</span>
+          <inline-svg
+            :alt="$t('party.screenShareAlt')"
+            :aria-label="$t('party.screenShareAlt')"
+            :src="require('../assets/tv.svg')"
+            />
         </button>
       </transition>
 
@@ -79,7 +99,11 @@
           class="control control--text-chat"
           v-if="controlsActive"
           >
-          <span role="img" :aria-label="$t('party.textChatAlt')">🗪</span>
+          <inline-svg
+            :src="require('../assets/chat.svg')"
+            :alt="$t('party.textChatAlt')"
+            :aria-label="$t('party.textChatAlt')"
+            \>
         </button>
       </transition> -->
 
@@ -100,7 +124,11 @@
           class="control control--hang-up"
           v-if="controlsActive"
           >
-          <span role="img" :aria-label="$t('party.hangUpAlt')">❌︎</span>
+          <inline-svg
+            :alt="$t('party.hangUpAlt')"
+            :aria-label="$t('party.hangUpAlt')"
+            :src="require('../assets/phone.svg')"
+            />
         </router-link>
       </transition>
     </nav>
@@ -319,7 +347,8 @@ export default {
     width: $logo-control-size;
     box-shadow: 1px 1px 4px $black;
     filter: grayscale(1);
-    img {
+
+    svg {
       height: 100%;
       width: 100%;
     }
@@ -340,32 +369,16 @@ export default {
     font-size: $top-control-size / 2;
     @include knob();
 
-    &--info > * {
-      transform: translate(0, 3px);
-    }
-    &--copy-link > * {
-      transform: translate(-1px, 2px);
-    }
-    &--camera > * {
-      transform: translate(-1px, 2px);
-    }
-    &--microphone > * {
-      transform: translate(-2px, 2px);
-    }
-    &--screen-share > * {
-      transform: translate(0, 1px);
-    }
-    &--text-chat > * {
-      transform: translate(-1px, 2px);
-    }
     &--switch-language > * {
       font-family: sans; // TODO
       font-size: $top-control-size / 2.5;
       text-transform: uppercase;
-      transform: translate(-1px, 0px);
     }
+
     &--hang-up > * {
-      transform: translate(-1px, 2px);
+      filter: grayscale(0);
+      transform: rotate(225deg);
+      fill: red;
     }
   }
 

@@ -1,7 +1,12 @@
 <template>
   <div class="peer-status" @click="$emit('click')">
     <div v-if="status === 'audio'">
-      <span class="symbol" role="img" :aria-label="$t('peer.statusAudioAlt')">☎︎</span>
+      <inline-svg
+        class="symbol"
+        :alt="$t('peer.statusAudioAlt')"
+        :aria-label="$t('peer.statusAudioAlt')"
+        :src="require('../assets/old-phone.svg')"
+        />
     </div>
     <div v-else-if="status === 'not-ready'">
       <span class="symbol" role="img" :aria-label="$t('peer.statusNotReadyAlt')">
@@ -63,15 +68,16 @@ export default {
   }
 
   .symbol {
-    text-shadow: 1px 1px 5px $black;
+    fill: white;
+    filter: drop-shadow(1px 1px 5px $black);
 
     .peer--on-stage & {
-      font-size: 10vw;
-      line-height: 100%;
+      width: 10vw;
+      height: 10vw;
     }
     .peer--in-lobby & {
-      @include fontBig();
-      line-height: 100%;
+      width: 5vw;
+      height: 5vw;
     }
   }
 

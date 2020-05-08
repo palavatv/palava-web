@@ -1,9 +1,17 @@
 <template>
   <aside class="info-screen" tabindex="0" @keydown.esc="$emit('close')">
-    <button class="close" @click="$emit('close')"><span role="img" :aria-label="$t('closeAlt')">❌︎</span></button>
+    <button class="close" @click="$emit('close')">
+      <inline-svg
+        :aria-label="$t('closeAlt')"
+        :src="require('../assets/cross.svg')"
+        />
+    </button>
 
     <div class="logo">
-      <img :alt="$t('palavaLogoAlt')" src="@/assets/palava.svg">
+      <inline-svg
+        :alt="$t('palavaLogoAlt')"
+        :src="require('../assets/palava.svg')"
+        />
     </div>
 
     <h1 class="info-title">
@@ -88,9 +96,9 @@ export default {
 
   .logo {
     margin: 30px; // TODO responsive
-    img {
-      width: 15vw;
-      height: 15vw;
+    svg {
+      width: 10vw;
+      height: 10vw;
     }
   }
 

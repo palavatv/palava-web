@@ -95,17 +95,10 @@ export default {
   }
 
   h1 {
-    color: $action-1;
-    @include fontBig();
     margin-bottom: 30px; // TODO responsive
-    text-transform: capitalize;
-    a { color: inherit }
   }
 
   h2 {
-    color: $action-1;
-    font-weight: bold;
-    font-size: 20px; // TODO responsive
     margin-top: $default-spacing * 2;
   }
 }

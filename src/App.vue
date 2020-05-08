@@ -25,6 +25,17 @@ export default {
   src: url('/NotoSansSymbols2.ttf') format('truetype');
 }
 
+@font-face {
+  font-family: WorkSans;
+  src: url('/WorkSans-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: WorkSansBold;
+  src: url('/WorkSans-SemiBold.woff2') format('woff2');
+}
+
+
 html, body {
   margin: 0;
   padding: 0;
@@ -32,7 +43,7 @@ html, body {
 }
 
 body {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: WorkSans, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -ms-text-size-adjust: 100%;
@@ -58,6 +69,11 @@ a {
   color: $action-1;
 }
 
+button, input {
+  font-family: inherit;
+  font-size: 1em;
+}
+
 ul, li {
   margin: 0;
   padding: 0;
@@ -74,6 +90,19 @@ p, address {
 
 button::-moz-focus-inner {
   border: 0;
+}
+
+h1 {
+  color: $action-1;
+  @include fontBig();
+  text-transform: capitalize;
+  a { color: inherit }
+}
+
+h2 {
+  font-family: WorkSansBold, WorkSans, sans-serif;
+  color: $action-1;
+  font-size: 20px; // TODO responsive
 }
 
 .earth {

@@ -9,11 +9,11 @@ export default {
       hiddenRoom: "hidden conversation",
     },
     info: {
-      confirmLeave: "This will exit the current session. Continue?",
+      confirmLeave: "This will exit the current palava.tv session. Continue?",
     },
     room: {
       emptyTitle: "room",
-      waitingForUserMedia: "waiting for your media"
+      waitingForUserMedia: "waits for your media streams"
     },
     party: {
       toggleControls: "Toggle controls",
@@ -25,11 +25,11 @@ export default {
       turnOnCameraTitle: "Turn on camera",
       cameraAlt: "camera",
       muteMicrophoneTitle: "Mute microphone",
-      unmuteMicrophoneTitle: "Unmute microphone",
+      unmuteMicrophoneTitle: "Turn on microphone",
       microphoneAlt: "microphone",
       screenShareTitle: "Share screen",
       screenShareAlt: "desktop computer",
-      // openTextChatTitle: "Open text chat",
+      // openTextChatTitle: "Show text chat",
       // hideTextChatTitle: "Hide text chat",
       // textChatAlt: "speech bubbles",
       switchLanguageTitle: "Switch language",
@@ -52,7 +52,7 @@ export default {
       withAudioAlt: "speaker with noise",
       placeholderAlt: "area colored with {color}",
       statusAudioAlt: "old telephone",
-      statusNotReadyAlt: "pulsating rectangles",
+      statusNotReadyAlt: "pulsating dots",
       statusNoMediaAlt: "speech bubble",
       statusErrorAlt: "cross symbol",
       errorConnectionClosed: "Connnection closed",
@@ -61,7 +61,7 @@ export default {
     },
     networkInfo: {
       directConnection: "Direct connection",
-      relayedConnection: "Relayed connection",
+      relayedConnection: "Connection via relay",
       remoteIps: "Remote IP addresses",
       localIps: "Your IP addresses",
       cLineIpTitle: "Default IP address",
@@ -220,26 +220,74 @@ export default {
     }
   },
   de: {
+    closeAlt: "Kreuz",
+    moreInfoTitle: "Mehr erfahren",
+    moreInfoAlt: "Info Symbol",
+    palavaLogoAlt: "palava Papagei",
     home: {
       go: "los",
       hiddenRoom: "versteckte Unterhaltung",
     },
-    titles: {
-      contact: "kontakt",
-      palavaEv: "ev",
-      info: "info",
-      privacyPolicy: "datenschutz",
-      room: "raum",
+    info: {
+      confirmLeave: "Dies wird die derzeitige palava.tv-Sitzung beenden. Fortfahren?",
     },
-    imprint: "Impressum",
-    info: "Info",
-    palavaEv: "palava e. V.",
-    privacyPolicy: "Datenschutz",
-    infoPages: {
-      test: {
-        title: "Info about something",
-        content: "content content content"
-      }
-    }
+    room: {
+      emptyTitle: "raum",
+      waitingForUserMedia: "Wartet auf deine Medienströme"
+    },
+    party: {
+      toggleControls: "Bedienelemente umschalten",
+      infoTitle: "Info",
+      infoAlt: "Info Symbol",
+      copyLinkTitle: "Link kopieren",
+      copyLinkAlt: "Klemmbrett",
+      turnOffCameraTitle: "Kamera abschalten",
+      turnOnCameraTitle: "Kamera anschalten",
+      cameraAlt: "Kamera",
+      muteMicrophoneTitle: "Mikrofon stummschalten",
+      unmuteMicrophoneTitle: "Mikrofon anschalten ",
+      microphoneAlt: "Mikrofon",
+      screenShareTitle: "Bildschirm teilen",
+      screenShareAlt: "Desktop-Computer",
+      // openTextChatTitle: "Text-chat zeigen",
+      // hideTextChatTitle: "Text-chat verbergen",
+      // textChatAlt: "Sprechblasen",
+      switchLanguageTitle: "Sprache umschalten",
+      switchLanguageAlt: "Sprachkürzel",
+      hangUpTitle: "Auflegen",
+      hangUpAlt: "Kreuz",
+    },
+    peer: {
+      toggleEnlargeTitle: "Vergrößern",
+      toggleEnlargeAlt: "Pfeil mit Spitze nach oben links",
+      toggleMinimizeTitle: "Verkleinern",
+      toggleMinimizeAlt: "Pfeil mit Spitze nach unten rechts",
+      fullScreenTitle: "Auf vollem Bildschirm anzeigen",
+      fullScreenAlt: "Viereck aus vier Ecken",
+      networkInfoTitle: "Netzwerkinformationen anzeigen",
+      networkInfoAlt: "Netzwerk aus drei Computern",
+      muteAudioTitle: "Stummschalten",
+      unmuteAudioTitle: "Lautschalten",
+      mutedAudioAlt: "Lautsprecher ohne Geräusch",
+      withAudioAlt: "Lautsprecher mit Geräusch",
+      placeholderAlt: "Fläche ausgefüllt mit der Farbe {color}",
+      statusAudioAlt: "Altes Telefon",
+      statusNotReadyAlt: "Pulsierende Punkte",
+      statusNoMediaAlt: "Sprechblase",
+      statusErrorAlt: "Kreuz",
+      errorConnectionClosed: "Verbindung geschlossen",
+      errorConnectionFailed: "Keine Verbindung",
+      errorConnectionDisconnected: "Verbindung getrennt",
+    },
+    networkInfo: {
+      directConnection: "Direktverbindung",
+      relayedConnection: "Verbindung über Zwischenstation",
+      remoteIps: "Ferne IP-Adressen",
+      localIps: "Deine IP-Adressen",
+      cLineIpTitle: "Standard IP-Adresse",
+      cLineIpAlt: "Stern",
+      iceIpTitle: "Kandidaten IP-Adresse",
+      iceIpAlt: "Kreis",
+    },
   },
 }

@@ -398,6 +398,10 @@ export default {
 
   .menu-control {
     @include knob();
+    &:focus::after {
+      bottom: 120%;
+      right: 0;
+    }
   }
 
   &--in-lobby {

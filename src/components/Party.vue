@@ -339,6 +339,10 @@ export default {
     width: $control-size;
     font-size: $control-size / 2;
     @include knob();
+    &:focus::after {
+      top: 120%;
+      left: 0;
+    }
 
     &--info > * {
       transform: translate(0, 3px);

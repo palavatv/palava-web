@@ -134,12 +134,23 @@ $default-spacing: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 
   &:focus {
     outline: none;
     opacity: 1;
     color: $action-1;
     box-shadow: 1px 1px 3px #555;
+    &::after {
+      position: absolute;
+      content: attr(title);
+      @include fontDefault();
+      background: white;
+      @include defaultShadow();
+      padding: 6px 7px 3px 5px;
+      line-height: 100%;
+      white-space: nowrap;
+    }
   }
 
   > * {

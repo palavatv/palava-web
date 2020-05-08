@@ -356,7 +356,7 @@ export default {
     //   opacity: 0.4;
     // }
 
-    &:focus {
+    &:focus, &:hover {
       outline: none;
       filter: none;
       opacity: 0.9;

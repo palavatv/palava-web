@@ -169,7 +169,7 @@ $lobby-border-radius: 0px;
   justify-content: center;
   align-items: center;
 
-  &:focus {
+  &:focus, &:hover {
     outline: none;
     opacity: 1;
     color: $action-1;

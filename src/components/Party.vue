@@ -368,6 +368,10 @@ export default {
     width: $top-control-size;
     font-size: $top-control-size / 2;
     @include knob();
+    &:focus::after {
+      top: 120%;
+      left: 0;
+    }
 
     &--switch-language > * {
       font-family: sans; // TODO

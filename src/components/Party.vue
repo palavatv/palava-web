@@ -201,7 +201,7 @@ export default {
       return this.peers.filter((peer) => this.peersInLobby.includes(peer.id))
     },
     shareLink() {
-      return `${window.location.protocol}//${window.location.host}/${window.location.pathname}`
+      return window.location.href
     },
     canUseClipboard() {
       return navigator.clipboard && navigator.clipboard.writeText

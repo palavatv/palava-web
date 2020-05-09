@@ -14,10 +14,20 @@
       </span>
     </div>
     <div v-else-if="status === 'no-media'">
-      <span class="symbol" role="img" :aria-label="$t('peer.statusNoMediaAlt')">🗨︎</span>
+      <inline-svg
+        class="symbol"
+        :aria-label="$t('peer.statusNoMediaAlt')"
+        :alt="$t('peer.statusNoMediaAlt')"
+        :src="require('../assets/block.svg')"
+        />
     </div>
     <div v-else-if="status === 'error'">
-      <span class="symbol" role="img" :aria-label="$t('peer.statusErrorAlt')">✖</span>
+      <inline-svg
+        class="symbol"
+        :aria-label="$t('peer.statusErrorAlt')"
+        :alt="$t('peer.statusErrorAlt')"
+        :src="require('../assets/circle-with-cross.svg')"
+        />
       <div v-if="error === 'connection_closed'" class="description">{{ $t('peer.errorConnectionClosed') }}</div>
       <div v-else-if="error === 'connection_failed'" class="description">{{ $t('peer.errorConnectionFailed') }}</div>
       <div v-else-if="error === 'connection_disconnected'" class="description">{{ $t('peer.errorConnectionDisconnected') }}</div>

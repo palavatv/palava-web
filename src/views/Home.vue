@@ -147,6 +147,7 @@ export default {
 
   .room-selection {
     display: flex;
+    padding: 0;
     padding-right: 1px;
     box-shadow: 1px 1px 3px rgba(83, 83, 83, 0.4);
 
@@ -155,6 +156,7 @@ export default {
       padding: 4px 8px;
       letter-spacing: -1px;
       border: none;
+      margin: 0;
     }
 
     input {

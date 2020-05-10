@@ -98,6 +98,12 @@ p, address {
   margin: $small-spacing auto;
 }
 
+input, input[type=text] {
+  appearance: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
 button::-moz-focus-inner {
   border: 0;
 }

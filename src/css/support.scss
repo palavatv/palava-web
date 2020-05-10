@@ -168,11 +168,11 @@ $lobby-border-radius: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: $action-1;
 
   &:focus, &:hover {
     outline: none;
     opacity: 1;
-    color: $action-1;
     box-shadow: 1px 1px 3px #555;
 
     > * {

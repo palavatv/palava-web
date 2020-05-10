@@ -1,6 +1,7 @@
 <template>
   <video
     autoplay
+    playsinline
     :class="{
       'media': this.status === 'video',
       'media--hidden': this.status !== 'video',

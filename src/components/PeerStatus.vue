@@ -5,7 +5,7 @@
         class="symbol"
         :alt="$t('peer.statusAudioAlt')"
         :aria-label="$t('peer.statusAudioAlt')"
-        :src="require('../assets/old-phone.svg')"
+        :src="require('../assets/phone.svg')"
         />
     </div>
     <div v-else-if="status === 'not-ready'">

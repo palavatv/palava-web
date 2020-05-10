@@ -128,13 +128,13 @@
             @click="toggleMute()"
             >
             <inline-svg v-if="muted"
-              :alt="$t('peer.mutedAudio')"
-              :aria-label="$t('peer.mutedAudio')"
+              :alt="$t('peer.mutedAudioAlt')"
+              :aria-label="$t('peer.mutedAudioAlt')"
               :src="require('../assets/volume-off.svg')"
               />
             <inline-svg v-else
-              :alt="$t('peer.withAudio')"
-              :aria-label="$t('peer.withAudio')"
+              :alt="$t('peer.withAudioAlt')"
+              :aria-label="$t('peer.withAudioAlt')"
               :src="require('../assets/volume-up.svg')"
               />
           </button>
@@ -422,10 +422,6 @@ export default {
 
   .menu-control {
     @include knob();
-
-    &--unmute > * {
-      transform: translate(1px, 0);
-    }
   }
 
   &--in-lobby {

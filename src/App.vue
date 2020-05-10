@@ -35,7 +35,6 @@ export default {
   src: url('/WorkSans-SemiBold.woff2') format('woff2');
 }
 
-
 html, body {
   margin: 0;
   padding: 0;
@@ -67,6 +66,17 @@ h1, h2, h3, h4, h5, h6 {
 a {
   text-decoration: none;
   color: $action-1;
+  &:hover {
+    color: $action-2;
+  }
+}
+
+*:focus {
+  outline-color: $action-2;
+}
+
+::selection {
+  background: #BCD2EE;
 }
 
 button, input {
@@ -85,7 +95,7 @@ ul {
 
 p, address {
   font-variant: normal;
-  margin: $default-spacing auto;
+  margin: $small-spacing auto;
 }
 
 button::-moz-focus-inner {
@@ -96,7 +106,7 @@ h1 {
   color: $action-1;
   @include fontBig();
   text-transform: capitalize;
-  a { color: inherit }
+  a, a:hover { color: inherit }
 }
 
 h2 {

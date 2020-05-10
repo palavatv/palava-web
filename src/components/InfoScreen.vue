@@ -99,7 +99,7 @@ export default {
   }
 
   h2 {
-    margin-top: $default-spacing * 2;
+    margin-top: $medium-spacing;
   }
 }
 

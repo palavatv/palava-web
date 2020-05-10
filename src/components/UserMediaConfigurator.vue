@@ -7,6 +7,10 @@
       <p><router-link to="/info/how">click here to learn more about palava.tv</router-link></p>
 
       <p>This will join or create a video chat meeting with anyone also connected to this page. For technical reasons, your IP address and other personal data is sent to all other participants via the palava.tv server. By continuing, you consent to our privacy policy, <a href="/info/privacy">you can read it here</a>.</p>
+
+      <!-- Use relay server<br/>
+      Use password<br/> -->
+
       <p>Please select the video and audio streams you want to send to other participants:</p>
 
       <ul>

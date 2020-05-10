@@ -432,13 +432,13 @@ export default {
   }
 
   &--on-stage {
-    bottom: $control-size / 8;
-    right: $control-size / 8;
+    bottom: $top-control-size / 8;
+    right: $top-control-size / 8;
     .menu-control {
-      height: $control-size;
-      width: $control-size;
-      font-size: $control-size / 2;
-      margin: $control-size / 8;
+      height: $top-control-size;
+      width: $top-control-size;
+      font-size: $top-control-size / 2;
+      margin: $top-control-size / 8;
 
       &--toggle > * {
         transform: translate(-1px, 2px);

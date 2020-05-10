@@ -5,8 +5,20 @@ export default {
     moreInfoAlt: "info sign",
     palavaLogoAlt: "palava parrot",
     home: {
-      go: "go",
-      hiddenRoom: "hidden conversation",
+      palavaLogoTitle: "What is palava.tv?",
+      goTitle: "Create or join this meeting room",
+      goAlt: "dove",
+      roomIdPlaceholder: "Enter name of a meeting room",
+      hiddenRoomIntro: "Or start a",
+      hiddenRoom: "hidden meeting",
+      hiddenRoomTitle: "Create meeting room with random name",
+      noSupportMessage: `
+        Sorry, but we could not detect the required WebRTC technology in your web browser.<br/>
+        <br/>
+        In order to be able to use palava.tv,
+        you will need install a web browser which supports WebRTC, such as Firefox.
+        If you are in luck, you just need to update your current browser to the latest version.
+      `
     },
     info: {
       confirmLeave: "This will exit the current palava.tv session. Continue?",
@@ -70,8 +82,14 @@ export default {
       iceIpAlt: "circle",
     },
     infoPages: {
+      about: {
+        title: "About",
+        content: `
+          TODO
+        `
+      },
       contact: {
-        title: "contact info",
+        title: "Contact Info",
         content: `
           <h2>Get in Touch</h2>
           <p>You can reach us at <a href="mailto:contact@palava.tv">contact@palava.tv</a></p>
@@ -94,7 +112,7 @@ export default {
         `
       },
       ev: {
-        title: 'palava association',
+        title: 'Palava Association',
         content: `
           <p>We are <strong>palava e. V.</strong>, a German non-profit organization which aims to promote knowledge about decentralized communication technologies like WebRTC. Our three areas of activity are:</p>
 
@@ -109,7 +127,7 @@ export default {
         `
       },
       how: {
-        title: 'how to use',
+        title: 'How to Use',
         content: `
           <h2>What is palava?</h2>
           <p>
@@ -157,7 +175,7 @@ export default {
         `
       },
       privacy: {
-        title: 'privacy policy',
+        title: 'Privacy Policy',
         content: `
           <p>
             Der Schutz Ihrer persönlichen Daten ist uns ein besonderes Anliegen. In diesen
@@ -225,8 +243,19 @@ export default {
     moreInfoAlt: "Info Symbol",
     palavaLogoAlt: "palava Papagei",
     home: {
-      go: "los",
-      hiddenRoom: "versteckte Unterhaltung",
+      palavaLogoTitle: "Was ist palava.tv?",
+      goTitle: " Erstelle den Meetingraum oder tritt ihm bei",
+      goAlt: "Taube",
+      roomIdPlaceholder: "Gib den Namen eines Meetingraums ein",
+      hiddenRoomIntro: "Oder starte ein",
+      hiddenRoom: "verstecktes Meeting",
+      hiddenRoomTitle: "Erstelle ein Meetingraum mit einem zufälligem Namen",
+      noSupportMessage: `
+        Entschuldigung, aber wir konnten die benötigte WebRTC-Technologie im Webbrowser nicht finden.<br/>
+        <br/>
+        Um palava.tv benutzen zu können, musst du einen Webbrowser mit Unterstützung für WebRTC installieren, wie zum Beispiel Firefox.
+        Eventuell reicht es bereits aus, den jetzigen Browser auf die neuste Version upzudaten.
+      `
     },
     info: {
       confirmLeave: "Dies wird die derzeitige palava.tv-Sitzung beenden. Fortfahren?",

@@ -300,12 +300,12 @@ export default {
 .top-control {
   position: absolute;
   z-index: 1000;
-  top: $control-size / 3;
+  top: $top-control-size / 3;
   display: flex;
   align-items: center;
 
   .logo-control, .control {
-    margin-left: $control-size / 3;
+    margin-left: $top-control-size / 3;
   }
 
   .logo-control {
@@ -335,9 +335,9 @@ export default {
   }
 
   .control {
-    height: $control-size;
-    width: $control-size;
-    font-size: $control-size / 2;
+    height: $top-control-size;
+    width: $top-control-size;
+    font-size: $top-control-size / 2;
     @include knob();
 
     &--info > * {
@@ -360,7 +360,7 @@ export default {
     }
     &--switch-language > * {
       font-family: sans; // TODO
-      font-size: $control-size / 2.5;
+      font-size: $top-control-size / 2.5;
       text-transform: uppercase;
       transform: translate(-1px, 0px);
     }

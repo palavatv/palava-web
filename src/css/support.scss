@@ -1,8 +1,12 @@
 // COLORS
 
 $action-1: #2c5aa0;
+$action-2: #F89406;
 $black: black;
+$gray: #bfc2c7;
 $white: white;
+$home-color: #999;
+$home-background: #f0f0f0;
 
 // BREAKPOINTS
 
@@ -13,6 +17,7 @@ $desktop-plus: 1300px;
 $desktop-large: 1600px;
 $desktop-huge: 1900px;
 
+$mobile-height: 500px;
 $mobile-plus-height: 600px;
 $desktop-height: 700px;
 $desktop-plus-height: 900px;
@@ -35,19 +40,29 @@ $lobby-height-desktop-plus: 130px;
 $lobby-height-desktop-large: 190px;
 $lobby-height-desktop-huge: 250px;
 
+// SPACINGS / GENERAL
+
+$tiny-spacing: 4px;
+$tiny-plus-spacing: 6px;
+$small-spacing: 8px;
+$small-plus-spacing: 12px;
+$medium-spacing: 16px;
+$medium-plus-spacing: 24px;
+$large-spacing: 32px;
+$large-plus-spacing: 48px;
+
 // SPACINGS / OTHER
+
+$logo-control-size: 54px;
+$top-control-size: 40px;
+$lobby-control-size: 30px;
+
+// DEPRECATED SPACINGS
 
 $stage-gap: 0px;
 $lobby-peer-padding: 0px;
-
 $stage-border-radius: 0px;
 $lobby-border-radius: 0px;
-
-$logo-control-size: 54px;
-$control-size: 40px;
-$lobby-control-size: 30px;
-
-$default-spacing: 10px;
 
 // MIXINS
 
@@ -73,6 +88,26 @@ $default-spacing: 10px;
   @media (min-width: $desktop-large) {
     font-size: 68px;
     line-height: 74px;
+  }
+}
+
+@mixin homeFont() {
+  font-size: 16px;
+  line-height: 27px;
+
+  @media (min-width: $mobile-plus) {
+    font-size: 18px;
+    line-height: 28px;
+  }
+}
+
+@mixin footerFont() {
+  font-size: 16px;
+  line-height: 25px;
+
+  @media (min-width: $mobile-plus) {
+    font-size: 18px;
+    line-height: 25px;
   }
 }
 

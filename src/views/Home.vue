@@ -131,7 +131,7 @@ export default {
   }
 
   .logo {
-    img {
+    svg {
       width: 30vw;
       height: 30vw;
 

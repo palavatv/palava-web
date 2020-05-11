@@ -18,7 +18,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/css/support.scss';
+@import '@/css/styles.scss';
 
 @font-face {
   font-family: NotoSansSymbols2;
@@ -51,6 +51,7 @@ body {
   box-sizing: border-box;
   min-height: 100%;
   overscroll-behavior: none;
+  background: $background;
 }
 
 *, *:before, *:after {
@@ -60,7 +61,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-size: 100%;
   font-weight: normal;
-  margin: auto;
+  margin: auto 0;
 }
 
 a {
@@ -94,8 +95,11 @@ ul {
 }
 
 p, address {
-  font-variant: normal;
-  margin: $small-spacing auto;
+  font-style: normal;
+  margin: auto;
+  &:not(:first-child) {
+    margin-top: $small-plus-spacing;
+  }
 }
 
 input, input[type=text] {
@@ -106,24 +110,6 @@ input, input[type=text] {
 
 button::-moz-focus-inner {
   border: 0;
-}
-
-h1 {
-  color: $action-1;
-  @include fontBig();
-  text-transform: capitalize;
-  a, a:hover { color: inherit }
-}
-
-h2 {
-  font-family: WorkSansBold, WorkSans, sans-serif;
-  color: $action-1;
-  font-size: 20px; // TODO responsive
-}
-
-.earth {
-  padding-top: 4vh;
-  text-align: center;
 }
 
 </style>

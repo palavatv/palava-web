@@ -24,7 +24,7 @@
         <button
           :title="$t('party.infoTitle')"
           class="control control--info"
-          @click="$emit('open-info-screen', 'how')"
+          @click="$emit('open-info-screen', 'about')"
           v-if="controlsActive"
           >
           <inline-svg
@@ -323,7 +323,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/css/support.scss';
+@import '@/css/styles.scss';
 
 .top-control {
   position: absolute;

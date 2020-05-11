@@ -1,11 +1,10 @@
 <template>
-  <div class="earth">
-    <Navigation />
+  <div class="info">
+    <Logo class="logo logo--desktop" />
 
     <main class="info-page">
-      <div class="logo">
-        <img alt="palava papagei" src="@/assets/palava.svg">
-      </div>
+      <Logo class="logo logo--mobile" />
+      <Navigation />
 
       <h1 class="info-title">
         {{ $t(`infoPages.${this.page}.title`) }}
@@ -16,10 +15,12 @@
 </template>
 
 <script>
+import Logo from '@/components/Logo.vue'
 import Navigation from '@/components/Navigation.vue'
 
 export default {
   components: {
+    Logo,
     Navigation,
   },
   props: {
@@ -37,5 +38,108 @@ export default {
 </script>
 
 <style lang="scss">
-  // see InfoScreen.vue
+@import '@/css/styles.scss';
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+
+  .logo {
+    svg {
+      border-radius: 50%;
+      box-shadow: 0px 0px 3px $action-1;
+    }
+    a {
+      display: inline-block;
+    }
+  }
+
+  .logo--desktop {
+    display: none;
+    @media (min-width: $mobile-plus) {
+      display: block;
+    }
+
+    margin: $large-spacing;
+    svg {
+      width: $logo-info-size;
+      height: $logo-info-size;
+    }
+  }
+
+  .logo--mobile {
+    @media (min-width: $mobile-plus) {
+      display: none;
+    }
+
+    margin: 0 auto $medium-spacing;
+    svg {
+      width: $logo-control-size;
+      height: $logo-control-size;
+    }
+  }
+}
+
+.info-page {
+  @media (min-width: $mobile-plus) {
+    @include mediumShadow();
+    margin-bottom: $medium-plus-spacing;
+  }
+
+  @media (min-width: $mobile-plus) {
+    width: $mobile-plus;
+  }
+
+  @media (min-width: $desktop) {
+    width: $desktop - $medium-spacing;
+  }
+
+  @media (min-width: $desktop-large) {
+    width: $desktop-plus;
+  }
+}
+
+.info-page, .info-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  // justify-content: center;
+  background: $white;
+  color: $black;
+  @include defaultFont();
+  padding: $medium-plus-spacing;
+
+  h1 {
+    @include headingFont();
+    color: $heading-1;
+    text-shadow: 1px 1px rgba(100, 100, 100, 0.1);
+    text-transform: capitalize;
+    margin: $medium-spacing 0 $medium-spacing;
+    a, a:hover { color: inherit }
+  }
+
+  h2 {
+    &:not(:first-child) {
+      margin-top: $medium-plus-spacing;
+    }
+    color: $action-1;
+    // text-shadow: 1px 1px rgba(100, 100, 100, 0.1);
+    @include subheadingFont();
+  }
+}
+
+.fade-enter-active {
+  transition: opacity .3s ease-in;
+}
+
+.fade-leave-active {
+  transition: opacity .5s ease-out;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
 </style>

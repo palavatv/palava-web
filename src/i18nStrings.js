@@ -5,10 +5,9 @@ export default {
     moreInfoAlt: "info sign",
     palavaLogoAlt: "palava parrot",
     home: {
-      palavaLogoTitle: "What is palava.tv?",
+      about: "About",
       goTitle: "Create or join this meeting room",
       goAlt: "dove",
-      roomIdPlaceholder: "Enter name of a meeting room",
       hiddenRoomIntro: "Or start a",
       hiddenRoom: "hidden meeting",
       hiddenRoomTitle: "Create meeting room with random name",
@@ -18,9 +17,12 @@ export default {
         In order to be able to use palava.tv,
         you will need install a web browser which supports WebRTC, such as Firefox.
         If you are in luck, you just need to update your current browser to the latest version.
-      `
+      `,
+      palavaLogoTitle: "What is palava.tv?",
+      roomIdPlaceholder: "Enter name of a meeting room",
     },
     info: {
+      palavaLogoTitle: "Go to palava.tv home page",
       confirmLeave: "This will exit the current palava.tv session. Continue?",
     },
     room: {
@@ -83,18 +85,46 @@ export default {
     },
     infoPages: {
       about: {
-        title: "About",
+        title: "About Palava",
         content: `
-          TODO
+          <h2>What is palava.tv?</h2>
+          <p>
+            It is a simplistic, free, and open source video meeting platform, which is developed by
+            a non-profit organization based in the EU. It runs in your browser and no registration is required.
+          </p>
+
+          <h2>Directly connected meetings</h2>
+          <p>
+            The palava.tv platform connects you to all people in a meeting room directly,
+            which means that no video or audio gets sent to the palava.tv server.
+          </p>
+
+          <p>
+            Because everyone in the meeting is connected to everyone else, it works best for small groups with no more than 4-5 people.
+            Although palava.tv allows you to connect to up to 10 people, video quality decreases, and this is not recommended.
+          <p>
+            <strong>Important to know:</strong> In some cases, it is not possible to create a direct media connection between to people and a connection error is shown instead of a video.
+          Unfortunately, palava.tv does not work in these cases. We are aware of this situation and are preparing relay servers to mitigate this problem.
+
+          <!--<h2>Learn more</h2>
+          <p>
+            You can find a step-by-step tutorial at <strong>Usage Tips</strong>. palava.tv is based on the <strong>WebRTC technology</strong>, and everyone with server hosting experience can <strong>easily setup their own version of palava.tv</strong>.
+          </p>
+          <p>
+             The non-commercial <strong>Palava Association</strong> organizes further development, find their contact details on the <strong>contact page</strong>. We do not save your personal details, <strong>click here to read the full privacy policy</strong>.
+          </p>-->
+
         `
       },
       contact: {
         title: "Contact Info",
         content: `
-          <h2>Get in Touch</h2>
-          <p>You can reach us at <a href="mailto:contact@palava.tv">contact@palava.tv</a></p>
-          <p>We are tweeting from <a href="https://twitter.com/palavatv">@palavatv</a></p>
-          <p>Our code is open source on <a href="https://github.com/palavatv">GitHub</a></p>
+          <h2>Reach us</h2>
+          <p>
+            The best way to get in touch is to write us an email: <a href="mailto:contact@palava.tv">contact@palava.tv</a><br/>
+            We are also tweeting from: <a href="https://twitter.com/palavatv">@palavatv</a><br/>
+            Our code is open source on GitHub: <a href="https://github.com/palavatv">@palavatv</a>
+          </p>
 
           <h2>Imprint</h2>
           <address>
@@ -114,6 +144,10 @@ export default {
       ev: {
         title: 'Palava Association',
         content: `
+          <p>
+            [TODO: 2020 content]
+          </p>
+
           <p>We are <strong>palava e. V.</strong>, a German non-profit organization which aims to promote knowledge about decentralized communication technologies like WebRTC. Our three areas of activity are:</p>
 
           <h2>Education</h2>
@@ -126,27 +160,13 @@ export default {
           <p>As an example of how to use WebRTC to enable a new way of communication, we maintain this page.</p>
         `
       },
-      how: {
-        title: 'How to Use',
+      hosting: {
+        title: 'Host Yourself',
         content: `
-          <h2>What is palava?</h2>
           <p>
-            <strong>palava.tv</strong> is simplistic video communication with your friends and colleagues from within your web browser. No registration or browser plugin required.
+            [TODO: 2020 content]
           </p>
-
-          <h2>How to use palava?</h2>
-          <p>
-            TODO
-          </p>
-          <p>
-            It is possible to create a hidden conference room by clicking the &lt;secret conference&gt; link on the start page. It will create a long random name for the conference, which noone can guess. Share this link as usual to invite you friends. Only people who know this exact link can join.
-          </p>
-
-          <h2>How does palava.tv work under the hood?</h2>
-          <p>
-            <strong>palava.tv</strong> is based on a technology called <a href="https://www.webrtc.org/">Web Real-Time Communication</a> (WebRTC) which enables pluginless video conferencing via peer-to-peer connections. It is built on top of many <a href="https://datatracker.ietf.org/wg/rtcweb/documents/">lower-level standards by the Internet Engineering Task Force</a>. Please see our <a href="https://blog.palava.tv/">blog</a> or our <a href="https://github.com/palavatv/palava">GitHub page</a> for more technical information.
-          </p>
-        `
+        `,
       },
       network: {
         title: 'Network Info',
@@ -169,9 +189,11 @@ export default {
         `
       },
       'not-found': {
-        title: '404',
+        title: 'Not Found',
         content: `
-          <h2>Page could not be found</h2>
+          <p>
+            The page could not be found. The content might be gone, or maybe you have mistyped the URL.
+          </p>
         `
       },
       privacy: {
@@ -233,8 +255,31 @@ export default {
             nur, um mit Ihnen in Kontakt zu treten. Andere Verwendungen
             schließen wir aus.
           </p>
+        `,
+      },
+      usage: {
+        title: 'Usage Tips',
+        content: `
+          <p>
+            [TODO: 2020 content]
+          </p>
+          <p>
+            It is possible to create a hidden conference room by clicking the &lt;secret conference&gt; link on the start page. It will create a long random name for the conference, which noone can guess. Share this link as usual to invite you friends. Only people who know this exact link can join.
+          </p>
         `
-      }
+      },
+      webrtc: {
+        title: 'WebRTC',
+        content: `
+          <p>
+            [TODO: 2020 content]
+          </p>
+          <h2>How does palava.tv work under the hood?</h2>
+          <p>
+            <strong>palava.tv</strong> is based on a technology called <a href="https://www.webrtc.org/">Web Real-Time Communication</a> (WebRTC) which enables pluginless video conferencing via peer-to-peer connections. It is built on top of many <a href="https://datatracker.ietf.org/wg/rtcweb/documents/">lower-level standards by the Internet Engineering Task Force</a>. Please see our <a href="https://blog.palava.tv/">blog</a> or our <a href="https://github.com/palavatv/palava">GitHub page</a> for more technical information.
+          </p>
+        `,
+      },
     }
   },
   de: {

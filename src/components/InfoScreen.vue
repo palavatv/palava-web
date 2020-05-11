@@ -7,12 +7,10 @@
         />
     </button>
 
-    <div class="logo">
-      <inline-svg
-        :alt="$t('palavaLogoAlt')"
-        :src="require('../assets/palava.svg')"
-        />
-    </div>
+    <Navigation
+      type="screen"
+      @open-info-screen="(page) => $emit('open-info-screen', page)"
+      />
 
     <h1 class="info-title">
       <router-link :to="`/info/${page}`">
@@ -26,7 +24,12 @@
 </template>
 
 <script>
+import Navigation from '@/components/Navigation.vue'
+
 export default {
+  components: {
+    Navigation,
+  },
   props: {
     page: {
       type: String,
@@ -52,10 +55,10 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/css/support.scss';
+@import '@/css/styles.scss';
+/* See InfoPage.vue for main styling */
 
 .info-screen {
-  background: $white;
   position: fixed;
   z-index: 700;
   left: 0;
@@ -63,63 +66,38 @@ export default {
   top: 0;
   bottom: 0;
   opacity: 1;
-  @media (min-width: $desktop) {
+  @media (min-width: $mobile-plus) {
     & {
-      left: 1vw;
-      right: 1vw;
-      top: 1vw;
-      bottom: 1vw;
+      left: $medium-spacing;
+      top: $top-control-size * 2;
+      max-width: calc(100% - #{$medium-spacing * 2});
+      bottom: $medium-spacing;
+      opacity: 0.92;
     }
   }
+
+  @media (min-width: $desktop) {
+    width: $desktop;
+  }
+  @media (min-width: $desktop-large) {
+    width: $desktop-plus;
+  }
+
   @include defaultShadow();
   outline: none;
+  overflow: auto;
 
   .close {
     @include inlineButton();
-    @include closeButton(40px);
-  }
-}
-
-.info-screen, .info-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: $black;
-  @include fontDefault();
-  padding: 20px; // TODO responsive
-
-  .info-content {
-    flex: 1;
-    overflow-y: auto;
+    @include closeButton(36px);
   }
 
-  .logo {
-    margin: 30px; // TODO responsive
-    svg {
-      width: 10vw;
-      height: 10vw;
-    }
+  .navigation {
+    padding-top: 0;
+    border-top: none;
+    padding-right: 36px;
+    width: 100%;
+    margin-top: -$tiny-plus-spacing;
   }
-
-  h1 {
-    margin-bottom: 30px; // TODO responsive
-  }
-
-  h2 {
-    margin-top: $medium-spacing;
-  }
-}
-
-.fade-enter-active {
-  transition: opacity .3s ease-in;
-}
-
-.fade-leave-active {
-  transition: opacity .5s ease-out;
-}
-
-.fade-enter, .fade-leave-to {
-  opacity: 0;
 }
 </style>

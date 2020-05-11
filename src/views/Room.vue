@@ -9,6 +9,7 @@
         v-if="showInfoScreen"
         :page="infoPage"
         @close="closeInfoScreen"
+        @open-info-screen="openInfoScreen"
         />
     </transition>
 

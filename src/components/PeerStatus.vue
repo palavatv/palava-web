@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/css/support.scss";
+@import "@/css/styles.scss";
 
 .peer-status {
   position: absolute;
@@ -100,7 +100,7 @@ export default {
       line-height: 100%;
     }
     .peer--in-lobby & {
-      @include fontDefault();
+      @include defaultFont();
       line-height: 100%;
     }
   }

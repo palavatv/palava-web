@@ -1,6 +1,5 @@
 <template>
   <div class="earth">
-    <Navigation />
     <main>
       <h3>You are about to join a palava.tv room</h3>
 
@@ -32,12 +31,15 @@
 </template>
 
 <script>
-import Navigation from '@/components/Navigation.vue'
-
 export default {
-  components: {
-    Navigation,
-  },
   props: ["error"],
 }
 </script>
+
+<style lang="scss">
+.earth { // TODO
+  padding-top: 4vh;
+  text-align: center;
+}
+
+</style>

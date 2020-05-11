@@ -1,6 +1,5 @@
 <template>
   <div class="earth">
-    <Navigation />
     <main>
       <div v-if="error === 'room_full'">
         <h3>This palava.tv room is full</h3>
@@ -27,12 +26,7 @@
 </template>
 
 <script>
-import Navigation from "@/components/Navigation.vue"
-
 export default {
   props: ['error'],
-  components: {
-    Navigation,
-  },
 }
 </script>

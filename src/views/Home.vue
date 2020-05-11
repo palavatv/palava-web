@@ -4,9 +4,8 @@
       <div class="logo">
         <router-link to="/info/about" :title="$t('home.palavaLogoTitle')">
           <inline-svg
-            alt="$t('palavaLogoAlt')"
+            :alt="$t('palavaLogoAlt')"
             :src="require('../assets/palava.svg')"
-            @click="$refs.roomInput.focus()"
             />
         </router-link>
       </div>
@@ -17,7 +16,6 @@
           :placeholder="$t('home.roomIdPlaceholder')"
           ref="roomInput"
           maxlength="50"
-          autofocus
           />
         <button type="submit" :title="$t('home.goTitle')">
           <span role="img" :aria-label="$t('home.goAlt')">🕊︎</span>
@@ -35,7 +33,10 @@
     <div class="signpost" v-else>
       <div class="logo">
         <router-link to="/info/about" :title="$t('home.palavaLogoTitle')">
-          <img :alt="$t('palavaLogoAlt')" src="@/assets/palava.svg">
+          <inline-svg
+            :alt="$t('palavaLogoAlt')"
+            :src="require('../assets/palava.svg')"
+            />
         </router-link>
       </div>
 
@@ -48,7 +49,7 @@
       </div> -->
       <nav class="footer-navigation">
         <ul>
-          <li><router-link to="/info/about">{{ $t('infoPages.about.title') }}</router-link></li>
+          <li><router-link to="/info/about">{{ $t('home.about') }}</router-link></li>
           <!-- <li><a href="https://blog.palava.tv">Blog</a></li>
           <li><a href="https://github.com/palavatv/palava">GitHub</a></li>
           <li><a href="https://twitter.com/palavatv">Twitter</a></li> -->
@@ -81,6 +82,9 @@ export default {
     //   return null
     // }
   },
+  mounted() {
+    this.$refs.roomInput.focus()
+  },
   methods: {
     goIntoRoom() {
       if (this.roomId) {
@@ -102,12 +106,11 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/css/support.scss";
+@import "@/css/styles.scss";
 
 .home {
   min-height: 100%;
-  color: $home-color;
-  background: $home-background;
+  color: $shade;
   display: flex;
   flex-direction: column;
 
@@ -153,7 +156,7 @@ export default {
     display: flex;
     padding: 0;
     padding-right: 1px;
-    box-shadow: 1px 1px 3px rgba(83, 83, 83, 0.4);
+    @include lightShadow();
 
     input, button {
       @include homeFont();

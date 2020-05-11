@@ -104,7 +104,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/css/support.scss';
+@import '@/css/styles.scss';
 
 // TODO style
 // TODO see comments below
@@ -124,7 +124,7 @@ export default {
   color: $action-1;
   padding: 7px 8px 1px;
   @include defaultShadow();
-  @include fontDefault();
+  @include defaultFont();
   text-align: left;
 
   // TODO improve this (needs different concept...)

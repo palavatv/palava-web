@@ -5,7 +5,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import '@/css/support.scss';
+@import '@/css/styles.scss';
 
 .waiting-for-user-media {
   background: black;

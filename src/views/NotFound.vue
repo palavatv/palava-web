@@ -1,11 +1,10 @@
 <template>
-  <div class="earth">
-    <Navigation />
+  <div class="info">
+    <Logo class="logo logo--desktop" />
 
     <main class="info-page">
-      <div class="logo">
-        <img alt="palava papagei" src="@/assets/palava.svg">
-      </div>
+      <Logo class="logo logo--mobile" />
+      <Navigation />
 
       <h1 class="info-title">
         {{ $t(`infoPages['not-found'].title`) }}
@@ -16,10 +15,12 @@
 </template>
 
 <script>
+import Logo from '@/components/Logo.vue'
 import Navigation from '@/components/Navigation.vue'
 
 export default {
   components: {
+    Logo,
     Navigation,
   },
   metaInfo() {

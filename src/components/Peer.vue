@@ -226,7 +226,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/css/support.scss';
+@import '@/css/styles.scss';
 
 .peer {
   font-size: 0;

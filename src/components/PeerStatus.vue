@@ -1,7 +1,12 @@
 <template>
   <div class="peer-status" @click="$emit('click')">
     <div v-if="status === 'audio'">
-      <span class="symbol" role="img" :aria-label="$t('peer.statusAudioAlt')">☎︎</span>
+      <inline-svg
+        class="symbol"
+        :alt="$t('peer.statusAudioAlt')"
+        :aria-label="$t('peer.statusAudioAlt')"
+        :src="require('../assets/phone.svg')"
+        />
     </div>
     <div v-else-if="status === 'not-ready'">
       <span class="symbol" role="img" :aria-label="$t('peer.statusNotReadyAlt')">
@@ -9,10 +14,20 @@
       </span>
     </div>
     <div v-else-if="status === 'no-media'">
-      <span class="symbol" role="img" :aria-label="$t('peer.statusNoMediaAlt')">🗨︎</span>
+      <inline-svg
+        class="symbol"
+        :aria-label="$t('peer.statusNoMediaAlt')"
+        :alt="$t('peer.statusNoMediaAlt')"
+        :src="require('../assets/block.svg')"
+        />
     </div>
     <div v-else-if="status === 'error'">
-      <span class="symbol" role="img" :aria-label="$t('peer.statusErrorAlt')">✖</span>
+      <inline-svg
+        class="symbol"
+        :aria-label="$t('peer.statusErrorAlt')"
+        :alt="$t('peer.statusErrorAlt')"
+        :src="require('../assets/circle-with-cross.svg')"
+        />
       <div v-if="error === 'connection_closed'" class="description">{{ $t('peer.errorConnectionClosed') }}</div>
       <div v-else-if="error === 'connection_failed'" class="description">{{ $t('peer.errorConnectionFailed') }}</div>
       <div v-else-if="error === 'connection_disconnected'" class="description">{{ $t('peer.errorConnectionDisconnected') }}</div>
@@ -63,15 +78,16 @@ export default {
   }
 
   .symbol {
-    text-shadow: 1px 1px 5px $black;
+    fill: white;
+    filter: drop-shadow(1px 1px 5px $black);
 
     .peer--on-stage & {
-      font-size: 10vw;
-      line-height: 100%;
+      width: 10vw;
+      height: 10vw;
     }
     .peer--in-lobby & {
-      @include fontBig();
-      line-height: 100%;
+      width: 5vw;
+      height: 5vw;
     }
   }
 

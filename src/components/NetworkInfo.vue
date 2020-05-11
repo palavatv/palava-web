@@ -1,12 +1,22 @@
 <template>
   <aside class="network-info">
-    <button class="close" @click="$emit('close')"><span role="img" :aria-label="$t('closeAlt')">❌︎</span></button>
+    <button class="close" @click="$emit('close')">
+      <inline-svg
+        :alt="$t('closeAlt')"
+        :aria-label="$t('closeAlt')"
+        :src="require('../assets/cross.svg')"
+        />
+    </button>
 
     <section>
       <h2>
         {{ isRelayed ? $t('networkInfo.relayedConnection') : $t('networkInfo.directConnection') }}
         <button class="more-info" @click="$emit('open-info-screen', 'network')" :title="$t('moreInfoTitle')">
-          <span role="img" :aria-label="$t('moreInfoAlt')">ℹ︎</span>
+          <inline-svg
+            :alt="$t('moreInfoAlt')"
+            :aria-label="$t('moreInfoAlt')"
+            :src="require('../assets/info-with-circle.svg')"
+            />
         </button>
       </h2>
     </section>
@@ -15,10 +25,20 @@
       <h3>{{ $t('networkInfo.remoteIps') }}</h3>
       <ul>
         <li v-for="ip in remotePrimaryIps" :key="ip" :title="$t('networkInfo.cLineIpTitle')">
-          <span role="img" :aria-label="$t('networkInfo.cLineIpAlt')">★</span>{{ ip }}
+          <inline-svg
+            :aria-label="$t('networkInfo.cLineIpAlt')"
+            :alt="$t('networkInfo.cLineIpAlt')"
+            :src="require('../assets/star.svg')"
+            />
+          {{ ip }}
         </li>
         <li v-for="ip in remoteCandidateIps" :key="ip"  :title="$t('networkInfo.iceIpTitle')">
-          <span role="img" :aria-label="$t('networkInfo.iceIpAlt')">⚪︎</span>{{ ip }}
+          <inline-svg
+            :aria-label="$t('networkInfo.iceIpAlt')"
+            :alt="$t('networkInfo.iceIpAlt')"
+            :src="require('../assets/dot-single.svg')"
+            />
+          {{ ip }}
         </li>
       </ul>
     </section>
@@ -27,10 +47,20 @@
       <h3>{{ $t('networkInfo.localIps') }}</h3>
       <ul>
         <li v-for="ip in localPrimaryIps" :key="ip" :title="$t('networkInfo.cLineIpTitle')">
-          <span role="img" :aria-label="$t('networkInfo.cLineIpAlt')">★</span>{{ ip }}
+          <inline-svg
+            :aria-label="$t('networkInfo.cLineIpAlt')"
+            :alt="$t('networkInfo.cLineIpAlt')"
+            :src="require('../assets/star.svg')"
+            />
+          {{ ip }}
         </li>
         <li v-for="ip in localCandidateIps" :key="ip"  :title="$t('networkInfo.iceIpTitle')">
-          <span role="img" :aria-label="$t('networkInfo.iceIpAlt')">⚪︎</span>{{ ip }}
+          <inline-svg
+            :aria-label="$t('networkInfo.iceIpAlt')"
+            :alt="$t('networkInfo.iceIpAlt')"
+            :src="require('../assets/dot-single.svg')"
+            />
+          {{ ip }}
         </li>
       </ul>
     </section>
@@ -123,10 +153,13 @@ export default {
 
   li {
     white-space: nowrap;
-    span[role=img] {
+    svg {
+      fill: currentColor;
+      width: 1em;
+      height: 1em;
       cursor: default;
       user-select: none;
-      padding-right: 7px;
+      margin-right: 3px;
     }
   }
 
@@ -139,7 +172,11 @@ export default {
   }
 
   .more-info {
-    color: red;
+    & > * {
+      width: 16px;
+      height: 16px;
+      fill: red;
+    }
   }
 
   h2, h3 {

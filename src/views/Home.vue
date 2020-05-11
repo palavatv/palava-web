@@ -3,7 +3,11 @@
     <form class="signpost" v-if="browserCanUseWebrtc" @submit.prevent="goIntoRoom">
       <div class="logo">
         <router-link to="/info/about" :title="$t('home.palavaLogoTitle')">
-          <img :alt="$t('palavaLogoAlt')" src="@/assets/palava.svg">
+          <inline-svg
+            alt="$t('palavaLogoAlt')"
+            :src="require('../assets/palava.svg')"
+            @click="$refs.roomInput.focus()"
+            />
         </router-link>
       </div>
 

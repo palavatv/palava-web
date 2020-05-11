@@ -63,7 +63,11 @@
             v-if="peerMenuActive && type === 'lobby'"
             @click="togglePeer()"
             >
-            <span role="img" :aria-label="$t('peer.toggleEnlargeAlt')">⇱</span>
+            <inline-svg
+              :alt="$t('peer.toggleEnlargeAlt')"
+              :aria-label="$t('peer.toggleEnlargeAlt')"
+              :src="require('../assets/level-up.svg')"
+              />
           </button>
         </transition>
 
@@ -74,7 +78,11 @@
             v-if="peerMenuActive && type === 'stage'"
             @click="togglePeer()"
             >
-            <span role="img" :aria-label="$t('peer.toggleMinimizeAlt')">⇲</span>
+            <inline-svg
+              :alt="$t('peer.toggleMinimizeAlt')"
+              :aria-label="$t('peer.toggleMinimizeAlt')"
+              :src="require('../assets/level-down.svg')"
+              />
           </button>
         </transition>
 
@@ -85,7 +93,11 @@
             v-if="peerMenuActive && peer.hasVideo()"
             @click="makePeerFullScreen()"
             >
-            <span role="img" :aria-label="$t('peer.fullScreenAlt')">⛶</span>
+            <inline-svg
+              :alt="$t('peer.fullScreenAlt')"
+              :aria-label="$t('peer.fullScreenAlt')"
+              :src="require('../assets/resize-full-screen.svg')"
+              />
           </button>
         </transition>
 
@@ -96,7 +108,11 @@
             v-if="peerMenuActive && !peer.isLocal()"
             @click="toggleNetworkInfo()"
             >
-            <span role="img" :aria-label="$t('peer.networkInfoAlt')">🖧</span>
+            <inline-svg
+              :alt="$t('peer.networkInfoAlt')"
+              :aria-label="$t('peer.networkInfoAlt')"
+              :src="require('../assets/network.svg')"
+              />
           </button>
         </transition>
 
@@ -111,8 +127,16 @@
             v-if="peerMenuActive && !peer.isLocal() && peer.hasAudio()"
             @click="toggleMute()"
             >
-            <span v-if="muted" role="img" :aria-label="$t('peer.mutedAudio')">🔈︎</span>
-            <span v-else role="img" :aria-label="$t('peer.withAudio')">🔊︎</span>
+            <inline-svg v-if="muted"
+              :alt="$t('peer.mutedAudioAlt')"
+              :aria-label="$t('peer.mutedAudioAlt')"
+              :src="require('../assets/volume-off.svg')"
+              />
+            <inline-svg v-else
+              :alt="$t('peer.withAudioAlt')"
+              :aria-label="$t('peer.withAudioAlt')"
+              :src="require('../assets/volume-up.svg')"
+              />
           </button>
         </transition>
       </nav>
@@ -409,24 +433,8 @@ export default {
       font-size: $lobby-control-size / 2;
       margin: $lobby-control-size / 8;
 
-      &--toggle > * {
-        transform: translate(-1px, 1px);
-      }
-
-      &--full-screen > * {
-        transform: translate(0px, -3px);
-      }
-
-      &--network-info > * {
-        transform: translate(-1px, 1px);
-      }
-
-      &--mute > * {
-        transform: translate(-1px, 1px);
-      }
-
-      &--unmute > * {
-        transform: translate(-5px, 1px);
+      & > * {
+        padding: 2px;
       }
     }
   }
@@ -439,26 +447,6 @@ export default {
       width: $top-control-size;
       font-size: $top-control-size / 2;
       margin: $top-control-size / 8;
-
-      &--toggle > * {
-        transform: translate(-1px, 2px);
-      }
-
-      &--full-screen > * {
-        transform: translate(-1px, -4px);
-      }
-
-      &--network-info > * {
-        transform: translate(0px, 2px);
-      }
-
-      &--mute > * {
-        transform: translate(-1px, 3px);
-      }
-
-      &--unmute > * {
-        transform: translate(-5px, 3px);
-      }
     }
   }
 }

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import VueMeta from 'vue-meta'
+import { InlineSvgPlugin } from 'vue-inline-svg'
 
 import App from './App.vue'
 import './registerServiceWorker'
@@ -14,6 +15,7 @@ Vue.use(VueI18n)
 Vue.use(VueMeta, {
   refreshOnceOnNavigation: true,
 })
+Vue.use(InlineSvgPlugin)
 
 const i18n = new VueI18n({
   locale: config.defaultLocale,

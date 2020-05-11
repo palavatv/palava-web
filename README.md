@@ -38,3 +38,4 @@ MIT License. Part of the [palava project](https://palava.tv).
 
     Copyright (C) 2020 palava e. V.  contact@palava.tv
 
+Icon assets [Entypo+](http://www.entypo.com) by Daniel Bruce – CC BY-SA 4.0, and [Ionicons](https://ionicons.com/)

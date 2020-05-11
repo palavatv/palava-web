@@ -83,13 +83,15 @@ export default {
 }
 
 .info-page {
+  width: 100%;
+
   @media (min-width: $mobile-plus) {
     @include mediumShadow();
     margin-bottom: $medium-plus-spacing;
   }
 
-  @media (min-width: $mobile-plus) {
-    width: $mobile-plus;
+  @media (min-width: $mobile-plus + $medium-spacing) {
+    width: $mobile-plus + $medium-spacing;
   }
 
   @media (min-width: $desktop) {

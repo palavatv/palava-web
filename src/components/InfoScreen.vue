@@ -97,7 +97,6 @@ export default {
     border-top: none;
     padding-right: 36px;
     width: 100%;
-    margin-top: -$tiny-plus-spacing;
   }
 }
 </style>

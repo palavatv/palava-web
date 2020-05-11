@@ -41,11 +41,10 @@ export default {
 @import '@/css/styles.scss';
 
 .navigation {
+  border-bottom: 1px solid $background;
+  margin-top: -$tiny-plus-spacing;
   padding-top: $medium-spacing - 1px;
   border-top: 1px solid $background;
-
-  padding-bottom: $medium-spacing - 1px;
-  border-bottom: 1px solid $background;
 
   @media (min-width: $mobile-plus) {
     padding-top: 0;
@@ -53,20 +52,28 @@ export default {
   }
 
   ul {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: 1fr 1fr;
+    @media (min-width: $mobile-plus) {
+      grid-template-rows: 1fr;
+    }
   }
 
   li {
-    padding-right: $tiny-spacing;
+    padding-bottom: $medium-spacing - 1px;
+    padding-right: $medium-spacing;
 
-    &:not(:last-child) {
-      border-right: 1px solid $background;
-      padding-right: $small-spacing;
-    }
-    &:not(:first-child) {
-      padding-left: $small-spacing;
-    }
+    // &:nth-child(-n+2) {
+    //   background: pink;
+    // }
+    // &:not(:nth-child(1n)) {
+    //   border-right: 1px solid $background;
+    //   padding-right: $small-spacing;
+    // }
+    // &:not(:first-child) {
+    //   padding-left: $small-spacing;
+    // }
   }
   a, a span {
     display: block;

@@ -9,6 +9,7 @@ import router from './router'
 import store from './store'
 import config from './config'
 import messages from './i18nStrings'
+import { detectLanguage } from './support'
 
 Vue.config.productionTip = false
 Vue.use(VueI18n)
@@ -17,8 +18,11 @@ Vue.use(VueMeta, {
 })
 Vue.use(InlineSvgPlugin)
 
+const language = detectLanguage()
+const locale = language && language.startsWith('de') ? 'de' : config.defaultLocale
+
 const i18n = new VueI18n({
-  locale: config.defaultLocale,
+  locale,
   fallbackLocale: config.defaultLocale,
   messages,
 })

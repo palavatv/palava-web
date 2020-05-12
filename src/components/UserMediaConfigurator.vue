@@ -1,7 +1,13 @@
 <template>
-  <div class="earth">
-    <main>
-      <h3>You are about to join a palava.tv room</h3>
+  <div class="info user-media-configurator">
+    <LanguageSwitcher class="language-switcher language-switcher--desktop" />
+    <Logo class="logo logo--desktop" />
+
+    <main class="info-page">
+      <LanguageSwitcher class="language-switcher language-switcher--mobile" />
+      <Logo class="logo logo--mobile" />
+
+      <h1>You are about to join a palava.tv room</h1>
 
       <p><router-link to="/info/how">click here to learn more about palava.tv</router-link></p>
 
@@ -31,15 +37,23 @@
 </template>
 
 <script>
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
+import Logo from '@/components/Logo.vue'
+
 export default {
-  props: ["error"],
+  components: {
+    LanguageSwitcher,
+    Logo,
+  },
+  props: {
+    error: {
+      type: String,
+      default: null,
+    },
+  },
 }
 </script>
 
 <style lang="scss">
-.earth { // TODO
-  padding-top: 4vh;
-  text-align: center;
-}
 
 </style>

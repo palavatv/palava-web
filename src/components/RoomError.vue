@@ -1,6 +1,12 @@
 <template>
-  <div class="earth">
-    <main>
+  <div class="info room-error">
+    <LanguageSwitcher class="language-switcher language-switcher--desktop" />
+    <Logo class="logo logo--desktop" />
+
+    <main class="info-page">
+      <LanguageSwitcher class="language-switcher language-switcher--mobile" />
+      <Logo class="logo logo--mobile" />
+
       <div v-if="error === 'room_full'">
         <h3>This palava.tv room is full</h3>
 
@@ -26,7 +32,23 @@
 </template>
 
 <script>
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
+import Logo from '@/components/Logo.vue'
+
 export default {
-  props: ['error'],
+  components: {
+    LanguageSwitcher,
+    Logo,
+  },
+  props: {
+    error: {
+      type: String,
+      default: null,
+    },
+  },
 }
 </script>
+
+<style lang="scss">
+
+</style>

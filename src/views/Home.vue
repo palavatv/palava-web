@@ -159,7 +159,6 @@ export default {
   .signpost {
     width: 90vw;
     margin: auto;
-    margin-top: 5vh;
     @media (min-width: $mobile) {
       width: 450px;
     }

@@ -59,8 +59,8 @@ $logo-info-size: 100px;
 $home-social-size: 28px;
 
 $logo-control-size: 54px;
-$top-control-size: 40px;
-$lobby-control-size: 30px;
+$large-control-size: 40px;
+$small-control-size: 30px;
 
 // DEPRECATED SPACINGS
 
@@ -182,16 +182,20 @@ $lobby-border-radius: 0px;
   }
 }
 
-@mixin knob() {
+@mixin knobLike() {
   border-radius: 50%;
-  border: 0px solid $black;
-  box-shadow: 1px 1px 4px $black;
-  color: $black;
-  background: $white;
+  border: none;
   padding: 0;
   cursor: pointer;
-  opacity: 0.5;
   user-select: none;
+  box-shadow: 1px 1px 4px $black;
+}
+
+@mixin knob() {
+  @include knobLike();
+  color: $black;
+  background: $white;
+  opacity: 0.5;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -213,8 +217,8 @@ $lobby-border-radius: 0px;
     display: inline-block;
     fill: $action-1;
     filter: grayscale(1);
-    width: 22px;
-    height: 22px;
+    width: calc(50% + 4px); // unique formular for large and small buttons
+    height: calc(50% + 4px);
   }
 }
 

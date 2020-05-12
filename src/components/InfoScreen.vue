@@ -69,7 +69,7 @@ export default {
   @media (min-width: $mobile-plus) {
     & {
       left: $medium-spacing;
-      top: $top-control-size * 2;
+      top: $large-control-size * 2;
       max-width: calc(100% - #{$medium-spacing * 2});
       bottom: $medium-spacing;
       opacity: 0.92;

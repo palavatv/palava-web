@@ -328,27 +328,36 @@ export default {
 .top-control {
   position: absolute;
   z-index: 1000;
-  top: $top-control-size / 3;
+  top: $small-control-size / 3;
+  @media (min-width: $mobile) {
+    top: $large-control-size / 3;
+  }
   display: flex;
   align-items: center;
 
   .logo-control, .control {
-    margin-left: $top-control-size / 3;
+    margin-left: $small-control-size / 3;
+    @media (min-width: $mobile) {
+      margin-left: $large-control-size / 3;
+    }
   }
 
   .logo-control {
-    border-radius: 50%;
-    border: 0;
-    padding: 0;
+    height: $large-control-size;
+    width: $large-control-size;
+    @media (min-width: $mobile) {
+      height: $logo-control-size;
+      width: $logo-control-size;
+    }
     opacity: 0.7;
-    cursor: pointer;
-    user-select: none;
-    height: $logo-control-size;
-    width: $logo-control-size;
-    box-shadow: 1px 1px 4px $black;
     filter: grayscale(1);
+    @include knobLike();
     @include focusTitle();
     &:focus, &:hover {
+      outline: none;
+      filter: none;
+      opacity: 1;
+
       &::after {
         top: 120%;
         left: 0;
@@ -359,21 +368,16 @@ export default {
       height: 100%;
       width: 100%;
     }
-    // &--inactive {
-    //   opacity: 0.4;
-    // }
-
-    &:focus, &:hover {
-      outline: none;
-      filter: none;
-      opacity: 1;
-    }
   }
 
   .control {
-    height: $top-control-size;
-    width: $top-control-size;
-    font-size: $top-control-size / 2;
+    height: $small-control-size;
+    width: $small-control-size;
+
+    @media (min-width: $mobile) {
+      height: $large-control-size;
+      width: $large-control-size;
+    }
     @include knob();
     &:focus, &:hover {
       &::after {
@@ -383,8 +387,11 @@ export default {
     }
 
     &--switch-language > * {
-      font-size: $top-control-size / 2.2;
-      transform: translate(-2px, 0px);
+      font-size: $small-control-size / 2.2;
+      @media (min-width: $mobile) {
+        font-size: $large-control-size / 2.2;
+      }
+      transform: translate(-1px, 0px);
       text-transform: uppercase;
     }
 

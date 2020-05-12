@@ -51,7 +51,7 @@
         </button>
       </transition>
 
-      <transition name="fade-control">
+      <!-- <transition name="fade-control">
         <button
           :title="$t('party.turnOffCameraTitle')"
           class="control control--camera"
@@ -63,9 +63,9 @@
             :src="require('../assets/video-camera.svg')"
             />
         </button>
-      </transition>
+      </transition> -->
 
-      <transition name="fade-control">
+      <!-- <transition name="fade-control">
         <button
           :title="$t('party.muteMicrophoneTitle')"
           class="control control--microphone"
@@ -77,9 +77,9 @@
             :src="require('../assets/mic.svg')"
             />
         </button>
-      </transition>
+      </transition> -->
 
-      <transition name="fade-control">
+      <!-- <transition name="fade-control">
         <button
           :title="$t('party.screenShareTitle')"
           class="control control--screen-share"
@@ -91,7 +91,7 @@
             :src="require('../assets/tv.svg')"
             />
         </button>
-      </transition>
+      </transition> -->
 
       <!-- <transition name="fade-control">
         <button

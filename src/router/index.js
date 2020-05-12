@@ -3,9 +3,8 @@ import VueRouter from 'vue-router'
 
 import Home from '@/views/Home.vue'
 import Room from '@/views/Room.vue'
-import NotFound from '@/views/NotFound.vue'
-
 import InfoPage from '@/views/InfoPage.vue'
+
 import i18nStrings from '@/i18nStrings'
 
 const validInfoPages = Object.keys(i18nStrings.en.infoPages) // please note: no regex escape
@@ -31,8 +30,9 @@ const routes = [
   },
   {
     path: '/*',
-    name: 'NotFound',
-    component: NotFound,
+    name: 'InfoPageNotFound',
+    component: InfoPage,
+    props: { page: 'not-found' }
   },
 ];
 

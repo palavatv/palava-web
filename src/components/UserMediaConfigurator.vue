@@ -27,7 +27,7 @@
         </ul>
 
         <div v-if="error" class="gum-error">
-          <h2><div v-html="$t('room.gumErrorTitle')" /></h2>
+          <h2><div v-html="$t('room.gumErrorHeading')" /></h2>
 
           <div v-html="$t('room.gumErrorReasons')" />
         </div>

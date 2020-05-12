@@ -33,6 +33,15 @@ export default {
     room: {
       aboutPalava: "Learn more about palava.tv",
       emptyTitle: "room",
+      errorFullHeading: "This palava.tv meeting room is full",
+      errorFullDescription: "You cannot enter this room, because the maximum number of participants is reached.",
+      errorFullTryAgain: "Try again!",
+      errorMaintenanceHeading: "Sorry, your connection will be reset",
+      errorMaintenanceDescription: "Because of a palava.tv server maintenance, your connection is being lost. We apologize for any inconvenience this may cause.",
+      errorMaintenanceTryAgain: "Please reload in a few moments!",
+      errorConnectionHeading: "Unable to join this palava.tv meeting room",
+      errorConnectionDescription: "The connection to palava.tv could not be established. This might be caused by an Internet connection error.",
+      errorConnectionTryAgain: "Try again!",
       gumChooseMedia: "Which media streams do you want to send to others in the room?",
       gumErrorReasons: `
         <p>
@@ -45,7 +54,7 @@ export default {
           <li>Another program on your computer is using the camera. Stop this program and try again.</li>
         </ul>
       `,
-      gumErrorTitle: "The palava.tv application was unable to access the requested stream",
+      gumErrorHeading: "The palava.tv application was unable to access the requested stream",
       gumHeading: "You are about to join a palava.tv meeting room",
       gumIntro: `
         This will join or create a video chat meeting with anyone also connected to this page.

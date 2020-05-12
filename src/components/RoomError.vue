@@ -8,24 +8,19 @@
       <Logo class="logo logo--mobile" />
 
       <div v-if="error === 'room_full'">
-        <h3>This palava.tv room is full</h3>
-
-        <p>You cannot enter this room, because the maximum number of participants is reached</p>
-        <p><a href="javascript:window.location.reload()">Try again!</a></p>
+        <h1>{{ $t('room.errorFullHeading') }}</h1>
+        <p>{{ $t('room.errorFullDescription') }}</p>
+        <p><a href="javascript:window.location.reload()">{{ $t('room.errorFullTryAgain') }}</a></p>
       </div>
       <div v-else-if="error === 'maintenance'">
-        <h3>Sorry, your connection will be reset</h3>
-
-        <p>Because of a palava.tv server maintenance, your connection is being lost.<br/>
-           We apologize for any inconvenience this may cause.</p>
-        <p><a href="javascript:window.location.reload()">Please reload in a few moments!</a></p>
+        <h1>{{ $t('room.errorMaintenanceHeading') }}</h1>
+        <p>{{ $t('room.errorMaintenanceDescription') }}</p>
+        <p><a href="javascript:window.location.reload()">{{ $t('room.errorMaintenanceTryAgain') }}</a></p>
       </div>
       <div v-else>
-        <h3>Unable to join this room</h3>
-
-        <p>The connection to palava.tv could not be established</p>
-        <p>This is often caused by an Internet connection error.</p>
-        <p><a href="javascript:window.location.reload()">Try again!</a></p>
+        <h1>{{ $t('room.errorConnectionHeading') }}</h1>
+        <p>{{ $t('room.errorConnectionDescription') }}</p>
+        <p><a href="javascript:window.location.reload()">{{ $t('room.errorConnectionTryAgain') }}</a></p>
       </div>
     </main>
   </div>
@@ -50,5 +45,15 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/css/styles.scss";
 
+.room-error .info-page {
+  padding-top: $medium-spacing;
+  h1 {
+    text-transform: none;
+    margin: 0;
+    line-height: 130%;
+    color: $action-3;
+  }
+}
 </style>

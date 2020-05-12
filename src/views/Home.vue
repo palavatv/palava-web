@@ -1,13 +1,7 @@
 <template>
   <main class="home">
     <header>
-      <button
-        :title="$t('switchLanguageTitle')"
-        class="switch-language"
-        @click="switchLanguage"
-        >
-        <span :aria-label="$t('switchLanguageAlt')">{{ $root.$i18n.locale }}</span>
-      </button>
+      <LanguageSwitcher />
     </header>
 
     <form class="signpost" v-if="browserCanUseWebrtc" @submit.prevent="goIntoRoom">
@@ -105,8 +99,11 @@
 import { uuid } from '@/support'
 import { browserCanUseWebrtc } from '@/webrtc'
 
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
+
 export default {
   components: {
+    LanguageSwitcher,
   },
   data() {
     return {
@@ -134,9 +131,6 @@ export default {
     },
     goIntoHiddenRoom() {
       this.$router.push({ path: uuid() })
-    },
-    switchLanguage() {
-      this.$root.$i18n.locale = this.$root.$i18n.locale === 'de' ? 'en' : 'de'
     },
   },
   metaInfo() {
@@ -243,18 +237,8 @@ export default {
     justify-content: flex-end;
     align-items: flex-start;
 
-    .switch-language {
-      text-transform: uppercase;
+    .language-switcher {
       margin-right: $small-spacing;
-      padding: 0;
-      border: none;
-      background: none;
-      cursor: pointer;
-      @include footerFont();
-      color: $shade;
-      &:hover {
-        color: $action-2;
-      }
     }
   }
 

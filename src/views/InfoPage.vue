@@ -1,8 +1,10 @@
 <template>
   <div class="info">
+    <LanguageSwitcher class="language-switcher language-switcher--desktop" />
     <Logo class="logo logo--desktop" />
 
     <main class="info-page">
+      <LanguageSwitcher class="language-switcher language-switcher--mobile" />
       <Logo class="logo logo--mobile" />
       <Navigation />
 
@@ -15,11 +17,13 @@
 </template>
 
 <script>
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import Logo from '@/components/Logo.vue'
 import Navigation from '@/components/Navigation.vue'
 
 export default {
   components: {
+    LanguageSwitcher,
     Logo,
     Navigation,
   },
@@ -81,6 +85,25 @@ export default {
     svg {
       width: $logo-control-size;
       height: $logo-control-size;
+    }
+  }
+
+  .language-switcher {
+    position: absolute;
+    top: $small-plus-spacing;
+    right: $medium-spacing;
+  }
+
+  .language-switcher--desktop {
+    display: none;
+    @media (min-width: $mobile-plus) {
+      display: block;
+    }
+  }
+
+  .language-switcher--mobile {
+    @media (min-width: $mobile-plus) {
+      display: none;
     }
   }
 }

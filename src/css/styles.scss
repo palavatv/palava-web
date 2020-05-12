@@ -159,6 +159,26 @@ $lobby-border-radius: 0px;
   // }
 }
 
+@mixin focusTitle() {
+  position: relative;
+  &:focus {
+    &::after {
+      position: absolute;
+      content: attr(title);
+      background: $white;
+      color: $action-1;
+      @include defaultFont();
+      padding: 2px 7px 2px 5px;
+      white-space: nowrap;
+      .lobby & {
+        white-space: normal;
+      }
+      text-align: left;
+      @include defaultShadow();
+    }
+  }
+}
+
 @mixin knob() {
   border-radius: 50%;
   border: 0px solid $black;
@@ -174,6 +194,7 @@ $lobby-border-radius: 0px;
   justify-content: center;
   align-items: center;
   color: $action-1;
+  @include focusTitle();
 
   &:focus, &:hover {
     outline: none;
@@ -182,17 +203,6 @@ $lobby-border-radius: 0px;
 
     > * {
       filter: grayscale(0);
-    }
-
-    &::after {
-      position: absolute;
-      content: attr(title);
-      @include fontDefault();
-      background: white;
-      @include defaultShadow();
-      padding: 6px 7px 3px 5px;
-      line-height: 100%;
-      white-space: nowrap;
     }
   }
 

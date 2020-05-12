@@ -347,6 +347,11 @@ export default {
     width: $logo-control-size;
     box-shadow: 1px 1px 4px $black;
     filter: grayscale(1);
+    @include focusTitle();
+    &:focus::after {
+      top: 120%;
+      left: 0;
+    }
 
     svg {
       height: 100%;
@@ -359,7 +364,7 @@ export default {
     &:focus, &:hover {
       outline: none;
       filter: none;
-      opacity: 0.9;
+      opacity: 1;
     }
   }
 
@@ -374,8 +379,8 @@ export default {
     }
 
     &--switch-language > * {
-      font-family: sans; // TODO
-      font-size: $top-control-size / 2.5;
+      font-size: $top-control-size / 2.2;
+      transform: translate(-2px, 0px);
       text-transform: uppercase;
     }
 

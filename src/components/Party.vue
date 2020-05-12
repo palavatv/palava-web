@@ -109,12 +109,12 @@
 
       <transition name="fade-control">
         <button
-          :title="$t('party.switchLanguageTitle')"
+          :title="$t('switchLanguageTitle')"
           class="control control--switch-language"
           @click="switchLanguage"
           v-if="controlsActive"
           >
-          <span :aria-label="$t('party.switchLanguageAlt')">{{ currentLocale }}</span>
+          <span :aria-label="$t('switchLanguageAlt')">{{ $root.$i18n.locale }}</span>
         </button>
       </transition>
 
@@ -234,9 +234,6 @@ export default {
     canUseClipboard() {
       return navigator.clipboard && navigator.clipboard.writeText
     },
-    currentLocale() {
-      return this.$root.$i18n.locale
-    }
   },
   methods: {
     togglePeer(peer) {

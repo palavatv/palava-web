@@ -4,6 +4,8 @@ export default {
     moreInfoTitle: "More info",
     moreInfoAlt: "info sign",
     palavaLogoAlt: "palava parrot",
+    switchLanguageTitle: "Switch language",
+    switchLanguageAlt: "language code",
     home: {
       about: "About",
       blog: "Blog",
@@ -49,8 +51,6 @@ export default {
       // openTextChatTitle: "Show text chat",
       // hideTextChatTitle: "Hide text chat",
       // textChatAlt: "speech bubbles",
-      switchLanguageTitle: "Switch language",
-      switchLanguageAlt: "language code",
       hangUpTitle: "Hang up",
       hangUpAlt: "telephone handset facing downward",
     },
@@ -290,11 +290,14 @@ export default {
     moreInfoTitle: "Mehr erfahren",
     moreInfoAlt: "Info Symbol",
     palavaLogoAlt: "palava Papagei",
+    switchLanguageTitle: "Sprache umschalten",
+    switchLanguageAlt: "Sprachkürzel",
     home: {
-      palavaLogoTitle: "Was ist palava.tv?",
+      about: "Infos",
+      blog: "Blog",
+      github: "GitHub",
       goTitle: " Erstelle den Meetingraum oder tritt ihm bei",
       goAlt: "Taube",
-      roomIdPlaceholder: "Gib den Namen eines Meetingraums ein",
       hiddenRoomIntro: "Oder starte ein",
       hiddenRoom: "verstecktes Meeting",
       hiddenRoomTitle: "Erstelle ein Meetingraum mit einem zufälligem Namen",
@@ -303,7 +306,10 @@ export default {
         <br/>
         Um palava.tv benutzen zu können, musst du einen Webbrowser mit Unterstützung für WebRTC installieren, wie zum Beispiel Firefox.
         Eventuell reicht es bereits aus, den jetzigen Browser auf die neuste Version upzudaten.
-      `
+      `,
+      palavaLogoTitle: "Was ist palava.tv?",
+      roomIdPlaceholder: "Gib den Namen eines Meetingraums ein",
+      twitter: "Twitter",
     },
     info: {
       confirmLeave: "Dies wird die derzeitige palava.tv-Sitzung beenden. Fortfahren?",
@@ -329,8 +335,6 @@ export default {
       // openTextChatTitle: "Text-chat zeigen",
       // hideTextChatTitle: "Text-chat verbergen",
       // textChatAlt: "Sprechblasen",
-      switchLanguageTitle: "Sprache umschalten",
-      switchLanguageAlt: "Sprachkürzel",
       hangUpTitle: "Auflegen",
       hangUpAlt: "Telefonhörer nach unten zeigend",
     },
@@ -365,6 +369,35 @@ export default {
       cLineIpAlt: "Stern",
       iceIpTitle: "Kandidaten IP-Adresse",
       iceIpAlt: "Kreis",
+    },
+    infoPages: {
+      about: {
+        title: "Über Palava",
+      },
+      contact: {
+        title: "Kontakt & Impressum",
+      },
+      ev: {
+        title: "Palava Verein",
+      },
+      hosting: {
+        title: "Selbst Hosten",
+      },
+      network: {
+        title: "Netzwerkinformationen",
+      },
+      'not-found': {
+        title: "Nicht gefunden",
+      },
+      privacy: {
+        title: "Datenschutzerklärung",
+      },
+      usage: {
+        title: "Benutzungshinweise",
+      },
+      webrtc: {
+        title: "WebRTC",
+      },
     },
   },
 }

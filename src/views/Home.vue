@@ -1,5 +1,15 @@
 <template>
   <main class="home">
+    <header>
+      <button
+        :title="$t('switchLanguageTitle')"
+        class="switch-language"
+        @click="switchLanguage"
+        >
+        <span :aria-label="$t('switchLanguageAlt')">{{ $root.$i18n.locale }}</span>
+      </button>
+    </header>
+
     <form class="signpost" v-if="browserCanUseWebrtc" @submit.prevent="goIntoRoom">
       <div class="logo">
         <router-link to="/info/about" :title="$t('home.palavaLogoTitle')">
@@ -125,6 +135,9 @@ export default {
     goIntoHiddenRoom() {
       this.$router.push({ path: uuid() })
     },
+    switchLanguage() {
+      this.$root.$i18n.locale = this.$root.$i18n.locale === 'de' ? 'en' : 'de'
+    },
   },
   metaInfo() {
     return {
@@ -151,7 +164,7 @@ export default {
       width: 450px;
     }
     @media (min-height: $mobile-height) {
-      margin-top: 18vh;
+      margin-top: 13vh;
     }
     display: flex;
     flex-direction: column;
@@ -223,6 +236,29 @@ export default {
     }
   }
 
+  header {
+    flex-basis: content;
+    padding: $small-plus-spacing $small-spacing;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+
+    .switch-language {
+      text-transform: uppercase;
+      margin-right: $small-spacing;
+      padding: 0;
+      border: none;
+      background: none;
+      cursor: pointer;
+      @include footerFont();
+      color: $shade;
+      &:hover {
+        color: $action-2;
+      }
+    }
+  }
+
   footer {
     flex-basis: content;
     padding: $small-plus-spacing $small-spacing;
@@ -248,6 +284,9 @@ export default {
       height: $home-social-size;
       fill: $gray;
       // filter: drop-shadow(1px 1px 4px rgba(150, 150, 150, 0.3));
+      &:hover {
+        fill: $action-2;
+      }
     }
   }
 

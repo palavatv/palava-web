@@ -1,5 +1,5 @@
 <template>
-  <div class="info user-media-configurator">
+  <div class="info gum">
     <LanguageSwitcher class="language-switcher language-switcher--desktop" />
     <Logo class="logo logo--desktop" />
 
@@ -7,30 +7,30 @@
       <LanguageSwitcher class="language-switcher language-switcher--mobile" />
       <Logo class="logo logo--mobile" />
 
-      <h1>You are about to join a palava.tv room</h1>
+      <h1 class="info-title gum-title">
+        {{ $t('room.gumHeading')}}
+      </h1>
+      <div class="info-content">
+        <p><router-link to="/info/about">{{ $t('room.aboutPalava') }}</router-link></p>
 
-      <p><router-link to="/info/how">click here to learn more about palava.tv</router-link></p>
+        <p v-html="$t('room.gumIntro')"/>
 
-      <p>This will join or create a video chat meeting with anyone also connected to this page. For technical reasons, your IP address and other personal data is sent to all other participants via the palava.tv server. By continuing, you consent to our privacy policy, <a href="/info/privacy">you can read it here</a>.</p>
+        <!-- Use relay server<br/>
+        Use password<br/> -->
 
-      <!-- Use relay server<br/>
-      Use password<br/> -->
+        <p>{{ $t('room.gumChooseMedia') }}</p>
 
-      <p>Please select the video and audio streams you want to send to other participants:</p>
+        <ul class="gum-buttons">
+          <li><button @click="$emit('join-room', { video: { facingMode: 'user' }, audio:false })">Only Video</button></li>
+          <li><button @click="$emit('join-room', { video: { facingMode: 'user' }, audio:true })" autofocus>Video &amp; Audio</button></li>
+          <li><button @click="$emit('join-room', { video: false, audio:true })">Only Audio</button></li>
+        </ul>
 
-      <ul>
-        <li><button @click="$emit('join-room', { video: { facingMode: 'user' }, audio:true })" autofocus>Video &amp; Audio</button></li>
-        <li><button @click="$emit('join-room', { video: { facingMode: 'user' }, audio:false })">Only Video</button></li>
-        <li><button @click="$emit('join-room', { video: false, audio:true })">Only Audio</button></li>
-      </ul>
+        <div v-if="error" class="gum-error">
+          <h2><div v-html="$t('room.gumErrorTitle')" /></h2>
 
-      <div v-if="error">
-        <h3>The palava.tv application was unable to access the requested stream.</h3>
-        <br/>
-        Possible reasons and solutions:<br/>
-        - You have denied access. Try again by pressing one of the above buttons.<br/>
-        - You have previously denied palava.tv to access you microphone or camera. You will need to unblock it in your browser settings to be able to join this room. In most browsers, this can be done by clicking on a small camera symbol in the address bar<br/>
-        - Another program on your computer is using the camera. Stop this program and try again.<br/>
+          <div v-html="$t('room.gumErrorReasons')" />
+        </div>
       </div>
     </main>
   </div>
@@ -55,5 +55,55 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/css/styles.scss";
+
+.gum .info-page {
+  padding-top: $medium-spacing;
+  h1 {
+    text-transform: none;
+    margin: 0;
+    line-height: 130%;
+  }
+
+  // TODO style gum buttons
+  .gum-buttons {
+    margin-top: $medium-spacing;
+    margin-bottom: -$medium-spacing;
+
+    display: flex;
+    flex-direction: column;
+    @media (min-width: $mobile) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    button {
+      text-align: center;
+      @include defaultFont();
+      padding: $small-spacing $medium-spacing;
+      margin-bottom: $medium-spacing;
+      width: 100%;
+      cursor: pointer;
+    }
+  }
+
+  .gum-error {
+    margin-top: $medium-spacing;
+
+    h2 {
+      color: $action-3;
+      margin-bottom: $small-spacing;
+    }
+
+    ul {
+      margin-top: $tiny-spacing;
+    }
+
+    li {
+      list-style: circle;
+      margin-left: 18px;
+    }
+  }
+}
 
 </style>

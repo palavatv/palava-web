@@ -31,8 +31,29 @@ export default {
       confirmLeave: "This will exit the current palava.tv session. Continue?",
     },
     room: {
+      aboutPalava: "Learn more about palava.tv",
       emptyTitle: "room",
-      waitingForUserMedia: "waits for your media streams"
+      gumChooseMedia: "Which media streams do you want to send to others in the room?",
+      gumErrorReasons: `
+        <p>
+          Possible reasons and solutions:
+        </p>
+
+        <ul>
+          <li>You have denied access. Try again by pressing one of the above buttons.</li>
+          <li>You have previously denied palava.tv to access you microphone or camera. You will need to unblock it in your browser settings to be able to join this room. In most browsers, this can be done by clicking on a small camera symbol in the address bar</li>
+          <li>Another program on your computer is using the camera. Stop this program and try again.</li>
+        </ul>
+      `,
+      gumErrorTitle: "The palava.tv application was unable to access the requested stream",
+      gumHeading: "You are about to join a palava.tv meeting room",
+      gumIntro: `
+        This will join or create a video chat meeting with anyone also connected to this page.
+        For technical reasons, your IP address and other personal data is sent to all other
+        participants via the palava.tv server. By continuing, you consent to our privacy policy,
+        <a href="/info/privacy">you can read it here</a>.
+      `,
+      waitingForUserMedia: "waiting for media streams",
     },
     party: {
       toggleControls: "Toggle controls",
@@ -316,7 +337,7 @@ export default {
     },
     room: {
       emptyTitle: "raum",
-      waitingForUserMedia: "Wartet auf deine Medienströme"
+      waitingForUserMedia: "Warte auf Medienströme"
     },
     party: {
       toggleControls: "Bedienelemente umschalten",

@@ -153,6 +153,7 @@ export default {
   .signpost {
     width: 90vw;
     margin: auto;
+    margin-top: -$medium-plus-spacing; // language-switch
     @media (min-width: $mobile) {
       width: 450px;
     }

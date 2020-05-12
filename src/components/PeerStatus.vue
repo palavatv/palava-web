@@ -79,7 +79,7 @@ export default {
 
   .symbol {
     fill: white;
-    filter: drop-shadow(1px 1px 5px $black);
+    filter: drop-shadow(1px 1px 1px $black);
 
     .peer--on-stage & {
       width: 10vw;
@@ -93,14 +93,16 @@ export default {
 
   .description {
     white-space: nowrap;
-    text-shadow: 1px 1px 3px $black;
+    text-shadow: 1px 1px 2px $black;
 
     .peer--on-stage & {
+      margin-top: $small-spacing;
       font-size: 4vw;
       line-height: 100%;
     }
     .peer--in-lobby & {
       @include defaultFont();
+      margin-top: $tiny-spacing;
       line-height: 100%;
     }
   }

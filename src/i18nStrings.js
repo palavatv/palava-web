@@ -6,6 +6,8 @@ export default {
     palavaLogoAlt: "palava parrot",
     home: {
       about: "About",
+      blog: "Blog",
+      github: "GitHub",
       goTitle: "Create or join this meeting room",
       goAlt: "dove",
       hiddenRoomIntro: "Or start a",
@@ -20,6 +22,7 @@ export default {
       `,
       palavaLogoTitle: "What is palava.tv?",
       roomIdPlaceholder: "Enter name of a meeting room",
+      twitter: "Twitter",
     },
     info: {
       palavaLogoTitle: "Go to palava.tv home page",

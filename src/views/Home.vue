@@ -47,12 +47,41 @@
       <!-- <div v-if="providedBy">
         This palava.tv instance is provided by: {{ providedBy }}
       </div> -->
+      <nav class="footer-social">
+        <ul>
+          <li>
+            <a href="https://blog.palava.tv" :title="$t('home.blog')">
+              <inline-svg
+                :alt="$t('home.blog')"
+                :aria-label="$t('home.blog')"
+                :src="require('../assets/logo-rss.svg')"
+                />
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/palavatv" :title="$t('home.twitter')">
+              <inline-svg
+                :alt="$t('home.twitter')"
+                :aria-label="$t('home.twitter')"
+                :src="require('../assets/logo-twitter.svg')"
+                />
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/palavatv/palava" :title="$t('home.github')">
+              <inline-svg
+                :alt="$t('home.github')"
+                :aria-label="$t('home.github')"
+                :src="require('../assets/logo-github.svg')"
+                />
+            </a>
+          </li>
+        </ul>
+      </nav>
+
       <nav class="footer-navigation">
         <ul>
           <li><router-link to="/info/about">{{ $t('home.about') }}</router-link></li>
-          <!-- <li><a href="https://blog.palava.tv">Blog</a></li>
-          <li><a href="https://github.com/palavatv/palava">GitHub</a></li>
-          <li><a href="https://twitter.com/palavatv">Twitter</a></li> -->
           <li><router-link to="/info/ev">{{ $t('infoPages.ev.title') }}</router-link></li>
           <li><router-link to="/info/contact">{{ $t('infoPages.contact.title') }}</router-link></li>
           <li><router-link to="/info/privacy">{{ $t('infoPages.privacy.title') }}</router-link></li>
@@ -197,6 +226,29 @@ export default {
   footer {
     flex-basis: content;
     padding: $small-plus-spacing $small-spacing;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .footer-social {
+    ul {
+      display: flex;
+      flex-direction: row;
+    }
+
+    li {
+      margin: $tiny-spacing $small-plus-spacing $tiny-spacing $tiny-spacing;
+      transform: translateY($small-spacing);
+    }
+
+    svg {
+      width: $home-social-size;
+      height: $home-social-size;
+      fill: $gray;
+      // filter: drop-shadow(1px 1px 4px rgba(150, 150, 150, 0.3));
+    }
   }
 
   .footer-navigation {
@@ -204,6 +256,7 @@ export default {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
+      text-align: right;
     }
 
     li {

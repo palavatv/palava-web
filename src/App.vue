@@ -21,18 +21,8 @@ export default {
 @import '@/css/styles.scss';
 
 @font-face {
-  font-family: NotoSansSymbols2;
-  src: url('/NotoSansSymbols2.ttf') format('truetype');
-}
-
-@font-face {
   font-family: WorkSans;
   src: url('/WorkSans-Regular.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: WorkSansBold;
-  src: url('/WorkSans-SemiBold.woff2') format('woff2');
 }
 
 html, body {

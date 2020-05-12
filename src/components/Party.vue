@@ -348,9 +348,11 @@ export default {
     box-shadow: 1px 1px 4px $black;
     filter: grayscale(1);
     @include focusTitle();
-    &:focus::after {
-      top: 120%;
-      left: 0;
+    &:focus, &:hover {
+      &::after {
+        top: 120%;
+        left: 0;
+      }
     }
 
     svg {
@@ -373,9 +375,11 @@ export default {
     width: $top-control-size;
     font-size: $top-control-size / 2;
     @include knob();
-    &:focus::after {
-      top: 120%;
-      left: 0;
+    &:focus, &:hover {
+      &::after {
+        top: 120%;
+        left: 0;
+      }
     }
 
     &--switch-language > * {

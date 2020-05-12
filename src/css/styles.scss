@@ -161,7 +161,7 @@ $lobby-border-radius: 0px;
 
 @mixin focusTitle() {
   position: relative;
-  &:focus {
+  &:focus, &:hover {
     &::after {
       position: absolute;
       content: attr(title);
@@ -176,6 +176,9 @@ $lobby-border-radius: 0px;
       text-align: left;
       @include defaultShadow();
     }
+  }
+  &:hover::after {
+    z-index: 900;
   }
 }
 

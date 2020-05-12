@@ -12,6 +12,7 @@
           'logo-control--active': controlsActive,
           'logo-control--inactive': !controlsActive,
           }"
+        ref="logo"
         @click="toggleControls"
         >
         <inline-svg
@@ -111,6 +112,7 @@
         <button
           :title="$t('switchLanguageTitle')"
           class="control control--switch-language"
+          ref="switchLanguage"
           @click="switchLanguage"
           v-if="controlsActive"
           >
@@ -289,6 +291,7 @@ export default {
     },
     toggleControls() {
       this.controlsActive = !this.controlsActive
+      this.$refs.logo.blur()
     },
     copyShareLink() {
       navigator.clipboard.writeText(this.shareLink)
@@ -296,6 +299,7 @@ export default {
     },
     switchLanguage() {
       this.$root.$i18n.locale = this.$root.$i18n.locale === 'de' ? 'en' : 'de'
+      this.$refs.switchLanguage.blur()
     },
     onResize() {
       const partyWidth = window.innerWidth

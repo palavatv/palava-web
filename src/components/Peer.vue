@@ -105,6 +105,7 @@
           <button
             :title="$t('peer.networkInfoTitle')"
             class="menu-control menu-control--network-info"
+            ref="networkInfo"
             v-if="peerMenuActive && !peer.isLocal()"
             @click="toggleNetworkInfo()"
             >
@@ -124,6 +125,7 @@
               'menu-control--mute': !muted,
               'menu-control--unmute': muted,
             }"
+            ref="mute"
             v-if="peerMenuActive && !peer.isLocal() && peer.hasAudio()"
             @click="toggleMute()"
             >
@@ -214,9 +216,11 @@ export default {
     },
     toggleMute() {
       this.muted = !this.muted
+      this.$refs.mute.blur()
     },
     toggleNetworkInfo() {
       this.networkInfoActive = !this.networkInfoActive
+      this.$refs.networkInfo.blur()
     },
     hideNetworkInfo() {
       this.networkInfoActive = false

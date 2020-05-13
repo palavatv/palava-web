@@ -12,6 +12,7 @@
       <span class="symbol" role="img" :aria-label="$t('peer.statusNotReadyAlt')">
         <div class="lds-grid"><div/><div/><div/><div/><div/><div/><div/><div/><div/></div>
       </span>
+      <div class="description">{{ $t('peer.waiting') }}</div>
     </div>
     <div v-else-if="status === 'no-media'">
       <inline-svg
@@ -20,6 +21,7 @@
         :alt="$t('peer.statusNoMediaAlt')"
         :src="require('../assets/block.svg')"
         />
+      <div class="description">{{ $t('peer.noMedia') }}</div>
     </div>
     <div v-else-if="status === 'error'">
       <inline-svg

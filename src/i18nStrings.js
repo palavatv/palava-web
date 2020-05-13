@@ -105,6 +105,8 @@ export default {
       errorConnectionClosed: "Connnection closed",
       errorConnectionFailed: "No connnection",
       errorConnectionDisconnected: "Disconnnected",
+      noMedia: "No media streams",
+      waiting: "Waiting",
     },
     networkInfo: {
       directConnection: "Direct connection",
@@ -389,6 +391,8 @@ export default {
       errorConnectionClosed: "Verbindung geschlossen",
       errorConnectionFailed: "Keine Verbindung",
       errorConnectionDisconnected: "Verbindung getrennt",
+      noMedia: "Keine Medienströme",
+      waiting: "Warte",
     },
     networkInfo: {
       directConnection: "Direktverbindung",

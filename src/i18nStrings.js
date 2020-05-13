@@ -32,7 +32,7 @@ export default {
     },
     room: {
       aboutPalava: "Learn more about palava.tv",
-      emptyTitle: "room",
+      emptyTitle: "Meeting Room",
       errorFullHeading: "This palava.tv meeting room is full",
       errorFullDescription: "You cannot enter this room, because the maximum number of participants is reached.",
       errorFullTryAgain: "Try again!",
@@ -40,7 +40,7 @@ export default {
       errorMaintenanceDescription: "Because of a palava.tv server maintenance, your connection is being lost. We apologize for any inconvenience this may cause.",
       errorMaintenanceTryAgain: "Please reload in a few moments!",
       errorConnectionHeading: "Unable to join this palava.tv meeting room",
-      errorConnectionDescription: "The connection to palava.tv could not be established. This might be caused by an Internet connection error.",
+      errorConnectionDescription: "The connection to palava.tv could not be established. This might be caused by an error with your Internet connection.",
       errorConnectionTryAgain: "Try again!",
       gumChooseMedia: "Which media streams do you want to send to others in the room?",
       gumErrorReasons: `
@@ -54,7 +54,7 @@ export default {
           <li>Another program on your computer is using the camera. Stop this program and try again.</li>
         </ul>
       `,
-      gumErrorHeading: "The palava.tv application was unable to access the requested stream",
+      gumErrorHeading: "palava.tv was unable to access the requested media stream",
       gumHeading: "You are about to join a palava.tv meeting room",
       gumIntro: `
         This will join or create a video chat meeting with anyone also connected to this page.
@@ -347,7 +347,39 @@ export default {
       confirmLeave: "Dies wird die derzeitige palava.tv-Sitzung beenden. Fortfahren?",
     },
     room: {
-      emptyTitle: "raum",
+      aboutPalava: "Mehr über palava.tv erfahren",
+      emptyTitle: "Meetingraum",
+      errorFullHeading: "Dieser palava.tv Meetingraum ist voll",
+      errorFullDescription: "Du kannst diesen Meetingraum nicht betreten, weil die maximale Anzahl an Nutzern darin ereicht ist.",
+      errorFullTryAgain: "Versuche es nochmal!",
+      errorMaintenanceHeading: "Entschuldigung, deine Verbindung wird zurückgesetzt",
+      errorMaintenanceDescription: "Wegen Wartungsarbeiten des palava.tv-Servers, verlierst du deine Verbindung. Wir entschuldingen uns für etwaige daraus entstandene Unannehmlichkeiten.",
+      errorMaintenanceTryAgain: "Bitte lade in einigen Augenblicken neu!",
+      errorConnectionHeading: "Nicht möglich diesen palava.tv Meetingraum zu betreten",
+      errorConnectionDescription: "Die Verbindung zu palava.tv konnte nicht hergestellt werden. Der Grund dafür könnte ein Fehler mit der Internetverbindung sein.",
+      errorConnectionTryAgain: "Versuche es nochmal!",
+      gumChooseMedia: "Welche Medienströme möchtest du an die Anderen im Meetingraum senden?",
+      gumErrorReasons: `
+        <p>
+          Mögliche Gründe und Lösungen:
+        </p>
+
+        <ul>
+          <li>Du hast den Zugriff abgelehnt. Probier es nocheinmal, indem du au einen der obigen Knöpfe drückst.</li>
+          <li>Du hast bei einem vorigem Besuch den Zugriff von palava.tv auf dein Mikrofon oder deine Kamera nicht gestattet.
+          Du musst das Zugriffsverbot in deinen Browsereinstellungen aufheben, um dem Meetingraum beitreten zu können.
+          In den meisten Browsern ist das möglich, indem man auf ein kleines Kamerasymbol in der Adresszeile klickt.</li>
+          <li>Ein anderes Programm auf deinem Computer benutzt die Kamera. Beende das Programm und probiere es noch einmal.</li>
+        </ul>
+      `,
+      gumErrorHeading: "palava.tv konnte nicht auf den gewünschten Medienstrom zugreifen",
+      gumHeading: "Du bist dabei, einen palava.tv Meetingraum zu betreten",
+      gumIntro: `
+        Dies wird einem Videochat mit allen, die auch mit dieser Seite verbunden sind, beitreten oder einen neuen eröffnen.
+        Aus technischen Gründen werden deine IP-Adresse und andere persönliche Daten über den palava.tv-Server an alle
+        anderen Teilnehmer_innen gesendet. Durch das Fortfahren, stimmst du unserer Datenschutzerklärung zu,
+        <a href="/info/privacy">du kannst sie hier lesen</a>.
+      `,
       waitingForUserMedia: "Warte auf Medienströme"
     },
     party: {

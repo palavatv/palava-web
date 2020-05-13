@@ -174,7 +174,7 @@ $lobby-border-radius: 0px;
         white-space: normal;
       }
       text-align: left;
-      @include defaultShadow();
+      @include lightShadow();
     }
   }
   &:hover::after {

@@ -123,7 +123,7 @@ export default {
   opacity: 0.8;
   color: $action-1;
   padding: 7px 8px 1px;
-  @include defaultShadow();
+  @include lightShadow();
   @include defaultFont();
   text-align: left;
 
@@ -134,21 +134,21 @@ export default {
   }
 
   .peer--in-lobby.peer--party-landscape & {
-    right: $lobby-width-mobile + $lobby-peer-padding;
-    @media (min-width: $mobile-plus)  { right: $lobby-width-mobile-plus + $lobby-peer-padding; }
-    @media (min-width: $desktop)      { right: $lobby-width-desktop + $lobby-peer-padding; }
-    @media (min-width: $desktop-plus) { right: $lobby-width-desktop-plus + $lobby-peer-padding; }
-    @media (min-width: $desktop-large){ right: $lobby-width-desktop-large + $lobby-peer-padding; }
-    @media (min-width: $desktop-huge) { right: $lobby-width-desktop-huge + $lobby-peer-padding; }
+    right: $lobby-width-mobile + $small-spacing;
+    @media (min-width: $mobile-plus)  { right: $lobby-width-mobile-plus + $small-spacing; }
+    @media (min-width: $desktop)      { right: $lobby-width-desktop + $small-spacing; }
+    @media (min-width: $desktop-plus) { right: $lobby-width-desktop-plus + $small-spacing; }
+    @media (min-width: $desktop-large){ right: $lobby-width-desktop-large + $small-spacing; }
+    @media (min-width: $desktop-huge) { right: $lobby-width-desktop-huge + $small-spacing; }
   }
 
   .peer--in-lobby.peer--party-portrait & {
-    bottom: $lobby-height-mobile + $lobby-peer-padding;
-    @media (min-height: $mobile-plus-height)  { bottom: $lobby-height-mobile-plus + $lobby-peer-padding; }
-    @media (min-height: $desktop-height)      { bottom: $lobby-height-desktop + $lobby-peer-padding; }
-    @media (min-height: $desktop-plus-height) { bottom: $lobby-height-desktop-plus + $lobby-peer-padding; }
-    @media (min-height: $desktop-large-height){ bottom: $lobby-height-desktop-large + $lobby-peer-padding; }
-    @media (min-height: $desktop-huge-height) { bottom: $lobby-height-desktop-huge + $lobby-peer-padding; }
+    bottom: $lobby-height-mobile + $small-spacing;
+    @media (min-height: $mobile-plus-height)  { bottom: $lobby-height-mobile-plus + $small-spacing; }
+    @media (min-height: $desktop-height)      { bottom: $lobby-height-desktop + $small-spacing; }
+    @media (min-height: $desktop-plus-height) { bottom: $lobby-height-desktop-plus + $small-spacing; }
+    @media (min-height: $desktop-large-height){ bottom: $lobby-height-desktop-large + $small-spacing; }
+    @media (min-height: $desktop-huge-height) { bottom: $lobby-height-desktop-huge + $small-spacing; }
   }
 
   li {

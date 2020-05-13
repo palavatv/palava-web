@@ -157,6 +157,12 @@ export default {
     // text-shadow: 1px 1px rgba(100, 100, 100, 0.1);
     @include subheadingFont();
   }
+
+  .info-content {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
 }
 
 .fade-enter-active {

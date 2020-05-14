@@ -48,6 +48,7 @@
         :peer="peer"
         :status="status"
         :requestFullscreen="requestFullscreen"
+        :muted="muted"
         @click="togglePeerMenu()"
         />
       <nav :class="{

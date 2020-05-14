@@ -17,8 +17,6 @@
 import { attachMediaStream } from "@/webrtc"
 // TODO stream becomes unready?
 
-// FIXME isMuted
-
 export default {
   props: {
     peer: {
@@ -29,7 +27,7 @@ export default {
       type: String,
       required: true,
     },
-    mute: {
+    muted: {
       type: Boolean,
       default: false,
     },
@@ -51,6 +49,9 @@ export default {
   watch: {
     requestFullscreen() {
       this.$el.requestFullscreen()
+    },
+    muted(newMuteStatus) {
+      this.$el.muted = newMuteStatus
     },
   },
   computed: {
@@ -80,7 +81,7 @@ export default {
       }
     },
     isMuted() {
-      return this.peer.isMuted() || this.peer.isLocal() || this.mute
+      return this.peer.isMuted() || this.peer.isLocal() || this.muted
     },
   },
 }

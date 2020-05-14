@@ -428,7 +428,7 @@ export default {
       height: 100%;
     }
 
-    .lobby, .lobby .peer {
+    .lobby .peer {
       width: $lobby-width-mobile;
       @media (min-width: $mobile-plus)  { width: $lobby-width-mobile-plus; }
       @media (min-width: $desktop)      { width: $lobby-width-desktop; }
@@ -442,7 +442,7 @@ export default {
     .lobby {
       width: 100%;
     }
-    .lobby, .lobby .peer {
+    .lobby .peer {
       height: $lobby-height-mobile;
       @media (min-height: $mobile-plus-height)   { height: $lobby-height-mobile-plus; }
       @media (min-height: $desktop-height)       { height: $lobby-height-desktop; }

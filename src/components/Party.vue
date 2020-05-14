@@ -42,7 +42,7 @@
           class="control control--copy-link"
           @click="copyShareLink"
           ref="copyLink"
-          v-if="controlsActive && canUseClipboard"
+          v-if="controlsActive && canShare"
           >
           <inline-svg
             :alt="$t('party.copyLinkAlt')"
@@ -233,8 +233,8 @@ export default {
     shareLink() {
       return window.location.href
     },
-    canUseClipboard() {
-      return navigator.clipboard && navigator.clipboard.writeText
+    canShare() {
+      return !!(navigator.share || (navigator.clipboard && navigator.clipboard.writeText))
     },
   },
   methods: {
@@ -294,7 +294,12 @@ export default {
       this.$refs.logo.blur()
     },
     copyShareLink() {
-      navigator.clipboard.writeText(this.shareLink)
+      if (navigator.share) {
+        navigator.share({ url: this.shareLink })
+      } else {
+        navigator.clipboard.writeText(this.shareLink)
+      }
+
       this.$refs.copyLink.blur()
     },
     switchLanguage() {

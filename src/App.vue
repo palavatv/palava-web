@@ -63,7 +63,7 @@ a {
 }
 
 *:focus {
-  outline-color: $action-2;
+  outline: 1px dashed $action-2;
 }
 
 ::selection {
@@ -98,8 +98,12 @@ input, input[type=text] {
   box-shadow: none;
 }
 
-button::-moz-focus-inner {
-  border: 0;
+button, button[type=submit] {
+  // appearance: none;
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
 }
 
 </style>

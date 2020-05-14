@@ -22,7 +22,11 @@
           maxlength="50"
           />
         <button type="submit" :title="$t('home.goTitle')">
-          <span role="img" :aria-label="$t('home.goAlt')">🕊︎</span>
+          <inline-svg
+            :alt="$t('home.goAlt')"
+            :aria-label="$t('home.goAlt')"
+            :src="require('../assets/people-outline.svg')"
+            />
         </button>
       </div>
 
@@ -217,8 +221,19 @@ export default {
     }
 
     button[type=submit] {
+      appearance: none;
       margin-right: -1px;
       cursor: pointer;
+      flex-shrink: 0;
+      background: $white;
+      &:focus {
+        outline: 1px dashed $action-2;
+      }
+      @include homeSymbol();
+      svg {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 

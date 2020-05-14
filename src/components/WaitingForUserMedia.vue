@@ -22,7 +22,7 @@
   justify-content: center;
 
   color: #e4eeff;
-  @include fontBig();
+  @include hugeFont();
 }
 
 .fade-enter-active {

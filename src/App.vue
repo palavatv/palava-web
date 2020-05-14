@@ -99,7 +99,9 @@ input, input[type=text] {
 }
 
 button, button[type=submit] {
-  // appearance: none;
+  appearance: none;
+  border: none;
+  background: none;
 
   &::-moz-focus-inner {
     border: 0;

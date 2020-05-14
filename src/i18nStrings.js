@@ -42,7 +42,11 @@ export default {
       errorConnectionHeading: "Unable to join this palava.tv meeting room",
       errorConnectionDescription: "The connection to palava.tv could not be established. This might be caused by an error with your Internet connection.",
       errorConnectionTryAgain: "Try again!",
-      gumChooseMedia: "Which media streams do you want to send to others in the room?",
+      gumChooseMedia: "Please choose if you want to send your video and audio to others in the room, or only one of both:",
+      gumChoiceVideoAndAudio: "Video and audio",
+      gumChoiceVideo: "Only video",
+      gumChoiceAudio: "Only audio",
+      gumChoiceNoMedia: "Only text",
       gumErrorReasons: `
         <p>
           Possible reasons and solutions:
@@ -358,7 +362,11 @@ export default {
       errorConnectionHeading: "Nicht möglich diesen palava.tv Meetingraum zu betreten",
       errorConnectionDescription: "Die Verbindung zu palava.tv konnte nicht hergestellt werden. Der Grund dafür könnte ein Fehler mit der Internetverbindung sein.",
       errorConnectionTryAgain: "Versuche es nochmal!",
-      gumChooseMedia: "Welche Medienströme möchtest du an die Anderen im Meetingraum senden?",
+      gumChooseMedia: "Bitte wähle, ob du dein Video und Audio an die Anderen im Meetingraum senden möchtest, oder nur eins von beiden:",
+      gumChoiceVideoAndAudio: "Video und Audio",
+      gumChoiceVideo: "Nur Video",
+      gumChoiceAudio: "Nur Audio",
+      gumChoiceNoMedia: "Nur Text",
       gumErrorReasons: `
         <p>
           Mögliche Gründe und Lösungen:

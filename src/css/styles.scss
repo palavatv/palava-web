@@ -63,6 +63,9 @@ $logo-control-size: 54px;
 $large-control-size: 40px;
 $small-control-size: 30px;
 
+$gum-choice-size: 30px;
+$gum-choice-mobile-size: 40px;
+
 // DEPRECATED SPACINGS
 
 $stage-gap: 0px;
@@ -71,6 +74,11 @@ $stage-border-radius: 0px;
 $lobby-border-radius: 0px;
 
 // MIXINS
+
+@mixin size($size) {
+  width: $size;
+  height: $size;
+}
 
 @mixin fadeControl() {
   .fade-control-enter-active {

@@ -21,9 +21,50 @@
         <p>{{ $t('room.gumChooseMedia') }}</p>
 
         <ul class="gum-buttons">
-          <li><button @click="$emit('join-room', { video: { facingMode: 'user' }, audio:false })">Only Video</button></li>
-          <li><button @click="$emit('join-room', { video: { facingMode: 'user' }, audio:true })" autofocus>Video &amp; Audio</button></li>
-          <li><button @click="$emit('join-room', { video: false, audio:true })">Only Audio</button></li>
+          <li class="gum-choice gum-choice--video-and-audio">
+            <button
+              autofocus
+              :title="$t('room.gumChoiceVideoAndAudio')"
+              @click="$emit('join-room', { video: { facingMode: 'user' }, audio:true })"
+              >
+              <inline-svg
+                :alt="$t('party.cameraAlt')"
+                :aria-label="$t('party.cameraAlt')"
+                :src="require('../assets/video-camera.svg')"
+                />
+              <inline-svg
+                :alt="$t('party.microphoneAlt')"
+                :aria-label="$t('party.microphoneAlt')"
+                :src="require('../assets/mic.svg')"
+                />
+            </button>
+          </li>
+
+          <li class="gum-choice gum-choice--video">
+            <button
+              :title="$t('room.gumChoiceVideo')"
+              @click="$emit('join-room', { video: { facingMode: 'user' }, audio:false })"
+              >
+              <inline-svg
+                :alt="$t('party.cameraAlt')"
+                :aria-label="$t('party.cameraAlt')"
+                :src="require('../assets/video-camera.svg')"
+                />
+            </button>
+          </li>
+
+          <li class="gum-choice gum-choice--audio">
+            <button
+              :title="$t('room.gumChoiceAudio')"
+              @click="$emit('join-room', { video: false, audio:true })"
+              >
+              <inline-svg
+                :alt="$t('party.microphoneAlt')"
+                :aria-label="$t('party.microphoneAlt')"
+                :src="require('../assets/mic.svg')"
+                />
+            </button>
+          </li>
         </ul>
 
         <div v-if="error" class="gum-error">
@@ -71,10 +112,25 @@ export default {
     margin-bottom: -$medium-spacing;
 
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     @media (min-width: $mobile) {
-      flex-direction: row;
-      justify-content: space-between;
+      margin-top: $medium-plus-spacing;
+      justify-content: space-around;
+    }
+
+    .gum-choice {
+      svg {
+        @include size($gum-choice-size);
+      }
+      @media (min-width: $mobile) {
+        svg {
+          @include size($gum-choice-mobile-size);
+        }
+      }
+
+      &--video-and-audio { order: 2; }
+      &--video { order: 1; }
+      &--audio { order: 3; }
     }
 
     button {
@@ -84,6 +140,12 @@ export default {
       margin-bottom: $medium-spacing;
       width: 100%;
       cursor: pointer;
+      // background: $action-3;
+      &:hover {
+        svg {
+          fill: $action-2;
+        }
+      }
     }
   }
 

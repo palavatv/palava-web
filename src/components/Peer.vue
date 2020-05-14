@@ -127,7 +127,7 @@
               'menu-control--unmute': muted,
             }"
             ref="mute"
-            v-if="peerMenuActive && !peer.isLocal() && peer.hasAudio()"
+            v-if="peerMenuActive && !peer.isLocal() && peer.hasAudio() && !peer.hasError()"
             @click="toggleMute()"
             >
             <inline-svg v-if="muted"

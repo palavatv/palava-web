@@ -449,7 +449,7 @@ export default {
         title: "Über Palava",
       },
       contact: {
-        title: "Kontakt & Impressum",
+        title: "Kontakt",
       },
       ev: {
         title: "Palava Verein",
@@ -464,10 +464,10 @@ export default {
         title: "Nicht gefunden",
       },
       privacy: {
-        title: "Datenschutzerklärung",
+        title: "Datenschutz­",
       },
       usage: {
-        title: "Benutzungshinweise",
+        title: "Benutzungs­hinweise",
       },
       webrtc: {
         title: "WebRTC",

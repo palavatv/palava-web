@@ -183,27 +183,28 @@ export default {
       ev: {
         title: 'Palava Association',
         content: `
+          <h2>We are indpendent</h2>
           <p>
-            [TODO: 2020 content]
+            palava.tv is developed and run by <strong>palava e. V.</strong>, a German non-profit organization. We want to bring knowledge about decentralized video communication to the masses.
           </p>
 
-          <p>We are <strong>palava e. V.</strong>, a German non-profit organization which aims to promote knowledge about decentralized communication technologies like WebRTC. Our three areas of activity are:</p>
+          <h2>Donations</h2>
+          <p>If you like our work, you can support us financially. The main use of the money is to enable further development of the platform by paying people who work on palava.tv. It also enables us to scale up our server infrastructure.
 
-          <h2>Education</h2>
-          <p>We are blogging about new webrtc and palava developments on our blog. We explain how to use new decentral technologies, hold workshops, and give talks from time to time.</p>
+          <p>You can send us money on Patreon[TODO], or wire us something directly to:</p>
+          <div class="bank-account">
+            [TODO]
+          </div>
 
-          <h2>Open Source</h2>
-          <p>palava is open source software that makes use of the WebRTC technology. See our <a href="https://github.com/palavatv/palava">GitHub profile</a> for more information. Feel free to setup your own palava.</p>
-
-          <h2>palava.tv</h2>
-          <p>As an example of how to use WebRTC to enable a new way of communication, we maintain this page.</p>
+          <p>We are charitable under German law. Please email us at contact@palava.tv if you would like to have a receipt for your donation.</p>
         `
       },
       hosting: {
         title: 'Host Yourself',
         content: `
+          <h2>Run your own palava.tv instance</h2>
           <p>
-            [TODO: 2020 content]
+            The palava.tv server's job is to directly connect everyone who joins the same meeting room. If you have some experience in server hosting. It is possible, to host a custom palava.tv instance. More info and detailed instructions soon. Meanwhile, see our <a href="https://github.com/palavatv/palava">GitHub</a> for more details.
           </p>
         `,
       },
@@ -238,84 +239,88 @@ export default {
       privacy: {
         title: 'Privacy Policy',
         content: `
+          Please note that this is a best-effort translation of our privacy policy into English. Please switch the language to German to read the original document.<br/>
+
+          <h2>Privacy Policy</h2>
+
           <p>
-            Der Schutz Ihrer persönlichen Daten ist uns ein besonderes Anliegen. In diesen
-            Datenschutzinformationen informieren wir Sie über die Datenverarbeitung im Rahmen
-            unserer Website. Sie können sich mit Datenschutzanliegen
-            gern an unseren aktuellen Vorstand wenden:
+            The protection of your personal data is of particular concern to us. In this privacy
+            policy we inform you about the data processing within the scope of our website. You
+            are invited to contact our current board for data protection inquieries:
           </p>
 
           <p>
-            Marius Melzer, Jan Lelis und Alexandra Weiß<br />
+            Marius Melzer, Jan Lelis, and Alexandra Weiß<br />
             contact@palava.tv
           </p>
 
           <p>
-            Weiterführende Kontaktdaten finden Sie in unserem Impressum. Die zuständige
-            Datenschutzbehörde ist der sächsische Datenschutzbeauftragte.
+            Additional contact data can be found in our imprint. The responsible authority is the
+            Saxon data protection officer.
           </p>
 
-          <h2>Erhebung und Verarbeitung von Daten</h2>
+          <h2>Collection and processing of data</h2>
 
           <p>
-            Auf palava.tv ist es möglich einen gemeinsamen Gruppenchat zu bilden, indem
-            man auf der auf der Startseite den gleichen Konferenznamen angibt,
-            beziehungsweise direkt per URL die jeweilige Gruppe zugreift. Die Bereitstellung
-            des Dienstes erfordert aus technischen Gründen, die Weitergabe von
-            folgenden Daten eines jeder_n Teilnehmer_innen über unseren Server an
-            alle anderen Teilnehmer_innen des gleichen Gruppenchats:
+            On palava.tv it is possible to form a mutual group change by entering
+            the same conference name on the start page, or accessing the group directly by URL.
+            In order be able to provide the service, the following data of every participant is
+            sent via our server to all other participants of the same group chat:
           </p>
 
           <ul>
-            <li>alle IP-Adressen des_der Nutzer_in (auch lokale und netzwerkinterne)</li>
-            <li>User Agent (Browser, Browserversion, Browserengine)</li>
-            <li>Informationen über unterstützte Audio- und Videocodecs des Browsers</li>
+            <li>all IP addresses of the user (including local and network-internal ones)</li>
+            <li>user agent (browser, browser version, browser engine)</li>
+            <li>information about supported audio- and video codecs of the browser</li>
           </ul>
 
           <p>
-            Eine längerfristige Speicherung, die über die Nutzungsdauer des Dienstes hinaus
-            geht, erfolgt nicht. Weiterhin verwenden wir keine Cookies und protokollieren
-            keine personenbezogenen Daten (z.b. IP Adressen) in unseren Serverlogs.
+            There is no long-term (beyond time of usage) data retention.
+            Furthermore, we do not use cookies and do not record personal data (e.g. ip addresses) in our server logs.
           </p>
 
-          <h2>Datenspeicherung durch den Serverbetreiber</h2>
+          <h2>Data retention by our server provider</h2>
 
           <p>
-            Unser Server wird von <a href="https://www.simplyroot.de/">SimplyRoot</a> bereitgestellt.
-             Zwecks Auskunft, Widerspruch oder Beschwerde über potenziell von SimplyRoot
-             erhobene Daten, wenden Sie sich bitte direkt an SimplyRoot
-             (<a href="https://www.simplyroot.de/de/ansprechpartner/">Kontaktseite</a>).
+             Our server is provided by <a href="https://www.simplyroot.de/">simplyroot. (LiWiNeA GmbH)</a>.
+             Regarding to information, objection or complaint about data potentially collected by simplyroot. (LiWiNeA GmbH),
+             please contact them directly (<a href="https://www.simplyroot.de/de/ansprechpartner/">contact page</a>).
           </p>
 
-          <h2>Kontakt zu uns</h2>
+          <h2>Contact to us</h2>
 
           <p>
-            Wenn Sie per E-Mail Kontakt mit uns aufnehmen, so verwenden wir Ihre E-Mail-Adresse
-            nur, um mit Ihnen in Kontakt zu treten. Andere Verwendungen
-            schließen wir aus.
+            If you contact us via e-mail, we will only use your email address to communicate with you.
+            Other uses are precluded.
           </p>
         `,
       },
       usage: {
         title: 'Usage Tips',
         content: `
+          <h2>How to start a video meeting</h2>
           <p>
-            [TODO: 2020 content]
+            On the palava.tv homepage, enter the name of a meeting room which you want to join. If it does not yet
+            exist, it will be created by the palava.tv server. Share the link with the people you want to connect with.
           </p>
+
+          <h2>Recommended: Hidden meetings</h2>
           <p>
-            It is possible to create a hidden conference room by clicking the &lt;secret conference&gt; link on the start page. It will create a long random name for the conference, which noone can guess. Share this link as usual to invite you friends. Only people who know this exact link can join.
+            It is possible to create a hidden room by clicking the &lt;hidden meeting&gt; link on the start page. It will create a long random name for the meeting room, which is impossible to guess. Share this link as usual to invite you friends. Only people who know this exact link can join. <strong>Do not post this link publicly</strong>, because anyone who knows the link can join, hence the meeting would not be hidden anymore.
           </p>
         `
       },
       webrtc: {
         title: 'WebRTC',
         content: `
-          <p>
-            [TODO: 2020 content]
-          </p>
           <h2>How does palava.tv work under the hood?</h2>
           <p>
-            <strong>palava.tv</strong> is based on a technology called <a href="https://www.webrtc.org/">Web Real-Time Communication</a> (WebRTC) which enables pluginless video conferencing via peer-to-peer connections. It is built on top of many <a href="https://datatracker.ietf.org/wg/rtcweb/documents/">lower-level standards by the Internet Engineering Task Force</a>. Please see our <a href="https://blog.palava.tv/">blog</a> or our <a href="https://github.com/palavatv/palava">GitHub page</a> for more technical information.
+            palava.tv is based on a technology called <a href="https://www.webrtc.org/">Web Real-Time Communication</a> (WebRTC) which enables peer-to-peer based video conferencing directly in the web browser. It is built on top of many <a href="https://datatracker.ietf.org/wg/rtcweb/documents/">lower-level standards by the Internet Engineering Task Force</a>.
+          </p>
+
+          <h2>How can I find out, if my browser supports WebRTC?</h2>
+          <p>
+            Most up-to-date browsers (like Firefox, Safari or Google Chrome) support this technology. Google offers a <a href="https://test.webrtc.org/">testing page</a>, which can help you with this question. If you notice that palava.tv does not work for you, but you think it should, please <a href="https://github.com/palavatv/palava/issues/new">open an issue on our GitHub</a>, so we can take a look what the reason for this problem is, and if it is possible to improve palava.tv.
           </p>
         `,
       },
@@ -465,6 +470,65 @@ export default {
       },
       privacy: {
         title: "Datenschutz­",
+        content: `
+          <h2>Datenschutzerklärung</h2>
+          <p>
+            Der Schutz Ihrer persönlichen Daten ist uns ein besonderes Anliegen. In diesen
+            Datenschutzinformationen informieren wir Sie über die Datenverarbeitung im Rahmen
+            unserer Website. Sie können sich mit Datenschutzanliegen
+            gern an unseren aktuellen Vorstand wenden:
+          </p>
+
+          <p>
+            Marius Melzer, Jan Lelis und Alexandra Weiß<br />
+            contact@palava.tv
+          </p>
+
+          <p>
+            Weiterführende Kontaktdaten finden Sie in unserem Impressum. Die zuständige
+            Datenschutzbehörde ist der sächsische Datenschutzbeauftragte.
+          </p>
+
+          <h2>Erhebung und Verarbeitung von Daten</h2>
+
+          <p>
+            Auf palava.tv ist es möglich einen gemeinsamen Gruppenchat zu bilden, indem
+            man auf der auf der Startseite den gleichen Konferenznamen angibt,
+            beziehungsweise direkt per URL die jeweilige Gruppe zugreift. Die Bereitstellung
+            des Dienstes erfordert aus technischen Gründen, die Weitergabe von
+            folgenden Daten eines jeder_n Teilnehmer_innen über unseren Server an
+            alle anderen Teilnehmer_innen des gleichen Gruppenchats:
+          </p>
+
+          <ul>
+            <li>alle IP-Adressen des_der Nutzer_in (auch lokale und netzwerkinterne)</li>
+            <li>User Agent (Browser, Browserversion, Browserengine)</li>
+            <li>Informationen über unterstützte Audio- und Videocodecs des Browsers</li>
+          </ul>
+
+          <p>
+            Eine längerfristige Speicherung, die über die Nutzungsdauer des Dienstes hinaus
+            geht, erfolgt nicht. Weiterhin verwenden wir keine Cookies und protokollieren
+            keine personenbezogenen Daten (z.b. IP Adressen) in unseren Serverlogs.
+          </p>
+
+          <h2>Datenspeicherung durch den Serverbetreiber</h2>
+
+          <p>
+            Unser Server wird von <a href="https://www.simplyroot.de/">SimplyRoot</a> bereitgestellt.
+             Zwecks Auskunft, Widerspruch oder Beschwerde über potenziell von SimplyRoot
+             erhobene Daten, wenden Sie sich bitte direkt an SimplyRoot
+             (<a href="https://www.simplyroot.de/de/ansprechpartner/">Kontaktseite</a>).
+          </p>
+
+          <h2>Kontakt zu uns</h2>
+
+          <p>
+            Wenn Sie per E-Mail Kontakt mit uns aufnehmen, so verwenden wir Ihre E-Mail-Adresse
+            nur, um mit Ihnen in Kontakt zu treten. Andere Verwendungen
+            schließen wir aus.
+          </p>
+        `,
       },
       usage: {
         title: "Benutzungs­hinweise",

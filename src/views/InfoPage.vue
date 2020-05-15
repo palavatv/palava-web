@@ -162,6 +162,11 @@ export default {
     overflow-wrap: break-word;
     word-wrap: break-word;
     hyphens: auto;
+
+    ul {
+      list-style: circle;
+      padding-left: $medium-spacing;
+    }
   }
 }
 

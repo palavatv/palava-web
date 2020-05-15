@@ -128,22 +128,21 @@ export default {
         content: `
           <h2>What is palava.tv?</h2>
           <p>
-            It is a simplistic, free, and open source video meeting platform, which is developed by
-            a non-profit organization based in the EU. It runs in your browser and no registration is required.
+            palava.tv is a cost-free, simple to use, secure and open source video calls. It is developed and operated by a charitable non-profit organization based in the EU. palava.tv runs directly in the web browser and usage does not require a registration.
           </p>
 
           <h2>Directly connected meetings</h2>
           <p>
-            The palava.tv platform connects you to all people in a meeting room directly,
-            which means that no video or audio gets sent to the palava.tv server.
+            The palava.tv platform establishes an encrypted direct connection between you and  all people in your meeting room,
+            which means that no video or audio data gets sent to the palava.tv server.
           </p>
 
           <p>
-            Because everyone in the meeting is connected to everyone else, it works best for small groups with no more than 4-5 people.
-            Although palava.tv allows you to connect to up to 10 people, video quality decreases, and this is not recommended.
+            Because everyone in the meeting is connected to everyone else, palava.tv works best one-to-one conversations or small groups with no more 5 people.
+            <!-- Although the platform allows you to connect to up to 10 people, the transmission quality decreases, so this is not recommended. -->
           <p>
-            <strong>Important to know:</strong> In some cases, it is not possible to create a direct media connection between to people and a connection error is shown instead of a video.
-          Unfortunately, palava.tv does not work in these cases. We are aware of this situation and are preparing relay servers to mitigate this problem.
+            <strong>Important:</strong> In some cases, it is not possible to create a media connection to someone and, instead of the video, a connection error is shown.
+          Unfortunately, palava.tv does not work in these cases. We are aware of the situation and are preparing relay servers to mitigate this problem.
 
           <!--<h2>Learn more</h2>
           <p>
@@ -161,8 +160,8 @@ export default {
           <h2>Reach us</h2>
           <p>
             The best way to get in touch is to write us an email: <a href="mailto:contact@palava.tv">contact@palava.tv</a><br/>
-            We are also tweeting from: <a href="https://twitter.com/palavatv">@palavatv</a><br/>
-            Our code is open source on GitHub: <a href="https://github.com/palavatv">@palavatv</a>
+            We tweet from: <a href="https://twitter.com/palavatv">@palavatv</a><br/>
+            Our code is available on GitHub: <a href="https://github.com/palavatv">@palavatv</a>
           </p>
 
           <h2>Imprint</h2>
@@ -183,18 +182,29 @@ export default {
       ev: {
         title: 'Palava Association',
         content: `
-          <h2>We are indpendent</h2>
+          <h2>We are independent and are not subject to commercial interests</h2>
           <p>
             palava.tv is developed and run by <strong>palava e. V.</strong>, a German non-profit organization. We want to bring knowledge about decentralized video communication to the masses.
           </p>
 
           <h2>Donations</h2>
-          <p>If you like our work, you can support us financially. The main use of the money is to enable further development of the platform by paying people who work on palava.tv. It also enables us to scale up our server infrastructure.
+          <p>If you like our work, you can support us financially. The main use of the funds is to enable further development of the platform by paying people who work on palava.tv or teach the general audience how to use it. The second use is scaling up our server infrastructure. We are starting the the donation campaign in 2020 and will make transparent, how we use the funds.
 
-          <p>You can send us money on Patreon[TODO], or wire us something directly to:</p>
-          <div class="bank-account">
-            [TODO]
-          </div>
+          <p>You can send us something on Patreon[TODO], or wire directly to:</p>
+          <table class="bank-account">
+            <tr>
+              <th>Account</th>
+              <td>palava e. V.</td>
+            </tr>
+            <tr>
+               <th>IBAN</th>
+               <td>DE33430609671157492300</td>
+            </tr>
+            <tr>
+              <th>BIC</th>
+              <td>GENODEM1GLS</td>
+            </tr>
+          </table>
 
           <p>We are charitable under German law. Please email us at contact@palava.tv if you would like to have a receipt for your donation.</p>
         `
@@ -204,7 +214,7 @@ export default {
         content: `
           <h2>Run your own palava.tv instance</h2>
           <p>
-            The palava.tv server's job is to directly connect everyone who joins the same meeting room. If you have some experience in server hosting. It is possible, to host a custom palava.tv instance. More info and detailed instructions soon. Meanwhile, see our <a href="https://github.com/palavatv/palava">GitHub</a> for more details.
+            The palava.tv server's job is to directly connect everyone who joins the same meeting room. If you have some experience in server hosting, you can host a custom palava.tv server. More info and detailed instructions soon. Meanwhile, see our <a href="https://github.com/palavatv/palava">GitHub</a>.
           </p>
         `,
       },
@@ -212,7 +222,9 @@ export default {
         title: 'Network Info',
         content: `
           <h2>Connection Type</h2>
-          <p>There are two different ways in which you can connect to someone via palava.tv:</p>
+          <p>
+            There are two different ways in which you can connect to someone via palava.tv:
+          </p>
           <ul>
             <li><strong>Direct:</strong> Your device is directly connected to the other device</li>
             <li><strong>Relayed:</strong> Both devices send there data to a relay server. Sometimes, this is necessary to successfully enable the connection. The relay server has no access to the data.</li>
@@ -315,12 +327,12 @@ export default {
         content: `
           <h2>How does palava.tv work under the hood?</h2>
           <p>
-            palava.tv is based on a technology called <a href="https://www.webrtc.org/">Web Real-Time Communication</a> (WebRTC) which enables peer-to-peer based video conferencing directly in the web browser. It is built on top of many <a href="https://datatracker.ietf.org/wg/rtcweb/documents/">lower-level standards by the Internet Engineering Task Force</a>.
+            palava.tv is based on a technology called <a href="https://www.webrtc.org/">Web Real-Time Communication</a> (WebRTC) which enables peer-to-peer video chat in the web browser. It is built on top of many <a href="https://datatracker.ietf.org/wg/rtcweb/documents/">lower-level standards by the Internet Engineering Task Force</a>.
           </p>
 
           <h2>How can I find out, if my browser supports WebRTC?</h2>
           <p>
-            Most up-to-date browsers (like Firefox, Safari or Google Chrome) support this technology. Google offers a <a href="https://test.webrtc.org/">testing page</a>, which can help you with this question. If you notice that palava.tv does not work for you, but you think it should, please <a href="https://github.com/palavatv/palava/issues/new">open an issue on our GitHub</a>, so we can take a look what the reason for this problem is, and if it is possible to improve palava.tv.
+            Most up-to-date browsers (for example: Firefox, Safari or Google Chrome) support this technology. Google offers a <a href="https://test.webrtc.org/">testing page</a>, which can help you with this question. If you notice that palava.tv does not work for you, but you think it should, please <a href="https://github.com/palavatv/palava/issues/new">let us know on GitHub</a>, so we can take a look at it and possibly improve palava.tv.
           </p>
         `,
       },
@@ -452,21 +464,118 @@ export default {
     infoPages: {
       about: {
         title: "Über Palava",
+        content: `
+          <h2>Was ist palava.tv?</h2>
+          <p>
+            palava.tv ist eine kostenlose, einfach benutzbare, sichere und quelloffene Plattform für Videogespräche. Sie wird von einer gemeinnützigen Organisation mit Sitz in der EU entwickelt und betrieben. palava.tv läuft direkt im Webbrowser und die Benutzung erfordert keine Registrierung.
+          </p>
+
+          <h2>Direkt-verbunde Treffen</h2>
+          <p>
+            Die palava.tv-Plattform baut zwischen dir und allen Leuten in deinem Meetingraum eine verschlüsselte Direktverbindung auf, was bedeutet, das keine Video- oder Audiodaten an den palava.tv-Server gesendet werden.
+          </p>
+
+          <p>
+            Weil im Treffen jede_r mit jeder_jedem verbunden ist, funktioniert palava.tv am besten für 1-zu-1 Gespräche oder kleine Gruppen, mit maximal 5 Leuten.
+            <!-- Die Plattform erlaubt es dir zwar, dich mit bis zu 10 anderen Leuten zu verbinden, allerdings sinkt dabei die Übetragungsqualität, sodass das nicht empfohlen ist.-->
+          <p>
+            <strong>Wichtig:</strong> In einigen Fällen gelingt es nicht, eine Medienverbindung zu jemand aufzubauen und anstatt des Videos wird ein Verbindungsfehler angezeigt.
+            Leider funktioniert palava.tv in diesen Fällen nicht. Wir kennen das Problem, und arbeiten an einer Lösung mit Zwischenübertragungsservern.
+        `,
       },
       contact: {
         title: "Kontakt",
+        content: `
+          <h2>Reach us</h2>
+          <p>
+            Die beste Art, mit uns in Kontakt zu treten, ist per Email: <a href="mailto:contact@palava.tv">contact@palava.tv</a><br/>
+            Wir tweeten von: <a href="https://twitter.com/palavatv">@palavatv</a><br/>
+            Our code is available on GitHub: <a href="https://github.com/palavatv">@palavatv</a>
+          </p>
+
+          <h2>Impressum</h2>
+          <address>
+            palava e. V.<br/>
+            Thomas-Müntzer-Platz 5<br/>
+            01307 Dresden<br/>
+            Germany
+          </address>
+
+          <h2>Registrierung</h2>
+          <p>VR 5967 (Amtsgericht Dresden)</p>
+
+          <h2>Vorstand</h2>
+          <p>Marius Melzer, Jan Lelis, Alexandra Weiss</p>
+        `,
       },
       ev: {
         title: "Palava Verein",
+        content: `
+          <h2>Wir sind unabhängig und unterliegen keinen kommerziellen Interessen</h2>
+          <p>
+            palava.tv wird von <strong>palava e. V.</strong> entwickelt und betrieben, einem gemeinnützigen Verein in Deutschland. Wir wollen das Wissen über dezentrale Videokommunikation an die breite Masse tragen.
+          </p>
+
+          <h2>Spenden</h2>
+          <p>Wenn du mit unserer Arbeit zufrieden bist, kannst du uns finanziell unterstützen. Der Hauptzweck der Einnahmen ist, die zukünftige Entwicklung der Plattform sicherzustellen, indem Leute bezahlt werden, welche an palava.tv arbeiten oder dessen Benutzung erklären. Der zweite Zweck ist, unsere Serverinfrastruktur zu skalieren. Wir starten die Spendenkampange im Jahr 2020 und werden transparent machen, wie wir die Mittel benutzen.
+
+          <p>Du kannst uns etwas über Patreon senden, oder direkt überweisen:</p>
+          <table class="bank-account">
+            <tr>
+              <th>Account</th>
+              <td>palava e. V.</td>
+            </tr>
+            <tr>
+               <th>IBAN</th>
+               <td>DE33430609671157492300</td>
+            </tr>
+            <tr>
+              <th>BIC</th>
+              <td>GENODEM1GLS</td>
+            </tr>
+          </table>
+
+          <p>Wir sind ein gemeinnütziger Verein. Bitte schreibe eine Email an contact@palava.tv, wenn du eine Spendenquittung haben möchtest.</p>
+        `
       },
       hosting: {
-        title: "Selbst Hosten",
+        title: "Selber Hosten",
+        content: `
+          <h2>Betreibe deine eigene palava.tv-Instanz</h2>
+          <p>
+            Die Aufgabe des palava.tv-Serves ist es, jede_n, die_der den gleichen Meetingraum betritt, miteinander zu verbinden. Wenn du Erfahrung mit dem Hosten von eigenen Server hast, kannst du einen eigenen palava.tv-Server hosten. Mehr Informationen und detailierte Anleitungen demnächst. In der Zwischenzeit, schau die mal unsere <a href="https://github.com/palavatv/palava">GitHub Seite</a> an.
+          </p>
+        `,
       },
       network: {
         title: "Netzwerkinformationen",
+        content: `
+          <h2>Verbindungstyp</h2>
+          <p>
+            Es gibt zwei verschiedene Arten, wie du dich mit jemand auf palava.tv verbinden kannst:
+          </p>
+          <ul>
+            <li><strong>Direkt:</strong> Dein Gerät ist direkt mit dem anderen Gerät verbunden</li>
+            <li><strong>Mit Zwischenstation:</strong> Beide Geräte senden ihre Daten an eine Zwischenstation. Das ist manchmal notwendig, um eine erfolgreiche Verbindung herstellen zu können. Der Zwischenübertragungsserver hat keine Zugriff auf die Daten.</li>
+          </ul>
+          <p>Zur Zeit sind alle Verbindungen <strong>direkt</strong>. Wir arbeiten daran, demnächst Zwischenübertragungsserver bereit zu stellen.</p>
+
+          <h2>Ferne &amp; Eigene IPs</h2>
+          <p>
+            Um eine funktionierende Verbindung herzustellen, müssen beide Parteien sich gegenseitig alle ihre IP-Adressen senden, inklusive welche, aus dem eigenen (lokalen) Netzwerk.
+          </p>
+          <p>
+            IP-Adressen können im IPv4-Fromat (X.X.X.X), oder im IPv6-Format vorkommen (X:X:X:X:X:X:X:X).
+          </p>
+        `,
       },
       'not-found': {
         title: "Nicht gefunden",
+        content: `
+          <p>
+            Die Seite konnte nicht gefunden werden. Der Inhalt könnte verschwunden sein, oder vielleicht hast du die URL falsch eingegeben.
+          </p>
+        `,
       },
       privacy: {
         title: "Datenschutz­",
@@ -532,9 +641,31 @@ export default {
       },
       usage: {
         title: "Benutzungs­hinweise",
+        content: `
+          <h2>Wie man ein Videotreffen startet</h2>
+          <p>
+            Gib auf der palava.tv-Startseite den Namen eines Meetingraums ein, welchem du beitreten möchtest. Wenn der noch nicht existiert, wird er vom palava.tv-Server erstellt. Teile den Link mit den Leuten, mit denen du dich verbinden möchtest.
+          </p>
+
+          <h2>Empfohlen: Vesteckte Meetings</h2>
+          <p>
+            Es ist möglich, einen versteckten Raum zu erzeugen, indem auf der Startseite du auf &lt;verstecktes Meeting&gt; klickst. Das erzeut einen langen, zufälligen Namen für den Meetingraum, welchen man nicht vorraussagen kann. Teile diesen Link wie gewöhnlich mit deinen Freunden. Nur Leute, welchen den genauen Link kennen, können beitreten. <strong>Verschicke den Link nicht öffentlich</strong>, denn jede_r, die_der den Link kennt, könnte dazukommen, sodass das Treffen nicht mehr versteckt wäre.
+          </p>
+        `,
       },
       webrtc: {
         title: "WebRTC",
+        content: `
+          <h2>Wie funktioniert palava.tv unter der Oberfläche?</h2>
+          <p>
+            palava.tv basiert auf einer Technologie mit dem Namen <a href="https://www.webrtc.org/">Web-Echtzeitkommunikation</a> (engl. abgekürzt: WebRTC), welche direkt-verbundene Videochats im Browser ermöglicht. Sie ist auf der Basis vieler <a href="https://datatracker.ietf.org/wg/rtcweb/documents/">grundlegenden Standards der Internet Engineering Task Force</a> gebaut.
+          </p>
+
+          <h2>Wie kann ich herausfinden, ob mein Browser WebRTC unterstützt?</h2>
+          <p>
+            Die meisten aktuellen Browser (wie z.B. Firefox, Safari, oder Google Chrome) unterstützen diese Technologie. Google bietet eine <a href="https://test.webrtc.org/">Testseite</a> an, welche dir bei der Beantwortung der Frage helfen kann. Wenn du merkst, dass palava.tv bei dir nicht funktioniert, und du denkst, es sollte aber, <a href="https://github.com/palavatv/palava/issues/new">dann lass uns dies bitte auf GitHub wissen</a>. Wir können dann einen Blick darauf werfen und gegebenfalls palava.tv verbessern.
+          </p>
+        `,
       },
     },
   },

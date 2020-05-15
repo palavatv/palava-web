@@ -167,6 +167,24 @@ export default {
       list-style: circle;
       padding-left: $medium-spacing;
     }
+
+    table {
+      border: 0;
+      margin-top: $small-spacing;
+    }
+    th, td {
+      border: 0;
+      text-align: left;
+    }
+    th {
+      padding-right: $medium-spacing;
+    }
+
+    strong {
+      font-weight: normal;
+      text-decoration: underline;
+      // color: $action-1;
+    }
   }
 }
 

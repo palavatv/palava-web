@@ -106,7 +106,6 @@ export default {
     line-height: 130%;
   }
 
-  // TODO style gum buttons
   .gum-buttons {
     margin-top: $medium-spacing;
     margin-bottom: -$medium-spacing;
@@ -117,6 +116,8 @@ export default {
       margin-top: $medium-plus-spacing;
       justify-content: space-around;
     }
+    list-style: none;
+    padding-left: 0;
 
     .gum-choice {
       svg {

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<browserconfig>
+  <msapplication>
+    <tile>
+      <square70x70logo src="/favicons/palava-favicon-128.png" />
+      <square150x150logo src="/favicons/palava-favicon-270.png" />
+      <wide310x150logo src="/favicons/palava-favicon-270.png" />
+      <square310x310logo src="/favicons/palava-favicon-558.png" />
+      <TileColor>#FFFFFF</TileColor>
+    </tile>
+  </msapplication>
+</browserconfig>

@@ -22,7 +22,7 @@ export default {
 
 @font-face {
   font-family: WorkSans;
-  src: url('/WorkSans-Regular.woff2') format('woff2');
+  src: url('/fonts/WorkSans-Regular.woff2') format('woff2');
 }
 
 html, body {

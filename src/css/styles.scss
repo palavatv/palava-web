@@ -98,26 +98,33 @@ $lobby-border-radius: 0px;
   // }
 }
 
+@mixin focusTitlePseudo() {
+  &::after {
+    position: absolute;
+    content: attr(title);
+    background: $white;
+    color: $action-1;
+    @include defaultFont();
+    padding: 2px 7px 2px 5px;
+    white-space: nowrap;
+    .lobby & {
+      white-space: normal;
+    }
+    text-align: left;
+    @include lightShadow();
+  }
+}
+
 @mixin focusTitle() {
   position: relative;
-  &:focus, &:hover {
-    &::after {
-      position: absolute;
-      content: attr(title);
-      background: $white;
-      color: $action-1;
-      @include defaultFont();
-      padding: 2px 7px 2px 5px;
-      white-space: nowrap;
-      .lobby & {
-        white-space: normal;
-      }
-      text-align: left;
-      @include lightShadow();
-    }
+  &:focus {
+    @include focusTitlePseudo();
   }
-  &:hover::after {
-    z-index: 900;
+  @media (max-width: $mobile-plus - 1px) {
+    &:hover {
+      @include focusTitlePseudo();
+      z-index: 900;
+    }
   }
 }
 

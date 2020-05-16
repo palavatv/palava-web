@@ -4,7 +4,7 @@ import VueMeta from 'vue-meta'
 import { InlineSvgPlugin } from 'vue-inline-svg'
 
 import App from './App.vue'
-// import './registerServiceWorker'
+import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import config from './config'

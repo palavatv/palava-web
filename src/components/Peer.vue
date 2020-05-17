@@ -148,12 +148,12 @@
 </template>
 
 <script>
+import yyid from "yyid"
+
 import Stream from "@/components/Stream.vue"
 import PeerStatus from "@/components/PeerStatus.vue"
 import Placeholder from "@/components/Placeholder.vue"
 import NetworkInfo from "@/components/NetworkInfo.vue"
-
-import { uuid } from "@/support"
 
 export default {
   props: {
@@ -213,7 +213,7 @@ export default {
       this.$emit('togglePeer')
     },
     makePeerFullScreen() {
-      this.requestFullscreen = uuid()
+      this.requestFullscreen = yyid()
     },
     toggleMute() {
       this.muted = !this.muted

@@ -100,7 +100,8 @@
 </template>
 
 <script>
-import { uuid } from '@/support'
+import yyid from 'yyid'
+
 import { browserCanUseWebrtc } from '@/webrtc'
 
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
@@ -134,7 +135,7 @@ export default {
       }
     },
     goIntoHiddenRoom() {
-      this.$router.push({ path: uuid() })
+      this.$router.push({ path: yyid() })
     },
   },
   metaInfo() {

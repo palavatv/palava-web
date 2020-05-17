@@ -10418,3 +10418,8 @@ yorkie@^2.0.0:
     is-ci "^1.0.10"
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
+
+yyid@2:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/yyid/-/yyid-2.0.0.tgz#6e7ceef12b34d1cbf8708bc785e13541b020abe7"
+  integrity sha512-D5ETFHBhHoXgN112gOUOQiiMGTiGB7eVv8OvZyvEw033sKxyYAiz4XBAXECggeu5DE/vV28Kq4cDzLAViKmBaQ==

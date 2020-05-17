@@ -6,7 +6,6 @@ import { InlineSvgPlugin } from 'vue-inline-svg'
 import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
-import store from './store'
 import config from './config'
 import messages from './i18nStrings'
 import { detectLanguage } from './support'
@@ -29,7 +28,6 @@ const i18n = new VueI18n({
 
 new Vue({
   router,
-  store,
   i18n,
   render: (h) => h(App),
 }).$mount('#app')

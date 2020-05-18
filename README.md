@@ -1,8 +1,8 @@
 # palava | web
 
-[palava](https://github.com/palavatv/palava) is a cost-free, simple to use, secure, and open source platform for video calls, built on top of the [WebRTC](https://webrtc.org/) technology.
+[palava.tv](https://palava.tv) is a cost-free, simple to use, secure, and open source platform for video calls, built on top of the [WebRTC](https://webrtc.org/) technology.
 
-This repository contains the front-end web application of [palava.tv](https://palava.tv). It replaces the former [palava-portal](https://github.com/palavatv/palava-portal).
+This repository contains the current front-end web application of palava.tv. There is an overview of all parts of palava.tv at [palavatv/palava](https://github.com/palavatv/palava).
 
 ## Setup
 

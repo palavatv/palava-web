@@ -98,7 +98,7 @@ export default {
       })
 
       rtc.on("local_stream_error", (error) => {
-        logger.log("local stream error", error)
+        logger.error("local stream error", error)
         this.waiting = false
         this.uiState = [UserMediaConfigurator, { error: "local_stream_error" }]
       })
@@ -166,6 +166,28 @@ export default {
       // rtc.on("session_after_destroy", () => {
       //   logger.log("rtc session destroyed", peer)
       // })
+
+      // CONNECTION STATUS
+
+      rtc.on("peer_connection_pending", (peer) => {
+        logger.log("peer connection pending", peer)
+      })
+
+      rtc.on("peer_connection_established", (peer) => {
+        logger.log("peer connection established", peer)
+      })
+
+      rtc.on("peer_connection_disconnected", (peer) => {
+        logger.warn("peer connection disconnected", peer)
+      })
+
+      rtc.on("peer_connection_closed", (peer) => {
+        logger.warn("peer connection closed", peer)
+      })
+
+      rtc.on("peer_connection_failed", (peer) => {
+        logger.error("peer connection failed", peer)
+      })
 
       return rtc
     },

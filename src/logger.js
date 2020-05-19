@@ -8,10 +8,10 @@ export default {
   },
 
   warn(...args) {
-    console.log('WARNING', ...args)
+    console.warn('WARNING', ...args)
   },
 
   error(...args) {
-    console.log('ERROR', ...args)
+    console.error('ERROR', ...args)
   },
 }

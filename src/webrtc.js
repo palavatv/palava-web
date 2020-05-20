@@ -29,7 +29,7 @@ export function attachMediaStream(element, stream, muted = false) {
     }
     element.srcObject = stream
     if (element.paused) {
-      element.play()
+      element.play().catch(() => {})
     }
   } else {
     if (element.srcObject) { element.pause() }

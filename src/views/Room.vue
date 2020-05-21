@@ -48,6 +48,7 @@ export default {
       peers: [],
       localPeer: null,
       infoPage: null,
+      signalingConnectedBefore = false,
     }
   },
   created() {
@@ -84,12 +85,12 @@ export default {
 
       rtc.on("signaling_not_reachable", () => {
         logger.error("signaling server not reachable")
-        this.uiState = [RoomError, { error: "connection_error" }]
+        reconnectRtc()
       })
 
       rtc.on("signaling_error", (error) => {
         logger.error("signaling error", error)
-        this.uiState = [RoomError, { error: "connection_error" }]
+        reconnectRtc()
       })
 
       rtc.on("signaling_shutdown", (seconds) => {
@@ -201,6 +202,18 @@ export default {
           joinTimeout: config.defaultJoinTimeout,
         },
       })
+    },
+    reconnectRtc() {
+      if (this.signalingConnectedBefore) {
+        // TODO: show "Palava server not reachable" or "Network not reachable" overlay
+        if (navigator.online) {
+          rtc.reconnect()
+        } else {
+          window.addEventListener('online',  function() {rtc.reconnect()});
+        }
+      } else {
+        this.uiState = [RoomError, { error: "connection_error" }]
+      }
     },
     closeInfoScreen() {
       this.infoPage = null

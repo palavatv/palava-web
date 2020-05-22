@@ -208,11 +208,8 @@ export default {
     reconnectRtc() {
       if (this.signalingConnectedBefore) {
         // TODO: show "Palava server not reachable" or "Network not reachable" overlay
-        if (navigator.onLine) {
-          this.rtc.reconnect()
-        } else {
-          window.addEventListener('online', this.onlineEventListener)
-        }
+        window.addEventListener('online', this.onlineEventListener)
+        if (navigator.onLine) window.dispatchEvent(new Event('online'))
       } else {
         this.uiState = [RoomError, { error: "connection_error" }]
       }

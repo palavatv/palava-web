@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-16.04
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Install dependencies
+      run: sudo apt install yarn
+      
+    - name: Install palava-web
+      run: |
+        yarn
+        yarn build
+
+    - name: Lint palava-web
+      run: yarn lint
+    
+    - name: Audit palava-web
+      run: yarn audit
+    
+    - name: Test palava-web
+      run: |
+        yarn test:unit

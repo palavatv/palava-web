@@ -17,7 +17,7 @@ export function createSession(roomId, rtcUrl) {
   return new Session({
     roomId,
     peers: [],
-    channel: new WebSocketChannel(rtcUrl),
+    web_socket_address: rtcUrl,
   })
 }
 

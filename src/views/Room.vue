@@ -85,12 +85,12 @@ export default {
 
       rtc.on("signaling_not_reachable", () => {
         logger.error("signaling server not reachable")
-        reconnectRtc()
+        this.reconnectRtc()
       })
 
       rtc.on("signaling_error", (error) => {
         logger.error("signaling error", error)
-        reconnectRtc()
+        this.reconnectRtc()
       })
 
       rtc.on("signaling_shutdown", (seconds) => {
@@ -208,18 +208,18 @@ export default {
     reconnectRtc() {
       if (this.signalingConnectedBefore) {
         // TODO: show "Palava server not reachable" or "Network not reachable" overlay
-        if (navigator.online) {
-          rtc.reconnect()
+        if (navigator.onLine) {
+          this.rtc.reconnect()
         } else {
-          window.addEventListener('online', onlineEventListener)
+          window.addEventListener('online', this.onlineEventListener)
         }
       } else {
         this.uiState = [RoomError, { error: "connection_error" }]
       }
     },
     onlineEventListener() {
-      rtc.reconnect()
-      window.removeEventListener('online', onlineEventListener)
+      this.rtc.reconnect()
+      window.removeEventListener('online', this.onlineEventListener)
     },
     closeInfoScreen() {
       this.infoPage = null

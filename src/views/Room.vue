@@ -48,7 +48,7 @@ export default {
       peers: [],
       localPeer: null,
       infoPage: null,
-      signalingConnectedBefore = false,
+      signalingConnectedBefore: false,
     }
   },
   created() {
@@ -124,6 +124,8 @@ export default {
       rtc.on("room_joined", (room) => {
         logger.log(`room joined with ${room.getRemotePeers().length} other peers`)
         const peers = this.rtc.room.getAllPeers()
+
+        this.signalingConnectedBefore = true
 
         if (peers.length > config.maximumPeers) {
           this.uiState = [RoomError, { error: "room_full" }]
@@ -209,11 +211,15 @@ export default {
         if (navigator.online) {
           rtc.reconnect()
         } else {
-          window.addEventListener('online',  function() {rtc.reconnect()});
+          window.addEventListener('online', onlineEventListener)
         }
       } else {
         this.uiState = [RoomError, { error: "connection_error" }]
       }
+    },
+    onlineEventListener() {
+      rtc.reconnect()
+      window.removeEventListener('online', onlineEventListener)
     },
     closeInfoScreen() {
       this.infoPage = null

@@ -2,7 +2,6 @@ import {
   browser,
   Session,
   Identity,
-  WebSocketChannel,
 } from 'palava-client'
 
 export function browserCanUseWebrtc() {

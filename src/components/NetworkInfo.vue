@@ -24,18 +24,10 @@
     <section>
       <h3>{{ $t('networkInfo.remoteIps') }}</h3>
       <ul>
-        <li v-for="ip in remotePrimaryIps" :key="ip" :title="$t('networkInfo.cLineIpTitle')">
+        <li v-for="ip in allRemoteIps" :key="ip" :title="$t('networkInfo.ipTitle')">
           <inline-svg
-            :aria-label="$t('networkInfo.cLineIpAlt')"
-            :alt="$t('networkInfo.cLineIpAlt')"
-            :src="require('../assets/star.svg')"
-            />
-          {{ ip }}
-        </li>
-        <li v-for="ip in remoteCandidateIps" :key="ip"  :title="$t('networkInfo.iceIpTitle')">
-          <inline-svg
-            :aria-label="$t('networkInfo.iceIpAlt')"
-            :alt="$t('networkInfo.iceIpAlt')"
+            :aria-label="$t('networkInfo.ipAlt')"
+            :alt="$t('networkInfo.ipAlt')"
             :src="require('../assets/dot-single.svg')"
             />
           {{ ip }}
@@ -46,18 +38,10 @@
     <section>
       <h3>{{ $t('networkInfo.localIps') }}</h3>
       <ul>
-        <li v-for="ip in localPrimaryIps" :key="ip" :title="$t('networkInfo.cLineIpTitle')">
+        <li v-for="ip in allLocalIps" :key="ip" :title="$t('networkInfo.ipTitle')">
           <inline-svg
-            :aria-label="$t('networkInfo.cLineIpAlt')"
-            :alt="$t('networkInfo.cLineIpAlt')"
-            :src="require('../assets/star.svg')"
-            />
-          {{ ip }}
-        </li>
-        <li v-for="ip in localCandidateIps" :key="ip"  :title="$t('networkInfo.iceIpTitle')">
-          <inline-svg
-            :aria-label="$t('networkInfo.iceIpAlt')"
-            :alt="$t('networkInfo.iceIpAlt')"
+            :aria-label="$t('networkInfo.ipAlt')"
+            :alt="$t('networkInfo.ipAlt')"
             :src="require('../assets/dot-single.svg')"
             />
           {{ ip }}
@@ -87,17 +71,17 @@ export default {
     isRelayed() {
       return false
     },
-    localPrimaryIps() {
-      return this.localNetworkInfo.primaryIps.map((ip) => ip.address)
+    allLocalIps() {
+      return [
+        ...this.localNetworkInfo.primaryIps.map((ip) => ip.address),
+        ...this.localNetworkInfo.candidateIps.map((ip) => ip.address),
+      ]
     },
-    localCandidateIps() {
-      return this.localNetworkInfo.candidateIps.map((ip) => ip.address)
-    },
-    remotePrimaryIps() {
-      return this.remoteNetworkInfo.primaryIps.map((ip) => ip.address)
-    },
-    remoteCandidateIps() {
-      return this.remoteNetworkInfo.candidateIps.map((ip) => ip.address)
+    allRemoteIps() {
+      return [
+        ...this.remoteNetworkInfo.primaryIps.map((ip) => ip.address),
+        ...this.remoteNetworkInfo.candidateIps.map((ip) => ip.address),
+      ]
     },
   },
 }

@@ -117,10 +117,8 @@ export default {
       relayedConnection: "Connection via relay",
       remoteIps: "Remote IP addresses",
       localIps: "Your IP addresses",
-      cLineIpTitle: "Default IP address",
-      cLineIpAlt: "star",
-      iceIpTitle: "Candidate IP address",
-      iceIpAlt: "circle",
+      ipTitle: "",
+      ipAlt: "",
     },
     infoPages: {
       about: {

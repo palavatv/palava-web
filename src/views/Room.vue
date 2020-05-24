@@ -48,6 +48,8 @@ export default {
       peers: [],
       localPeer: null,
       infoPage: null,
+      signalingConnectedBefore: false,
+      repeatedReconnect: false,
     }
   },
   created() {
@@ -84,12 +86,12 @@ export default {
 
       rtc.on("signaling_not_reachable", () => {
         logger.error("signaling server not reachable")
-        this.uiState = [RoomError, { error: "connection_error" }]
+        this.reconnectRtc()
       })
 
       rtc.on("signaling_error", (error) => {
         logger.error("signaling error", error)
-        this.uiState = [RoomError, { error: "connection_error" }]
+        this.reconnectRtc()
       })
 
       rtc.on("signaling_shutdown", (seconds) => {
@@ -123,6 +125,9 @@ export default {
       rtc.on("room_joined", (room) => {
         logger.log(`room joined with ${room.getRemotePeers().length} other peers`)
         const peers = this.rtc.room.getAllPeers()
+
+        this.signalingConnectedBefore = true
+        this.repeatedReconnect = false
 
         if (peers.length > config.maximumPeers) {
           this.uiState = [RoomError, { error: "room_full" }]
@@ -201,6 +206,24 @@ export default {
           joinTimeout: config.defaultJoinTimeout,
         },
       })
+    },
+    reconnectRtc() {
+      if (this.signalingConnectedBefore) {
+        // TODO: show "Palava server not reachable" or "Network not reachable" overlay
+        window.addEventListener('online', this.onlineEventListener)
+        if (navigator.onLine) window.dispatchEvent(new Event('online'))
+      } else {
+        this.uiState = [RoomError, { error: "connection_error" }]
+      }
+    },
+    onlineEventListener() {
+      if (this.repeatedReconnect) {
+        setTimeout(this.rtc.reconnect, config.reconnectTimeout)
+      } else {
+        this.repeatedReconnect = true
+        this.rtc.reconnect()
+      }
+      window.removeEventListener('online', this.onlineEventListener)
     },
     closeInfoScreen() {
       this.infoPage = null

@@ -49,7 +49,7 @@ export default {
       localPeer: null,
       infoPage: null,
       signalingConnectedBefore: false,
-      repeatetReconnect: false,
+      repeatedReconnect: false,
     }
   },
   created() {
@@ -127,7 +127,7 @@ export default {
         const peers = this.rtc.room.getAllPeers()
 
         this.signalingConnectedBefore = true
-        this.repeatetReconnect = false
+        this.repeatedReconnect = false
 
         if (peers.length > config.maximumPeers) {
           this.uiState = [RoomError, { error: "room_full" }]
@@ -217,10 +217,10 @@ export default {
       }
     },
     onlineEventListener() {
-      if (this.repeatetReconnect) {
-        setTimeout(this.rtc.reconnect, 1000)
+      if (this.repeatedReconnect) {
+        setTimeout(this.rtc.reconnect, config.reconnectTimeout)
       } else {
-        this.repeatetReconnect = true
+        this.repeatedReconnect = true
         this.rtc.reconnect()
       }
       window.removeEventListener('online', this.onlineEventListener)

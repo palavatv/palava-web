@@ -6,6 +6,7 @@ export default {
   defaultRtcUrl: 'ws://localhost:4233',
   defaultStunUrl: 'stun:stun.palava.tv',
   defaultJoinTimeout: 1500,
+  reconnectTimeout: 1000,
   maximumPeers: 6,
   defaultLocale: 'en',
   supportedLocales: ['en', 'de'],

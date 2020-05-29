@@ -25,7 +25,7 @@
             <button
               autofocus
               :title="$t('room.gumChoiceVideoAndAudio')"
-              @click="$emit('join-room', { video: { facingMode: 'user' }, audio:true })"
+              @click="$emit('join-room', { video: videoConstraints, audio:true })"
               >
               <inline-svg
                 :alt="$t('party.cameraAlt')"
@@ -43,7 +43,7 @@
           <li class="gum-choice gum-choice--video">
             <button
               :title="$t('room.gumChoiceVideo')"
-              @click="$emit('join-room', { video: { facingMode: 'user' }, audio:false })"
+              @click="$emit('join-room', { video: videoConstraints, audio:false })"
               >
               <inline-svg
                 :alt="$t('party.cameraAlt')"
@@ -80,6 +80,7 @@
 <script>
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import Logo from '@/components/Logo.vue'
+import config from '@/config'
 
 export default {
   components: {
@@ -92,6 +93,11 @@ export default {
       default: null,
     },
   },
+  computed: {
+    videoConstraints() {
+      return config.gumVideoConstraints
+    }
+  }
 }
 </script>
 

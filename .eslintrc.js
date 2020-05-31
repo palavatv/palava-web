@@ -25,6 +25,7 @@ module.exports = {
     'operator-linebreak': 'off',
     'dot-location': 'off',
     'comma-dangle': 'off',
+    'keyword-spacing': 'off',
     'vue-a11y/media-has-caption': 'off',
     'vue-a11y/no-autofocus': 'off',
     'vue-a11y/click-events-have-key-events': 'off',

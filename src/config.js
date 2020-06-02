@@ -6,6 +6,13 @@ export default {
   defaultRtcUrl: 'ws://localhost:4233',
   defaultStunUrl: 'stun:stun.palava.tv',
   defaultJoinTimeout: 1500,
+  gumVideoConstraints: {
+    // default to selfie camera for video calls
+    facingMode: 'user',
+    // "ideal" resolution requested, will scale down automatically
+    width: 1280,
+    height: 720,
+  },
   reconnectTimeout: 1000,
   maximumPeers: 6,
   defaultLocale: 'en',

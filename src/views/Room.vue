@@ -27,7 +27,7 @@
 <script>
 import config from "@/config"
 import logger from "@/logger"
-import { createSession, createIdentity } from "@/webrtc"
+import { Session } from "palava-client"
 import { fancyNumber } from "@/support"
 
 import UserMediaConfigurator from "@/components/UserMediaConfigurator.vue"
@@ -55,7 +55,14 @@ export default {
   created() {
     const roomId = this.$route.params.roomId
     this.catchInvalidRoomId(roomId)
-    this.rtc = this.setupRtc(createSession(roomId, config.env.rtcUrl || config.defaultRtcUrl))
+    this.rtc = this.setupRtc(
+      new Session({
+        roomId,
+        webSocketAddress: config.env.rtcUrl || config.defaultRtcUrl,
+        stun: config.env.stunUrl || config.defaultStunUrl,
+        joinTimeout: config.defaultJoinTimeout,
+      })
+    )
   },
   beforeDestroy() {
     this.rtc.destroy()
@@ -107,7 +114,6 @@ export default {
 
       rtc.on("local_stream_ready", (stream) => {
         logger.log("local stream ready", stream)
-        rtc.room.join()
       })
 
       rtc.on("room_join_error", () => {
@@ -199,12 +205,8 @@ export default {
     joinRoom(userMediaConfig) {
       this.waiting = true
 
-      this.rtc.init({
-        identity: createIdentity(userMediaConfig),
-        options: {
-          stun: config.env.stunUrl || config.defaultStunUrl,
-          joinTimeout: config.defaultJoinTimeout,
-        },
+      this.rtc.connect({
+        userMediaConfig,
       })
     },
     reconnectRtc() {

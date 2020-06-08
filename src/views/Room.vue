@@ -83,6 +83,10 @@ export default {
         this.$router.replace({ path: roomId.substr(0, 50) })
       }
     },
+    updateUiState(component, props = {}) {
+      this.screenMessage = null
+      this.uiState = [component, props]
+    },
     setupRtc(rtc) {
       rtc.on("webrtc_no_support", () => {
         logger.error("webrtc not supported")
@@ -104,13 +108,12 @@ export default {
 
       rtc.on("signaling_shutdown", (seconds) => {
         logger.warn(`Sorry, your connection will be reset in ${seconds} seconds!`)
-        this.uiState = [RoomError, { error: "maintenance" }]
+        this.updateUiState(RoomError, { error: "maintenance" })
       })
 
       rtc.on("local_stream_error", (error) => {
         logger.error("local stream error", error)
-        this.screenMessage = null
-        this.uiState = [UserMediaConfigurator, { error: "local_stream_error" }]
+        this.updateUiState(UserMediaConfigurator, { error: "local_stream_error" })
       })
 
       rtc.on("local_stream_ready", (stream) => {
@@ -118,15 +121,13 @@ export default {
       })
 
       rtc.on("room_join_error", () => {
-        logger.error("room join error")
-        this.screenMessage = null
-        this.uiState = [RoomError, { error: "connection_error" }]
+        logger.error("room join error (timeout)")
+        this.updateUiState(RoomError, { error: "connection_error" })
       })
 
       rtc.on("room_full", () => {
         logger.error("room full")
-        this.screenMessage = null
-        this.uiState = [RoomError, { error: "room_full" }]
+        this.updateUiState(RoomError, { error: "room_full" })
       })
 
       rtc.on("room_joined", (room) => {
@@ -136,16 +137,14 @@ export default {
         const peers = this.rtc.room.getAllPeers()
 
         if (peers.length > config.maximumPeers) {
-          this.screenMessage = null
-          this.uiState = [RoomError, { error: "room_full" }]
           this.rtc.destroy()
+          this.updateUiState(RoomError, { error: "room_full" })
           return
         }
 
         this.peers = peers
         this.localPeer = this.rtc.room.getLocalPeer()
-        this.screenMessage = null
-        this.uiState = [Party]
+        this.updateUiState(Party)
       })
 
       rtc.on("peer_joined", (peer) => {
@@ -168,6 +167,10 @@ export default {
       rtc.on("peer_left", (peer) => {
         logger.log("peer left", peer)
         this.peers = this.rtc.room.getAllPeers()
+      })
+
+      rtc.on("session_reconnect", () => {
+        logger.log("trying to reconnect and rejoin room")
       })
 
       rtc.on("session_before_destroy", () => {
@@ -217,7 +220,7 @@ export default {
         window.addEventListener('online', this.onlineEventListener)
         if (navigator.onLine) window.dispatchEvent(new Event('online'))
       } else {
-        this.uiState = [RoomError, { error: "connection_error" }]
+        this.updateUiState(RoomError, { error: "connection_error" })
       }
     },
     onlineEventListener() {

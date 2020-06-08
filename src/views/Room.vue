@@ -96,7 +96,7 @@ export default {
 
       rtc.on("signaling_not_reachable", () => {
         logger.error("signaling server not reachable")
-        // this.reconnectRtcWhenOnLine()
+        this.reconnectRtcWhenOnLine()
       })
 
       rtc.on("signaling_error", (errorType, error) => {

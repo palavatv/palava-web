@@ -1,13 +1,22 @@
 <template>
-  <aside class="waiting-for-user-media">
-    {{ $t("room.waitingForUserMedia") }}
-  </aside>
+  <aside class="screen-message" v-html="message" />
 </template>
 
-<style lang="scss" scoped>
+<script>
+export default {
+  props: {
+    message: {
+      type: String,
+      required: true,
+    }
+  }
+}
+</script>
+
+<style lang="scss">
 @import '@/css/styles.scss';
 
-.waiting-for-user-media {
+.screen-message {
   background: black;
   position: fixed;
   z-index: 800;
@@ -20,6 +29,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20vh 10vw;
 
   color: #e4eeff;
   @include hugeFont();

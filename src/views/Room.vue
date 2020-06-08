@@ -1,7 +1,7 @@
 <template>
   <div class="room">
     <transition name="fade">
-      <WaitingForUserMedia v-if="waiting" />
+      <ScreenMessage :message="screenMessage" v-if="screenMessage" />
     </transition>
 
     <transition name="fade">
@@ -31,25 +31,24 @@ import { Session } from "palava-client"
 import { fancyNumber } from "@/support"
 
 import UserMediaConfigurator from "@/components/UserMediaConfigurator.vue"
-import WaitingForUserMedia from "@/components/WaitingForUserMedia.vue"
+import ScreenMessage from "@/components/ScreenMessage.vue"
 import InfoScreen from "@/components/InfoScreen.vue"
 import RoomError from "@/components/RoomError.vue"
 import Party from "@/components/Party.vue"
 
 export default {
   components: {
-    WaitingForUserMedia,
+    ScreenMessage,
     InfoScreen,
   },
   data() {
     return {
       uiState: [UserMediaConfigurator, {}],
-      waiting: false,
+      screenMessage: null,
       peers: [],
       localPeer: null,
       infoPage: null,
-      signalingConnectedBefore: false,
-      repeatedReconnect: false,
+      signalingState: 'initial', // --> connected, reconnect_scheduled, trying_to_reconnect
     }
   },
   created() {
@@ -84,6 +83,10 @@ export default {
         this.$router.replace({ path: roomId.substr(0, 50) })
       }
     },
+    updateUiState(component, props = {}) {
+      this.screenMessage = null
+      this.uiState = [component, props]
+    },
     setupRtc(rtc) {
       rtc.on("webrtc_no_support", () => {
         logger.error("webrtc not supported")
@@ -93,23 +96,24 @@ export default {
 
       rtc.on("signaling_not_reachable", () => {
         logger.error("signaling server not reachable")
-        this.reconnectRtc()
+        this.reconnectRtcWhenOnLine()
       })
 
-      rtc.on("signaling_error", (error) => {
-        logger.error("signaling error", error)
-        this.reconnectRtc()
+      rtc.on("signaling_error", (errorType, error) => {
+        logger.error("signaling error", errorType, error)
+        if(errorType === "socket" || errorType === "missing_pongs") {
+          this.reconnectRtcWhenOnLine()
+        }
       })
 
       rtc.on("signaling_shutdown", (seconds) => {
         logger.warn(`Sorry, your connection will be reset in ${seconds} seconds!`)
-        this.uiState = [RoomError, { error: "maintenance" }]
+        this.updateUiState(RoomError, { error: "maintenance" })
       })
 
       rtc.on("local_stream_error", (error) => {
         logger.error("local stream error", error)
-        this.waiting = false
-        this.uiState = [UserMediaConfigurator, { error: "local_stream_error" }]
+        this.updateUiState(UserMediaConfigurator, { error: "local_stream_error" })
       })
 
       rtc.on("local_stream_ready", (stream) => {
@@ -117,35 +121,30 @@ export default {
       })
 
       rtc.on("room_join_error", () => {
-        logger.error("room join error")
-        this.uiState = [RoomError, { error: "connection_error" }]
-        this.waiting = false
+        logger.error("room join error (timeout)")
+        this.updateUiState(RoomError, { error: "connection_error" })
       })
 
       rtc.on("room_full", () => {
         logger.error("room full")
-        this.uiState = [RoomError, { error: "room_full" }]
-        this.waiting = false
+        this.updateUiState(RoomError, { error: "room_full" })
       })
 
       rtc.on("room_joined", (room) => {
         logger.log(`room joined with ${room.getRemotePeers().length} other peers`)
+        this.signalingState = 'connected'
+
         const peers = this.rtc.room.getAllPeers()
 
-        this.signalingConnectedBefore = true
-        this.repeatedReconnect = false
-
         if (peers.length > config.maximumPeers) {
-          this.uiState = [RoomError, { error: "room_full" }]
-          this.waiting = false
           this.rtc.destroy()
+          this.updateUiState(RoomError, { error: "room_full" })
           return
         }
 
         this.peers = peers
         this.localPeer = this.rtc.room.getLocalPeer()
-        this.uiState = [Party]
-        this.waiting = false
+        this.updateUiState(Party)
       })
 
       rtc.on("peer_joined", (peer) => {
@@ -168,6 +167,10 @@ export default {
       rtc.on("peer_left", (peer) => {
         logger.log("peer left", peer)
         this.peers = this.rtc.room.getAllPeers()
+      })
+
+      rtc.on("session_reconnect", () => {
+        logger.log("trying to reconnect and rejoin room")
       })
 
       rtc.on("session_before_destroy", () => {
@@ -203,29 +206,33 @@ export default {
       return rtc
     },
     joinRoom(userMediaConfig) {
-      this.waiting = true
+      this.screenMessage = this.$t('room.waitingForUserMedia')
 
       this.rtc.connect({
         userMediaConfig,
       })
     },
-    reconnectRtc() {
-      if (this.signalingConnectedBefore) {
-        // TODO: show "Palava server not reachable" or "Network not reachable" overlay
+    reconnectRtcWhenOnLine() {
+      logger.log('scheduled reconnect when online')
+      if (this.signalingState !== "initial" && this.signalingState !== "reconnect_scheduled") {
+        this.screenMessage = this.$t('room.waitingForRoomServer')
+        this.signalingState = "reconnect_scheduled"
         window.addEventListener('online', this.onlineEventListener)
         if (navigator.onLine) window.dispatchEvent(new Event('online'))
       } else {
-        this.uiState = [RoomError, { error: "connection_error" }]
+        this.updateUiState(RoomError, { error: "connection_error" })
       }
     },
     onlineEventListener() {
-      if (this.repeatedReconnect) {
-        setTimeout(this.rtc.reconnect, config.reconnectTimeout)
-      } else {
-        this.repeatedReconnect = true
-        this.rtc.reconnect()
-      }
+      logger.log('now online, trying to reconnect')
       window.removeEventListener('online', this.onlineEventListener)
+
+      if (this.signalingState === "reconnect_scheduled") {
+        this.signalingState = "trying_to_reconnect"
+        this.rtc.reconnect()
+      } else if(this.signalingState === "trying_to_reconnect") {
+        setTimeout(this.rtc.reconnect, config.reconnectTimeout)
+      }
     },
     closeInfoScreen() {
       this.infoPage = null

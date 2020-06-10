@@ -7205,10 +7205,10 @@ pako@~1.0.5:
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
-palava-client@^1.10.1:
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/palava-client/-/palava-client-1.10.1.tgz#fb93c62390901efc75c3b925bc70ee5dcc1f0654"
-  integrity sha512-Qc8iTRLmSCAyB8tyIuzzjQ73/dBceoCAQWdkiG6ITB4GJBKHRg1qY/l+BDNuWI7fxcGKx1oS5Ns153MPU2ymCA==
+palava-client@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/palava-client/-/palava-client-2.0.0.tgz#150f2434e0b3a4ef49d0819040b4892fa644f796"
+  integrity sha512-SviNE2BnFVeKSXtW413TKcq5iWGY/JUmx/dxcDlap15M8Ia/7C4a1BDpu8DtmqpXUMcF+FWZGgegt6DOXlqwUA==
   dependencies:
     webrtc-adapter "^7.6.0"
     wolfy87-eventemitter "~5.2.9"

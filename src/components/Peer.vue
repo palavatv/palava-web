@@ -91,7 +91,7 @@
           <button
             :title="$t('peer.fullScreenTitle')"
             class="menu-control menu-control--full-screen"
-            v-if="peerMenuActive && peer.hasVideo()"
+            v-if="peerMenuActive && status === 'video'"
             @click="makePeerFullScreen()"
             >
             <inline-svg

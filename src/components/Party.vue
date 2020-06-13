@@ -52,33 +52,35 @@
         </button>
       </transition>
 
-      <!-- <transition name="fade-control">
+      <transition name="fade-control">
         <button
-          :title="$t('party.turnOffCameraTitle')"
+          :title="cameraOff ? $t('party.turnOnCameraTitle') : $t('party.turnOffCameraTitle')"
           class="control control--camera"
-          v-if="controlsActive"
+          @click="toggleCamera"
+          v-if="controlsActive && localPeer.hasVideo()"
           >
           <inline-svg
             :alt="$t('party.cameraAlt')"
             :aria-label="$t('party.cameraAlt')"
-            :src="require('../assets/video-camera.svg')"
+            :src="cameraOff ? require('../assets/video-camera-off.svg') : require('../assets/video-camera.svg')"
             />
         </button>
-      </transition> -->
+      </transition>
 
-      <!-- <transition name="fade-control">
+      <transition name="fade-control">
         <button
-          :title="$t('party.muteMicrophoneTitle')"
+          :title="microphoneMuted ? $t('party.unmuteMicrophoneTitle') : $t('party.muteMicrophoneTitle')"
           class="control control--microphone"
-          v-if="controlsActive"
+          @click="toggleMicrophone"
+          v-if="controlsActive && localPeer.hasAudio()"
           >
           <inline-svg
             :alt="$t('party.microphoneAlt')"
             :aria-label="$t('party.microphoneAlt')"
-            :src="require('../assets/mic.svg')"
+            :src="microphoneMuted ?  require('../assets/mic-off.svg') : require('../assets/mic.svg')"
             />
         </button>
-      </transition> -->
+      </transition>
 
       <!-- <transition name="fade-control">
         <button
@@ -200,6 +202,8 @@ export default {
       peersInLobby: [],
       peerColors: Array(config.peerColors.length - 1).fill(null),
       controlsActive: true,
+      cameraOff: false,
+      microphoneMuted: false,
     }
   },
   components: {
@@ -305,6 +309,22 @@ export default {
     switchLanguage() {
       this.$root.$i18n.locale = this.$root.$i18n.locale === 'de' ? 'en' : 'de'
       this.$refs.switchLanguage.blur()
+    },
+    toggleMicrophone() {
+      this.microphoneMuted = !this.microphoneMuted
+      if(this.microphoneMuted) {
+        this.localPeer.disableAudio()
+      } else {
+        this.localPeer.enableAudio()
+      }
+    },
+    toggleCamera() {
+      this.cameraOff = !this.cameraOff
+      if(this.cameraOff) {
+        this.localPeer.disableVideo()
+      } else {
+        this.localPeer.enableVideo()
+      }
     },
     onResize() {
       const partyWidth = window.innerWidth

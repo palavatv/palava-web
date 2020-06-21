@@ -30,9 +30,9 @@ Sets the location to the palava signaling server. By default, it tries to reach 
 
 ### `VUE_APP_STUN_URL`
 
-The (required) [STUN server](https://en.wikipedia.org/wiki/STUN) to use, defaults to `stun: stun:stun.palava.tv`
+The (required) [STUN server](https://en.wikipedia.org/wiki/STUN) to use, defaults to `stun:stun:stun.palava.tv`
 
-### `VUE_APP_STUN_URL`
+### `VUE_APP_TURN_URL`
 
 The (optional) [TURN server](https://en.wikipedia.org/wiki/TURN) to use.
 

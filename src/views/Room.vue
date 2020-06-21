@@ -56,13 +56,17 @@ export default {
     this.catchInvalidRoomId(roomId)
 
     const sessionConfig = {
+      roomId,
       webSocketAddress: config.env.rtcUrl || config.defaultRtcUrl,
       stun: config.env.stunUrl || config.defaultStunUrl,
       joinTimeout: config.defaultJoinTimeout,
     }
-    if (config.env.turnUrl) { sessionConfig.turn = config.env.turnUrl }
 
-    this.rtc = this.setupRtc(new Session(roomId, sessionConfig))
+    if (config.env.turnUrl) {
+      sessionConfig.turn = config.env.turnUrl
+    }
+
+    this.rtc = this.setupRtc(new Session(sessionConfig))
   },
   beforeDestroy() {
     this.rtc.destroy()

@@ -1,23 +1,7 @@
-import {
-  browser,
-  Session,
-  Identity,
-} from 'palava-client'
+import { browser } from 'palava-client'
 
 export function browserCanUseWebrtc() {
   return !browser.checkForWebrtcError()
-}
-
-export function createIdentity(userMediaConfig) {
-  return new Identity({ userMediaConfig })
-}
-
-export function createSession(roomId, rtcUrl) {
-  return new Session({
-    roomId,
-    peers: [],
-    web_socket_address: rtcUrl,
-  })
 }
 
 export function attachMediaStream(element, stream, muted = false) {

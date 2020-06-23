@@ -67,6 +67,7 @@ export default {
         <a href="/info/privacy">you can read it here</a>.
       `,
       waitingForUserMedia: "waiting for media streams",
+      waitingForRoomServer: "internet connection unstable,<br/>trying to reach server",
     },
     party: {
       toggleControls: "Toggle controls",
@@ -405,7 +406,8 @@ export default {
         anderen Teilnehmer_innen gesendet. Durch das Fortfahren, stimmst du unserer Datenschutzerklärung zu,
         <a href="/info/privacy">du kannst sie hier lesen</a>.
       `,
-      waitingForUserMedia: "Warte auf Medienströme"
+      waitingForUserMedia: "Warte auf Medienströme",
+      waitingForRoomServer: "Internetverbindung instabil,<br/>versuche Server zu erreichen",
     },
     party: {
       toggleControls: "Bedienelemente umschalten",

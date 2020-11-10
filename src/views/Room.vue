@@ -60,10 +60,11 @@ export default {
       webSocketAddress: config.env.rtcUrl || config.defaultRtcUrl,
       stun: config.env.stunUrl || config.defaultStunUrl,
       joinTimeout: config.defaultJoinTimeout,
+      filterIceCandidateTypes: config.filterIceCandidateTypes,
     }
 
-    if (config.env.turnUrl) {
-      sessionConfig.turn = config.env.turnUrl
+    if (config.env.turnUrls) {
+      sessionConfig.turnUrls = config.env.turnUrls
     }
 
     this.rtc = this.setupRtc(new Session(sessionConfig))

@@ -2,7 +2,10 @@ export default {
   env: {
     rtcUrl: process.env.VUE_APP_RTC_URL,
     stunUrl: process.env.VUE_APP_STUN_URL,
-    turnUrl: process.env.VUE_APP_TURN_URL,
+    turnUrls: process.env.VUE_APP_TURN_URLS ?
+      process.env.VUE_APP_TURN_URLS.split(",") : undefined,
+    filterIceCandidateTypes: process.env.VUE_APP_FILTER_ICE_CANDIDATE_TYPES ?
+      process.env.VUE_APP_FILTER_ICE_CANDIDATE_TYPES.split(",") : undefined,
   },
   defaultRtcUrl: 'ws://localhost:4233',
   defaultStunUrl: 'stun:stun.palava.tv',

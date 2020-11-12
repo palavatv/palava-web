@@ -138,19 +138,7 @@ export default {
 
           <p>
             Because everyone in the meeting is connected to everyone else, palava.tv works best one-to-one conversations or small groups with no more 5 people.
-            <!-- Although the platform allows you to connect to up to 10 people, the transmission quality decreases, so this is not recommended. -->
-          <p>
-            <strong>Important:</strong> In some cases, it is not possible to create a media connection to someone and, instead of the video, a connection error is shown.
-          Unfortunately, palava.tv does not work in these cases. We are aware of the situation and are preparing relay servers to mitigate this problem.
-
-          <!--<h2>Learn more</h2>
-          <p>
-            You can find a step-by-step tutorial at <strong>Usage Tips</strong>. palava.tv is based on the <strong>WebRTC technology</strong>, and everyone with server hosting experience can <strong>easily setup their own version of palava.tv</strong>.
           </p>
-          <p>
-             The non-commercial <strong>Palava Association</strong> organizes further development, find their contact details on the <strong>contact page</strong>. We do not save your personal details, <strong>click here to read the full privacy policy</strong>.
-          </p>-->
-
         `
       },
       contact: {
@@ -230,7 +218,6 @@ export default {
             <li><strong>Direct:</strong> Your device is directly connected to the other device</li>
             <li><strong>Relayed:</strong> Both devices send there data to a relay server. Sometimes, this is necessary to successfully enable the connection. The relay server has no access to the data.</li>
           </ul>
-          <p>As of now, all connections are <strong>direct</strong>. We are working on providing relay servers soon.</p>
 
           <h2>Remote &amp; Local IPs</h2>
           <p>
@@ -479,10 +466,7 @@ export default {
 
           <p>
             Weil im Treffen jede_r mit jeder_jedem verbunden ist, funktioniert palava.tv am besten für 1-zu-1 Gespräche oder kleine Gruppen mit maximal 5 Leuten.
-            <!-- Die Plattform erlaubt es dir zwar, dich mit bis zu 10 anderen Leuten zu verbinden, allerdings sinkt dabei die Übetragungsqualität, sodass das nicht empfohlen ist.-->
-          <p>
-            <strong>Wichtig:</strong> In einigen Fällen gelingt es nicht, eine Medienverbindung zu jemandem aufzubauen und anstatt des Videos wird ein Verbindungsfehler angezeigt.
-            Leider funktioniert palava.tv in diesen Fällen nicht. Wir kennen das Problem, und arbeiten an einer Lösung mit Zwischenübertragungsservern.
+          </p>
         `,
       },
       contact: {

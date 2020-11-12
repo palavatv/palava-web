@@ -96,19 +96,21 @@
         </button>
       </transition> -->
 
-      <!-- <transition name="fade-control">
+      <transition name="fade-control">
         <button
           :title="$t('party.openTextChatTitle')"
           class="control control--text-chat"
+          :class="{'control--alert': this.chatNewMessages}"
+          @click="toggleChat"
           v-if="controlsActive"
           >
           <inline-svg
             :src="require('../assets/icons/chat.svg')"
             :alt="$t('party.textChatAlt')"
             :aria-label="$t('party.textChatAlt')"
-            \>
+            />
         </button>
-      </transition> -->
+      </transition>
 
       <transition name="fade-control">
         <button
@@ -148,21 +150,27 @@
       <transition-group name="fade-control" tag="ul"
         :class="{
           'spotlight': true,
-          'spotlight--empty': stagePeers.length === 0,
-          'spotlight--one': stagePeers.length === 1,
-          'spotlight--two': stagePeers.length === 2,
-          'spotlight--three': stagePeers.length === 3,
-          'spotlight--four': stagePeers.length === 4,
-          'spotlight--five': stagePeers.length === 5,
-          'spotlight--six': stagePeers.length === 6,
+          'spotlight--empty': stagePeers.length + (chatOpen ? 1 : 0) === 0,
+          'spotlight--one':   stagePeers.length + (chatOpen ? 1 : 0) === 1,
+          'spotlight--two':   stagePeers.length + (chatOpen ? 1 : 0) === 2,
+          'spotlight--three': stagePeers.length + (chatOpen ? 1 : 0) === 3,
+          'spotlight--four':  stagePeers.length + (chatOpen ? 1 : 0) === 4,
+          'spotlight--five':  stagePeers.length + (chatOpen ? 1 : 0) === 5,
+          'spotlight--six':   stagePeers.length + (chatOpen ? 1 : 0) === 6,
         }">
+        <Chat
+          :key="'chat'"
+          v-if="chatOpen"
+          :chatMessages="chatMessages"
+          :localPeerId="localPeer.id"
+          @send-chat-message="(message) => $emit('send-chat-message', message)"
+          />
         <Peer v-for="peer in stagePeers"
           :key="peer.id"
           type="stage"
           :partyMode="partyMode"
           :stageMode="stageMode"
           :peer="peer"
-          :colorIndex="getColorIndex(peer)"
           @togglePeer="togglePeer(peer)"
           @open-info-screen="(page) => $emit('open-info-screen', page)"
           />
@@ -178,7 +186,6 @@
             :partyMode="partyMode"
             :stageMode="stageMode"
             :peer="peer"
-            :colorIndex="getColorIndex(peer)"
             @togglePeer="togglePeer(peer)"
             @open-info-screen="(page) => $emit('open-info-screen', page)"
             />
@@ -190,29 +197,31 @@
 
 <script>
 import Peer from "@/components/Peer.vue"
-
-import config from '@/config'
+import Chat from "@/components/Chat.vue"
 
 export default {
-  props: ["peers", "localPeer"],
+  props: ["peers", "localPeer", "chatMessages"],
   data() {
     return {
       partyMode: "landscape",
       stageMode: "landscape",
       peersInLobby: [],
-      peerColors: Array(config.peerColors.length - 1).fill(null),
       controlsActive: true,
       cameraOff: false,
       microphoneMuted: false,
+      chatOpen: false,
+      chatNewMessages: false,
+      presenter: null,
+      lastPresenter: null,
     }
   },
   components: {
     Peer,
+    Chat,
   },
   mounted() {
     window.addEventListener("resize", this.onResize)
     this.onResize()
-    this.assignColorIndexes(this.peers)
     this.autoAdjustPeers(this.peers)
   },
   beforeDestroy() {
@@ -220,12 +229,48 @@ export default {
   },
   watch: {
     peers(newPeers, oldPeers) {
-      const introducedPeers = newPeers.filter((newPeer) => !oldPeers.includes(newPeer))
       const removedPeers = oldPeers.filter((oldPeer) => !newPeers.includes(oldPeer))
+      if(removedPeers.includes(this.presenter)) this.presenter = null
+      if(removedPeers.includes(this.lastPresenter)) this.lastPresenter = null
       this.cleanLobby(removedPeers)
-      this.assignColorIndexes(introducedPeers, removedPeers)
       this.autoAdjustPeers(newPeers)
     },
+    chatMessages() {
+      if (!this.chatOpen) this.chatNewMessages = true;
+    },
+    presenter(newPresenter, oldPresenter) {
+      if (newPresenter) {
+        // chat special case
+        if (this.oldPresenter === "chat") {
+          // keep chat as presenter but remember new presenter as last presenter
+          this.presenter = "chat"
+          this.lastPresenter = newPresenter
+          return
+        }
+
+        // enter presenter mode (or switch to new presenter)
+        this.lastPresenter = oldPresenter
+        this.stagePeers.forEach((peer) => {
+          if (peer === newPresenter) {
+            this.sendPeerToStage(peer)
+          } else {
+            this.sendPeerToLobby(peer)
+          }
+        })
+      } else if (this.lastPresenter) {
+        // switch back to old presenter
+        this.sendPeerToLobby(this.presenter)
+        this.sendPeerToStage(this.lastPresenter)
+        this.presenter = this.lastPresenter
+        this.lastPresenter = null
+      } else {
+        // quit presenter mode
+        this.lobbyPeers.slice(0, 6).forEach((peer) => {
+          this.sendPeerToStage(peer)
+        })
+      }
+      this.autoAdjustPeers(this.peers)
+    }
   },
   computed: {
     stagePeers() {
@@ -262,33 +307,12 @@ export default {
     cleanLobby(removedPeers) {
       this.peersInLobby = this.peersInLobby.filter((id) => !removedPeers.map((peer) => peer.id).includes(id))
     },
-    getColorIndex(peer) {
-      return this.peerColors.indexOf(peer.id) + 1
-    },
-    assignColorIndexes(introducedPeers, removedPeers = []) {
-      // Remove old peers from color index list
-      this.peerColors = this.peerColors.map((idOrNull) => {
-        const removedPeersIds = removedPeers.map((rp) => rp.id)
-        if (removedPeersIds.includes(idOrNull)) {
-          return null
-        }
-
-        return idOrNull
-      })
-
-      // Assign random color index (which is not taken yet)
-      introducedPeers.forEach((peer) => {
-        if (!this.peerColors.includes(null)) { return }
-        let newIndex = null
-        do {
-          newIndex = Math.floor(Math.random() * Math.floor(config.peerColors.length - 1))
-        } while (this.peerColors[newIndex] !== null)
-        this.peerColors = this.peerColors.map((idOrNull, index) => (index === newIndex ? peer.id : idOrNull))
-      })
-    },
     autoAdjustPeers(peers) {
       const remotePeers = peers.filter((peer) => !peer.isLocal())
-      if (remotePeers.length === 1) {
+      if (remotePeers.length === 0 && this.presenter !== "chat") {
+        this.sendPeerToStage(this.localPeer)
+      }
+      if (remotePeers.length === 1 && this.presenter !== "chat") {
         this.sendPeerToLobby(this.localPeer)
         this.sendPeerToStage(remotePeers[0])
       }
@@ -305,6 +329,33 @@ export default {
       }
 
       this.$refs.copyLink.blur()
+    },
+    mobile() {
+      return (window.innerWidth < 576 || window.innerHeight < 500)
+    },
+    toggleChat() {
+      if (this.chatOpen) {
+        // closing chat...
+        if (this.presenter === "chat") {
+          // ... and the chat was the presenter, so we return to last presenter (if any)
+          this.presenter = null
+        } else if (this.lobbyPeers.length > 0 && this.stagePeers.length !== 1) {
+          // ... and lobby is not empty, so that we can fill the void that the chat left
+          this.togglePeer(this.lobbyPeers[0])
+        }
+      } else {
+        // opening chat...
+        this.chatNewMessages = false;
+        if (this.mobile()) {
+          // .. and this is mobile, so we make the chat the presenter
+          this.presenter = "chat"
+        } else if (this.lobbyPeers.length > 5) {
+          // ...and the stage is full, so we need to move somebody to the lobby
+          this.togglePeer(this.stagePeers[5])
+        }
+      }
+      this.autoAdjustPeers(this.peers)
+      this.chatOpen = !this.chatOpen
     },
     switchLanguage() {
       this.$root.$i18n.locale = this.$root.$i18n.locale === 'de' ? 'en' : 'de'
@@ -412,6 +463,10 @@ export default {
       }
     }
 
+    &--alert {
+      background-color: red;
+    }
+
     &--switch-language > * {
       font-size: calc($small-control-size / 2.2);
       @media (min-width: $mobile) {
@@ -481,8 +536,14 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
+  .spotlight {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+}
+chat
 .lobby {
   overflow: hidden;
   background: #222;

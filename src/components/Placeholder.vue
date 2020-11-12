@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import config from '@/config'
+import { generateColor } from "@/support"
 
 export default {
   props: {
@@ -20,14 +20,10 @@ export default {
       type: Object,
       required: true,
     },
-    colorIndex: {
-      type: Number,
-      default: 0,
-    }
   },
   computed: {
     background() {
-      return config.peerColors[this.colorIndex]
+      return generateColor(this.peer.id)
     }
   }
 }

@@ -21,17 +21,5 @@ export default {
   maximumPeers: 6,
   defaultLocale: 'en',
   supportedLocales: ['en', 'de'],
-  peerColors: [
-    'transparent', // first entry must be transparent
-    '#ffe6c0',
-    '#ffc0cb',
-    '#c0dcff',
-    '#caa5a5',
-    '#c0d8c3',
-    '#e5dcf5',
-    '#989898',
-    '#fffdc0',
-    '#eaeaea',
-    '#8ad7e8',
-  ]
+  peerAvatars: ['⸙', '✸', '๏', '☀', '☯', '♥', '♦', '♪', '✚', '✽'],
 }

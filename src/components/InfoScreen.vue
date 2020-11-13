@@ -12,13 +12,6 @@
       @open-info-screen="(page) => $emit('open-info-screen', page)"
       />
 
-    <h1 class="info-title">
-      <router-link :to="`/info/${page}`">
-        <span @click="confirmLeave($event)">
-          {{ $t(`infoPages.${this.page}.title`) }}
-        </span>
-      </router-link>
-    </h1>
     <div class="info-content" v-html="$t(`infoPages.${this.page}.content`)" />
   </aside>
 </template>
@@ -45,11 +38,11 @@ export default {
     }
   },
   methods: {
-    confirmLeave($event) {
-      if (!window.confirm(this.$t("info.confirmLeave"))) {
-        $event.preventDefault()
-      }
-    }
+    // confirmLeave($event) {
+    //   if (!window.confirm(this.$t("info.confirmLeave"))) {
+    //     $event.preventDefault()
+    //   }
+    // }
   }
 }
 </script>
@@ -97,6 +90,10 @@ export default {
     border-top: none;
     padding-right: 36px;
     width: 100%;
+  }
+
+  .info-content {
+    padding-bottom: $medium-plus-spacing;
   }
 }
 </style>

@@ -11,3 +11,8 @@ export function fancyNumber(n) {
 export function detectLanguage() {
   return navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage)
 }
+
+// Escapes a regex
+export function escapeRegex(string) {
+  return string.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
+}

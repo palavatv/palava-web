@@ -89,10 +89,11 @@
 
       <nav class="footer-navigation">
         <ul>
-          <li><router-link to="/info/about">{{ $t('home.about') }}</router-link></li>
-          <li><router-link to="/info/ev">{{ $t('infoPages.ev.title') }}</router-link></li>
-          <li><router-link to="/info/contact">{{ $t('infoPages.contact.title') }}</router-link></li>
-          <li><router-link to="/info/privacy">{{ $t('infoPages.privacy.title') }}</router-link></li>
+          <li v-for="infoPage in infoPages" :key="infoPage.id">
+            <router-link :to="`/info/${infoPage.id}`">
+              {{ infoPage.title }}
+            </router-link>
+          </li>
         </ul>
       </nav>
     </footer>
@@ -105,6 +106,7 @@ import yyid from 'yyid'
 import { browserCanUseWebrtc } from '@/webrtc'
 
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
+import i18nStrings from '@/i18nStrings'
 
 export default {
   components: {
@@ -119,6 +121,9 @@ export default {
     browserCanUseWebrtc() {
       return browserCanUseWebrtc() && this.$route.query.supported !== "0"
     },
+    infoPages() {
+      return i18nStrings[this.$root.$i18n.locale].infoPages.filter((ip) => ip.linked !== false)
+    }
     // providedBy() {
     //   return null
     // }

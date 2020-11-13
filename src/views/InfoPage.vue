@@ -8,7 +8,7 @@
       <Logo class="logo logo--mobile" />
       <Navigation />
 
-      <div class="info-content" v-html="$t(`infoPages.${this.page}.content`)" />
+      <div class="info-content" v-html="infoPage.content" />
     </main>
   </div>
 </template>
@@ -17,6 +17,7 @@
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import Logo from '@/components/Logo.vue'
 import Navigation from '@/components/Navigation.vue'
+import i18nStrings from '@/i18nStrings'
 
 export default {
   components: {
@@ -30,9 +31,14 @@ export default {
       required: true,
     },
   },
+  computed: {
+    infoPage() {
+      return i18nStrings[this.$root.$i18n.locale].infoPages.filter((ip) => ip.id === this.page)[0] || {}
+    }
+  },
   metaInfo() {
     return {
-      title: this.$t(`infoPages.${this.page}.title`),
+      title: this.infoPage.title,
     }
   },
 }

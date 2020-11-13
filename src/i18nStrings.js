@@ -130,7 +130,6 @@ export default {
             palava.tv is a cost-free, simple to use, secure, and open source platform for video calls. It is developed and operated by a charitable non-profit organization based in the EU. palava.tv runs directly in the web browser and its usage does not require a registration.
           </p>
 
-          <h2>Directly connected meetings</h2>
           <p>
             The palava.tv platform establishes an encrypted direct connection between you and  all people in your meeting room,
             which means that no video or audio data gets sent to the palava.tv server.
@@ -138,6 +137,30 @@ export default {
 
           <p>
             Because everyone in the meeting is connected to everyone else, palava.tv works best one-to-one conversations or small groups with no more 5 people.
+          </p>
+
+          <h2>Start a video conversation</h2>
+          <p>
+            On the palava.tv homepage, enter the name of a meeting room which you want to join. If it does not yet
+            exist, it will be created by the palava.tv server. Share the link with the people you want to connect with.
+          </p>
+
+          <p>
+            It is possible to create a hidden room by clicking the &lt;hidden meeting&gt; link on the start page. This will create a long random name for the meeting room, which is impossible to guess. Share this link as usual to invite your friends. Only people who know this exact link can join. <strong>Do not post this link publicly</strong>, because anyone who knows the link can join, hence the meeting would not be hidden anymore.
+          </p>
+
+          <h2>How does palava.tv work under the hood?</h2>
+          <p>
+            palava.tv is based on a technology called <a href="https://www.webrtc.org/">Web Real-Time Communication</a> (WebRTC) which enables peer-to-peer video chat in the web browser. It is built on top of many <a href="https://datatracker.ietf.org/wg/rtcweb/documents/">lower-level standards by the Internet Engineering Task Force</a>.
+          </p>
+
+          <p>
+            All current browsers (Firefox, Edge, Google Chrome, Safari) and devices (iOS, Android) support this technology. Google offers a <a href="https://test.webrtc.org/">test page</a>, which tells you if WebRTC is possible on your device. If you notice that palava.tv does not work for you, but you think it should, please <a href="https://github.com/palavatv/palava/issues/new/choose">let us know on GitHub</a>, so we can take a look at it and possibly improve palava.tv.
+          </p>
+
+          <h2>Running an own palava.tv instance</h2>
+          <p>
+            The job of the palava.tv server is to directly connect everyone who joins the same meeting room. If you have experience in server hosting, you can operate a custom palava.tv server. More info and detailed instructions will follow soon. Meanwhile, take a look at our <a href="https://github.com/palavatv/palava">GitHub page</a>.
           </p>
         `
       },
@@ -197,15 +220,6 @@ export default {
 
           <p>We are charitable under German law. Please email us at contact@palava.tv if you would like to have a receipt for your donation.</p>
         `
-      },
-      hosting: {
-        title: 'Host Yourself',
-        content: `
-          <h2>Run your own palava.tv instance</h2>
-          <p>
-            The job of the palava.tv server is to directly connect everyone who joins the same meeting room. If you have experience in server hosting, you can operate a custom palava.tv server. More info and detailed instructions will follow soon. Meanwhile, take a look at our <a href="https://github.com/palavatv/palava">GitHub page</a>.
-          </p>
-        `,
       },
       network: {
         title: 'Network Info',
@@ -298,31 +312,8 @@ export default {
       usage: {
         title: 'Usage Tips',
         content: `
-          <h2>How to start a video meeting</h2>
-          <p>
-            On the palava.tv homepage, enter the name of a meeting room which you want to join. If it does not yet
-            exist, it will be created by the palava.tv server. Share the link with the people you want to connect with.
-          </p>
 
-          <h2>Recommended: Hidden meetings</h2>
-          <p>
-            It is possible to create a hidden room by clicking the &lt;hidden meeting&gt; link on the start page. This will create a long random name for the meeting room, which is impossible to guess. Share this link as usual to invite your friends. Only people who know this exact link can join. <strong>Do not post this link publicly</strong>, because anyone who knows the link can join, hence the meeting would not be hidden anymore.
-          </p>
         `
-      },
-      webrtc: {
-        title: 'WebRTC',
-        content: `
-          <h2>How does palava.tv work under the hood?</h2>
-          <p>
-            palava.tv is based on a technology called <a href="https://www.webrtc.org/">Web Real-Time Communication</a> (WebRTC) which enables peer-to-peer video chat in the web browser. It is built on top of many <a href="https://datatracker.ietf.org/wg/rtcweb/documents/">lower-level standards by the Internet Engineering Task Force</a>.
-          </p>
-
-          <h2>How can I find out, if my browser supports WebRTC?</h2>
-          <p>
-            Most up-to-date browsers (for example: Firefox, Safari or Google Chrome) support this technology. Google offers a <a href="https://test.webrtc.org/">test page</a>, which tells you if WebRTC is possible on your device. If you notice that palava.tv does not work for you, but you think it should, please <a href="https://github.com/palavatv/palava/issues/new/choose">let us know on GitHub</a>, so we can take a look at it and possibly improve palava.tv.
-          </p>
-        `,
       },
     }
   },
@@ -459,13 +450,35 @@ export default {
             palava.tv ist eine kostenlose, einfach benutzbare, sichere und quelloffene Plattform für Videogespräche. Sie wird von einer gemeinnützigen Organisation mit Sitz in der EU entwickelt und betrieben. palava.tv läuft direkt im Webbrowser und die Benutzung erfordert keine Registrierung.
           </p>
 
-          <h2>Direktverbunde Treffen</h2>
           <p>
             Die palava.tv-Plattform baut zwischen dir und allen Leuten in deinem Meetingraum eine verschlüsselte Direktverbindung auf, was bedeutet, dass keine Video- oder Audiodaten an den palava.tv-Server gesendet werden.
           </p>
 
           <p>
             Weil im Treffen jede_r mit jeder_jedem verbunden ist, funktioniert palava.tv am besten für 1-zu-1 Gespräche oder kleine Gruppen mit maximal 5 Leuten.
+          </p>
+
+          <h2>Ein Videogespräch starten</h2>
+          <p>
+            Gib auf der palava.tv-Startseite den Namen eines Meetingraums ein, welchem du beitreten möchtest. Wenn der noch nicht existiert, wird er vom palava.tv-Server erstellt. Teile den Link mit den Leuten, mit denen du dich verbinden möchtest.
+          </p>
+
+          <p>
+            Es ist möglich, einen versteckten Raum zu erzeugen, indem du auf der Startseite auf &lt;verstecktes Meeting&gt; klickst. Dadurch wird ein langer, zufälliger Namen für den Meetingraum erzeugt, welchen man nicht vorraussagen kann. Teile diesen Link wie gewöhnlich mit deinen Freunden. Nur Leute, welchen den genauen Link kennen, können beitreten. <strong>Verschicke den Link nicht öffentlich</strong>, denn jede_r, die_der den Link kennt, könnte dazukommen, sodass das Treffen nicht mehr versteckt wäre.
+          </p>
+
+          <h2>Wie funktioniert palava.tv unter der Oberfläche?</h2>
+          <p>
+            palava.tv basiert auf einer Technologie mit dem Namen <a href="https://www.webrtc.org/">Web-Echtzeitkommunikation</a> (engl. abgekürzt: WebRTC), welche direktverbundene Videochats im Browser ermöglicht. Sie ist auf der Basis vieler <a href="https://datatracker.ietf.org/wg/rtcweb/documents/">grundlegender Standards der Internet Engineering Task Force</a> gebaut.
+          </p>
+
+          <p>
+            Alle aktuellen Browser (Firefox, Edge, Google Chrome, Safari) und Geräte (iOS, Android) unterstützen diese Technologie. Google bietet eine <a href="https://test.webrtc.org/">Testseite</a> an, welche dir anzeigt, ob WebRTC auf deinem Gerät möglich ist. Wenn du merkst, dass palava.tv bei dir nicht funktioniert, und du denkst, es sollte aber, <a href="https://github.com/palavatv/palava/issues/new/choose">dann lass uns dies bitte auf GitHub wissen</a>. Wir können dann einen Blick darauf werfen und gegebenfalls palava.tv verbessern.
+          </p>
+
+          <h2>Eine eigene palava.tv-Instanz betreiben</h2>
+          <p>
+            Die Aufgabe des palava.tv-Serves ist es, jede_n, die_der den gleichen Meetingraum betritt, miteinander zu verbinden. Wenn du Erfahrung mit dem Hosten von Server hast, kannst du einen eigenen palava.tv-Server betreiben. Mehr Informationen und detailierte Anleitungen folgen demnächst. In der Zwischenzeit, schau dir mal unsere <a href="https://github.com/palavatv/palava">GitHub Seite</a> an.
           </p>
         `,
       },
@@ -528,15 +541,6 @@ export default {
 
           <p>Wir sind ein gemeinnütziger Verein. Bitte schreibe eine Email an contact@palava.tv, wenn du eine Spendenquittung haben möchtest.</p>
         `
-      },
-      hosting: {
-        title: "Selber Hosten",
-        content: `
-          <h2>Betreibe deine eigene palava.tv-Instanz</h2>
-          <p>
-            Die Aufgabe des palava.tv-Serves ist es, jede_n, die_der den gleichen Meetingraum betritt, miteinander zu verbinden. Wenn du Erfahrung mit dem Hosten von Server hast, kannst du einen eigenen palava.tv-Server betreiben. Mehr Informationen und detailierte Anleitungen folgen demnächst. In der Zwischenzeit, schau dir mal unsere <a href="https://github.com/palavatv/palava">GitHub Seite</a> an.
-          </p>
-        `,
       },
       network: {
         title: "Netzwerkinformationen",
@@ -627,34 +631,6 @@ export default {
             Wenn Sie per E-Mail Kontakt mit uns aufnehmen, so verwenden wir Ihre E-Mail-Adresse
             nur, um mit Ihnen in Kontakt zu treten. Andere Verwendungen
             schließen wir aus.
-          </p>
-        `,
-      },
-      usage: {
-        title: "Benutzungs­hinweise",
-        content: `
-          <h2>Wie man ein Videotreffen startet</h2>
-          <p>
-            Gib auf der palava.tv-Startseite den Namen eines Meetingraums ein, welchem du beitreten möchtest. Wenn der noch nicht existiert, wird er vom palava.tv-Server erstellt. Teile den Link mit den Leuten, mit denen du dich verbinden möchtest.
-          </p>
-
-          <h2>Empfohlen: Vesteckte Meetings</h2>
-          <p>
-            Es ist möglich, einen versteckten Raum zu erzeugen, indem du auf der Startseite auf &lt;verstecktes Meeting&gt; klickst. Dadurch wird ein langer, zufälliger Namen für den Meetingraum erzeugt, welchen man nicht vorraussagen kann. Teile diesen Link wie gewöhnlich mit deinen Freunden. Nur Leute, welchen den genauen Link kennen, können beitreten. <strong>Verschicke den Link nicht öffentlich</strong>, denn jede_r, die_der den Link kennt, könnte dazukommen, sodass das Treffen nicht mehr versteckt wäre.
-          </p>
-        `,
-      },
-      webrtc: {
-        title: "WebRTC",
-        content: `
-          <h2>Wie funktioniert palava.tv unter der Oberfläche?</h2>
-          <p>
-            palava.tv basiert auf einer Technologie mit dem Namen <a href="https://www.webrtc.org/">Web-Echtzeitkommunikation</a> (engl. abgekürzt: WebRTC), welche direktverbundene Videochats im Browser ermöglicht. Sie ist auf der Basis vieler <a href="https://datatracker.ietf.org/wg/rtcweb/documents/">grundlegender Standards der Internet Engineering Task Force</a> gebaut.
-          </p>
-
-          <h2>Wie kann ich herausfinden, ob mein Browser WebRTC unterstützt?</h2>
-          <p>
-            Die meisten aktuellen Browser (wie z.B. Firefox, Safari, oder Google Chrome) unterstützen diese Technologie. Google bietet eine <a href="https://test.webrtc.org/">Testseite</a> an, welche dir anzeigt, ob WebRTC auf deinem Gerät möglich ist. Wenn du merkst, dass palava.tv bei dir nicht funktioniert, und du denkst, es sollte aber, <a href="https://github.com/palavatv/palava/issues/new/choose">dann lass uns dies bitte auf GitHub wissen</a>. Wir können dann einen Blick darauf werfen und gegebenfalls palava.tv verbessern.
           </p>
         `,
       },

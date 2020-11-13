@@ -2,9 +2,6 @@
   <nav class="navigation">
     <ul>
       <li><router-link to="/info/about"><span @click="checkScreen('about', $event)">{{ $t('infoPages.about.title') }}</span></router-link></li>
-      <li><router-link to="/info/usage"><span @click="checkScreen('usage', $event)">{{ $t('infoPages.usage.title') }}</span></router-link></li>
-      <li><router-link to="/info/webrtc"><span @click="checkScreen('webrtc', $event)">{{ $t('infoPages.webrtc.title') }}</span></router-link></li>
-      <li><router-link to="/info/hosting"><span @click="checkScreen('hosting', $event)">{{ $t('infoPages.hosting.title') }}</span></router-link></li>
       <li><router-link to="/info/ev"><span @click="checkScreen('ev', $event)">{{ $t('infoPages.ev.title') }}</span></router-link></li>
       <li><router-link to="/info/contact"><span @click="checkScreen('contact', $event)">{{ $t('infoPages.contact.title') }}</span></router-link></li>
       <li><router-link to="/info/privacy"><span @click="checkScreen('privacy', $event)">{{ $t('infoPages.privacy.title') }}</span></router-link></li>

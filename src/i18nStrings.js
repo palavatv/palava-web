@@ -119,6 +119,8 @@ export default {
       localIps: "Your IP addresses",
       ipTitle: "",
       ipAlt: "",
+      ipIsRelay: "relay",
+      unknownConnection: "Unknown connection status",
     },
     infoPages: [
       {
@@ -294,9 +296,10 @@ export default {
           <p>
             There are two different ways in which you can connect to someone via palava.tv:
           </p>
+          <br/>
           <ul>
             <li><strong>Direct:</strong> Your device is directly connected to the other device</li>
-            <li><strong>Relayed:</strong> Both devices send there data to a relay server. Sometimes, this is necessary to successfully enable the connection. The relay server has no access to the data.</li>
+            <li><strong>Relayed:</strong> Both devices send their data to a relay server. This is sometimes necessary to successfully enable the connection. The relay server has no access to the data.</li>
           </ul>
 
           <h2>Remote &amp; Local IPs</h2>
@@ -443,6 +446,8 @@ export default {
       cLineIpAlt: "Stern",
       iceIpTitle: "Kandidaten IP-Adresse",
       iceIpAlt: "Kreis",
+      ipIsRelay: "Zwischenstation",
+      unknownConnection: "Unbekannter Verbindungsstatus",
     },
     infoPages: [
       {
@@ -620,6 +625,7 @@ export default {
           <p>
             Es gibt zwei verschiedene Arten, wie du dich mit jemandem auf palava.tv verbinden kannst:
           </p>
+          <br/>
           <ul>
             <li><strong>Direkt:</strong> Dein Gerät ist direkt mit dem anderen Gerät verbunden</li>
             <li><strong>Mit Zwischenstation:</strong> Beide Geräte senden ihre Daten an eine Zwischenstation. Das ist manchmal notwendig, um eine erfolgreiche Verbindung herstellen zu können. Der Zwischenübertragungsserver hat keine Zugriff auf die Daten.</li>

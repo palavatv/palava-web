@@ -1,5 +1,7 @@
 import { browser } from 'palava-client'
 
+import config from '@/config'
+
 export function browserCanUseWebrtc() {
   return !browser.checkForWebrtcError()
 }
@@ -53,10 +55,57 @@ function getNetworkInfo(sdp) {
   return res
 }
 
-export function getRemoteNetworkInfo(peerConnection) {
-  return getNetworkInfo(peerConnection.remoteDescription.sdp)
+export function getRemoteIps(peerConnection) {
+  if(!peerConnection) { return null }
+
+  const networkInfo = getNetworkInfo(peerConnection.remoteDescription.sdp)
+  if(!networkInfo) { return null }
+
+  return [
+    ...(networkInfo.primaryIps?.map((ip) => ip.address) || []),
+    ...(networkInfo.candidateIps?.map((ip) => ip.address) || []),
+  ]
 }
 
-export function getLocalNetworkInfo(peerConnection) {
-  return getNetworkInfo(peerConnection.localDescription.sdp)
+export function getLocalIps(peerConnection) {
+  if(!peerConnection) { return null }
+
+  const networkInfo = getNetworkInfo(peerConnection.localDescription.sdp)
+  if(!networkInfo) { return null }
+
+  return [
+    ...(networkInfo.primaryIps?.map((ip) => ip.address) || []),
+    ...(networkInfo.candidateIps?.map((ip) => ip.address) || []),
+  ]
+}
+
+export function getRelayIps() {
+  if(!config.env.turnUrls) { return [] }
+
+  return config.env.turnUrls.map(
+    (turnUrl) => turnUrl.match(/^(?:turn:)?(.*?)(?::\d+)?\?|$/)[1]
+  ).filter((un, i, que) => que.indexOf(un) === i)
+}
+
+export function getMyRelayStatus(peerConnection) {
+  return peerConnection.getStats().then((stats) => {
+    if(!stats) { return null }
+
+    let selectedLocalCandidate
+    const statsIterator = stats.values()
+    for (let i = 0; i < stats.size; i += 1) {
+      const report = statsIterator.next().value
+      const { type, state, localCandidateId } = report
+
+      if (type === 'candidate-pair' &&
+          state === 'succeeded' &&
+          localCandidateId) {
+        selectedLocalCandidate = localCandidateId
+        break
+      }
+    }
+
+    return !!selectedLocalCandidate &&
+           stats.get(selectedLocalCandidate)?.candidateType === 'relay'
+  })
 }

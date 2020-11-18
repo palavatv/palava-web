@@ -10,7 +10,7 @@
 
     <section>
       <h2>
-        {{ isRelayed ? $t('networkInfo.relayedConnection') : $t('networkInfo.directConnection') }}
+        {{ relayStatusLocalized }}
         <button class="more-info" @click="$emit('open-info-screen', 'network')" :title="$t('moreInfoTitle')">
           <inline-svg
             :alt="$t('moreInfoAlt')"
@@ -31,6 +31,7 @@
             :src="require('../assets/dot-single.svg')"
             />
           {{ ip }}
+          <span v-if="allRelayIps.includes(ip)"> ({{ $t('networkInfo.ipIsRelay') }})</span>
         </li>
       </ul>
     </section>
@@ -45,6 +46,7 @@
             :src="require('../assets/dot-single.svg')"
             />
           {{ ip }}
+          <span v-if="allRelayIps.includes(ip)"> ({{ $t('networkInfo.ipIsRelay') }})</span>
         </li>
       </ul>
     </section>
@@ -52,7 +54,12 @@
 </template>
 
 <script>
-import { getRemoteNetworkInfo, getLocalNetworkInfo } from "@/webrtc"
+import {
+  getRemoteIps,
+  getLocalIps,
+  getRelayIps,
+  getMyRelayStatus,
+} from "@/webrtc"
 
 export default {
   props: {
@@ -61,28 +68,45 @@ export default {
       required: true,
     }
   },
+  data() {
+    return {
+      relayStatus: null,
+    }
+  },
+  created() {
+    if(!this.peer.peerConnection) { return }
+
+    getMyRelayStatus(this.peer.peerConnection).then((iAmRelayed) => {
+      if(iAmRelayed) {
+        this.relayStatus = "relayed"
+      } else if (this.allRemoteIps.some((ip) => this.allRelayIps.includes(ip))) {
+        this.relayStatus = "relayed"
+      } else {
+        this.relayStatus = "direct"
+      }
+    })
+  },
   computed: {
-    remoteNetworkInfo() {
-      return getRemoteNetworkInfo(this.peer.peerConnection)
-    },
-    localNetworkInfo() {
-      return getLocalNetworkInfo(this.peer.peerConnection)
-    },
-    isRelayed() {
-      return false
-    },
     allLocalIps() {
-      return [
-        ...this.localNetworkInfo.primaryIps.map((ip) => ip.address),
-        ...this.localNetworkInfo.candidateIps.map((ip) => ip.address),
-      ]
+      return getLocalIps(this.peer.peerConnection)
     },
     allRemoteIps() {
-      return [
-        ...this.remoteNetworkInfo.primaryIps.map((ip) => ip.address),
-        ...this.remoteNetworkInfo.candidateIps.map((ip) => ip.address),
-      ]
+      return getRemoteIps(this.peer.peerConnection)
     },
+    allRelayIps() {
+      return getRelayIps()
+    },
+    relayStatusLocalized() {
+      if(this.relayStatus === "relayed") {
+        return this.$t('networkInfo.relayedConnection')
+      }
+
+      if(this.relayStatus === "direct") {
+        return this.$t('networkInfo.directConnection')
+      }
+
+      return this.$t('networkInfo.unknownConnection')
+    }
   },
 }
 </script>

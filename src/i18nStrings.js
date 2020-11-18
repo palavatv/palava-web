@@ -7,7 +7,6 @@ export default {
     switchLanguageTitle: "Switch language",
     switchLanguageAlt: "language code",
     home: {
-      about: "About",
       blog: "Blog",
       github: "GitHub",
       goTitle: "Create or join this meeting room",
@@ -121,8 +120,9 @@ export default {
       ipTitle: "",
       ipAlt: "",
     },
-    infoPages: {
-      about: {
+    infoPages: [
+      {
+        id: "about",
         title: "About Palava",
         content: `
           <h2>What is palava.tv?</h2>
@@ -164,35 +164,11 @@ export default {
           </p>
         `
       },
-      contact: {
-        title: "Contact Info",
-        content: `
-          <h2>Reach us</h2>
-          <p>
-            The best way to get in touch is to write us an email: <a href="mailto:contact@palava.tv">contact@palava.tv</a><br/>
-            We tweet from: <a href="https://twitter.com/palavatv">@palavatv</a><br/>
-            Our code is available on GitHub: <a href="https://github.com/palavatv">@palavatv</a>
-          </p>
-
-          <h2>Imprint</h2>
-          <address>
-            palava e. V.<br/>
-            Thomas-Müntzer-Platz 5<br/>
-            01307 Dresden<br/>
-            Germany
-          </address>
-
-          <h2>Registration</h2>
-          <p>VR 5967 (Amtsgericht Dresden)</p>
-
-          <h2>Representatives</h2>
-          <p>Marius Melzer, Jan Lelis, Alexandra Weiss</p>
-        `
-      },
-      ev: {
+      {
+        id: "ev",
         title: 'Palava Association',
         content: `
-          <h2>Palava association</h2>
+          <h2>Palava Association</h2>
           <p>
             palava.tv is developed and run by <strong>palava e. V.</strong>, an independent German non-profit organization. We want to bring knowledge about decentralized video communication to the masses.
           </p>
@@ -221,36 +197,34 @@ export default {
           <p>We are charitable under German law. Please email us at contact@palava.tv if you would like to have a receipt for your donation.</p>
         `
       },
-      network: {
-        title: 'Network Info',
+      {
+        id: "contact",
+        title: "Contact",
         content: `
-          <h2>Connection Type</h2>
+          <h2>Reach us</h2>
           <p>
-            There are two different ways in which you can connect to someone via palava.tv:
+            The best way to get in touch is to write us an email: <a href="mailto:contact@palava.tv">contact@palava.tv</a><br/>
+            We tweet from: <a href="https://twitter.com/palavatv">@palavatv</a><br/>
+            Our code is available on GitHub: <a href="https://github.com/palavatv">@palavatv</a>
           </p>
-          <ul>
-            <li><strong>Direct:</strong> Your device is directly connected to the other device</li>
-            <li><strong>Relayed:</strong> Both devices send there data to a relay server. Sometimes, this is necessary to successfully enable the connection. The relay server has no access to the data.</li>
-          </ul>
 
-          <h2>Remote &amp; Local IPs</h2>
-          <p>
-            In order to establish a working connection, both parties send all their IP addresses to each other, including ones from your local network.
-          </p>
-          <p>
-            IP addresses can come in IPv4 format (X.X.X.X) or IPv6 format (X:X:X:X:X:X:X:X).
-          </p>
+          <h2>Imprint</h2>
+          <address>
+            palava e. V.<br/>
+            Thomas-Müntzer-Platz 5<br/>
+            01307 Dresden<br/>
+            Germany
+          </address>
+
+          <h2>Registration</h2>
+          <p>VR 5967 (Amtsgericht Dresden)</p>
+
+          <h2>Representatives</h2>
+          <p>Marius Melzer, Jan Lelis, Alexandra Weiss</p>
         `
       },
-      'not-found': {
-        title: 'Not Found',
-        content: `
-          <p>
-            The page could not be found. The content might be gone, or maybe you have mistyped the URL.
-          </p>
-        `
-      },
-      privacy: {
+      {
+        id: "privacy",
         title: 'Privacy Policy',
         content: `
           <h2>Privacy Policy</h2>
@@ -311,13 +285,41 @@ export default {
           </p>
         `,
       },
-      usage: {
-        title: 'Usage Tips',
+      {
+        id: "network",
+        linked: false,
+        title: "Network Info",
         content: `
+          <h2>Connection Type</h2>
+          <p>
+            There are two different ways in which you can connect to someone via palava.tv:
+          </p>
+          <ul>
+            <li><strong>Direct:</strong> Your device is directly connected to the other device</li>
+            <li><strong>Relayed:</strong> Both devices send there data to a relay server. Sometimes, this is necessary to successfully enable the connection. The relay server has no access to the data.</li>
+          </ul>
 
+          <h2>Remote &amp; Local IPs</h2>
+          <p>
+            In order to establish a working connection, both parties send all their IP addresses to each other, including ones from your local network.
+          </p>
+          <p>
+            IP addresses can come in IPv4 format (X.X.X.X) or IPv6 format (X:X:X:X:X:X:X:X).
+          </p>
         `
       },
-    }
+      {
+        id: "not-found",
+        linked: false,
+        title: 'Not Found',
+        content: `
+          <h2>Not Found</h2>
+          <p>
+            The page could not be found. The content might be gone, or maybe you have mistyped the URL.
+          </p>
+        `
+      },
+    ]
   },
   de: {
     closeAlt: "Kreuz",
@@ -327,7 +329,6 @@ export default {
     switchLanguageTitle: "Sprache umschalten",
     switchLanguageAlt: "Sprachkürzel",
     home: {
-      about: "Infos",
       blog: "Blog",
       github: "GitHub",
       goTitle: " Erstelle den Meetingraum oder tritt ihm bei",
@@ -443,8 +444,9 @@ export default {
       iceIpTitle: "Kandidaten IP-Adresse",
       iceIpAlt: "Kreis",
     },
-    infoPages: {
-      about: {
+    infoPages: [
+      {
+        id: "about",
         title: "Über Palava",
         content: `
           <h2>Was ist palava.tv?</h2>
@@ -484,32 +486,8 @@ export default {
           </p>
         `,
       },
-      contact: {
-        title: "Kontakt",
-        content: `
-          <h2>Kontaktmöglichkeiten</h2>
-          <p>
-            Die beste Art, mit uns in Kontakt zu treten, ist per Email: <a href="mailto:contact@palava.tv">contact@palava.tv</a><br/>
-            Wir tweeten von: <a href="https://twitter.com/palavatv">@palavatv</a><br/>
-            Our code is available on GitHub: <a href="https://github.com/palavatv">@palavatv</a>
-          </p>
-
-          <h2>Impressum</h2>
-          <address>
-            palava e. V.<br/>
-            Thomas-Müntzer-Platz 5<br/>
-            01307 Dresden<br/>
-            Germany
-          </address>
-
-          <h2>Registrierung</h2>
-          <p>VR 5967 (Amtsgericht Dresden)</p>
-
-          <h2>Vorstand</h2>
-          <p>Marius Melzer, Jan Lelis, Alexandra Weiss</p>
-        `,
-      },
-      ev: {
+      {
+        id: "ev",
         title: "Palava Verein",
         content: `
           <h2>Palava Verein</h2>
@@ -544,37 +522,34 @@ export default {
           <p>Wir sind ein gemeinnütziger Verein. Bitte schreibe eine Email an contact@palava.tv, wenn du eine Spendenquittung haben möchtest.</p>
         `
       },
-      network: {
-        title: "Netzwerkinformationen",
+      {
+        id: "contact",
+        title: "Kontakt",
         content: `
-          <h2>Verbindungstyp</h2>
+          <h2>Kontaktmöglichkeiten</h2>
           <p>
-            Es gibt zwei verschiedene Arten, wie du dich mit jemandem auf palava.tv verbinden kannst:
+            Die beste Art, mit uns in Kontakt zu treten, ist per Email: <a href="mailto:contact@palava.tv">contact@palava.tv</a><br/>
+            Wir tweeten von: <a href="https://twitter.com/palavatv">@palavatv</a><br/>
+            Our code is available on GitHub: <a href="https://github.com/palavatv">@palavatv</a>
           </p>
-          <ul>
-            <li><strong>Direkt:</strong> Dein Gerät ist direkt mit dem anderen Gerät verbunden</li>
-            <li><strong>Mit Zwischenstation:</strong> Beide Geräte senden ihre Daten an eine Zwischenstation. Das ist manchmal notwendig, um eine erfolgreiche Verbindung herstellen zu können. Der Zwischenübertragungsserver hat keine Zugriff auf die Daten.</li>
-          </ul>
-          <p>Zur Zeit sind alle Verbindungen <strong>direkt</strong>. Wir arbeiten daran, demnächst Zwischenübertragungsserver bereit zu stellen.</p>
 
-          <h2>Ferne &amp; Eigene IPs</h2>
-          <p>
-            Um eine funktionierende Verbindung herzustellen, müssen beide Parteien sich gegenseitig alle ihre IP-Adressen senden, inklusive welche, aus dem eigenen (lokalen) Netzwerk.
-          </p>
-          <p>
-            IP-Adressen können im IPv4-Fromat (X.X.X.X), oder im IPv6-Format vorkommen (X:X:X:X:X:X:X:X).
-          </p>
+          <h2>Impressum</h2>
+          <address>
+            palava e. V.<br/>
+            Thomas-Müntzer-Platz 5<br/>
+            01307 Dresden<br/>
+            Germany
+          </address>
+
+          <h2>Registrierung</h2>
+          <p>VR 5967 (Amtsgericht Dresden)</p>
+
+          <h2>Vorstand</h2>
+          <p>Marius Melzer, Jan Lelis, Alexandra Weiss</p>
         `,
       },
-      'not-found': {
-        title: "Nicht gefunden",
-        content: `
-          <p>
-            Die Seite konnte nicht gefunden werden. Der Inhalt könnte verschwunden sein, oder vielleicht hast du die URL falsch eingegeben.
-          </p>
-        `,
-      },
-      privacy: {
+      {
+        id: "privacy",
         title: "Datenschutz­",
         content: `
           <h2>Datenschutzerklärung</h2>
@@ -636,6 +611,41 @@ export default {
           </p>
         `,
       },
-    },
+      {
+        id: "network",
+        linked: false,
+        title: "Netzwerkinformationen",
+        content: `
+          <h2>Verbindungstyp</h2>
+          <p>
+            Es gibt zwei verschiedene Arten, wie du dich mit jemandem auf palava.tv verbinden kannst:
+          </p>
+          <ul>
+            <li><strong>Direkt:</strong> Dein Gerät ist direkt mit dem anderen Gerät verbunden</li>
+            <li><strong>Mit Zwischenstation:</strong> Beide Geräte senden ihre Daten an eine Zwischenstation. Das ist manchmal notwendig, um eine erfolgreiche Verbindung herstellen zu können. Der Zwischenübertragungsserver hat keine Zugriff auf die Daten.</li>
+          </ul>
+          <p>Zur Zeit sind alle Verbindungen <strong>direkt</strong>. Wir arbeiten daran, demnächst Zwischenübertragungsserver bereit zu stellen.</p>
+
+          <h2>Ferne &amp; Eigene IPs</h2>
+          <p>
+            Um eine funktionierende Verbindung herzustellen, müssen beide Parteien sich gegenseitig alle ihre IP-Adressen senden, inklusive welche, aus dem eigenen (lokalen) Netzwerk.
+          </p>
+          <p>
+            IP-Adressen können im IPv4-Fromat (X.X.X.X), oder im IPv6-Format vorkommen (X:X:X:X:X:X:X:X).
+          </p>
+        `,
+      },
+      {
+        id: "not-found",
+        linked: false,
+        title: "Nicht gefunden",
+        content: `
+          <h2>Nicht gefunden</h2>
+          <p>
+            Die Seite konnte nicht gefunden werden. Der Inhalt könnte verschwunden sein, oder vielleicht hast du die URL falsch eingegeben.
+          </p>
+        `,
+      },
+    ],
   },
 }

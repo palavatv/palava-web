@@ -7,7 +7,9 @@ import InfoPage from '@/views/InfoPage.vue'
 
 import i18nStrings from '@/i18nStrings'
 
-const validInfoPages = Object.keys(i18nStrings.en.infoPages) // please note: no regex escape
+import { escapeRegex } from '@/support'
+
+const validInfoPages = i18nStrings.en.infoPages.map((ip) => escapeRegex(ip.id))
 
 Vue.use(VueRouter)
 

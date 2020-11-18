@@ -1,10 +1,11 @@
 <template>
   <nav class="navigation">
     <ul>
-      <li><router-link to="/info/about"><span @click="checkScreen('about', $event)">{{ $t('infoPages.about.title') }}</span></router-link></li>
-      <li><router-link to="/info/ev"><span @click="checkScreen('ev', $event)">{{ $t('infoPages.ev.title') }}</span></router-link></li>
-      <li><router-link to="/info/contact"><span @click="checkScreen('contact', $event)">{{ $t('infoPages.contact.title') }}</span></router-link></li>
-      <li><router-link to="/info/privacy"><span @click="checkScreen('privacy', $event)">{{ $t('infoPages.privacy.title') }}</span></router-link></li>
+      <li v-for="infoPage in infoPages" :key="infoPage.id">
+        <router-link :to="`/info/${infoPage.id}`">
+          <span @click="checkScreen(infoPage.id, $event)">{{ infoPage.title }}</span>
+        </router-link>
+      </li>
     </ul>
     <!-- <LanguageSwitcher /> -->
   </nav>
@@ -12,6 +13,7 @@
 
 <script>
 // import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
+import i18nStrings from '@/i18nStrings'
 
 export default {
   props: {
@@ -30,6 +32,11 @@ export default {
         this.$emit('open-info-screen', infoPage)
       }
     },
+  },
+  computed: {
+    infoPages() {
+      return i18nStrings[this.$root.$i18n.locale].infoPages.filter((ip) => ip.linked !== false)
+    }
   }
 }
 </script>

@@ -8,9 +8,6 @@
       <Logo class="logo logo--mobile" />
       <Navigation />
 
-      <h1 class="info-title">
-        {{ $t(`infoPages.${this.page}.title`) }}
-      </h1>
       <div class="info-content" v-html="$t(`infoPages.${this.page}.content`)" />
     </main>
   </div>
@@ -150,9 +147,7 @@ export default {
   }
 
   h2 {
-    &:not(:first-child) {
-      margin-top: $medium-plus-spacing;
-    }
+    margin-top: $medium-plus-spacing;
     color: $action-1;
     // text-shadow: 1px 1px rgba(100, 100, 100, 0.1);
     @include subheadingFont();

@@ -192,9 +192,9 @@ export default {
       ev: {
         title: 'Palava Association',
         content: `
-          <h2>We are independent and are not subject to commercial interests</h2>
+          <h2>Palava association</h2>
           <p>
-            palava.tv is developed and run by <strong>palava e. V.</strong>, a German non-profit organization. We want to bring knowledge about decentralized video communication to the masses.
+            palava.tv is developed and run by <strong>palava e. V.</strong>, an independent German non-profit organization. We want to bring knowledge about decentralized video communication to the masses.
           </p>
 
           <h2>Donations</h2>
@@ -253,9 +253,11 @@ export default {
       privacy: {
         title: 'Privacy Policy',
         content: `
-          Please note that this is a best-effort translation of our privacy policy into English. Please switch the language to German to read the original document.<br/>
-
           <h2>Privacy Policy</h2>
+
+          <p>
+            <em>Please note that this is a best-effort translation of our privacy policy into English. Please switch the language to German to read the original document.</em>
+          </p>
 
           <p>
             The protection of your personal data is of particular concern to us. In this privacy
@@ -510,9 +512,9 @@ export default {
       ev: {
         title: "Palava Verein",
         content: `
-          <h2>Wir sind unabhängig und unterliegen keinen kommerziellen Interessen</h2>
+          <h2>Palava Verein</h2>
           <p>
-            palava.tv wird von <strong>palava e. V.</strong> entwickelt und betrieben, einem gemeinnützigen Verein in Deutschland. Wir wollen das Wissen über dezentrale Videokommunikation an die breite Masse tragen.
+            palava.tv wird entwickelt und betrieben von <strong>palava e. V.</strong>, einem unabhängigen gemeinnützigen Verein. Wir wollen das Wissen über dezentrale Videokommunikation an die breite Masse tragen.
           </p>
 
           <h2>Spenden</h2>

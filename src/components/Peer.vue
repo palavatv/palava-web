@@ -40,7 +40,6 @@
       <Placeholder
         v-if="status !== 'video'"
         :peer="peer"
-        :colorIndex="colorIndex"
         @click="togglePeerMenu()"
         />
       <Stream
@@ -57,6 +56,7 @@
           'peer-menu--on-stage': type === 'stage',
         }"
         >
+        <PeerAvatar :peerId="peer.id" />
         <transition name="fade-control">
           <button
             :title="$t('peer.toggleEnlargeTitle')"
@@ -152,6 +152,7 @@ import yyid from "yyid"
 
 import Stream from "@/components/Stream.vue"
 import PeerStatus from "@/components/PeerStatus.vue"
+import PeerAvatar from "@/components/PeerAvatar.vue"
 import Placeholder from "@/components/Placeholder.vue"
 import NetworkInfo from "@/components/NetworkInfo.vue"
 
@@ -160,10 +161,6 @@ export default {
     peer: {
       type: Object,
       required: true,
-    },
-    colorIndex: {
-      type: Number,
-      default: 0,
     },
     type: {
       type: String,
@@ -180,6 +177,7 @@ export default {
   },
   components: {
     PeerStatus,
+    PeerAvatar,
     Placeholder,
     Stream,
     NetworkInfo,
@@ -245,6 +243,11 @@ export default {
   .frame {
     position: relative;
     display: inline;
+
+    & > .avatar {
+      position: absolute;
+      @include knobLike();
+    }
   }
 
   .media {
@@ -438,7 +441,7 @@ export default {
   &--in-lobby {
     bottom: $small-control-size / 8;
     right: $small-control-size / 8;
-    .menu-control {
+    .menu-control, .avatar {
       height: $small-control-size;
       width: $small-control-size;
       font-size: $small-control-size / 2;
@@ -458,7 +461,7 @@ export default {
       right: $large-control-size / 8;
     }
 
-    .menu-control {
+    .menu-control, .avatar {
       height: $small-control-size;
       width: $small-control-size;
       margin: $small-control-size / 8;

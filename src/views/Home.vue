@@ -9,7 +9,7 @@
         <router-link to="/info/about" :title="$t('home.palavaLogoTitle')">
           <inline-svg
             :alt="$t('palavaLogoAlt')"
-            :src="require('../assets/palava.svg')"
+            :src="require('../assets/icons/palava.svg')"
             />
         </router-link>
       </div>
@@ -25,7 +25,7 @@
           <inline-svg
             :alt="$t('home.goAlt')"
             :aria-label="$t('home.goAlt')"
-            :src="require('../assets/people-outline.svg')"
+            :src="require('../assets/icons/people-outline.svg')"
             />
         </button>
       </div>
@@ -43,7 +43,7 @@
         <router-link to="/info/about" :title="$t('home.palavaLogoTitle')">
           <inline-svg
             :alt="$t('palavaLogoAlt')"
-            :src="require('../assets/palava.svg')"
+            :src="require('../assets/icons/palava.svg')"
             />
         </router-link>
       </div>
@@ -62,7 +62,7 @@
               <inline-svg
                 :alt="$t('home.blog')"
                 :aria-label="$t('home.blog')"
-                :src="require('../assets/logo-rss.svg')"
+                :src="require('../assets/icons/logo-rss.svg')"
                 />
             </a>
           </li>
@@ -71,7 +71,7 @@
               <inline-svg
                 :alt="$t('home.twitter')"
                 :aria-label="$t('home.twitter')"
-                :src="require('../assets/logo-twitter.svg')"
+                :src="require('../assets/icons/logo-twitter.svg')"
                 />
             </a>
           </li>
@@ -80,7 +80,7 @@
               <inline-svg
                 :alt="$t('home.github')"
                 :aria-label="$t('home.github')"
-                :src="require('../assets/logo-github.svg')"
+                :src="require('../assets/icons/logo-github.svg')"
                 />
             </a>
           </li>

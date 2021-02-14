@@ -67,7 +67,7 @@
             <inline-svg
               :alt="$t('peer.toggleEnlargeAlt')"
               :aria-label="$t('peer.toggleEnlargeAlt')"
-              :src="require('../assets/level-up.svg')"
+              :src="require('../assets/icons/level-up.svg')"
               />
           </button>
         </transition>
@@ -82,7 +82,7 @@
             <inline-svg
               :alt="$t('peer.toggleMinimizeAlt')"
               :aria-label="$t('peer.toggleMinimizeAlt')"
-              :src="require('../assets/level-down.svg')"
+              :src="require('../assets/icons/level-down.svg')"
               />
           </button>
         </transition>
@@ -97,7 +97,7 @@
             <inline-svg
               :alt="$t('peer.fullScreenAlt')"
               :aria-label="$t('peer.fullScreenAlt')"
-              :src="require('../assets/resize-full-screen.svg')"
+              :src="require('../assets/icons/resize-full-screen.svg')"
               />
           </button>
         </transition>
@@ -113,7 +113,7 @@
             <inline-svg
               :alt="$t('peer.networkInfoAlt')"
               :aria-label="$t('peer.networkInfoAlt')"
-              :src="require('../assets/network.svg')"
+              :src="require('../assets/icons/network.svg')"
               />
           </button>
         </transition>
@@ -133,12 +133,12 @@
             <inline-svg v-if="muted"
               :alt="$t('peer.mutedAudioAlt')"
               :aria-label="$t('peer.mutedAudioAlt')"
-              :src="require('../assets/volume-off.svg')"
+              :src="require('../assets/icons/volume-off.svg')"
               />
             <inline-svg v-else
               :alt="$t('peer.withAudioAlt')"
               :aria-label="$t('peer.withAudioAlt')"
-              :src="require('../assets/volume-up.svg')"
+              :src="require('../assets/icons/volume-up.svg')"
               />
           </button>
         </transition>

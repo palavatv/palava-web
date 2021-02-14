@@ -1,7 +1,7 @@
 <template>
   <img
     class="media media--orientation-landscape"
-    src="@/assets/placeholder.png"
+    src="@/assets/icons/placeholder.png"
     :alt="$t('peer.placeholderAlt', { color: background })"
     ref="placeholder"
     :style="{

@@ -3,7 +3,7 @@
     <button class="close" @click="$emit('close')">
       <inline-svg
         :aria-label="$t('closeAlt')"
-        :src="require('../assets/cross.svg')"
+        :src="require('../assets/icons/cross.svg')"
         />
     </button>
 

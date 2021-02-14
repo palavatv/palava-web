@@ -4,7 +4,7 @@
       <inline-svg
         :alt="$t('closeAlt')"
         :aria-label="$t('closeAlt')"
-        :src="require('../assets/cross.svg')"
+        :src="require('../assets/icons/cross.svg')"
         />
     </button>
 
@@ -15,7 +15,7 @@
           <inline-svg
             :alt="$t('moreInfoAlt')"
             :aria-label="$t('moreInfoAlt')"
-            :src="require('../assets/info-with-circle.svg')"
+            :src="require('../assets/icons/info-with-circle.svg')"
             />
         </button>
       </h2>
@@ -28,7 +28,7 @@
           <inline-svg
             :aria-label="$t('networkInfo.ipAlt')"
             :alt="$t('networkInfo.ipAlt')"
-            :src="require('../assets/dot-single.svg')"
+            :src="require('../assets/icons/dot-single.svg')"
             />
           {{ ip }}
           <span v-if="allRelayIps.includes(ip)"> ({{ $t('networkInfo.ipIsRelay') }})</span>
@@ -43,7 +43,7 @@
           <inline-svg
             :aria-label="$t('networkInfo.ipAlt')"
             :alt="$t('networkInfo.ipAlt')"
-            :src="require('../assets/dot-single.svg')"
+            :src="require('../assets/icons/dot-single.svg')"
             />
           {{ ip }}
           <span v-if="allRelayIps.includes(ip)"> ({{ $t('networkInfo.ipIsRelay') }})</span>

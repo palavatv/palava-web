@@ -5,7 +5,7 @@
         class="symbol"
         :alt="$t('peer.statusAudioAlt')"
         :aria-label="$t('peer.statusAudioAlt')"
-        :src="require('../assets/phone.svg')"
+        :src="require('../assets/icons/phone.svg')"
         />
     </div>
     <div v-else-if="status === 'not-ready'">
@@ -19,7 +19,7 @@
         class="symbol"
         :aria-label="$t('peer.statusNoMediaAlt')"
         :alt="$t('peer.statusNoMediaAlt')"
-        :src="require('../assets/block.svg')"
+        :src="require('../assets/icons/block.svg')"
         />
       <div class="description">{{ $t('peer.noMedia') }}</div>
     </div>
@@ -28,7 +28,7 @@
         class="symbol"
         :aria-label="$t('peer.statusErrorAlt')"
         :alt="$t('peer.statusErrorAlt')"
-        :src="require('../assets/circle-with-cross.svg')"
+        :src="require('../assets/icons/circle-with-cross.svg')"
         />
       <div v-if="error === 'connection_closed'" class="description">{{ $t('peer.errorConnectionClosed') }}</div>
       <div v-else-if="error === 'connection_failed'" class="description">{{ $t('peer.errorConnectionFailed') }}</div>

@@ -30,12 +30,12 @@
               <inline-svg
                 :alt="$t('party.cameraAlt')"
                 :aria-label="$t('party.cameraAlt')"
-                :src="require('../assets/video-camera.svg')"
+                :src="require('../assets/icons/video-camera.svg')"
                 />
               <inline-svg
                 :alt="$t('party.microphoneAlt')"
                 :aria-label="$t('party.microphoneAlt')"
-                :src="require('../assets/mic.svg')"
+                :src="require('../assets/icons/mic.svg')"
                 />
             </button>
           </li>
@@ -48,7 +48,7 @@
               <inline-svg
                 :alt="$t('party.cameraAlt')"
                 :aria-label="$t('party.cameraAlt')"
-                :src="require('../assets/video-camera.svg')"
+                :src="require('../assets/icons/video-camera.svg')"
                 />
             </button>
           </li>
@@ -61,7 +61,7 @@
               <inline-svg
                 :alt="$t('party.microphoneAlt')"
                 :aria-label="$t('party.microphoneAlt')"
-                :src="require('../assets/mic.svg')"
+                :src="require('../assets/icons/mic.svg')"
                 />
             </button>
           </li>

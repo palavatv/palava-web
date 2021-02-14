@@ -17,7 +17,7 @@
         >
         <inline-svg
           :alt="$t('palavaLogoAlt')"
-          :src="require('../assets/palava.svg')"
+          :src="require('../assets/icons/palava.svg')"
           />
       </button>
 
@@ -31,7 +31,7 @@
           <inline-svg
             :alt="$t('party.infoAlt')"
             :aria-label="$t('party.infoAlt')"
-            :src="require('../assets/info-with-circle.svg')"
+            :src="require('../assets/icons/info-with-circle.svg')"
             />
         </button>
       </transition>
@@ -47,7 +47,7 @@
           <inline-svg
             :alt="$t('party.copyLinkAlt')"
             :aria-label="$t('party.copyLinkAlt')"
-            :src="require('../assets/link.svg')"
+            :src="require('../assets/icons/link.svg')"
             />
         </button>
       </transition>
@@ -62,7 +62,7 @@
           <inline-svg
             :alt="$t('party.cameraAlt')"
             :aria-label="$t('party.cameraAlt')"
-            :src="cameraOff ? require('../assets/video-camera-off.svg') : require('../assets/video-camera.svg')"
+            :src="cameraOff ? require('../assets/icons/video-camera-off.svg') : require('../assets/icons/video-camera.svg')"
             />
         </button>
       </transition>
@@ -77,7 +77,7 @@
           <inline-svg
             :alt="$t('party.microphoneAlt')"
             :aria-label="$t('party.microphoneAlt')"
-            :src="microphoneMuted ?  require('../assets/mic-off.svg') : require('../assets/mic.svg')"
+            :src="microphoneMuted ?  require('../assets/icons/mic-off.svg') : require('../assets/icons/mic.svg')"
             />
         </button>
       </transition>
@@ -91,7 +91,7 @@
           <inline-svg
             :alt="$t('party.screenShareAlt')"
             :aria-label="$t('party.screenShareAlt')"
-            :src="require('../assets/tv.svg')"
+            :src="require('../assets/icons/tv.svg')"
             />
         </button>
       </transition> -->
@@ -103,7 +103,7 @@
           v-if="controlsActive"
           >
           <inline-svg
-            :src="require('../assets/chat.svg')"
+            :src="require('../assets/icons/chat.svg')"
             :alt="$t('party.textChatAlt')"
             :aria-label="$t('party.textChatAlt')"
             \>
@@ -131,7 +131,7 @@
           <inline-svg
             :alt="$t('party.hangUpAlt')"
             :aria-label="$t('party.hangUpAlt')"
-            :src="require('../assets/phone.svg')"
+            :src="require('../assets/icons/phone.svg')"
             />
         </router-link>
       </transition>

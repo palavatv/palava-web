@@ -36,6 +36,9 @@ import InfoScreen from "@/components/InfoScreen.vue"
 import RoomError from "@/components/RoomError.vue"
 import Party from "@/components/Party.vue"
 
+import enteringKnock from "../assets/sounds/entering-room-knock.mp3"
+import leavingBirds from "../assets/sounds/leaving-room-bird.mp3"
+
 export default {
   components: {
     ScreenMessage,
@@ -49,6 +52,8 @@ export default {
       localPeer: null,
       infoPage: null,
       signalingState: 'initial', // --> connected, reconnect_scheduled, trying_to_reconnect
+      joinSound: new Audio(enteringKnock),
+      leavingSound: new Audio(leavingBirds),
     }
   },
   created() {
@@ -155,6 +160,7 @@ export default {
 
       rtc.on("peer_joined", (peer) => {
         logger.log("peer joined", peer)
+        this.joinSound.play()
         this.peers = this.rtc.room.getAllPeers()
       })
 
@@ -172,6 +178,7 @@ export default {
 
       rtc.on("peer_left", (peer) => {
         logger.log("peer left", peer)
+        this.leavingSound.play()
         this.peers = this.rtc.room.getAllPeers()
       })
 

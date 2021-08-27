@@ -25,9 +25,9 @@
 </template>
 
 <script>
+import { Session } from "palava-client"
 import config from "@/config"
 import logger from "@/logger"
-import { Session } from "palava-client"
 import { fancyNumber } from "@/support"
 
 import UserMediaConfigurator from "@/components/UserMediaConfigurator.vue"

@@ -51,10 +51,11 @@ export default {
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+        .replace(/'/g, "&#039;")
 
-      const urlRegex = /https?:\/\/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)?/gi;
-      return escaped.replace(urlRegex, '<a href="$&">$&</a>')
+      const urlRegex = /https?:\/\/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)?/gi
+      const urlTemplate = '<a href="$&" target="_blank" rel="noopener noreferrer">$&</a>'
+      return escaped.replace(urlRegex, urlTemplate)
     },
     sendChatMessage() {
       if (this.newChatMessage === "") return;

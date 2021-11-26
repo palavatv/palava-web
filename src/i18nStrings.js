@@ -113,7 +113,8 @@ export default {
       waiting: "Waiting",
     },
     chat: {
-      error: "You are not connected to any other person. This message will thus not be seen by anyone."
+      error: "You are not connected to any other person. This message will thus not be seen by anyone.",
+      sendAlt: "Send"
     },
     networkInfo: {
       directConnection: "Direct connection",
@@ -297,7 +298,8 @@ export default {
       waiting: "Warte",
     },
     chat: {
-      error: "Sie sind mit niemandem verbunden. Diese Chatnachricht wird daher auch niemand sehen."
+      error: "Sie sind mit niemandem verbunden. Diese Chatnachricht wird daher auch niemand sehen.",
+      sendAlt: "Senden"
     },
     networkInfo: {
       directConnection: "Direktverbindung",

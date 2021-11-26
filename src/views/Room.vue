@@ -274,10 +274,6 @@ export default {
       this.peerChats.forEach((peerChat) => {
         peerChat.send(JSON.stringify(message))
       })
-      if (this.peerChats.length === 0) {
-        const errorMsg = { from: 'error', msg: this.$t('chat.error'), time: (new Date()).getTime() }
-        this.chatMessages = [errorMsg, ...this.chatMessages]
-      }
     },
     closeInfoScreen() {
       this.infoPage = null

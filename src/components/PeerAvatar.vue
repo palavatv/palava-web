@@ -33,13 +33,15 @@ export default {
   justify-content: center; /* align horizontal */
   align-items: center; /* align vertical */
   border-radius: 50%;
-  border: 0.1em solid black;
+  border: 0.1em solid $black;
+  color: $black
 }
 .peer-menu .avatar {
   font-size: 15pt;
 }
 .chat .avatar {
-  height: 1.3em;
-  width: 1.3em;
+  height: 1.5em;
+  width: 1.5em;
+  min-width: 1.5em;
 }
 </style>

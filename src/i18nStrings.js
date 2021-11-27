@@ -114,7 +114,8 @@ export default {
     },
     chat: {
       error: "You are not connected to any other person. This message will thus not be seen by anyone.",
-      sendAlt: "Send"
+      sendAlt: "Send",
+      messagePlaceholder: "Write a message"
     },
     networkInfo: {
       directConnection: "Direct connection",
@@ -298,8 +299,9 @@ export default {
       waiting: "Warte",
     },
     chat: {
-      error: "Sie sind mit niemandem verbunden. Diese Chatnachricht wird daher auch niemand sehen.",
-      sendAlt: "Senden"
+      error: "Du bist mit niemandem verbunden. Diese Chatnachricht wird daher auch niemand sehen.",
+      sendAlt: "Senden",
+      messagePlaceholder: "Schreibe eine Nachricht"
     },
     networkInfo: {
       directConnection: "Direktverbindung",

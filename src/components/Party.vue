@@ -25,7 +25,8 @@
         <button
           :title="$t('party.infoTitle')"
           class="control control--info"
-          @click="$emit('open-info-screen', 'about')"
+          @click="$emit('open-info-screen', 'about'); $refs.info.blur()"
+          ref="info"
           v-if="controlsActive"
           >
           <inline-svg
@@ -40,7 +41,7 @@
         <button
           :title="$t('party.copyLinkTitle')"
           class="control control--copy-link"
-          @click="copyShareLink"
+          @click="copyShareLink(); $refs.copyLink.blur()"
           ref="copyLink"
           v-if="controlsActive && canShare"
           >
@@ -56,7 +57,8 @@
         <button
           :title="cameraOff ? $t('party.turnOnCameraTitle') : $t('party.turnOffCameraTitle')"
           class="control control--camera"
-          @click="toggleCamera"
+          @click="toggleCamera(); $refs.camera.blur()"
+          ref="camera"
           v-if="controlsActive && localPeer.hasVideo()"
           >
           <inline-svg
@@ -71,7 +73,8 @@
         <button
           :title="microphoneMuted ? $t('party.unmuteMicrophoneTitle') : $t('party.muteMicrophoneTitle')"
           class="control control--microphone"
-          @click="toggleMicrophone"
+          @click="toggleMicrophone(); $refs.microphone.blur()"
+          ref="microphone"
           v-if="controlsActive && localPeer.hasAudio()"
           >
           <inline-svg
@@ -101,7 +104,8 @@
           :title="$t('party.openTextChatTitle')"
           class="control control--text-chat"
           :class="{'control--alert': this.chatNewMessages}"
-          @click="toggleChat"
+          @click="toggleChat(); $refs.chat.blur()"
+          ref="chat"
           v-if="controlsActive"
           >
           <inline-svg
@@ -117,7 +121,7 @@
           :title="$t('switchLanguageTitle')"
           class="control control--switch-language"
           ref="switchLanguage"
-          @click="switchLanguage"
+          @click="switchLanguage(); $refs.switchLanguage.blur()"
           v-if="controlsActive"
           >
           <span :aria-label="$t('switchLanguageAlt')">{{ $root.$i18n.locale }}</span>

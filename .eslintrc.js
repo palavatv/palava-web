@@ -4,12 +4,12 @@ module.exports = {
     node: true,
   },
   plugins: [
-    'vue-a11y',
+    'vuejs-accessibility',
   ],
   extends: [
     'plugin:vue/essential',
     '@vue/airbnb',
-    'plugin:vue-a11y/base',
+    'plugin:vuejs-accessibility/recommended',
   ],
   parserOptions: {
     parser: 'babel-eslint',
@@ -26,9 +26,11 @@ module.exports = {
     'dot-location': 'off',
     'comma-dangle': 'off',
     'keyword-spacing': 'off',
-    'vue-a11y/media-has-caption': 'off',
-    'vue-a11y/no-autofocus': 'off',
-    'vue-a11y/click-events-have-key-events': 'off',
+    'vuejs-accessibility/anchor-has-content': 'off',
+    'vuejs-accessibility/heading-has-content': 'off',
+    'vue/multi-word-component-names': 'off',
+    'vuejs-accessibility/no-autofocus': 'off',
+    'vuejs-accessibility/media-has-caption': 'off',
   },
   overrides: [
     {

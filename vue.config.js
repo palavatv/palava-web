@@ -1,5 +1,5 @@
 module.exports = {
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     config.resolve.symlinks(false) // see https://github.com/vuejs/vue-cli/issues/2948
     config.optimization.minimize(!process.env.BUILD_NOT_MINIFIED)
 
@@ -8,15 +8,13 @@ module.exports = {
     config.module
       .rule('vue')
       .use('vue-loader')
-      .tap(options => {
-        return {
-          ...options,
-          compilerOptions: {
-            compatConfig: {
-              MODE: 2
-            }
+      .tap((options) => ({
+        ...options,
+        compilerOptions: {
+          compatConfig: {
+            MODE: 2
           }
         }
-      })
-    }
+      }))
+  }
 }

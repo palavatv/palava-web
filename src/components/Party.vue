@@ -163,6 +163,7 @@
           v-if="chatOpen"
           :chatMessages="chatMessages"
           :localPeerId="localPeer.id"
+          :peerCount="peers.length"
           @send-chat-message="(message) => $emit('send-chat-message', message)"
           />
         <Peer v-for="peer in stagePeers"

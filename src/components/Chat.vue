@@ -2,22 +2,29 @@
   <li class="peer chat-peer">
       <div class="chat">
         <div class="messages-area">
-          <div class="message-and-avatar message-and-avatar--right" v-if="peerCount == 1">
-            <span class="message message-error" v-html="$t('chat.error')"></span>
+          <div class="message-and-avatar" v-if="peerCount == 1">
+            <span class="message message-error" v-html="$t('chat.error')">
+            </span>
           </div>
           <div class="message-and-avatar"
             v-for="chatMessage in chatMessages" :key="chatMessage.time"
             :class="{'message-and-avatar--right': chatMessage.from !== localPeerId}">
             <PeerAvatar :peerId="chatMessage.from" />
-            <span class="message" :title="chatMessage.time" v-html="escapeHTML(chatMessage.msg)">
+            <span class="message"
+              :title="chatMessage.time"
+              v-html="escapeHTML(chatMessage.msg)">
             </span>
           </div>
         </div>
         <form class="send-area">
-          <input type="textarea" aria-label="Write message" v-model="newChatMessage" />
-          <button type="submit" @click.prevent="sendChatMessage()">
+          <input type="textarea"
+            v-model="newChatMessage"
+            :aria-label="$t('chat.messagePlaceholder')"
+            :placeholder="$t('chat.messagePlaceholder')" />
+          <button type="submit" :title="$t('chat.sendAlt')" @click.prevent="sendChatMessage()">
             <inline-svg
               :alt="$t('chat.sendAlt')"
+              :aria-label="$t('chat.sendAlt')"
               :src="require('../assets/send.svg')"
               />
           </button>
@@ -109,7 +116,7 @@ export default {
     margin: 0.3em 0.65em;
 
     .message {
-      display: inline-flex;
+      display: inline-block;
       margin: 0 0.2em;
       padding: 0.25em 0.5em;
       background-color: white;
@@ -118,14 +125,14 @@ export default {
       word-break: break-word;
     }
 
-    .message-error {
-      color: white;
-      background-color: lighten($action-3, 15%);
-      padding: 0.5em 0.75em;
-    }
-
     .avatar {
       margin: 0.1em;
+    }
+
+    .message-error {
+      flex: 1;
+      color: white;
+      background-color: lighten($action-3, 15%);
     }
 
     &--right {
@@ -137,40 +144,52 @@ export default {
 
 .send-area {
   display: flex;
+  padding: 0.2em;
+  padding-top: 0;
   flex-direction: row;
   align-items: center;
-  padding: 0.25em;
+  @include lightShadow();
+
+  input, button {
+    @include homeFont();
+    padding: 4px 8px;
+    letter-spacing: -1px;
+    border: none;
+    margin: 0;
+  }
 
   input {
     flex: 1;
-    border-radius: 3px;
-    padding: 0.5em 0.5em;
-    padding-right: 2em;
-    background-color: white;
-    border: 0.1em solid $gray;
-
-    &:focus {
-      border: 0.1em solid darken($chat-background, 30%);
+    background: white;
+    &:focus, &:active {
+      outline: none;
 
       +button {
-        color: darken($chat-background, 45%);
+        color: $action-1;
       }
     }
   }
 
-  button {
-    position: absolute;
-    cursor: pointer;
-    color: $chat-background;
-    fill: currentColor;
-    align-self: center;
-    width: $small-control-size;
-    height: $small-control-size;
-    padding: 0.25em;
-    right: 0.3em;
+  ::placeholder {
+    letter-spacing: -1px;
+    color: #999;
+  }
 
-    &:hover, &:focus {
-      color: $action-1;
+  button[type=submit] {
+    appearance: none;
+    margin-right: -1px;
+    cursor: pointer;
+    flex-shrink: 0;
+    background: $white;
+    color: darken($chat-background, 10%);
+    fill: currentColor;
+    &:focus {
+      outline: 1px dashed $action-2;
+    }
+    @include homeSymbol();
+    svg {
+      width: 100%;
+      height: 100%;
     }
   }
 }

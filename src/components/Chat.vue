@@ -189,6 +189,7 @@ export default {
     fill: currentColor;
     &:focus {
       outline: 1px dashed $action-2;
+      color: $action-1;
     }
     @include homeSymbol();
     svg {

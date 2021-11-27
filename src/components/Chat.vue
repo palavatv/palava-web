@@ -11,7 +11,7 @@
             :class="{'message-and-avatar--right': chatMessage.from !== localPeerId}">
             <PeerAvatar :peerId="chatMessage.from" />
             <span class="message"
-              :title="chatMessage.time"
+              :title="displayTime(chatMessage.time)"
               v-html="escapeHTML(chatMessage.msg)">
             </span>
           </div>
@@ -85,6 +85,9 @@ export default {
 
       this.$emit('send-chat-message', newMessage)
       this.newChatMessage = ""
+    },
+    displayTime(time) {
+      return new Date(time).toLocaleString()
     },
   },
 }

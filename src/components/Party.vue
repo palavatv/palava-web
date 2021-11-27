@@ -469,7 +469,23 @@ export default {
     }
 
     &--alert {
-      background-color: red;
+      background-color: $action-2;
+      outline: none;
+      opacity: 1;
+      box-shadow: 1px 1px 3px #555;
+
+      > * {
+        fill: $white;
+        filter: grayscale(0);
+      }
+
+      &:hover, &:focus {
+        background-color: $white;
+
+        > * {
+          fill: $action-2;
+        }
+      }
     }
 
     &--switch-language > * {

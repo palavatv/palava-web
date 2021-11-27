@@ -18,6 +18,7 @@
         </div>
         <form class="send-area">
           <input type="textarea"
+            ref="messageInput"
             v-model="newChatMessage"
             :aria-label="$t('chat.messagePlaceholder')"
             :placeholder="$t('chat.messagePlaceholder')" />
@@ -58,6 +59,9 @@ export default {
     return {
       newChatMessage: "",
     }
+  },
+  mounted() {
+    this.$refs.messageInput.focus()
   },
   methods: {
     escapeHTML(str) {

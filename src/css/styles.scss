@@ -118,7 +118,7 @@ $lobby-border-radius: 0px;
 
 @mixin focusTitle() {
   position: relative;
-  &:focus {
+  &:focus, &:hover {
     @include focusTitlePseudo();
   }
   @media (max-width: $mobile-plus - 1px) {

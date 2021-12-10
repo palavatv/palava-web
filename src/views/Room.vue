@@ -6,7 +6,7 @@
 
     <transition name="fade">
       <InfoScreen
-        v-if="showInfoScreen"
+        v-if="infoScreenIsVisible"
         :page="infoPage"
         @close="closeInfoScreen"
         @open-info-screen="openInfoScreen"
@@ -84,8 +84,8 @@ export default {
     uiStateProps() {
       return this.uiState[1]
     },
-    showInfoScreen() {
-      return this.uiState[0] === Party && !!this.infoPage
+    infoScreenIsVisible() {
+      return !!this.infoPage
     }
   },
   methods: {

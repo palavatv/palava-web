@@ -1,37 +1,44 @@
 <template>
-  <li class="peer chat-peer">
-      <div class="chat">
-        <div class="messages-area">
-          <div class="message-and-avatar" v-if="peerCount == 1">
-            <span class="message message-error" v-html="$t('chat.error')">
-            </span>
-          </div>
-          <div class="message-and-avatar"
-            v-for="chatMessage in chatMessages" :key="chatMessage.time"
-            :class="{'message-and-avatar--right': chatMessage.from !== localPeerId}">
-            <PeerAvatar :peerId="chatMessage.from" />
-            <span class="message"
-              :title="displayTime(chatMessage.time)"
-              v-html="escapeHTML(chatMessage.msg)">
-            </span>
-          </div>
-        </div>
-        <form class="send-area">
-          <input type="textarea"
-            ref="messageInput"
-            v-model="newChatMessage"
-            :aria-label="$t('chat.messagePlaceholder')"
-            :placeholder="$t('chat.messagePlaceholder')" />
-          <button type="submit" :title="$t('chat.sendAlt')" @click.prevent="sendChatMessage()">
-            <inline-svg
-              :alt="$t('chat.sendAlt')"
-              :aria-label="$t('chat.sendAlt')"
-              :src="require('../assets/send.svg')"
-              />
-          </button>
-        </form>
+  <aside class="chat-panel" tabindex="0" @keydown.esc="$emit('close')">
+    <button class="close" @click="$emit('close')">
+      <inline-svg
+        :aria-label="$t('closeAlt')"
+        :src="require('../assets/icons/cross.svg')"
+        />
+    </button>
+
+    <div class="messages-area">
+      <div class="message-and-avatar" v-if="peerCount == 1">
+        <span class="message message-error" v-html="$t('chat.error')">
+        </span>
       </div>
-  </li>
+
+      <div class="message-and-avatar"
+        v-for="chatMessage in chatMessages" :key="chatMessage.time"
+        :class="{'message-and-avatar--right': chatMessage.from !== localPeerId}">
+        <PeerAvatar :peerId="chatMessage.from" />
+        <span class="message"
+          :title="displayTime(chatMessage.time)"
+          v-html="escapeHTML(chatMessage.msg)">
+        </span>
+      </div>
+    </div>
+
+    <form class="send-area">
+      <input type="textarea"
+        ref="messageInput"
+        v-model="newChatMessage"
+        :aria-label="$t('chat.messagePlaceholder')"
+        :placeholder="$t('chat.messagePlaceholder')" />
+      <button type="submit" :title="$t('chat.sendAlt')" @click.prevent="sendChatMessage()">
+        <inline-svg
+          :alt="$t('chat.sendAlt')"
+          :aria-label="$t('chat.sendAlt')"
+          :src="require('../assets/send.svg')"
+          />
+      </button>
+    </form>
+  </aside>
 </template>
 
 <script>
@@ -96,18 +103,23 @@ export default {
 <style lang="scss">
 @import '@/css/styles.scss';
 
-.chat-peer {
-  height: 100%;
-  width: 100%;
-}
-
-.chat {
+.chat-panel {
   background: $chat-background;
-  height: 100%;
-  width: 100%;
   display: flex;
   flex-direction: column;
-  @include defaultFont()
+  height: 100%;
+  width: 100%;
+  padding-top: 54px;
+
+  @include defaultFont();
+  @include defaultShadow();
+  outline: none;
+  overflow: auto;
+
+  .close {
+    @include inlineButton();
+    @include closeButton(36px);
+  }
 }
 
 .messages-area {
@@ -184,7 +196,6 @@ export default {
 
   button[type=submit] {
     appearance: none;
-    margin-right: -1px;
     cursor: pointer;
     flex-shrink: 0;
     background: $white;

@@ -101,7 +101,7 @@
 
       <transition name="fade-control">
         <button
-          :title="$t('party.openTextChatTitle')"
+          :title="chatIsVisible ? $t('party.hideTextChatTitle') : $t('party.openTextChatTitle')"
           class="control control--text-chat"
           :class="{'control--alert': this.chatNewMessages}"
           @click="toggleChat(); $refs.chat.blur()"
@@ -154,22 +154,14 @@
       <transition-group name="fade-control" tag="ul"
         :class="{
           'spotlight': true,
-          'spotlight--empty': stagePeers.length + (chatOpen ? 1 : 0) === 0,
-          'spotlight--one':   stagePeers.length + (chatOpen ? 1 : 0) === 1,
-          'spotlight--two':   stagePeers.length + (chatOpen ? 1 : 0) === 2,
-          'spotlight--three': stagePeers.length + (chatOpen ? 1 : 0) === 3,
-          'spotlight--four':  stagePeers.length + (chatOpen ? 1 : 0) === 4,
-          'spotlight--five':  stagePeers.length + (chatOpen ? 1 : 0) === 5,
-          'spotlight--six':   stagePeers.length + (chatOpen ? 1 : 0) === 6,
+          'spotlight--empty': stagePeers.length === 0,
+          'spotlight--one':   stagePeers.length === 1,
+          'spotlight--two':   stagePeers.length === 2,
+          'spotlight--three': stagePeers.length === 3,
+          'spotlight--four':  stagePeers.length === 4,
+          'spotlight--five':  stagePeers.length === 5,
+          'spotlight--six':   stagePeers.length === 6,
         }">
-        <Chat
-          :key="'chat'"
-          v-if="chatOpen"
-          :chatMessages="chatMessages"
-          :localPeerId="localPeer.id"
-          :peerCount="peers.length"
-          @send-chat-message="(message) => $emit('send-chat-message', message)"
-          />
         <Peer v-for="peer in stagePeers"
           :key="peer.id"
           type="stage"
@@ -183,7 +175,7 @@
     </div>
 
     <transition name="fade-control" @after-leave="onResize">
-      <div class="lobby" v-if="lobbyPeers.length > 0">
+      <div class="lobby" v-if="lobbyIsVisible">
         <transition-group name="fade-control" tag="ul" class="couch">
           <Peer v-for="peer in lobbyPeers"
             :key="peer.id"
@@ -195,6 +187,24 @@
             @open-info-screen="(page) => $emit('open-info-screen', page)"
             />
         </transition-group>
+      </div>
+    </transition>
+
+    <transition name="fade-control">
+      <div
+        v-if="chatIsVisible"
+        :class="{
+          'chat': true,
+          'chat--overlay': lobbyIsVisible || mobile()
+        }">
+        <Chat
+          :key="'chat'"
+          :chatMessages="chatMessages"
+          :localPeerId="localPeer.id"
+          :peerCount="peers.length"
+          @send-chat-message="(message) => $emit('send-chat-message', message)"
+          @close="toggleChat"
+          />
       </div>
     </transition>
   </main>
@@ -214,7 +224,7 @@ export default {
       controlsActive: true,
       cameraOff: false,
       microphoneMuted: false,
-      chatOpen: false,
+      chatIsVisible: false,
       chatNewMessages: false,
       presenter: null,
       lastPresenter: null,
@@ -241,18 +251,10 @@ export default {
       this.autoAdjustPeers(newPeers)
     },
     chatMessages() {
-      if (!this.chatOpen) this.chatNewMessages = true;
+      if (!this.chatIsVisible) this.chatNewMessages = true
     },
     presenter(newPresenter, oldPresenter) {
       if (newPresenter) {
-        // chat special case
-        if (this.oldPresenter === "chat") {
-          // keep chat as presenter but remember new presenter as last presenter
-          this.presenter = "chat"
-          this.lastPresenter = newPresenter
-          return
-        }
-
         // enter presenter mode (or switch to new presenter)
         this.lastPresenter = oldPresenter
         this.stagePeers.forEach((peer) => {
@@ -290,6 +292,9 @@ export default {
     canShare() {
       return !!(navigator.share || (navigator.clipboard && navigator.clipboard.writeText))
     },
+    lobbyIsVisible() {
+      return this.lobbyPeers.length > 0
+    }
   },
   methods: {
     togglePeer(peer) {
@@ -314,10 +319,10 @@ export default {
     },
     autoAdjustPeers(peers) {
       const remotePeers = peers.filter((peer) => !peer.isLocal())
-      if (remotePeers.length === 0 && this.presenter !== "chat") {
+      if (remotePeers.length === 0) {
         this.sendPeerToStage(this.localPeer)
       }
-      if (remotePeers.length === 1 && this.presenter !== "chat") {
+      if (remotePeers.length === 1) {
         this.sendPeerToLobby(this.localPeer)
         this.sendPeerToStage(remotePeers[0])
       }
@@ -339,28 +344,8 @@ export default {
       return (window.innerWidth < 576 || window.innerHeight < 500)
     },
     toggleChat() {
-      if (this.chatOpen) {
-        // closing chat...
-        if (this.presenter === "chat") {
-          // ... and the chat was the presenter, so we return to last presenter (if any)
-          this.presenter = null
-        } else if (this.lobbyPeers.length > 0 && this.stagePeers.length !== 1) {
-          // ... and lobby is not empty, so that we can fill the void that the chat left
-          this.togglePeer(this.lobbyPeers[0])
-        }
-      } else {
-        // opening chat...
-        this.chatNewMessages = false;
-        if (this.mobile()) {
-          // .. and this is mobile, so we make the chat the presenter
-          this.presenter = "chat"
-        } else if (this.lobbyPeers.length > 5) {
-          // ...and the stage is full, so we need to move somebody to the lobby
-          this.togglePeer(this.stagePeers[5])
-        }
-      }
-      this.autoAdjustPeers(this.peers)
-      this.chatOpen = !this.chatOpen
+      this.chatIsVisible = !this.chatIsVisible
+      this.chatNewMessages = false
     },
     switchLanguage() {
       this.$root.$i18n.locale = this.$root.$i18n.locale === 'de' ? 'en' : 'de'
@@ -520,11 +505,9 @@ export default {
 
   &--landscape {
     flex-direction: row;
+
     .lobby {
       height: 100%;
-    }
-
-    .lobby .peer {
       width: $lobby-width-mobile;
       @media (min-width: $mobile-plus)  { width: $lobby-width-mobile-plus; }
       @media (min-width: $desktop)      { width: $lobby-width-desktop; }
@@ -532,13 +515,17 @@ export default {
       @media (min-width: $desktop-large){ width: $lobby-width-desktop-large; }
       @media (min-width: $desktop-huge) { width: $lobby-width-desktop-huge; }
     }
+
+    .chat {
+      height: 100%;
+      width: $lobby-width-desktop-huge;
+    }
   }
   &--portrait {
     flex-direction: column;
+
     .lobby {
       width: 100%;
-    }
-    .lobby .peer {
       height: $lobby-height-mobile;
       @media (min-height: $mobile-plus-height)   { height: $lobby-height-mobile-plus; }
       @media (min-height: $desktop-height)       { height: $lobby-height-desktop; }
@@ -564,11 +551,35 @@ export default {
     overflow: hidden;
   }
 }
-chat
+
 .lobby {
   overflow: hidden;
   background: #222;
   opacity: 1;
+}
+
+.chat {
+  display: flex;
+  z-index: 1000;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  opacity: 1;
+
+  @media (min-width: $mobile-plus) {
+    & {
+      top: 0;
+      left: auto;
+      opacity: 0.92;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  &--overlay {
+    position: fixed;
+  }
 }
 
 .couch {

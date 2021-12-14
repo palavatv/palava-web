@@ -1,5 +1,4 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
 import Home from '@/views/Home.vue'
 import Room from '@/views/Room.vue'
@@ -10,8 +9,6 @@ import i18nStrings from '@/i18nStrings'
 import { escapeRegex } from '@/support'
 
 const validInfoPages = i18nStrings.en.infoPages.map((ip) => escapeRegex(ip.id))
-
-Vue.use(VueRouter)
 
 const routes = [
   {
@@ -38,10 +35,9 @@ const routes = [
   },
 ];
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes,
-});
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes
+})
 
 export default router

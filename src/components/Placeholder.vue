@@ -8,6 +8,7 @@
       'background': background,
     }"
     @click="$emit('click')"
+    @keypress.enter="$emit('click')"
   />
 </template>
 

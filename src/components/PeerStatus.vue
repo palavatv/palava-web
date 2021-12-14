@@ -1,5 +1,5 @@
 <template>
-  <div class="peer-status" @click="$emit('click')">
+  <div class="peer-status" @click="$emit('click')" @keypress.enter="$emit('click')">
     <div v-if="status === 'audio'">
       <inline-svg
         class="symbol"

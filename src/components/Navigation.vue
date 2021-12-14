@@ -3,7 +3,10 @@
     <ul>
       <li v-for="infoPage in infoPages" :key="infoPage.id">
         <router-link :to="`/info/${infoPage.id}`">
-          <span @click="checkScreen(infoPage.id, $event)">{{ infoPage.title }}</span>
+          <span
+            @click="checkScreen(infoPage.id, $event)"
+            @keypress.enter="checkScreen(infoPage.id, $event)"
+          >{{ infoPage.title }}</span>
         </router-link>
       </li>
     </ul>

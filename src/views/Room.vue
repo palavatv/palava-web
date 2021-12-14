@@ -6,7 +6,7 @@
 
     <transition name="fade">
       <InfoScreen
-        v-if="showInfoScreen"
+        v-if="infoScreenIsVisible"
         :page="infoPage"
         @close="closeInfoScreen"
         @open-info-screen="openInfoScreen"
@@ -25,9 +25,9 @@
 </template>
 
 <script>
+import { Session } from "palava-client"
 import config from "@/config"
 import logger from "@/logger"
-import { Session } from "palava-client"
 import { fancyNumber } from "@/support"
 
 import UserMediaConfigurator from "@/components/UserMediaConfigurator.vue"
@@ -84,8 +84,8 @@ export default {
     uiStateProps() {
       return this.uiState[1]
     },
-    showInfoScreen() {
-      return this.uiState[0] === Party && !!this.infoPage
+    infoScreenIsVisible() {
+      return !!this.infoPage
     }
   },
   methods: {

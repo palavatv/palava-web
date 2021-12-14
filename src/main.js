@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import VueI18n from 'vue-i18n'
+import { createApp } from 'vue'
+import { createI18n } from 'vue-i18n'
 import VueMeta from 'vue-meta'
 import { InlineSvgPlugin } from 'vue-inline-svg'
 
@@ -10,24 +10,20 @@ import config from './config'
 import messages from './i18nStrings'
 import { detectLanguage } from './support'
 
-Vue.config.productionTip = false
-Vue.use(VueI18n)
-Vue.use(VueMeta, {
-  refreshOnceOnNavigation: true,
-})
-Vue.use(InlineSvgPlugin)
-
 const language = detectLanguage()
 const locale = language && language.startsWith('de') ? 'de' : config.defaultLocale
 
-const i18n = new VueI18n({
+const i18n = createI18n({
   locale,
   fallbackLocale: config.defaultLocale,
   messages,
 })
 
-new Vue({
-  router,
-  i18n,
-  render: (h) => h(App),
-}).$mount('#app')
+const app = createApp(App)
+app
+  .use(router)
+  .use(i18n)
+  .use(VueMeta, { refreshOnceOnNavigation: true, })
+  .use(InlineSvgPlugin)
+
+app.mount('#app')

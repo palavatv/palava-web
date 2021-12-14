@@ -25,7 +25,7 @@ export default {
   src: url('/fonts/WorkSans-Regular.woff2') format('woff2');
 }
 
-html, body {
+html, body, #app {
   margin: 0;
   padding: 0;
   height: 100%;

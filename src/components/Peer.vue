@@ -436,13 +436,13 @@ export default {
   }
 
   &--in-lobby {
-    bottom: $small-control-size / 8;
-    right: $small-control-size / 8;
+    bottom: calc($small-control-size / 8);
+    right: calc($small-control-size / 8);
     .menu-control {
       height: $small-control-size;
       width: $small-control-size;
-      font-size: $small-control-size / 2;
-      margin: $small-control-size / 8;
+      font-size: calc($small-control-size / 2);
+      margin: calc($small-control-size / 8);
 
       & > * {
         padding: 2px;
@@ -451,21 +451,21 @@ export default {
   }
 
   &--on-stage {
-    bottom: $small-control-size / 8;
-    right: $small-control-size / 8;
+    bottom: calc($small-control-size / 8);
+    right: calc($small-control-size / 8);
     @media (min-width: $mobile) {
-      bottom: $large-control-size / 8;
-      right: $large-control-size / 8;
+      bottom: calc($large-control-size / 8);
+      right: calc($large-control-size / 8);
     }
 
     .menu-control {
       height: $small-control-size;
       width: $small-control-size;
-      margin: $small-control-size / 8;
+      margin: calc($small-control-size / 8);
       @media (min-width: $mobile) {
         height: $large-control-size;
         width: $large-control-size;
-        margin: $large-control-size / 8;
+        margin: calc($large-control-size / 8);
       }
     }
   }

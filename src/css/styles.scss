@@ -192,9 +192,9 @@ $lobby-border-radius: 0px;
   position: absolute;
   height: $size;
   width: $size;
-  font-size: $size / 1.7;
-  top: $size / 4;
-  right: $size / 4;
+  font-size: calc($size / 1.7);
+  top: calc($size / 4);
+  right: calc($size / 4);
   fill: $action-1;
 }
 

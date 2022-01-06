@@ -6,6 +6,16 @@ export default {
     palavaLogoAlt: "palava parrot",
     switchLanguageTitle: "Switch language",
     switchLanguageAlt: "language code",
+    switchTheme: {
+      title: "Switch theme",
+      alt: "Current color mode",
+      light: {
+        title: "Light",
+      },
+      dark: {
+        title: "Dark",
+      },
+    },
     home: {
       blog: "Blog",
       github: "GitHub",
@@ -187,6 +197,16 @@ export default {
     palavaLogoAlt: "palava Papagei",
     switchLanguageTitle: "Sprache umschalten",
     switchLanguageAlt: "Sprachkürzel",
+    switchTheme: {
+      title: "Theme wechseln",
+      alt: "Aktueller Farb-Modus",
+      light: {
+        title: "Hell",
+      },
+      dark: {
+        title: "Dunkel",
+      },
+    },
     home: {
       blog: "Blog",
       github: "GitHub",

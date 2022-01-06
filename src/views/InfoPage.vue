@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
-import Logo from '@/components/Logo.vue'
-import Navigation from '@/components/Navigation.vue'
-import i18nStrings from '@/i18nStrings'
+import LanguageSwitcher from "@/components/LanguageSwitcher.vue";
+import Logo from "@/components/Logo.vue";
+import Navigation from "@/components/Navigation.vue";
+import i18nStrings from "@/i18nStrings";
 
 export default {
   components: {
@@ -33,19 +33,23 @@ export default {
   },
   computed: {
     infoPage() {
-      return i18nStrings[this.$root.$i18n.locale].infoPages.filter((ip) => ip.id === this.page)[0] || {}
-    }
+      return (
+        i18nStrings[this.$root.$i18n.locale].infoPages.filter(
+          (ip) => ip.id === this.page
+        )[0] || {}
+      );
+    },
   },
   metaInfo() {
     return {
       title: this.infoPage.title,
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss">
-@import '@/css/styles.scss';
+@import "@/css/styles.scss";
 
 .info {
   display: flex;
@@ -132,7 +136,8 @@ export default {
   }
 }
 
-.info-page, .info-screen {
+.info-page,
+.info-screen {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -149,7 +154,10 @@ export default {
     text-shadow: 1px 1px rgba(100, 100, 100, 0.1);
     text-transform: capitalize;
     margin: $medium-spacing 0 $medium-spacing;
-    a, a:hover { color: inherit }
+    a,
+    a:hover {
+      color: inherit;
+    }
   }
 
   h2 {
@@ -173,7 +181,8 @@ export default {
       border: 0;
       margin-top: $small-spacing;
     }
-    th, td {
+    th,
+    td {
       border: 0;
       text-align: left;
     }
@@ -190,14 +199,26 @@ export default {
 }
 
 .fade-enter-active {
-  transition: opacity .3s ease-in;
+  transition: opacity 0.3s ease-in;
 }
 
 .fade-leave-active {
-  transition: opacity .5s ease-out;
+  transition: opacity 0.5s ease-out;
 }
 
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
+}
+
+body.dark {
+  .info-page,
+  .info-screen {
+    background-color: var(--dark-background);
+    color: var(--dark-color);
+    h1 {
+      color: var(--dark-color);
+    }
+  }
 }
 </style>

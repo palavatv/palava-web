@@ -11,6 +11,11 @@ $shade: #999;
 $black: black;
 $background: #f0f0f0;
 
+:root {
+  --dark-color: whitesmoke;
+  --dark-background: #222;
+}
+
 // BREAKPOINTS
 
 $mobile: 576px;

@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import { createI18n } from 'vue-i18n'
-import VueMeta from 'vue-meta'
-import { InlineSvgPlugin } from 'vue-inline-svg'
+import { createMetaManager } from 'vue-meta'
+import InlineSvg from 'vue-inline-svg'
 
 import App from './App.vue'
 import './registerServiceWorker'
@@ -23,7 +23,7 @@ const app = createApp(App)
 app
   .use(router)
   .use(i18n)
-  .use(VueMeta, { refreshOnceOnNavigation: true, })
-  .use(InlineSvgPlugin)
+  .use(createMetaManager())
 
+app.component('inline-svg', InlineSvg)
 app.mount('#app')

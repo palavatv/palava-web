@@ -33,7 +33,6 @@ export default {
   justify-content: center; /* align horizontal */
   align-items: center; /* align vertical */
   border-radius: 50%;
-  border: 0.1em solid $black;
   color: $black;
   line-height: 0;
 }
@@ -44,5 +43,6 @@ export default {
   height: 1.5em;
   width: 1.5em;
   min-width: 1.5em;
+  border: 0.1em solid $black;
 }
 </style>

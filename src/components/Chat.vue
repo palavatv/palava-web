@@ -111,7 +111,7 @@ export default {
   width: 100%;
   padding-top: 54px;
 
-  @include defaultFont();
+  @include chatFont();
   @include defaultShadow();
   outline: none;
 
@@ -169,8 +169,8 @@ export default {
   @include lightShadow();
 
   input, button {
-    @include homeFont();
-    padding: 4px 8px;
+    @include chatFont();
+    padding: 0 8px;
     letter-spacing: -1px;
     border: none;
     margin: 0;
@@ -178,7 +178,9 @@ export default {
 
   input {
     flex: 1;
+    height: 100%;
     background: white;
+
     &:focus, &:active {
       outline: none;
 

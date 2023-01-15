@@ -353,6 +353,21 @@ $lobby-border-radius: 0px;
   }
 }
 
+@mixin chatFont() {
+  font-size: 16px;
+  line-height: 1.3em;
+
+  @media (min-width: $desktop-large) {
+    font-size: 17px;
+    line-height: 1.3em;
+  }
+
+  @media (min-width: $desktop-huge) {
+    font-size: 18px;
+    line-height: 1.3em;
+  }
+}
+
 @mixin homeSymbol() {
   height: 35px;
   width: 35px;

@@ -18,8 +18,10 @@
       v-bind="uiStateProps"
       :peers="peers"
       :localPeer="localPeer"
+      :chatMessages="chatMessages"
       @join-room="joinRoom"
       @open-info-screen="openInfoScreen"
+      @send-chat-message="(message) => sendChatMessage(message)"
       />
   </div>
 </template>
@@ -54,6 +56,8 @@ export default {
       signalingState: 'initial', // --> connected, reconnect_scheduled, trying_to_reconnect
       joinSound: new Audio(enteringKnock),
       leavingSound: new Audio(leavingBirds),
+      chatMessages: [],
+      peerChats: [],
     }
   },
   created() {
@@ -66,6 +70,7 @@ export default {
       stun: config.env.stunUrl || config.defaultStunUrl,
       joinTimeout: config.defaultJoinTimeout,
       filterIceCandidateTypes: config.filterIceCandidateTypes,
+      dataChannels: { chat: {} },
     }
 
     if (config.env.turnUrls) {
@@ -216,6 +221,23 @@ export default {
         logger.error("peer connection failed", peer)
       })
 
+      rtc.on("peer_channel_ready", (_peer, name, channel) => {
+        if (name !== "chat") return
+
+        channel.on('message', (message) => {
+          this.chatMessages = [JSON.parse(message), ...this.chatMessages]
+        })
+        channel.on('close', () => {
+          this.peerChats = this.peerChats.filter((peerChat) => peerChat === channel)
+        })
+        channel.on('error', (err) => {
+          this.peerChats = this.peerChats.filter((peerChat) => peerChat === channel)
+          logger.warn("Datachannel error", err)
+        })
+
+        this.peerChats.push(channel)
+      })
+
       return rtc
     },
     joinRoom(userMediaConfig) {
@@ -246,6 +268,12 @@ export default {
       } else if(this.signalingState === "trying_to_reconnect") {
         setTimeout(this.rtc.reconnect, config.reconnectTimeout)
       }
+    },
+    sendChatMessage(message) {
+      this.chatMessages = [message, ...this.chatMessages]
+      this.peerChats.forEach((peerChat) => {
+        peerChat.send(JSON.stringify(message))
+      })
     },
     closeInfoScreen() {
       this.infoPage = null

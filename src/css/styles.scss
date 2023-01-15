@@ -10,6 +10,7 @@ $button-background: #d7d7d7;
 $shade: #999;
 $black: black;
 $background: #f0f0f0;
+$chat-background: lighten($action-1, 48%);
 
 // BREAKPOINTS
 
@@ -117,7 +118,7 @@ $lobby-border-radius: 0px;
 
 @mixin focusTitle() {
   position: relative;
-  &:focus {
+  &:focus, &:hover {
     @include focusTitlePseudo();
   }
   @media (max-width: $mobile-plus - 1px) {
@@ -309,36 +310,36 @@ $lobby-border-radius: 0px;
 
 @mixin defaultFont() {
   font-size: 12px;
-  line-height: 16px;
+  line-height: 1.3em;
 
   @media (min-width: $mobile) {
     font-size: 13px;
-    line-height: 18px;
+    line-height: 1.3em;
   }
 
   @media (min-width: $mobile-plus) {
     font-size: 14px;
-    line-height: 20px;
+    line-height: 1.3em;
   }
 
   @media (min-width: $desktop) {
     font-size: 15px;
-    line-height: 21px;
+    line-height: 1.3em;
   }
 
   @media (min-width: $desktop-plus) {
     font-size: 16px;
-    line-height: 22px;
+    line-height: 1.3em;
   }
 
   @media (min-width: $desktop-large) {
     font-size: 17px;
-    line-height: 23px;
+    line-height: 1.3em;
   }
 
   @media (min-width: $desktop-huge) {
     font-size: 18px;
-    line-height: 24px;
+    line-height: 1.3em;
   }
 }
 
@@ -349,6 +350,21 @@ $lobby-border-radius: 0px;
   @media (min-width: $mobile-plus) {
     font-size: 18px;
     line-height: 28px;
+  }
+}
+
+@mixin chatFont() {
+  font-size: 16px;
+  line-height: 1.3em;
+
+  @media (min-width: $desktop-large) {
+    font-size: 17px;
+    line-height: 1.3em;
+  }
+
+  @media (min-width: $desktop-huge) {
+    font-size: 18px;
+    line-height: 1.3em;
   }
 }
 

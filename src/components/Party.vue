@@ -25,7 +25,8 @@
         <button
           :title="$t('party.infoTitle')"
           class="control control--info"
-          @click="$emit('open-info-screen', 'about')"
+          @click="$emit('open-info-screen', 'about'); $refs.info.blur()"
+          ref="info"
           v-if="controlsActive"
           >
           <inline-svg
@@ -40,7 +41,7 @@
         <button
           :title="$t('party.copyLinkTitle')"
           class="control control--copy-link"
-          @click="copyShareLink"
+          @click="copyShareLink(); $refs.copyLink.blur()"
           ref="copyLink"
           v-if="controlsActive && canShare"
           >
@@ -56,7 +57,8 @@
         <button
           :title="cameraOff ? $t('party.turnOnCameraTitle') : $t('party.turnOffCameraTitle')"
           class="control control--camera"
-          @click="toggleCamera"
+          @click="toggleCamera(); $refs.camera.blur()"
+          ref="camera"
           v-if="controlsActive && localPeer.hasVideo()"
           >
           <inline-svg
@@ -71,7 +73,8 @@
         <button
           :title="microphoneMuted ? $t('party.unmuteMicrophoneTitle') : $t('party.muteMicrophoneTitle')"
           class="control control--microphone"
-          @click="toggleMicrophone"
+          @click="toggleMicrophone(); $refs.microphone.blur()"
+          ref="microphone"
           v-if="controlsActive && localPeer.hasAudio()"
           >
           <inline-svg
@@ -96,26 +99,29 @@
         </button>
       </transition> -->
 
-      <!-- <transition name="fade-control">
+      <transition name="fade-control">
         <button
-          :title="$t('party.openTextChatTitle')"
+          :title="chatIsVisible ? $t('party.hideTextChatTitle') : $t('party.openTextChatTitle')"
           class="control control--text-chat"
+          :class="{'control--alert': this.chatNewMessages}"
+          @click="toggleChat(); $refs.chat.blur()"
+          ref="chat"
           v-if="controlsActive"
           >
           <inline-svg
             :src="require('../assets/icons/chat.svg')"
             :alt="$t('party.textChatAlt')"
             :aria-label="$t('party.textChatAlt')"
-            \>
+            />
         </button>
-      </transition> -->
+      </transition>
 
       <transition name="fade-control">
         <button
           :title="$t('switchLanguageTitle')"
           class="control control--switch-language"
           ref="switchLanguage"
-          @click="switchLanguage"
+          @click="switchLanguage(); $refs.switchLanguage.blur()"
           v-if="controlsActive"
           >
           <span :aria-label="$t('switchLanguageAlt')">{{ $root.$i18n.locale }}</span>
@@ -149,12 +155,12 @@
         :class="{
           'spotlight': true,
           'spotlight--empty': stagePeers.length === 0,
-          'spotlight--one': stagePeers.length === 1,
-          'spotlight--two': stagePeers.length === 2,
+          'spotlight--one':   stagePeers.length === 1,
+          'spotlight--two':   stagePeers.length === 2,
           'spotlight--three': stagePeers.length === 3,
-          'spotlight--four': stagePeers.length === 4,
-          'spotlight--five': stagePeers.length === 5,
-          'spotlight--six': stagePeers.length === 6,
+          'spotlight--four':  stagePeers.length === 4,
+          'spotlight--five':  stagePeers.length === 5,
+          'spotlight--six':   stagePeers.length === 6,
         }">
         <Peer v-for="peer in stagePeers"
           :key="peer.id"
@@ -162,7 +168,6 @@
           :partyMode="partyMode"
           :stageMode="stageMode"
           :peer="peer"
-          :colorIndex="getColorIndex(peer)"
           @togglePeer="togglePeer(peer)"
           @open-info-screen="(page) => $emit('open-info-screen', page)"
           />
@@ -170,7 +175,7 @@
     </div>
 
     <transition name="fade-control" @after-leave="onResize">
-      <div class="lobby" v-if="lobbyPeers.length > 0">
+      <div class="lobby" v-if="lobbyIsVisible">
         <transition-group name="fade-control" tag="ul" class="couch">
           <Peer v-for="peer in lobbyPeers"
             :key="peer.id"
@@ -178,11 +183,28 @@
             :partyMode="partyMode"
             :stageMode="stageMode"
             :peer="peer"
-            :colorIndex="getColorIndex(peer)"
             @togglePeer="togglePeer(peer)"
             @open-info-screen="(page) => $emit('open-info-screen', page)"
             />
         </transition-group>
+      </div>
+    </transition>
+
+    <transition name="fade-control">
+      <div
+        v-if="chatIsVisible"
+        :class="{
+          'chat': true,
+          'chat--overlay': lobbyIsVisible || mobile()
+        }">
+        <Chat
+          :key="'chat'"
+          :chatMessages="chatMessages"
+          :localPeerId="localPeer.id"
+          :peerCount="peers.length"
+          @send-chat-message="(message) => $emit('send-chat-message', message)"
+          @close="toggleChat"
+          />
       </div>
     </transition>
   </main>
@@ -190,29 +212,31 @@
 
 <script>
 import Peer from "@/components/Peer.vue"
-
-import config from '@/config'
+import Chat from "@/components/Chat.vue"
 
 export default {
-  props: ["peers", "localPeer"],
+  props: ["peers", "localPeer", "chatMessages"],
   data() {
     return {
       partyMode: "landscape",
       stageMode: "landscape",
       peersInLobby: [],
-      peerColors: Array(config.peerColors.length - 1).fill(null),
       controlsActive: true,
       cameraOff: false,
       microphoneMuted: false,
+      chatIsVisible: false,
+      chatNewMessages: false,
+      presenter: null,
+      lastPresenter: null,
     }
   },
   components: {
     Peer,
+    Chat,
   },
   mounted() {
     window.addEventListener("resize", this.onResize)
     this.onResize()
-    this.assignColorIndexes(this.peers)
     this.autoAdjustPeers(this.peers)
   },
   beforeDestroy() {
@@ -220,12 +244,40 @@ export default {
   },
   watch: {
     peers(newPeers, oldPeers) {
-      const introducedPeers = newPeers.filter((newPeer) => !oldPeers.includes(newPeer))
       const removedPeers = oldPeers.filter((oldPeer) => !newPeers.includes(oldPeer))
+      if(removedPeers.includes(this.presenter)) this.presenter = null
+      if(removedPeers.includes(this.lastPresenter)) this.lastPresenter = null
       this.cleanLobby(removedPeers)
-      this.assignColorIndexes(introducedPeers, removedPeers)
       this.autoAdjustPeers(newPeers)
     },
+    chatMessages() {
+      if (!this.chatIsVisible) this.chatNewMessages = true
+    },
+    presenter(newPresenter, oldPresenter) {
+      if (newPresenter) {
+        // enter presenter mode (or switch to new presenter)
+        this.lastPresenter = oldPresenter
+        this.stagePeers.forEach((peer) => {
+          if (peer === newPresenter) {
+            this.sendPeerToStage(peer)
+          } else {
+            this.sendPeerToLobby(peer)
+          }
+        })
+      } else if (this.lastPresenter) {
+        // switch back to old presenter
+        this.sendPeerToLobby(this.presenter)
+        this.sendPeerToStage(this.lastPresenter)
+        this.presenter = this.lastPresenter
+        this.lastPresenter = null
+      } else {
+        // quit presenter mode
+        this.lobbyPeers.slice(0, 6).forEach((peer) => {
+          this.sendPeerToStage(peer)
+        })
+      }
+      this.autoAdjustPeers(this.peers)
+    }
   },
   computed: {
     stagePeers() {
@@ -240,6 +292,9 @@ export default {
     canShare() {
       return !!(navigator.share || (navigator.clipboard && navigator.clipboard.writeText))
     },
+    lobbyIsVisible() {
+      return this.lobbyPeers.length > 0
+    }
   },
   methods: {
     togglePeer(peer) {
@@ -262,32 +317,11 @@ export default {
     cleanLobby(removedPeers) {
       this.peersInLobby = this.peersInLobby.filter((id) => !removedPeers.map((peer) => peer.id).includes(id))
     },
-    getColorIndex(peer) {
-      return this.peerColors.indexOf(peer.id) + 1
-    },
-    assignColorIndexes(introducedPeers, removedPeers = []) {
-      // Remove old peers from color index list
-      this.peerColors = this.peerColors.map((idOrNull) => {
-        const removedPeersIds = removedPeers.map((rp) => rp.id)
-        if (removedPeersIds.includes(idOrNull)) {
-          return null
-        }
-
-        return idOrNull
-      })
-
-      // Assign random color index (which is not taken yet)
-      introducedPeers.forEach((peer) => {
-        if (!this.peerColors.includes(null)) { return }
-        let newIndex = null
-        do {
-          newIndex = Math.floor(Math.random() * Math.floor(config.peerColors.length - 1))
-        } while (this.peerColors[newIndex] !== null)
-        this.peerColors = this.peerColors.map((idOrNull, index) => (index === newIndex ? peer.id : idOrNull))
-      })
-    },
     autoAdjustPeers(peers) {
       const remotePeers = peers.filter((peer) => !peer.isLocal())
+      if (remotePeers.length === 0) {
+        this.sendPeerToStage(this.localPeer)
+      }
       if (remotePeers.length === 1) {
         this.sendPeerToLobby(this.localPeer)
         this.sendPeerToStage(remotePeers[0])
@@ -305,6 +339,13 @@ export default {
       }
 
       this.$refs.copyLink.blur()
+    },
+    mobile() {
+      return (window.innerWidth < 576 || window.innerHeight < 500)
+    },
+    toggleChat() {
+      this.chatIsVisible = !this.chatIsVisible
+      this.chatNewMessages = false
     },
     switchLanguage() {
       this.$root.$i18n.locale = this.$root.$i18n.locale === 'de' ? 'en' : 'de'
@@ -412,6 +453,26 @@ export default {
       }
     }
 
+    &--alert {
+      background-color: $action-2;
+      outline: none;
+      opacity: 1;
+      box-shadow: 1px 1px 3px #555;
+
+      > * {
+        fill: $white;
+        filter: grayscale(0);
+      }
+
+      &:hover, &:focus {
+        background-color: $white;
+
+        > * {
+          fill: $action-2;
+        }
+      }
+    }
+
     &--switch-language > * {
       font-size: calc($small-control-size / 2.2);
       @media (min-width: $mobile) {
@@ -444,11 +505,9 @@ export default {
 
   &--landscape {
     flex-direction: row;
+
     .lobby {
       height: 100%;
-    }
-
-    .lobby .peer {
       width: $lobby-width-mobile;
       @media (min-width: $mobile-plus)  { width: $lobby-width-mobile-plus; }
       @media (min-width: $desktop)      { width: $lobby-width-desktop; }
@@ -456,13 +515,17 @@ export default {
       @media (min-width: $desktop-large){ width: $lobby-width-desktop-large; }
       @media (min-width: $desktop-huge) { width: $lobby-width-desktop-huge; }
     }
+
+    .chat {
+      height: 100%;
+      width: $lobby-width-desktop-huge;
+    }
   }
   &--portrait {
     flex-direction: column;
+
     .lobby {
       width: 100%;
-    }
-    .lobby .peer {
       height: $lobby-height-mobile;
       @media (min-height: $mobile-plus-height)   { height: $lobby-height-mobile-plus; }
       @media (min-height: $desktop-height)       { height: $lobby-height-desktop; }
@@ -481,12 +544,42 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .spotlight {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
 }
 
 .lobby {
   overflow: hidden;
   background: #222;
   opacity: 1;
+}
+
+.chat {
+  display: flex;
+  z-index: 1000;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  opacity: 1;
+
+  @media (min-width: $mobile-plus) {
+    & {
+      top: 0;
+      left: auto;
+      opacity: 0.92;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  &--overlay {
+    position: fixed;
+  }
 }
 
 .couch {

@@ -82,9 +82,9 @@ export default {
       microphoneAlt: "microphone",
       screenShareTitle: "Share screen",
       screenShareAlt: "computer display",
-      // openTextChatTitle: "Show text chat",
-      // hideTextChatTitle: "Hide text chat",
-      // textChatAlt: "speech bubbles",
+      openTextChatTitle: "Show text chat",
+      hideTextChatTitle: "Hide text chat",
+      textChatAlt: "speech bubbles",
       hangUpTitle: "Hang up",
       hangUpAlt: "telephone handset facing downward",
     },
@@ -111,6 +111,11 @@ export default {
       errorConnectionDisconnected: "Disconnected",
       noMedia: "No media streams",
       waiting: "Waiting",
+    },
+    chat: {
+      error: "You are not connected to any other person. This message will thus not be seen by anyone.",
+      sendAlt: "Send",
+      messagePlaceholder: "Write a message"
     },
     networkInfo: {
       directConnection: "Direct connection",
@@ -263,9 +268,9 @@ export default {
       microphoneAlt: "Mikrofon",
       screenShareTitle: "Bildschirm teilen",
       screenShareAlt: "Desktop-Computer",
-      // openTextChatTitle: "Text-chat zeigen",
-      // hideTextChatTitle: "Text-chat verbergen",
-      // textChatAlt: "Sprechblasen",
+      openTextChatTitle: "Text-Chat zeigen",
+      hideTextChatTitle: "Text-Chat verbergen",
+      textChatAlt: "Sprechblasen",
       hangUpTitle: "Auflegen",
       hangUpAlt: "Telefonhörer nach unten zeigend",
     },
@@ -292,6 +297,11 @@ export default {
       errorConnectionDisconnected: "Verbindung getrennt",
       noMedia: "Keine Medienströme",
       waiting: "Warte",
+    },
+    chat: {
+      error: "Du bist mit niemandem verbunden. Diese Chatnachricht wird daher auch niemand sehen.",
+      sendAlt: "Senden",
+      messagePlaceholder: "Schreibe eine Nachricht"
     },
     networkInfo: {
       directConnection: "Direktverbindung",

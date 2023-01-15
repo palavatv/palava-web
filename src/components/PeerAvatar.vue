@@ -34,7 +34,8 @@ export default {
   align-items: center; /* align vertical */
   border-radius: 50%;
   border: 0.1em solid $black;
-  color: $black
+  color: $black;
+  line-height: 0;
 }
 .peer-menu .avatar {
   font-size: 15pt;

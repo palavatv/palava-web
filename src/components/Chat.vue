@@ -114,7 +114,6 @@ export default {
   @include defaultFont();
   @include defaultShadow();
   outline: none;
-  overflow: auto;
 
   .close {
     @include inlineButton();

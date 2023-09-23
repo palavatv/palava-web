@@ -92,10 +92,6 @@ $lobby-border-radius: 0px;
   .fade-control-enter, .fade-control-leave-to {
     opacity: 0;
   }
-
-  // .fade-control-move {
-  //   transition: transform 1s;
-  // }
 }
 
 @mixin focusTitlePseudo() {

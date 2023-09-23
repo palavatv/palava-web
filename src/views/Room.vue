@@ -10,7 +10,7 @@
         :page="infoPage"
         @close="closeInfoScreen"
         @open-info-screen="openInfoScreen"
-        />
+      />
     </transition>
 
     <component
@@ -20,7 +20,7 @@
       :localPeer="localPeer"
       @join-room="joinRoom"
       @open-info-screen="openInfoScreen"
-      />
+    />
   </div>
 </template>
 

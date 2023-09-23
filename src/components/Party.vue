@@ -82,34 +82,6 @@
         </button>
       </transition>
 
-      <!-- <transition name="fade-control">
-        <button
-          :title="$t('party.screenShareTitle')"
-          class="control control--screen-share"
-          v-if="controlsActive"
-          >
-          <inline-svg
-            :alt="$t('party.screenShareAlt')"
-            :aria-label="$t('party.screenShareAlt')"
-            :src="require('../assets/icons/tv.svg')"
-            />
-        </button>
-      </transition> -->
-
-      <!-- <transition name="fade-control">
-        <button
-          :title="$t('party.openTextChatTitle')"
-          class="control control--text-chat"
-          v-if="controlsActive"
-          >
-          <inline-svg
-            :src="require('../assets/icons/chat.svg')"
-            :alt="$t('party.textChatAlt')"
-            :aria-label="$t('party.textChatAlt')"
-            \>
-        </button>
-      </transition> -->
-
       <transition name="fade-control">
         <button
           :title="$t('switchLanguageTitle')"
@@ -297,6 +269,7 @@ export default {
       this.controlsActive = !this.controlsActive
       this.$refs.logo.blur()
     },
+    // TODO: Use vueuse here
     copyShareLink() {
       if (navigator.share) {
         navigator.share({ url: this.shareLink })
@@ -306,10 +279,12 @@ export default {
 
       this.$refs.copyLink.blur()
     },
+    // Maybe vueuse has some language handling as well?
     switchLanguage() {
       this.$root.$i18n.locale = this.$root.$i18n.locale === 'de' ? 'en' : 'de'
       this.$refs.switchLanguage.blur()
     },
+    // TODO: Use vueuse here
     toggleMicrophone() {
       this.microphoneMuted = !this.microphoneMuted
       if(this.microphoneMuted) {
@@ -318,6 +293,7 @@ export default {
         this.localPeer.enableAudio()
       }
     },
+    // TODO: Use vueuse here
     toggleCamera() {
       this.cameraOff = !this.cameraOff
       if(this.cameraOff) {
@@ -326,6 +302,7 @@ export default {
         this.localPeer.enableVideo()
       }
     },
+    // TODO: Use vueuse here
     onResize() {
       const partyWidth = window.innerWidth
       const partyHeight = window.innerHeight

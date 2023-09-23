@@ -6,16 +6,16 @@
           <span
             @click="checkScreen(infoPage.id, $event)"
             @keypress.enter="checkScreen(infoPage.id, $event)"
-          >{{ infoPage.title }}</span>
+          >
+            {{ infoPage.title }}
+          </span>
         </router-link>
       </li>
     </ul>
-    <!-- <LanguageSwitcher /> -->
   </nav>
 </template>
 
 <script>
-// import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import i18nStrings from '@/i18nStrings'
 
 export default {
@@ -24,9 +24,6 @@ export default {
       type: String,
       default: "page",
     },
-  },
-  components: {
-    // LanguageSwitcher,
   },
   methods: {
     checkScreen(infoPage, $event) {

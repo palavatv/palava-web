@@ -20,7 +20,7 @@
         :aria-label="$t('peer.statusNoMediaAlt')"
         :alt="$t('peer.statusNoMediaAlt')"
         :src="require('../assets/icons/block.svg')"
-        />
+      />
       <div class="description">{{ $t('peer.noMedia') }}</div>
     </div>
     <div v-else-if="status === 'error'">
@@ -29,7 +29,7 @@
         :aria-label="$t('peer.statusErrorAlt')"
         :alt="$t('peer.statusErrorAlt')"
         :src="require('../assets/icons/circle-with-cross.svg')"
-        />
+      />
       <div v-if="error === 'connection_closed'" class="description">{{ $t('peer.errorConnectionClosed') }}</div>
       <div v-else-if="error === 'connection_failed'" class="description">{{ $t('peer.errorConnectionFailed') }}</div>
       <div v-else-if="error === 'connection_disconnected'" class="description">{{ $t('peer.errorConnectionDisconnected') }}</div>

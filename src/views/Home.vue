@@ -52,9 +52,6 @@
     </div>
 
     <footer>
-      <!-- <div v-if="providedBy">
-        This palava.tv instance is provided by: {{ providedBy }}
-      </div> -->
       <nav class="footer-social">
         <ul>
           <li>
@@ -102,9 +99,7 @@
 
 <script>
 import yyid from 'yyid'
-
 import { browserCanUseWebrtc } from '@/webrtc'
-
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import i18nStrings from '@/i18nStrings'
 
@@ -124,9 +119,6 @@ export default {
     infoPages() {
       return i18nStrings[this.$root.$i18n.locale].infoPages.filter((ip) => ip.linked !== false)
     }
-    // providedBy() {
-    //   return null
-    // }
   },
   mounted() {
     this.$refs.roomInput.focus()
@@ -142,11 +134,6 @@ export default {
     goIntoHiddenRoom() {
       this.$router.push({ path: yyid() })
     },
-  },
-  metaInfo() {
-    return {
-      titleTemplate: null,
-    }
   },
 }
 </script>

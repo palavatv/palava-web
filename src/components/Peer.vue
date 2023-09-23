@@ -26,7 +26,7 @@
         @close="hideNetworkInfo()"
         @open-info-screen="(page) => $emit('open-info-screen', page)"
         :peer="peer"
-        />
+      />
     </transition>
 
     <PeerStatus
@@ -34,7 +34,7 @@
       :status="status"
       :error="peer.error"
       @click="togglePeerMenu()"
-      />
+    />
 
     <div class="frame">
       <Placeholder
@@ -42,7 +42,7 @@
         :peer="peer"
         :colorIndex="colorIndex"
         @click="togglePeerMenu()"
-        />
+      />
       <Stream
         v-if="status === 'video' || status === 'audio'"
         :peer="peer"
@@ -50,25 +50,25 @@
         :requestFullscreen="requestFullscreen"
         :muted="muted"
         @click="togglePeerMenu()"
-        />
+      />
       <nav :class="{
           'peer-menu': true,
           'peer-menu--in-lobby': type === 'lobby',
           'peer-menu--on-stage': type === 'stage',
         }"
-        >
+      >
         <transition name="fade-control">
           <button
             :title="$t('peer.toggleEnlargeTitle')"
             class="menu-control menu-control--toggle"
             v-if="peerMenuActive && type === 'lobby'"
             @click="togglePeer()"
-            >
+          >
             <inline-svg
               :alt="$t('peer.toggleEnlargeAlt')"
               :aria-label="$t('peer.toggleEnlargeAlt')"
               :src="require('../assets/icons/level-up.svg')"
-              />
+            />
           </button>
         </transition>
 
@@ -78,12 +78,12 @@
             class="menu-control menu-control--toggle"
             v-if="peerMenuActive && type === 'stage'"
             @click="togglePeer()"
-            >
+          >
             <inline-svg
               :alt="$t('peer.toggleMinimizeAlt')"
               :aria-label="$t('peer.toggleMinimizeAlt')"
               :src="require('../assets/icons/level-down.svg')"
-              />
+            />
           </button>
         </transition>
 
@@ -93,12 +93,12 @@
             class="menu-control menu-control--full-screen"
             v-if="peerMenuActive && status === 'video'"
             @click="makePeerFullScreen()"
-            >
+          >
             <inline-svg
               :alt="$t('peer.fullScreenAlt')"
               :aria-label="$t('peer.fullScreenAlt')"
               :src="require('../assets/icons/resize-full-screen.svg')"
-              />
+            />
           </button>
         </transition>
 
@@ -109,12 +109,12 @@
             ref="networkInfo"
             v-if="peerMenuActive && !peer.isLocal()"
             @click="toggleNetworkInfo()"
-            >
+          >
             <inline-svg
               :alt="$t('peer.networkInfoAlt')"
               :aria-label="$t('peer.networkInfoAlt')"
               :src="require('../assets/icons/network.svg')"
-              />
+            />
           </button>
         </transition>
 
@@ -129,17 +129,17 @@
             ref="mute"
             v-if="peerMenuActive && !peer.isLocal() && peer.hasAudio() && !peer.hasError()"
             @click="toggleMute()"
-            >
+          >
             <inline-svg v-if="muted"
               :alt="$t('peer.mutedAudioAlt')"
               :aria-label="$t('peer.mutedAudioAlt')"
               :src="require('../assets/icons/volume-off.svg')"
-              />
+            />
             <inline-svg v-else
               :alt="$t('peer.withAudioAlt')"
               :aria-label="$t('peer.withAudioAlt')"
               :src="require('../assets/icons/volume-up.svg')"
-              />
+            />
           </button>
         </transition>
       </nav>
@@ -340,23 +340,6 @@ export default {
     }
   }
 
-  /* tricky case... */
-  // .spotlight--two {
-  //   padding: $stage-gap;
-  //   display: flex;
-  //   flex-direction: column;
-  //   flex-wrap: wrap;
-  //   justify-content: center;
-  //   .peer, .peer .media {
-  //     max-height: 100%;
-  //   }
-  //   .peer {
-  //     width: 50%;
-  //   }
-  //   .media {
-  //     width: 100%;
-  //   }
-  // }
   .spotlight--two {
     padding: $stage-gap;
     display: flex;

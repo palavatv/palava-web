@@ -4,14 +4,12 @@
       <inline-svg
         :aria-label="$t('closeAlt')"
         :src="require('../assets/icons/cross.svg')"
-        />
+      />
     </button>
-
     <Navigation
       type="screen"
       @open-info-screen="(page) => $emit('open-info-screen', page)"
-      />
-
+    />
     <div class="info-content" v-html="infoPage.content" />
   </aside>
 </template>
@@ -37,13 +35,6 @@ export default {
     page(newPage) {
       if (newPage) { this.$el.focus() }
     }
-  },
-  methods: {
-    // confirmLeave($event) {
-    //   if (!window.confirm(this.$t("info.confirmLeave"))) {
-    //     $event.preventDefault()
-    //   }
-    // }
   },
   computed: {
     infoPage() {

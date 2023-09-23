@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import { createI18n } from 'vue-i18n'
-import { createMetaManager } from 'vue-meta'
 import InlineSvg from 'vue-inline-svg'
+import { createHead } from '@vueuse/head'
 
 import App from './App.vue'
 import './registerServiceWorker'
@@ -20,10 +20,9 @@ const i18n = createI18n({
 })
 
 const app = createApp(App)
-app
-  .use(router)
-  .use(i18n)
-  .use(createMetaManager())
 
-app.component('inline-svg', InlineSvg)
-app.mount('#app')
+app.use(router)
+  .use(i18n)
+  .use(createHead())
+  .component('inline-svg', InlineSvg)
+  .mount('#app')

@@ -5,7 +5,7 @@
         :alt="$t('closeAlt')"
         :aria-label="$t('closeAlt')"
         :src="require('../assets/icons/cross.svg')"
-        />
+      />
     </button>
 
     <section>
@@ -16,7 +16,7 @@
             :alt="$t('moreInfoAlt')"
             :aria-label="$t('moreInfoAlt')"
             :src="require('../assets/icons/info-with-circle.svg')"
-            />
+          />
         </button>
       </h2>
     </section>
@@ -29,7 +29,7 @@
             :aria-label="$t('networkInfo.ipAlt')"
             :alt="$t('networkInfo.ipAlt')"
             :src="require('../assets/icons/dot-single.svg')"
-            />
+          />
           {{ ip }}
           <span v-if="allRelayIps.includes(ip)"> ({{ $t('networkInfo.ipIsRelay') }})</span>
         </li>
@@ -44,7 +44,7 @@
             :aria-label="$t('networkInfo.ipAlt')"
             :alt="$t('networkInfo.ipAlt')"
             :src="require('../assets/icons/dot-single.svg')"
-            />
+          />
           {{ ip }}
           <span v-if="allRelayIps.includes(ip)"> ({{ $t('networkInfo.ipIsRelay') }})</span>
         </li>

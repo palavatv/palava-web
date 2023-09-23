@@ -2,19 +2,16 @@
   <router-view/>
 </template>
 
-<script>
-export default {
-  metaInfo() {
-    const lang = this.$root.$i18n.locale
-    return {
-      htmlAttrs: {
-        lang,
-      },
-      title: 'palava.tv',
-      titleTemplate: 'palava.tv | %s',
-    }
+<script setup>
+const lang = this.$root.$i18n.locale
+
+useHead({
+  htmlAttrs: {
+    lang,
   },
-}
+  title: 'palava.tv',
+  titleTemplate: 'palava.tv | %s',
+});
 </script>
 
 <style lang="scss">

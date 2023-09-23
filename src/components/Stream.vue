@@ -3,7 +3,7 @@
     autoplay
     playsinline
     :class="{
-      'media': this.status === 'video',
+      media: this.status === 'video',
       'media--hidden': this.status !== 'video',
       'media--orientation-landscape': this.status === 'video' && this.orientation === 'landscape',
       'media--orientation-portrait': this.status === 'video' && this.orientation === 'portrait',
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { attachMediaStream } from "@/webrtc"
+import { attachMediaStream } from "../webrtc"
 // TODO stream becomes unready?
 
 export default {
@@ -36,6 +36,7 @@ export default {
       type: String,
     },
   },
+  emits: ['click'],
   data() {
     return {
       attached: false,
@@ -44,7 +45,7 @@ export default {
   mounted() {
     this.attachPeerStreamWhenReady()
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.peer.off("stream_ready", this.attachPeerStreamHandler)
   },
   watch: {

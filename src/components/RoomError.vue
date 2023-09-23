@@ -7,6 +7,7 @@
       <LanguageSwitcher class="language-switcher language-switcher--mobile" />
       <Logo class="logo logo--mobile" />
 
+      <!-- TODO: Abstract below into component? -->
       <div v-if="error === 'room_full'">
         <h1>{{ $t('room.errorFullHeading') }}</h1>
         <p>{{ $t('room.errorFullDescription') }}</p>

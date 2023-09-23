@@ -9,11 +9,13 @@ export function fancyNumber(n) {
 
 // Detect user's browser language
 export function detectLanguage() {
-  return "de"
-  // return navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage)
+  return "de";
+  // return navigator.languages
+  //   ? navigator.languages[0]
+  //   : navigator.language || navigator.userLanguage;
 }
 
 // Escapes a regex
 export function escapeRegex(string) {
-  return string.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
+  return string.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
 }

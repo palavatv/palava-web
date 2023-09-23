@@ -1,31 +1,33 @@
 <template>
-  <router-view/>
+  <router-view />
 </template>
 
 <script setup>
-import { useHead } from '@vueuse/head';
-import { detectLanguage } from '@/support'
+import { useHead } from "@vueuse/head";
+import { detectLanguage } from "./support";
 
-const lang = detectLanguage()
+const lang = detectLanguage();
 
 useHead({
   htmlAttrs: {
     lang,
   },
-  title: 'palava.tv',
-  titleTemplate: 'palava.tv | %s',
+  title: "palava.tv",
+  titleTemplate: "palava.tv | %s",
 });
 </script>
 
 <style lang="scss">
-@import '@/css/styles.scss';
+@import "@/css/styles.scss";
 
 @font-face {
   font-family: WorkSans;
   // src: url('/fonts/WorkSans-Regular.woff2') format('woff2');
 }
 
-html, body, #app {
+html,
+body,
+#app {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -44,11 +46,18 @@ body {
   background: $background;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-size: 100%;
   font-weight: normal;
   margin: auto 0;
@@ -67,15 +76,17 @@ a {
 }
 
 ::selection {
-  background: #BCD2EE;
+  background: #bcd2ee;
 }
 
-button, input {
+button,
+input {
   font-family: inherit;
   font-size: 1em;
 }
 
-ul, li {
+ul,
+li {
   margin: 0;
   padding: 0;
 }
@@ -84,7 +95,8 @@ ul {
   list-style-type: none;
 }
 
-p, address {
+p,
+address {
   font-style: normal;
   margin: auto;
   &:not(:first-child) {
@@ -92,13 +104,15 @@ p, address {
   }
 }
 
-input, input[type=text] {
+input,
+input[type="text"] {
   appearance: none;
   border-radius: 0;
   box-shadow: none;
 }
 
-button, button[type=submit] {
+button,
+button[type="submit"] {
   appearance: none;
   border: none;
   background: none;
@@ -107,5 +121,4 @@ button, button[type=submit] {
     border: 0;
   }
 }
-
 </style>

@@ -2,18 +2,20 @@ module.exports = {
   root: true,
   env: {
     node: true,
+    es2022: true,
   },
   plugins: [
     'vuejs-accessibility',
   ],
   extends: [
-    'plugin:vue/essential',
     '@vue/airbnb',
+    'airbnb-base',
+    'eslint:recommended',
+    'plugin:import/recommended',
+    'plugin:vue/vue3-strongly-recommended',
+    'plugin:vue/essential',
     'plugin:vuejs-accessibility/recommended',
   ],
-  parserOptions: {
-    parser: 'babel-eslint',
-  },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

@@ -1,5 +1,8 @@
 <template>
-  <aside class="screen-message" v-html="message" />
+  <aside
+    class="screen-message"
+    v-html="message"
+  />
 </template>
 
 <script>

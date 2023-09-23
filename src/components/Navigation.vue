@@ -1,7 +1,10 @@
 <template>
   <nav class="navigation">
     <ul>
-      <li v-for="infoPage in infoPages" :key="infoPage.id">
+      <li
+        v-for="infoPage in infoPages"
+        :key="infoPage.id"
+      >
         <router-link :to="`/info/${infoPage.id}`">
           <span
             @click="checkScreen(infoPage.id, $event)"
@@ -16,8 +19,8 @@
 </template>
 
 <script>
-import i18nStrings from '@/i18nStrings'
-import { detectLanguage } from '@/support'
+import i18nStrings from "../i18nStrings"
+import { detectLanguage } from "../support"
 
 const lang = detectLanguage()
 
@@ -28,6 +31,7 @@ export default {
       default: "page",
     },
   },
+  emits: ['open-info-screen'],
   methods: {
     checkScreen(infoPage, $event) {
       if (this.type === 'screen') {

@@ -5,15 +5,15 @@
     :alt="$t('peer.placeholderAlt', { color: background })"
     ref="placeholder"
     :style="{
-      'background': background,
+      background: background,
     }"
     @click="$emit('click')"
     @keypress.enter="$emit('click')"
-  />
+  >
 </template>
 
 <script>
-import config from '@/config'
+import config from "../config"
 
 export default {
   props: {
@@ -26,6 +26,7 @@ export default {
       default: 0,
     }
   },
+  emits: ['click'],
   computed: {
     background() {
       return config.peerColors[this.colorIndex]

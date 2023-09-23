@@ -1,16 +1,26 @@
 <template>
-  <aside class="info-screen" tabindex="0" @keydown.esc="$emit('close')">
-    <button class="close" @click="$emit('close')">
+  <aside
+    class="info-screen"
+    tabindex="0"
+    @keydown.esc="$emit('close')"
+  >
+    <button
+      class="close"
+      @click="$emit('close')"
+    >
       <inline-svg
         :aria-label="$t('closeAlt')"
-        :src="require('../assets/icons/cross.svg')"
+        src="../assets/icons/cross.svg"
       />
     </button>
     <Navigation
       type="screen"
       @open-info-screen="(page) => $emit('open-info-screen', page)"
     />
-    <div class="info-content" v-html="infoPage.content" />
+    <div
+      class="info-content"
+      v-html="infoPage.content"
+    />
   </aside>
 </template>
 
@@ -31,6 +41,7 @@ export default {
       required: true,
     },
   },
+  emits: ['close', 'open-info-screen'],
   mounted() {
     if (this.page) { this.$el.focus() }
   },

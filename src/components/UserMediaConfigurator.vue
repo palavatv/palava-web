@@ -7,70 +7,72 @@
       <LanguageSwitcher class="language-switcher language-switcher--mobile" />
       <Logo class="logo logo--mobile" />
 
-      <h1 class="info-title gum-title">
-        {{ $t('room.gumHeading')}}
-      </h1>
+      <h1
+        class="info-title gum-title"
+        v-html="$t('room.gumHeading')"
+      />
       <div class="info-content">
-        <p><router-link to="/info/about">{{ $t('room.aboutPalava') }}</router-link></p>
-
-        <p v-html="$t('room.gumIntro')"/>
-
-        <!-- Use relay server<br/>
-        Use password<br/> -->
-
-        <p>{{ $t('room.gumChooseMedia') }}</p>
+        <p>
+          <router-link to="/info/about">
+            {{ $t('room.aboutPalava') }}
+          </router-link>
+        </p>
+        <p v-html="$t('room.gumIntro')" />
+        <p v-html="$t('room.gumChooseMedia')" />
 
         <ul class="gum-buttons">
           <li class="gum-choice gum-choice--video-and-audio">
             <button
               autofocus
               :title="$t('room.gumChoiceVideoAndAudio')"
-              @click="$emit('join-room', { video: videoConstraints, audio:true })"
-              >
+              @click="$emit('join-room', { video: videoConstraints, audio: true })"
+            >
               <inline-svg
                 :alt="$t('party.cameraAlt')"
                 :aria-label="$t('party.cameraAlt')"
-                :src="require('../assets/icons/video-camera.svg')"
-                />
+                src="@/assets/icons/video-camera.svg"
+              />
               <inline-svg
                 :alt="$t('party.microphoneAlt')"
                 :aria-label="$t('party.microphoneAlt')"
-                :src="require('../assets/icons/mic.svg')"
-                />
+                src="@/assets/icons/mic.svg"
+              />
             </button>
           </li>
 
           <li class="gum-choice gum-choice--video">
             <button
               :title="$t('room.gumChoiceVideo')"
-              @click="$emit('join-room', { video: videoConstraints, audio:false })"
-              >
+              @click="$emit('join-room', { video: videoConstraints, audio: false })"
+            >
               <inline-svg
                 :alt="$t('party.cameraAlt')"
                 :aria-label="$t('party.cameraAlt')"
-                :src="require('../assets/icons/video-camera.svg')"
-                />
+                src="@/assets/icons/video-camera.svg"
+              />
             </button>
           </li>
 
           <li class="gum-choice gum-choice--audio">
             <button
               :title="$t('room.gumChoiceAudio')"
-              @click="$emit('join-room', { video: false, audio:true })"
-              >
+              @click="$emit('join-room', { video: false, audio: true })"
+            >
               <inline-svg
                 :alt="$t('party.microphoneAlt')"
                 :aria-label="$t('party.microphoneAlt')"
-                :src="require('../assets/icons/mic.svg')"
-                />
+                src="@/assets/icons/mic.svg"
+              />
             </button>
           </li>
         </ul>
 
-        <div v-if="error" class="gum-error">
-          <h2><div v-html="$t('room.gumErrorHeading')" /></h2>
-
-          <div v-html="$t('room.gumErrorReasons')" />
+        <div
+          v-if="error"
+          class="gum-error"
+        >
+          <h2 v-html="$t('room.gumErrorHeading')" />
+          <p v-html="$t('room.gumErrorReasons')" />
         </div>
       </div>
     </main>
@@ -87,6 +89,7 @@ export default {
     LanguageSwitcher,
     Logo,
   },
+  emits: ['join-room'],
   props: {
     error: {
       type: String,

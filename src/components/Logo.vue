@@ -3,7 +3,7 @@
     <router-link to="/">
       <inline-svg
         :alt="$t('palavaLogoAlt')"
-        :src="require('../assets/icons/palava.svg')"
+        src="@/assets/icons/palava.svg"
       />
     </router-link>
   </div>

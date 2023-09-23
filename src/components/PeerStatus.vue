@@ -1,38 +1,65 @@
 <template>
-  <div class="peer-status" @click="$emit('click')" @keypress.enter="$emit('click')">
+  <div
+    class="peer-status"
+    @click="$emit('click')"
+    @keypress.enter="$emit('click')"
+  >
     <div v-if="status === 'audio'">
       <inline-svg
         class="symbol"
         :alt="$t('peer.statusAudioAlt')"
         :aria-label="$t('peer.statusAudioAlt')"
-        :src="require('../assets/icons/phone.svg')"
-        />
+        src="@/assets/icons/phone.svg"
+      />
     </div>
     <div v-else-if="status === 'not-ready'">
-      <span class="symbol" role="img" :aria-label="$t('peer.statusNotReadyAlt')">
-        <div class="lds-grid"><div/><div/><div/><div/><div/><div/><div/><div/><div/></div>
+      <span
+        class="symbol"
+        role="img"
+        :aria-label="$t('peer.statusNotReadyAlt')"
+      >
+        <!-- What's going on here? -->
+        <div class="lds-grid"><div /><div /><div /><div /><div /><div /><div /><div /><div /></div>
       </span>
-      <div class="description">{{ $t('peer.waiting') }}</div>
+      <p
+        class="description"
+        v-text="$t('peer.waiting')"
+      />
     </div>
     <div v-else-if="status === 'no-media'">
       <inline-svg
         class="symbol"
         :aria-label="$t('peer.statusNoMediaAlt')"
         :alt="$t('peer.statusNoMediaAlt')"
-        :src="require('../assets/icons/block.svg')"
+        src="@/assets/icons/block.svg"
       />
-      <div class="description">{{ $t('peer.noMedia') }}</div>
+      <p
+        class="description"
+        v-text="$t('peer.noMedia')"
+      />
     </div>
     <div v-else-if="status === 'error'">
       <inline-svg
         class="symbol"
         :aria-label="$t('peer.statusErrorAlt')"
         :alt="$t('peer.statusErrorAlt')"
-        :src="require('../assets/icons/circle-with-cross.svg')"
+        src="@/assets/icons/circle-with-cross.svg"
       />
-      <div v-if="error === 'connection_closed'" class="description">{{ $t('peer.errorConnectionClosed') }}</div>
-      <div v-else-if="error === 'connection_failed'" class="description">{{ $t('peer.errorConnectionFailed') }}</div>
-      <div v-else-if="error === 'connection_disconnected'" class="description">{{ $t('peer.errorConnectionDisconnected') }}</div>
+      <p
+        v-if="error === 'connection_closed'"
+        class="description"
+        v-text="$t('peer.errorConnectionClosed')"
+      />
+      <p
+        v-else-if="error === 'connection_failed'"
+        class="description"
+        v-text="$t('peer.errorConnectionFailed')"
+      />
+      <p
+        v-else-if="error === 'connection_disconnected'"
+        class="description"
+        v-text="$t('peer.errorConnectionDisconnected')"
+      />
     </div>
   </div>
 </template>
@@ -48,6 +75,7 @@ export default {
       type: String,
     },
   },
+  emits: ['click'],
 }
 </script>
 

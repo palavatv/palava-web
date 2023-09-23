@@ -17,6 +17,9 @@
 
 <script>
 import i18nStrings from '@/i18nStrings'
+import { detectLanguage } from '@/support'
+
+const lang = detectLanguage()
 
 export default {
   props: {
@@ -35,7 +38,7 @@ export default {
   },
   computed: {
     infoPages() {
-      return i18nStrings[this.$root.$i18n.locale].infoPages.filter((ip) => ip.linked !== false)
+      return i18nStrings[lang].infoPages.filter((ip) => ip.linked !== false)
     }
   }
 }

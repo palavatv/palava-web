@@ -102,6 +102,9 @@ import yyid from 'yyid'
 import { browserCanUseWebrtc } from '@/webrtc'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import i18nStrings from '@/i18nStrings'
+import { detectLanguage } from '@/support'
+
+const lang = detectLanguage()
 
 export default {
   components: {
@@ -117,7 +120,7 @@ export default {
       return browserCanUseWebrtc() && this.$route.query.supported !== "0"
     },
     infoPages() {
-      return i18nStrings[this.$root.$i18n.locale].infoPages.filter((ip) => ip.linked !== false)
+      return i18nStrings[lang].infoPages.filter((ip) => ip.linked !== false)
     }
   },
   mounted() {

@@ -90,7 +90,7 @@
           @click="switchLanguage"
           v-if="controlsActive"
           >
-          <span :aria-label="$t('switchLanguageAlt')">{{ $root.$i18n.locale }}</span>
+          <!-- <span :aria-label="$t('switchLanguageAlt')">{{ $root.$i18n.locale }}</span> -->
         </button>
       </transition>
 
@@ -164,6 +164,10 @@
 import Peer from "@/components/Peer.vue"
 
 import config from '@/config'
+
+// import { detectLanguage } from '@/support'
+
+// const lang = detectLanguage()
 
 export default {
   props: ["peers", "localPeer"],
@@ -281,8 +285,8 @@ export default {
     },
     // Maybe vueuse has some language handling as well?
     switchLanguage() {
-      this.$root.$i18n.locale = this.$root.$i18n.locale === 'de' ? 'en' : 'de'
-      this.$refs.switchLanguage.blur()
+      // this.$root.$i18n.locale = this.$root.$i18n.locale === 'de' ? 'en' : 'de'
+      // this.$refs.switchLanguage.blur()
     },
     // TODO: Use vueuse here
     toggleMicrophone() {

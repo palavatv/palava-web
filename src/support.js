@@ -9,7 +9,8 @@ export function fancyNumber(n) {
 
 // Detect user's browser language
 export function detectLanguage() {
-  return navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage)
+  return "de"
+  // return navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage)
 }
 
 // Escapes a regex

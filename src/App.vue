@@ -3,7 +3,10 @@
 </template>
 
 <script setup>
-const lang = this.$root.$i18n.locale
+import { useHead } from '@vueuse/head';
+import { detectLanguage } from '@/support'
+
+const lang = detectLanguage()
 
 useHead({
   htmlAttrs: {
@@ -19,7 +22,7 @@ useHead({
 
 @font-face {
   font-family: WorkSans;
-  src: url('/fonts/WorkSans-Regular.woff2') format('woff2');
+  // src: url('/fonts/WorkSans-Regular.woff2') format('woff2');
 }
 
 html, body, #app {

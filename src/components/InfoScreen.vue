@@ -17,6 +17,9 @@
 <script>
 import Navigation from '@/components/Navigation.vue'
 import i18nStrings from '@/i18nStrings'
+import { detectLanguage } from '@/support'
+
+const lang = detectLanguage()
 
 export default {
   components: {
@@ -38,7 +41,7 @@ export default {
   },
   computed: {
     infoPage() {
-      return i18nStrings[this.$root.$i18n.locale].infoPages.filter((ip) => ip.id === this.page)[0] || {}
+      return i18nStrings[lang].infoPages.filter((ip) => ip.id === this.page)[0] || {}
     }
   }
 }

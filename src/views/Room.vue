@@ -28,7 +28,7 @@
 import { Session } from "palava-client"
 import config from "@/config"
 import logger from "@/logger"
-import { fancyNumber } from "@/support"
+// import { fancyNumber } from "@/support"
 
 import UserMediaConfigurator from "@/components/UserMediaConfigurator.vue"
 import ScreenMessage from "@/components/ScreenMessage.vue"
@@ -254,11 +254,11 @@ export default {
       this.infoPage = page
     }
   },
-  metaInfo() {
-    return {
-      title: `${fancyNumber(this.peers.length) || this.$t("room.emptyTitle")} | ${decodeURIComponent(this.$route.params.roomId)}`,
-    }
-  },
+  // metaInfo() {
+  //   return {
+  //     title: `${fancyNumber(this.peers.length) || this.$t("room.emptyTitle")} | ${decodeURIComponent(this.$route.params.roomId)}`,
+  //   }
+  // },
 }
 </script>
 

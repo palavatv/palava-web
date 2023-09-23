@@ -4,15 +4,16 @@
     class="language-switcher"
     @click="switchLanguage"
     >
-    <span :aria-label="$t('switchLanguageAlt')">{{ $root.$i18n.locale }}</span>
+    <!-- <span :aria-label="$t('switchLanguageAlt')">{{ $root.$i18n.locale }}</span> -->
   </button>
 </template>
 
 <script>
+// Introduce vueuse
 export default {
   methods: {
     switchLanguage() {
-      this.$root.$i18n.locale = this.$root.$i18n.locale === 'de' ? 'en' : 'de'
+      // this.$root.$i18n.locale = this.$root.$i18n.locale === 'de' ? 'en' : 'de'
     },
   }
 }

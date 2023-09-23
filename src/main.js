@@ -11,6 +11,7 @@ import messages from './i18nStrings'
 import { detectLanguage } from './support'
 
 const language = detectLanguage()
+// Not sure if below is working as expected?
 const locale = language && language.startsWith('de') ? 'de' : config.defaultLocale
 
 const i18n = createI18n({

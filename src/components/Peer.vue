@@ -1,24 +1,25 @@
 <template>
-  <li :class="{
-    'peer': true,
-    'peer--is-local': peer.isLocal(),
-    'peer--is-remote': !peer.isLocal(),
-    'peer--is-ready': peer.isReady(),
-    'peer--not-ready': !peer.isReady(),
-    'peer--has-audio': !peer.hasAudio(),
-    'peer--has-no-audio': !peer.hasAudio(),
-    'peer--text-only': !peer.hasAudio() && !peer.hasVideo(),
-    'peer--muted-by-user': muted,
-    'peer--has-media': peer.hasVideo(),
-    'peer--has-no-video': !peer.hasVideo(),
-    'peer--has-error': peer.hasError(),
-    'peer--in-lobby': type === 'lobby',
-    'peer--on-stage': type === 'stage',
-    'peer--party-landscape': partyMode === 'landscape',
-    'peer--party-portrait': partyMode === 'portrait',
-    'peer--stage-landscape': stageMode === 'landscape',
-    'peer--stage-portrait': stageMode === 'portrait',
-  }"
+  <li
+    :class="{
+      peer: true,
+      'peer--is-local': peer.isLocal(),
+      'peer--is-remote': !peer.isLocal(),
+      'peer--is-ready': peer.isReady(),
+      'peer--not-ready': !peer.isReady(),
+      'peer--has-audio': !peer.hasAudio(),
+      'peer--has-no-audio': !peer.hasAudio(),
+      'peer--text-only': !peer.hasAudio() && !peer.hasVideo(),
+      'peer--muted-by-user': muted,
+      'peer--has-media': peer.hasVideo(),
+      'peer--has-no-video': !peer.hasVideo(),
+      'peer--has-error': peer.hasError(),
+      'peer--in-lobby': type === 'lobby',
+      'peer--on-stage': type === 'stage',
+      'peer--party-landscape': partyMode === 'landscape',
+      'peer--party-portrait': partyMode === 'portrait',
+      'peer--stage-landscape': stageMode === 'landscape',
+      'peer--stage-portrait': stageMode === 'portrait',
+    }"
   >
     <transition name="fade-control">
       <NetworkInfo
@@ -26,7 +27,7 @@
         @close="hideNetworkInfo()"
         @open-info-screen="(page) => $emit('open-info-screen', page)"
         :peer="peer"
-        />
+      />
     </transition>
 
     <PeerStatus
@@ -34,92 +35,98 @@
       :status="status"
       :error="peer.error"
       @click="togglePeerMenu()"
-      />
+    />
 
     <div class="frame">
       <Placeholder
         v-if="status !== 'video'"
         :peer="peer"
-        :colorIndex="colorIndex"
+        :color-index="colorIndex"
         @click="togglePeerMenu()"
-        />
+      />
       <Stream
         v-if="status === 'video' || status === 'audio'"
         :peer="peer"
         :status="status"
-        :requestFullscreen="requestFullscreen"
+        :request-fullscreen="requestFullscreen"
         :muted="muted"
         @click="togglePeerMenu()"
-        />
-      <nav :class="{
+      />
+      <nav
+        :class="{
           'peer-menu': true,
           'peer-menu--in-lobby': type === 'lobby',
           'peer-menu--on-stage': type === 'stage',
         }"
-        >
+      >
         <transition name="fade-control">
           <button
+            type="button"
             :title="$t('peer.toggleEnlargeTitle')"
             class="menu-control menu-control--toggle"
             v-if="peerMenuActive && type === 'lobby'"
             @click="togglePeer()"
-            >
+          >
             <inline-svg
               :alt="$t('peer.toggleEnlargeAlt')"
               :aria-label="$t('peer.toggleEnlargeAlt')"
-              :src="require('../assets/icons/level-up.svg')"
-              />
+              src="@/assets/icons/level-up.svg"
+            />
           </button>
         </transition>
 
         <transition name="fade-control">
           <button
+            type="button"
             :title="$t('peer.toggleMinimizeTitle')"
             class="menu-control menu-control--toggle"
             v-if="peerMenuActive && type === 'stage'"
             @click="togglePeer()"
-            >
+          >
             <inline-svg
               :alt="$t('peer.toggleMinimizeAlt')"
               :aria-label="$t('peer.toggleMinimizeAlt')"
-              :src="require('../assets/icons/level-down.svg')"
-              />
+              src="@/assets/icons/level-down.svg"
+            />
           </button>
         </transition>
 
         <transition name="fade-control">
           <button
+            type="button"
             :title="$t('peer.fullScreenTitle')"
             class="menu-control menu-control--full-screen"
             v-if="peerMenuActive && status === 'video'"
             @click="makePeerFullScreen()"
-            >
+          >
             <inline-svg
               :alt="$t('peer.fullScreenAlt')"
               :aria-label="$t('peer.fullScreenAlt')"
-              :src="require('../assets/icons/resize-full-screen.svg')"
-              />
+              src="@/assets/icons/resize-full-screen.svg"
+            />
           </button>
         </transition>
 
         <transition name="fade-control">
           <button
+            type="button"
             :title="$t('peer.networkInfoTitle')"
             class="menu-control menu-control--network-info"
             ref="networkInfo"
             v-if="peerMenuActive && !peer.isLocal()"
             @click="toggleNetworkInfo()"
-            >
+          >
             <inline-svg
               :alt="$t('peer.networkInfoAlt')"
               :aria-label="$t('peer.networkInfoAlt')"
-              :src="require('../assets/icons/network.svg')"
-              />
+              src="@/assets/icons/network.svg"
+            />
           </button>
         </transition>
 
         <transition name="fade-control">
           <button
+            type="button"
             :title="muted ? $t('peer.unmuteAudioTitle') : $t('peer.muteAudioTitle')"
             :class="{
               'menu-control': true,
@@ -129,17 +136,19 @@
             ref="mute"
             v-if="peerMenuActive && !peer.isLocal() && peer.hasAudio() && !peer.hasError()"
             @click="toggleMute()"
-            >
-            <inline-svg v-if="muted"
+          >
+            <inline-svg
+              v-if="muted"
               :alt="$t('peer.mutedAudioAlt')"
               :aria-label="$t('peer.mutedAudioAlt')"
-              :src="require('../assets/icons/volume-off.svg')"
-              />
-            <inline-svg v-else
+              src="@/assets/icons/volume-off.svg"
+            />
+            <inline-svg
+              v-else
               :alt="$t('peer.withAudioAlt')"
               :aria-label="$t('peer.withAudioAlt')"
-              :src="require('../assets/icons/volume-up.svg')"
-              />
+              src="@/assets/icons/volume-up.svg"
+            />
           </button>
         </transition>
       </nav>
@@ -184,6 +193,7 @@ export default {
     Stream,
     NetworkInfo,
   },
+  emits: ['togglePeer', 'open-info-screen'],
   data() {
     return {
       muted: false,
@@ -340,23 +350,6 @@ export default {
     }
   }
 
-  /* tricky case... */
-  // .spotlight--two {
-  //   padding: $stage-gap;
-  //   display: flex;
-  //   flex-direction: column;
-  //   flex-wrap: wrap;
-  //   justify-content: center;
-  //   .peer, .peer .media {
-  //     max-height: 100%;
-  //   }
-  //   .peer {
-  //     width: 50%;
-  //   }
-  //   .media {
-  //     width: 100%;
-  //   }
-  // }
   .spotlight--two {
     padding: $stage-gap;
     display: flex;

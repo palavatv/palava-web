@@ -1,5 +1,6 @@
 <template>
   <div class="info">
+    <!-- TODO: Replace redundant mobile/desktop languageswitcher+logo combination -->
     <LanguageSwitcher class="language-switcher language-switcher--desktop" />
     <Logo class="logo logo--desktop" />
 
@@ -8,7 +9,10 @@
       <Logo class="logo logo--mobile" />
       <Navigation />
 
-      <div class="info-content" v-html="infoPage.content" />
+      <div
+        class="info-content"
+        v-html="infoPage.content"
+      />
     </main>
   </div>
 </template>
@@ -17,7 +21,10 @@
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import Logo from '@/components/Logo.vue'
 import Navigation from '@/components/Navigation.vue'
-import i18nStrings from '@/i18nStrings'
+import i18nStrings from "../i18nStrings"
+import { detectLanguage } from "../support"
+
+const lang = detectLanguage()
 
 export default {
   components: {
@@ -33,12 +40,7 @@ export default {
   },
   computed: {
     infoPage() {
-      return i18nStrings[this.$root.$i18n.locale].infoPages.filter((ip) => ip.id === this.page)[0] || {}
-    }
-  },
-  metaInfo() {
-    return {
-      title: this.infoPage.title,
+      return i18nStrings[lang].infoPages.filter((ip) => ip.id === this.page)[0] || {}
     }
   },
 }

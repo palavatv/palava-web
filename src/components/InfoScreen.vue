@@ -1,24 +1,35 @@
 <template>
-  <aside class="info-screen" tabindex="0" @keydown.esc="$emit('close')">
-    <button class="close" @click="$emit('close')">
+  <aside
+    class="info-screen"
+    tabindex="0"
+    @keydown.esc="$emit('close')"
+  >
+    <button
+      class="close"
+      @click="$emit('close')"
+    >
       <inline-svg
         :aria-label="$t('closeAlt')"
-        :src="require('../assets/icons/cross.svg')"
-        />
+        src="../assets/icons/cross.svg"
+      />
     </button>
-
     <Navigation
       type="screen"
       @open-info-screen="(page) => $emit('open-info-screen', page)"
-      />
-
-    <div class="info-content" v-html="infoPage.content" />
+    />
+    <div
+      class="info-content"
+      v-html="infoPage.content"
+    />
   </aside>
 </template>
 
 <script>
 import Navigation from '@/components/Navigation.vue'
 import i18nStrings from '@/i18nStrings'
+import { detectLanguage } from '@/support'
+
+const lang = detectLanguage()
 
 export default {
   components: {
@@ -30,6 +41,7 @@ export default {
       required: true,
     },
   },
+  emits: ['close', 'open-info-screen'],
   mounted() {
     if (this.page) { this.$el.focus() }
   },
@@ -38,16 +50,9 @@ export default {
       if (newPage) { this.$el.focus() }
     }
   },
-  methods: {
-    // confirmLeave($event) {
-    //   if (!window.confirm(this.$t("info.confirmLeave"))) {
-    //     $event.preventDefault()
-    //   }
-    // }
-  },
   computed: {
     infoPage() {
-      return i18nStrings[this.$root.$i18n.locale].infoPages.filter((ip) => ip.id === this.page)[0] || {}
+      return i18nStrings[lang].infoPages.filter((ip) => ip.id === this.page)[0] || {}
     }
   }
 }

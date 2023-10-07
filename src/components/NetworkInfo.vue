@@ -1,35 +1,49 @@
 <template>
   <aside class="network-info">
-    <button class="close" @click="$emit('close')">
+    <button
+      type="button"
+      class="close"
+      @click="$emit('close')"
+    >
       <inline-svg
         :alt="$t('closeAlt')"
         :aria-label="$t('closeAlt')"
-        :src="require('../assets/icons/cross.svg')"
-        />
+        src="@/assets/icons/cross.svg"
+      />
     </button>
 
     <section>
       <h2>
         {{ relayStatusLocalized }}
-        <button class="more-info" @click="$emit('open-info-screen', 'network')" :title="$t('moreInfoTitle')">
+        <button
+          type="button"
+          class="more-info"
+          @click="$emit('open-info-screen', 'network')"
+          :title="$t('moreInfoTitle')"
+        >
           <inline-svg
             :alt="$t('moreInfoAlt')"
             :aria-label="$t('moreInfoAlt')"
-            :src="require('../assets/icons/info-with-circle.svg')"
-            />
+            src="@/assets/icons/info-with-circle.svg"
+          />
         </button>
       </h2>
     </section>
 
+    <!-- TODO: Abstract into ip-list-component? -->
     <section>
       <h3>{{ $t('networkInfo.remoteIps') }}</h3>
       <ul>
-        <li v-for="ip in allRemoteIps" :key="ip" :title="$t('networkInfo.ipTitle')">
+        <li
+          v-for="ip in allRemoteIps"
+          :key="ip"
+          :title="$t('networkInfo.ipTitle')"
+        >
           <inline-svg
             :aria-label="$t('networkInfo.ipAlt')"
             :alt="$t('networkInfo.ipAlt')"
-            :src="require('../assets/icons/dot-single.svg')"
-            />
+            src="@/assets/icons/dot-single.svg"
+          />
           {{ ip }}
           <span v-if="allRelayIps.includes(ip)"> ({{ $t('networkInfo.ipIsRelay') }})</span>
         </li>
@@ -39,12 +53,16 @@
     <section>
       <h3>{{ $t('networkInfo.localIps') }}</h3>
       <ul>
-        <li v-for="ip in allLocalIps" :key="ip" :title="$t('networkInfo.ipTitle')">
+        <li
+          v-for="ip in allLocalIps"
+          :key="ip"
+          :title="$t('networkInfo.ipTitle')"
+        >
           <inline-svg
             :aria-label="$t('networkInfo.ipAlt')"
             :alt="$t('networkInfo.ipAlt')"
-            :src="require('../assets/icons/dot-single.svg')"
-            />
+            src="@/assets/icons/dot-single.svg"
+          />
           {{ ip }}
           <span v-if="allRelayIps.includes(ip)"> ({{ $t('networkInfo.ipIsRelay') }})</span>
         </li>
@@ -59,7 +77,7 @@ import {
   getLocalIps,
   getRelayIps,
   getMyRelayStatus,
-} from "@/webrtc"
+} from "../webrtc"
 
 export default {
   props: {
@@ -68,6 +86,7 @@ export default {
       required: true,
     }
   },
+  emits: ['close', 'open-info-screen'],
   data() {
     return {
       relayStatus: null,

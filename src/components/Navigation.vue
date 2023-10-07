@@ -1,22 +1,28 @@
 <template>
   <nav class="navigation">
     <ul>
-      <li v-for="infoPage in infoPages" :key="infoPage.id">
+      <li
+        v-for="infoPage in infoPages"
+        :key="infoPage.id"
+      >
         <router-link :to="`/info/${infoPage.id}`">
           <span
             @click="checkScreen(infoPage.id, $event)"
             @keypress.enter="checkScreen(infoPage.id, $event)"
-          >{{ infoPage.title }}</span>
+          >
+            {{ infoPage.title }}
+          </span>
         </router-link>
       </li>
     </ul>
-    <!-- <LanguageSwitcher /> -->
   </nav>
 </template>
 
 <script>
-// import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
-import i18nStrings from '@/i18nStrings'
+import i18nStrings from "../i18nStrings"
+import { detectLanguage } from "../support"
+
+const lang = detectLanguage()
 
 export default {
   props: {
@@ -25,9 +31,7 @@ export default {
       default: "page",
     },
   },
-  components: {
-    // LanguageSwitcher,
-  },
+  emits: ['open-info-screen'],
   methods: {
     checkScreen(infoPage, $event) {
       if (this.type === 'screen') {
@@ -38,7 +42,7 @@ export default {
   },
   computed: {
     infoPages() {
-      return i18nStrings[this.$root.$i18n.locale].infoPages.filter((ip) => ip.linked !== false)
+      return i18nStrings[lang].infoPages.filter((ip) => ip.linked !== false)
     }
   }
 }

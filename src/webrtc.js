@@ -1,6 +1,5 @@
 import { browser } from 'palava-client'
-
-import config from '@/config'
+import config from './config'
 
 export function browserCanUseWebrtc() {
   return !browser.checkForWebrtcError()

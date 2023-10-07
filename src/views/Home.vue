@@ -4,84 +4,115 @@
       <LanguageSwitcher />
     </header>
 
-    <form class="signpost" v-if="browserCanUseWebrtc" @submit.prevent="goIntoRoom">
+    <form
+      class="signpost"
+      v-if="browserCanUseWebrtc"
+      @submit.prevent="goIntoRoom"
+    >
+      <!-- Why isn't <Logo /> being used here? -->
       <div class="logo">
-        <router-link to="/info/about" :title="$t('home.palavaLogoTitle')">
+        <router-link
+          to="/info/about"
+          :title="$t('home.palavaLogoTitle')"
+        >
           <inline-svg
             :alt="$t('palavaLogoAlt')"
-            :src="require('../assets/icons/palava.svg')"
-            />
+            src="./../src/assets/icons/palava.svg"
+          />
         </router-link>
       </div>
 
       <div class="room-selection">
+        <!-- Add type text? -->
         <input
           v-model="roomId"
           :placeholder="$t('home.roomIdPlaceholder')"
           ref="roomInput"
           maxlength="50"
-          />
-        <button type="submit" :title="$t('home.goTitle')">
+        >
+        <button
+          type="submit"
+          :title="$t('home.goTitle')"
+        >
           <inline-svg
             :alt="$t('home.goAlt')"
             :aria-label="$t('home.goAlt')"
-            :src="require('../assets/icons/people-outline.svg')"
-            />
+            src="@/assets/icons/people-outline.svg"
+          />
         </button>
       </div>
 
       <div class="hidden-room">
         {{ $t('home.hiddenRoomIntro') }}
-        <a href="/" @click.prevent="goIntoHiddenRoom" :title="$t('home.hiddenRoomTitle')">
+        <a
+          href="/"
+          @click.prevent="goIntoHiddenRoom"
+          :title="$t('home.hiddenRoomTitle')"
+        >
           {{ $t("home.hiddenRoom") }}
         </a>
       </div>
     </form>
 
-    <div class="signpost" v-else>
+    <div
+      class="signpost"
+      v-else
+    >
       <div class="logo">
-        <router-link to="/info/about" :title="$t('home.palavaLogoTitle')">
+        <router-link
+          to="/info/about"
+          :title="$t('home.palavaLogoTitle')"
+        >
           <inline-svg
             :alt="$t('palavaLogoAlt')"
-            :src="require('../assets/icons/palava.svg')"
-            />
+            src="@/assets/icons/palava.svg"
+          />
         </router-link>
       </div>
 
-      <div class="no-support" v-html="$t('home.noSupportMessage')" />
+      <div
+        class="no-support"
+        v-html="$t('home.noSupportMessage')"
+      />
     </div>
 
     <footer>
-      <!-- <div v-if="providedBy">
-        This palava.tv instance is provided by: {{ providedBy }}
-      </div> -->
       <nav class="footer-social">
         <ul>
           <li>
-            <a href="https://blog.palava.tv" :title="$t('home.blog')">
+            <a
+              href="https://blog.palava.tv"
+              :title="$t('home.blog')"
+            >
               <inline-svg
                 :alt="$t('home.blog')"
                 :aria-label="$t('home.blog')"
-                :src="require('../assets/icons/logo-rss.svg')"
-                />
+                src="@/assets/icons/logo-rss.svg"
+              />
             </a>
           </li>
           <li>
-            <a href="https://twitter.com/palavatv" :title="$t('home.twitter')">
+            <a
+              href="https://twitter.com/palavatv"
+              :title="$t('home.twitter')"
+            >
               <inline-svg
                 :alt="$t('home.twitter')"
                 :aria-label="$t('home.twitter')"
-                :src="require('../assets/icons/logo-twitter.svg')"
-                />
+                src="@/assets/icons/logo-twitter.svg"
+              />
             </a>
           </li>
           <li>
-            <a href="https://github.com/palavatv/palava" :title="$t('home.github')">
+            <a
+              href="https://github.com/palavatv/palava"
+              :title="$t('home.github')"
+            >
               <inline-svg
                 :alt="$t('home.github')"
                 :aria-label="$t('home.github')"
-                :src="require('../assets/icons/logo-github.svg')"
-                />
+                src="@/assets/icons/logo-github.svg"
+              />
             </a>
           </li>
         </ul>
@@ -89,7 +120,10 @@
 
       <nav class="footer-navigation">
         <ul>
-          <li v-for="infoPage in infoPages" :key="infoPage.id">
+          <li
+            v-for="infoPage in infoPages"
+            :key="infoPage.id"
+          >
             <router-link :to="`/info/${infoPage.id}`">
               {{ infoPage.title }}
             </router-link>
@@ -102,11 +136,12 @@
 
 <script>
 import yyid from 'yyid'
-
 import { browserCanUseWebrtc } from '@/webrtc'
-
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import i18nStrings from '@/i18nStrings'
+import { detectLanguage } from '@/support'
+
+const lang = detectLanguage()
 
 export default {
   components: {
@@ -122,11 +157,8 @@ export default {
       return browserCanUseWebrtc() && this.$route.query.supported !== "0"
     },
     infoPages() {
-      return i18nStrings[this.$root.$i18n.locale].infoPages.filter((ip) => ip.linked !== false)
+      return i18nStrings[lang].infoPages.filter((ip) => ip.linked !== false)
     }
-    // providedBy() {
-    //   return null
-    // }
   },
   mounted() {
     this.$refs.roomInput.focus()
@@ -142,11 +174,6 @@ export default {
     goIntoHiddenRoom() {
       this.$router.push({ path: yyid() })
     },
-  },
-  metaInfo() {
-    return {
-      titleTemplate: null,
-    }
   },
 }
 </script>
@@ -307,9 +334,6 @@ export default {
       margin: auto $small-spacing;
       @include footerFont();
     }
-  }
-
-  .no-support {
   }
 }
 </style>

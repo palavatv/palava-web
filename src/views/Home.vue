@@ -17,7 +17,7 @@
         >
           <inline-svg
             :alt="$t('palavaLogoAlt')"
-            src="./../src/assets/icons/palava.svg?url"
+            src="./../src/assets/icons/palava.svg"
           />
         </router-link>
       </div>
@@ -334,9 +334,6 @@ export default {
       margin: auto $small-spacing;
       @include footerFont();
     }
-  }
-
-  .no-support {
   }
 }
 </style>

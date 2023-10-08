@@ -1,16 +1,21 @@
 <template>
   <main class="home">
     <header>
+      <ThemeSwitcher style="margin-right: 15px" />
       <LanguageSwitcher />
     </header>
 
-    <form class="signpost" v-if="browserCanUseWebrtc" @submit.prevent="goIntoRoom">
+    <form
+      class="signpost"
+      v-if="browserCanUseWebrtc"
+      @submit.prevent="goIntoRoom"
+    >
       <div class="logo">
         <router-link to="/info/about" :title="$t('home.palavaLogoTitle')">
           <inline-svg
             :alt="$t('palavaLogoAlt')"
             :src="require('../assets/icons/palava.svg')"
-            />
+          />
         </router-link>
       </div>
 
@@ -20,19 +25,23 @@
           :placeholder="$t('home.roomIdPlaceholder')"
           ref="roomInput"
           maxlength="50"
-          />
+        />
         <button type="submit" :title="$t('home.goTitle')">
           <inline-svg
             :alt="$t('home.goAlt')"
             :aria-label="$t('home.goAlt')"
             :src="require('../assets/icons/people-outline.svg')"
-            />
+          />
         </button>
       </div>
 
       <div class="hidden-room">
-        {{ $t('home.hiddenRoomIntro') }}
-        <a href="/" @click.prevent="goIntoHiddenRoom" :title="$t('home.hiddenRoomTitle')">
+        {{ $t("home.hiddenRoomIntro") }}
+        <a
+          href="/"
+          @click.prevent="goIntoHiddenRoom"
+          :title="$t('home.hiddenRoomTitle')"
+        >
           {{ $t("home.hiddenRoom") }}
         </a>
       </div>
@@ -44,7 +53,7 @@
           <inline-svg
             :alt="$t('palavaLogoAlt')"
             :src="require('../assets/icons/palava.svg')"
-            />
+          />
         </router-link>
       </div>
 
@@ -63,7 +72,7 @@
                 :alt="$t('home.blog')"
                 :aria-label="$t('home.blog')"
                 :src="require('../assets/icons/logo-rss.svg')"
-                />
+              />
             </a>
           </li>
           <li>
@@ -72,16 +81,19 @@
                 :alt="$t('home.twitter')"
                 :aria-label="$t('home.twitter')"
                 :src="require('../assets/icons/logo-twitter.svg')"
-                />
+              />
             </a>
           </li>
           <li>
-            <a href="https://github.com/palavatv/palava" :title="$t('home.github')">
+            <a
+              href="https://github.com/palavatv/palava"
+              :title="$t('home.github')"
+            >
               <inline-svg
                 :alt="$t('home.github')"
                 :aria-label="$t('home.github')"
                 :src="require('../assets/icons/logo-github.svg')"
-                />
+              />
             </a>
           </li>
         </ul>
@@ -101,54 +113,58 @@
 </template>
 
 <script>
-import yyid from 'yyid'
+import yyid from "yyid";
 
-import { browserCanUseWebrtc } from '@/webrtc'
+import { browserCanUseWebrtc } from "@/webrtc";
 
-import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
-import i18nStrings from '@/i18nStrings'
+import ThemeSwitcher from "@/components/ThemeSwitcher.vue";
+import LanguageSwitcher from "@/components/LanguageSwitcher.vue";
+import i18nStrings from "@/i18nStrings";
 
 export default {
   components: {
     LanguageSwitcher,
+    ThemeSwitcher,
   },
   data() {
     return {
-      roomId: '',
-    }
+      roomId: "",
+    };
   },
   computed: {
     browserCanUseWebrtc() {
-      return browserCanUseWebrtc() && this.$route.query.supported !== "0"
+      return browserCanUseWebrtc() && this.$route.query.supported !== "0";
     },
     infoPages() {
-      return i18nStrings[this.$root.$i18n.locale].infoPages.filter((ip) => ip.linked !== false)
-    }
+      return i18nStrings[this.$root.$i18n.locale].infoPages.filter(
+        (ip) => ip.linked !== false
+      );
+    },
     // providedBy() {
     //   return null
     // }
   },
   mounted() {
-    this.$refs.roomInput.focus()
+    this.$refs.roomInput.focus();
   },
   methods: {
     goIntoRoom() {
       if (this.roomId) {
-        this.$router.push({ path: encodeURIComponent(this.roomId) })
+        this.$router.push({ path: encodeURIComponent(this.roomId) });
       } else {
-        this.goIntoHiddenRoom()
+        this.goIntoHiddenRoom();
       }
     },
     goIntoHiddenRoom() {
-      this.$router.push({ path: yyid() })
+      this.$router.push({ path: yyid() });
     },
   },
   metaInfo() {
     return {
       titleTemplate: null,
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss">
@@ -204,7 +220,8 @@ export default {
     padding-right: 1px;
     @include lightShadow();
 
-    input, button {
+    input,
+    button {
       @include homeFont();
       padding: 4px 8px;
       letter-spacing: -1px;
@@ -215,7 +232,8 @@ export default {
     input {
       flex: 1;
       background: white;
-      &:focus, &:active {
+      &:focus,
+      &:active {
         outline: none;
         // box-shadow: inherit;
       }
@@ -226,7 +244,7 @@ export default {
       color: #999;
     }
 
-    button[type=submit] {
+    button[type="submit"] {
       appearance: none;
       margin-right: -1px;
       cursor: pointer;
@@ -310,6 +328,22 @@ export default {
   }
 
   .no-support {
+  }
+}
+
+body.dark {
+  .home .room-selection {
+    input {
+      background-color: var(--dark-background);
+    }
+
+    ::placeholder {
+      color: var(--dark-color);
+    }
+
+    button[type="submit"] {
+      background-color: $action-2;
+    }
   }
 }
 </style>

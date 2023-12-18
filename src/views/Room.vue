@@ -57,7 +57,7 @@ export default {
     }
   },
   created() {
-    const roomId = this.$route.params.roomId
+    const roomId = this.$route.params.roomId.toLowerCase()
     this.catchInvalidRoomId(roomId)
 
     const sessionConfig = {

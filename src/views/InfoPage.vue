@@ -47,66 +47,83 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/css/styles.scss';
+@use "@/css/styles" as *;
 
 .info {
+  /* Layout */
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100%;
+  
+  /* Responsive */
   @media (min-width: $mobile-plus) {
     height: auto;
   }
 
   .logo {
+    /* SVG styles */
     svg {
+      /* Visual */
       border-radius: 50%;
       box-shadow: 0px 0px 3px $action-1;
     }
+    
+    /* Link styles */
     a {
       display: inline-block;
     }
   }
 
   .logo--desktop {
-    display: none;
+    /* Responsive */
     @media (min-width: $mobile-plus) {
+      /* Box model */
       display: block;
-    }
-
-    margin: $large-spacing;
-    svg {
-      width: $logo-info-size;
-      height: $logo-info-size;
+      margin: $large-spacing;
+      
+      /* SVG styles */
+      svg {
+        width: $logo-info-size;
+        height: $logo-info-size;
+      }
     }
   }
 
   .logo--mobile {
-    @media (min-width: $mobile-plus) {
-      display: none;
-    }
-
-    margin: 0 auto $medium-spacing;
+    /* SVG styles */
     svg {
       width: $logo-control-size;
       height: $logo-control-size;
     }
-  }
-
-  .language-switcher {
-    position: absolute;
-    top: $small-plus-spacing;
-    right: $medium-spacing;
-  }
-
-  .language-switcher--desktop {
-    display: none;
+    
+    /* Responsive */
     @media (min-width: $mobile-plus) {
-      display: block;
+      display: none;
     }
   }
 
+  .language-switcher {
+    /* Positioning */
+    position: absolute;
+    top: $small-plus-spacing;
+    right: $medium-spacing;
+    
+    /* Modifiers */
+    &--desktop {
+      /* Box model */
+      display: none;
+      
+      /* Responsive */
+      @media (min-width: $mobile-plus) {
+        display: block;
+      }
+    }
+  }
+
+  /* Mobile language switcher */
   .language-switcher--mobile {
+    /* Responsive */
     @media (min-width: $mobile-plus) {
       display: none;
     }
@@ -114,27 +131,44 @@ export default {
 }
 
 .info-page {
+  /* Box model */
   width: 100%;
-
+  
+  /* Flex layout */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  
+  /* Typography */
+  color: $action-1;
+  text-align: center;
+  
+  /* Visual */
+  border-radius: $lobby-border-radius;
+  overflow: hidden;
+  
+  /* Responsive styles */
   @media (min-width: $mobile-plus) {
     @include mediumShadow();
     margin-bottom: $medium-plus-spacing;
   }
-
-  @media (min-width: $mobile-plus + $medium-spacing) {
-    width: $mobile-plus + $medium-spacing;
+  
+  $mobile-plus-medium: $mobile-plus + $medium-spacing;
+  @media (min-width: $mobile-plus-medium) {
+    width: $mobile-plus-medium;
   }
-
+  
   @media (min-width: $desktop) {
     width: $desktop - $medium-spacing;
   }
-
+  
   @media (min-width: $desktop-large) {
     width: $desktop-plus;
   }
 }
 
 .info-page, .info-screen {
+  /* Base styles */
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -142,15 +176,21 @@ export default {
   // justify-content: center;
   background: $white;
   color: $black;
-  @include defaultFont();
   padding: $medium-plus-spacing;
+  
+  /* Typography */
+  & {
+    @include defaultFont();
+  }
 
   h1 {
-    @include headingFont();
     color: $heading-1;
     text-shadow: 1px 1px rgba(100, 100, 100, 0.1);
     text-transform: capitalize;
     margin: $medium-spacing 0 $medium-spacing;
+    & {
+      @include headingFont();
+    }
     a, a:hover { color: inherit }
   }
 
@@ -158,7 +198,9 @@ export default {
     margin-top: $medium-plus-spacing;
     color: $action-1;
     // text-shadow: 1px 1px rgba(100, 100, 100, 0.1);
-    @include subheadingFont();
+    & {
+      @include subheadingFont();
+    }
   }
 
   .info-content {

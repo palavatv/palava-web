@@ -241,29 +241,39 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/css/styles.scss';
+@use "@/css/styles" as *;
 
 .peer {
-  font-size: 0;
-  opacity: 1;
-  position: relative;
-  box-sizing: border-box;
+  /* Box model */
   width: auto;
   height: auto;
+  box-sizing: border-box;
+  
+  /* Typography */
+  font-size: 0;
+  
+  /* Visual */
+  opacity: 1;
+  position: relative;
+  
+  /* Include fade control mixin */
   @include fadeControl();
 
+  /* Frame styles */
   .frame {
-    position: relative;
     display: inline;
+    position: relative;
   }
 
+  /* Media styles */
   .media {
-    height: auto;
     width: auto;
-    max-height: 100%;
+    height: auto;
     max-width: 100%;
+    max-height: 100%;
   }
 
+  /* Local peer styles */
   &--is-local {
     video {
       transform: scale(-1, 1);
@@ -272,57 +282,84 @@ export default {
 }
 
 .lobby {
+  /* Lobby peer styles */
   .peer {
+    /* Box model */
     border-top: $lobby-peer-padding solid transparent;
     border-left: $lobby-peer-padding solid transparent;
+    
+    /* Media styles */
     .media {
       border-radius: $lobby-border-radius;
     }
   }
 
+  /* Landscape mode styles */
   .peer--party-landscape {
+    /* Box model */
     border-right: $lobby-peer-padding solid transparent;
+    
+    /* Last child in landscape */
     &:last-child {
       border-bottom: $lobby-peer-padding solid transparent;
     }
+    
+    /* Media styles */
     .media {
       width: 100%;
     }
   }
 
+  /* Portrait mode styles */
   .peer--party-portrait {
+    /* Box model */
     border-bottom: $lobby-peer-padding solid transparent;
+    
+    /* Last child in portrait */
     &:last-child {
       border-right: $lobby-peer-padding solid transparent;
     }
+    
+    /* Media styles */
     .media {
       height: 100%;
     }
   }
 }
 
+/* Stage styles */
 .stage {
+  /* Spotlight container */
   .spotlight {
-    height: 100%;
+    /* Box model */
     width: 100%;
+    height: 100%;
     overflow: hidden;
   }
 
+  /* Peer in stage */
   .peer {
+    /* Spacing */
     padding: $stage-gap;
   }
 
+  /* Media in stage */
   .media {
+    /* Visual */
     object-fit: cover;
     border-radius: $stage-border-radius;
   }
 
+  /* Grid layouts for multiple peers */
   .spotlight--three,
   .spotlight--four {
-    padding: $stage-gap;
+    /* Layout */
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 50% 50%;
+    padding: $stage-gap;
+    
+    /* Media in grid */
     .peer .media {
       width: 100%;
       height: 100%;

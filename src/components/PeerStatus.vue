@@ -80,7 +80,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/css/styles.scss";
+@use "@/css/styles" as *;
 
 .peer-status {
   position: absolute;
@@ -110,7 +110,7 @@ export default {
   .symbol {
     fill: white;
     filter: drop-shadow(1px 1px 1px $black);
-
+    
     .peer--on-stage & {
       width: 10vw;
       height: 10vw;
@@ -124,16 +124,42 @@ export default {
   .description {
     white-space: nowrap;
     text-shadow: 1px 1px 2px $black;
-
+    line-height: 100%;
+    
     .peer--on-stage & {
       margin-top: $small-spacing;
       font-size: 4vw;
-      line-height: 100%;
     }
     .peer--in-lobby & {
-      @include defaultFont();
+      // Default font styles
+      font-size: 12px;
+      line-height: 16px;
       margin-top: $tiny-spacing;
-      line-height: 100%;
+      
+      @media (min-width: $mobile) {
+        font-size: 13px;
+        line-height: 18px;
+      }
+      @media (min-width: $mobile-plus) {
+        font-size: 14px;
+        line-height: 20px;
+      }
+      @media (min-width: $desktop) {
+        font-size: 15px;
+        line-height: 21px;
+      }
+      @media (min-width: $desktop-plus) {
+        font-size: 16px;
+        line-height: 22px;
+      }
+      @media (min-width: $desktop-large) {
+        font-size: 17px;
+        line-height: 23px;
+      }
+      @media (min-width: $desktop-huge) {
+        font-size: 18px;
+        line-height: 24px;
+      }
     }
   }
 }

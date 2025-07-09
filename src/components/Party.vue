@@ -349,17 +349,22 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/css/styles.scss";
+@use "@/css/styles.scss" as *;
 
 .top-control {
+  /* Positioning */
   position: absolute;
   z-index: 1000;
   top: calc($small-control-size / 3);
+  
+  /* Layout */
+  display: flex;
+  align-items: center;
+  
+  /* Responsive styles */
   @media (min-width: $mobile) {
     top: calc($large-control-size / 3);
   }
-  display: flex;
-  align-items: center;
 
   .logo-control,
   .control {
@@ -370,16 +375,25 @@ export default {
   }
 
   .logo-control {
+    /* Layout */
     height: $large-control-size;
     width: $large-control-size;
+    
+    /* Visual */
+    opacity: 0.7;
+    filter: grayscale(1);
+    
+    /* Mixins */
+    @include knobLike();
+    @include focusTitle();
+    
+    /* Responsive */
     @media (min-width: $mobile) {
       height: $logo-control-size;
       width: $logo-control-size;
     }
-    opacity: 0.7;
-    filter: grayscale(1);
-    @include knobLike();
-    @include focusTitle();
+    
+    /* States */
     &:focus,
     &:hover {
       outline: none;
@@ -399,14 +413,20 @@ export default {
   }
 
   .control {
+    /* Box model */
     height: $small-control-size;
     width: $small-control-size;
-
+    
+    /* Include knob styles */
+    @include knob();
+    
+    /* Responsive */
     @media (min-width: $mobile) {
       height: $large-control-size;
       width: $large-control-size;
     }
-    @include knob();
+    
+    /* States */
     &:focus,
     &:hover {
       &::after {
@@ -416,12 +436,15 @@ export default {
     }
 
     &--switch-language > * {
+      /* Typography */
       font-size: calc($small-control-size / 2.2);
+      text-transform: uppercase;
+      transform: translate(-1px, 0px);
+      
+      /* Responsive */
       @media (min-width: $mobile) {
         font-size: calc($large-control-size / 2.2);
       }
-      transform: translate(-1px, 0px);
-      text-transform: uppercase;
     }
 
     &--hang-up > * {

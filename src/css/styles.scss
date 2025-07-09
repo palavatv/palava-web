@@ -96,27 +96,73 @@ $lobby-border-radius: 0px;
 
 @mixin focusTitlePseudo() {
   &::after {
+    /* Positioning */
     position: absolute;
     content: attr(title);
-    background: $white;
-    color: $action-1;
-    @include defaultFont();
+    
+    /* Box model */
     padding: 2px 7px 2px 5px;
+    
+    /* Typography */
+    color: $action-1;
+    text-align: left;
     white-space: nowrap;
+    font-size: 12px;
+    line-height: 16px;
+    
+    /* Visual */
+    background: $white;
+    
+    /* Responsive typography */
+    @media (min-width: $mobile) {
+      font-size: 13px;
+      line-height: 18px;
+    }
+    @media (min-width: $mobile-plus) {
+      font-size: 14px;
+      line-height: 20px;
+    }
+    @media (min-width: $desktop) {
+      font-size: 15px;
+      line-height: 21px;
+    }
+    @media (min-width: $desktop-plus) {
+      font-size: 16px;
+      line-height: 22px;
+    }
+    @media (min-width: $desktop-large) {
+      font-size: 17px;
+      line-height: 23px;
+    }
+    @media (min-width: $desktop-huge) {
+      font-size: 18px;
+      line-height: 24px;
+    }
+    
+    /* Shadow effect */
+    @include lightShadow();
+    
+    /* Lobby-specific styles */
     .lobby & {
       white-space: normal;
     }
-    text-align: left;
-    @include lightShadow();
   }
 }
 
 @mixin focusTitle() {
-  position: relative;
+  // Wrap all declarations in a nested block to avoid mixed declarations
+  & {
+    // Positioning
+    position: relative;
+  }
+  
+  // States
   &:focus {
     @include focusTitlePseudo();
   }
-  @media (max-width: $mobile-plus - 1px) {
+  
+  // Mobile hover state
+  @media (max-width: ($mobile-plus - 1px)) {
     &:hover {
       @include focusTitlePseudo();
       z-index: 900;
@@ -125,42 +171,63 @@ $lobby-border-radius: 0px;
 }
 
 @mixin knobLike() {
-  border-radius: 50%;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  user-select: none;
-  box-shadow: 1px 1px 4px $black;
+  & {
+    /* Box model */
+    border: none;
+    border-radius: 50%;
+    padding: 0;
+    
+    /* Interactive */
+    cursor: pointer;
+    user-select: none;
+    
+    /* Visual */
+    box-shadow: 1px 1px 4px $black;
+  }
 }
 
 @mixin knob() {
+  // Include knobLike first
   @include knobLike();
-  color: $black;
-  background: $white;
-  opacity: 0.5;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: $action-1;
+  
+  // Include focusTitle before any nested rules
   @include focusTitle();
-
-  &:focus, &:hover {
-    outline: none;
-    opacity: 1;
-    box-shadow: 1px 1px 3px #555;
-
-    > * {
-      filter: grayscale(0);
-    }
+  
+  // Main knob styles in a nested block
+  & {
+    /* Layout and box model */
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Visual styling */
+    background: $white;
+    opacity: 0.5;
+    
+    /* Typography */
+    color: $action-1;
   }
-
-  > * {
+  
+  /* Nested elements */
+  & > * {
     display: inline-block;
     fill: $action-1;
     filter: grayscale(1);
-    width: calc(50% + 4px); // unique formular for large and small buttons
+    width: calc(50% + 4px);
     height: calc(50% + 4px);
+  }
+  
+  /* States */
+  &:focus,
+  &:hover {
+    outline: none;
+    opacity: 1;
+    box-shadow: 1px 1px 3px #555;
+    
+    & > * {
+      filter: grayscale(0);
+    }
   }
 }
 
@@ -199,7 +266,9 @@ $lobby-border-radius: 0px;
 }
 
 @mixin lightShadow() {
-  box-shadow: 1px 1px 3px rgba(83, 83, 83, 0.4);
+  & {
+    box-shadow: 1px 1px 3px rgba(83, 83, 83, 0.4);
+  }
 }
 
 @mixin mediumShadow() {
@@ -304,34 +373,31 @@ $lobby-border-radius: 0px;
 }
 
 @mixin defaultFont() {
+  // Base styles
   font-size: 12px;
   line-height: 16px;
 
+  // Media queries
   @media (min-width: $mobile) {
     font-size: 13px;
     line-height: 18px;
   }
-
   @media (min-width: $mobile-plus) {
     font-size: 14px;
     line-height: 20px;
   }
-
   @media (min-width: $desktop) {
     font-size: 15px;
     line-height: 21px;
   }
-
   @media (min-width: $desktop-plus) {
     font-size: 16px;
     line-height: 22px;
   }
-
   @media (min-width: $desktop-large) {
     font-size: 17px;
     line-height: 23px;
   }
-
   @media (min-width: $desktop-huge) {
     font-size: 18px;
     line-height: 24px;

@@ -46,7 +46,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/css/styles.scss";
+@use "@/css/styles.scss" as *;
 
 .room-error .info-page {
   padding-top: $medium-spacing;

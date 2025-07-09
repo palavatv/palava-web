@@ -131,7 +131,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/css/styles.scss';
+@use '@/css/styles' as *;
 
 // TODO style
 // TODO see comments below
@@ -140,19 +140,58 @@ export default {
 // }
 
 .network-info {
-  position: absolute;
+  /* Wrap all styles in a nested block to avoid mixed declarations */
+  & {
+    /* Positioning */
+    position: absolute;
+    z-index: 700;
+    
+    /* Box model */
+    padding: 7px 8px 1px;
+    border-radius: $lobby-border-radius;
+    
+    /* Typography */
+    text-align: left;
+    font-size: 12px;
+    line-height: 16px;
+    
+    /* Visual */
+    background: white;
+    opacity: 0.8;
+    color: $action-1;
+    
+    /* Shadow effect */
+    @include lightShadow();
+  }
+  
+  @media (min-width: $mobile) {
+    font-size: 13px;
+    line-height: 18px;
+  }
+  @media (min-width: $mobile-plus) {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  @media (min-width: $desktop) {
+    font-size: 15px;
+    line-height: 21px;
+  }
+  @media (min-width: $desktop-plus) {
+    font-size: 16px;
+    line-height: 22px;
+  }
+  @media (min-width: $desktop-large) {
+    font-size: 17px;
+    line-height: 23px;
+  }
+  @media (min-width: $desktop-huge) {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  
   .lobby & {
     position: fixed; // this is not correct...
   }
-  z-index: 700;
-  border-radius: $lobby-border-radius;
-  background: white;
-  opacity: 0.8;
-  color: $action-1;
-  padding: 7px 8px 1px;
-  @include lightShadow();
-  @include defaultFont();
-  text-align: left;
 
   // TODO improve this (needs different concept...)
   .peer--on-stage & {

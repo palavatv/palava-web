@@ -105,10 +105,13 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/css/styles.scss";
+@use "@/css/styles" as *;
 
 .gum .info-page {
+  /* Box model */
   padding-top: $medium-spacing;
+  
+  /* Typography */
   h1 {
     text-transform: none;
     margin: 0;
@@ -116,17 +119,23 @@ export default {
   }
 
   .gum-buttons {
+    /* Box model */
     margin-top: $medium-spacing;
     margin-bottom: -$medium-spacing;
-
+    padding-left: 0;
+    
+    /* Layout */
     display: flex;
     justify-content: space-between;
+    
+    /* List styling */
+    list-style: none;
+    
+    /* Responsive styles */
     @media (min-width: $mobile) {
       margin-top: $medium-plus-spacing;
       justify-content: space-around;
     }
-    list-style: none;
-    padding-left: 0;
 
     .gum-choice {
       svg {
@@ -144,12 +153,44 @@ export default {
     }
 
     button {
-      text-align: center;
-      @include defaultFont();
+      // Layout and box model
+      width: 100%;
       padding: $small-spacing $medium-spacing;
       margin-bottom: $medium-spacing;
-      width: 100%;
+      
+      // Typography
+      text-align: center;
+      font-size: 12px;
+      line-height: 16px;
+      
+      // Interactive
       cursor: pointer;
+      
+      // Responsive typography
+      @media (min-width: $mobile) {
+        font-size: 13px;
+        line-height: 18px;
+      }
+      @media (min-width: $mobile-plus) {
+        font-size: 14px;
+        line-height: 20px;
+      }
+      @media (min-width: $desktop) {
+        font-size: 15px;
+        line-height: 21px;
+      }
+      @media (min-width: $desktop-plus) {
+        font-size: 16px;
+        line-height: 22px;
+      }
+      @media (min-width: $desktop-large) {
+        font-size: 17px;
+        line-height: 23px;
+      }
+      @media (min-width: $desktop-huge) {
+        font-size: 18px;
+        line-height: 24px;
+      }
       // background: $action-3;
       &:hover {
         svg {

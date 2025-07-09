@@ -21,18 +21,32 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/css/styles.scss";
+@use "@/css/styles.scss" as *;
 
 .language-switcher {
-  text-transform: uppercase;
-  padding: 0;
-  border: none;
-  background: none;
-  cursor: pointer;
+  /* Typography */
   @include footerFont();
-  color: $shade;
-  &:hover {
-    color: $action-2;
+  
+  /* Wrap remaining styles in a nested block to avoid mixed declarations */
+  & {
+    /* Box model */
+    padding: 0;
+    
+    /* Typography */
+    text-transform: uppercase;
+    color: $shade;
+    
+    /* Visual */
+    border: none;
+    background: none;
+    
+    /* Interactive */
+    cursor: pointer;
+    
+    /* States */
+    &:hover {
+      color: $action-2;
+    }
   }
 }
 </style>

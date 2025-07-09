@@ -1,7 +1,7 @@
 {
   "name": "palava-web",
-  "version": "2.0.0",
-  "description": "The 2023 web front-end of palava.tv",
+  "version": "2.0.1",
+  "description": "The 2025 web front-end of palava.tv",
   "keywords": [
     "palava",
     "webrtc",
@@ -16,26 +16,27 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src"
   },
   "dependencies": {
-    "@vueuse/head": "^1.1.23",
+    "@vueuse/head": "^2.0.0",
     "palava-client": "^2.2.1",
     "register-service-worker": "^1.7.2",
-    "vue": "^3.3.4",
-    "vue-i18n": "^9.4.1",
-    "vue-inline-svg": "^3.1.2",
-    "vue-router": "^4.2.5",
+    "vite-plugin-require": "^1.2.14",
+    "vue": "^3.5.17",
+    "vue-i18n": "^9.14.4",
+    "vue-inline-svg": "^4.0.1",
+    "vue-router": "^4.5.1",
     "yyid": "2"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.3.4",
-    "@vue/eslint-config-airbnb": "^7.0.0",
-    "eslint": "^8.50.0",
+    "@vitejs/plugin-vue": "^4.6.2",
+    "@vue/eslint-config-airbnb": "^8.0.0",
+    "eslint": "^8.57.1",
     "eslint-import-resolver-alias": "^1.1.2",
-    "eslint-plugin-import": "^2.28.1",
-    "eslint-plugin-vue": "^9.2.0",
-    "eslint-plugin-vuejs-accessibility": "^2.2.0",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-vue": "^9.33.0",
+    "eslint-plugin-vuejs-accessibility": "^2.4.1",
     "path": "^0.12.7",
-    "sass": "^1.44.0",
-    "url": "^0.11.3",
-    "vite": "^4.4.9"
+    "sass": "^1.89.2",
+    "url": "^0.11.4",
+    "vite": "^5.0.12"
   }
 }

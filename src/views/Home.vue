@@ -17,7 +17,7 @@
         >
           <inline-svg
             :alt="$t('palavaLogoAlt')"
-            src="./../src/assets/icons/palava.svg"
+            src="require('@/assets/icons/palava.svg')"
           />
         </router-link>
       </div>
@@ -37,7 +37,7 @@
           <inline-svg
             :alt="$t('home.goAlt')"
             :aria-label="$t('home.goAlt')"
-            src="@/assets/icons/people-outline.svg"
+            src="require('@/assets/icons/people-outline.svg')"
           />
         </button>
       </div>
@@ -63,9 +63,9 @@
           to="/info/about"
           :title="$t('home.palavaLogoTitle')"
         >
-          <inline-svg
+          <img
             :alt="$t('palavaLogoAlt')"
-            src="@/assets/icons/palava.svg"
+            :src="logo"
           />
         </router-link>
       </div>
@@ -84,10 +84,10 @@
               href="https://blog.palava.tv"
               :title="$t('home.blog')"
             >
-              <inline-svg
+              <img
                 :alt="$t('home.blog')"
                 :aria-label="$t('home.blog')"
-                src="@/assets/icons/logo-rss.svg"
+                :src="rssLogo"
               />
             </a>
           </li>
@@ -96,10 +96,10 @@
               href="https://twitter.com/palavatv"
               :title="$t('home.twitter')"
             >
-              <inline-svg
+              <img
                 :alt="$t('home.twitter')"
                 :aria-label="$t('home.twitter')"
-                src="@/assets/icons/logo-twitter.svg"
+                :src="twitterLogo"
               />
             </a>
           </li>
@@ -108,10 +108,10 @@
               href="https://github.com/palavatv/palava"
               :title="$t('home.github')"
             >
-              <inline-svg
+              <img
                 :alt="$t('home.github')"
                 :aria-label="$t('home.github')"
-                src="@/assets/icons/logo-github.svg"
+                :src="githubLogo"
               />
             </a>
           </li>
@@ -135,11 +135,17 @@
 </template>
 
 <script>
-import yyid from 'yyid'
-import { browserCanUseWebrtc } from '@/webrtc'
-import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
-import i18nStrings from '@/i18nStrings'
-import { detectLanguage } from '@/support'
+import yyid from 'yyid';
+import { browserCanUseWebrtc } from '@/webrtc';
+import { detectLanguage } from '@/support';
+import i18nStrings from '@/i18nStrings';
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue';
+
+// Import SVGs
+import logo from '@/assets/icons/palava.svg';
+import rssLogo from '@/assets/icons/logo-rss.svg';
+import twitterLogo from '@/assets/icons/logo-twitter.svg';
+import githubLogo from '@/assets/icons/logo-github.svg';
 
 const lang = detectLanguage()
 
@@ -149,8 +155,12 @@ export default {
   },
   data() {
     return {
+      logo,
+      rssLogo,
+      twitterLogo,
+      githubLogo,
       roomId: '',
-    }
+    };
   },
   computed: {
     browserCanUseWebrtc() {
@@ -179,26 +189,34 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/css/styles.scss";
+@use "@/css/styles.scss" as *;
 
 .home {
+  /* Layout */
   min-height: 100%;
-  color: $shade;
   display: flex;
   flex-direction: column;
+  
+  /* Typography */
+  color: $shade;
 
   .signpost {
+    /* Box model */
     width: 90vw;
     margin: auto;
     margin-top: -$medium-plus-spacing; // language-switch
+    
+    /* Layout */
+    display: flex;
+    flex-direction: column;
+    
+    /* Responsive */
     @media (min-width: $mobile) {
       width: 450px;
     }
     @media (min-height: $mobile-height) {
       margin-top: 13vh;
     }
-    display: flex;
-    flex-direction: column;
     > * {
       margin: 1vh auto;
       width: 100%;
@@ -207,62 +225,110 @@ export default {
   }
 
   .logo {
+    /* Box model */
+    margin-bottom: 3vh;
+    
+    /* SVG styles */
     svg {
+      /* Sizing */
       width: 30vw;
       height: 30vw;
-
+      
+      /* Visual */
+      border-radius: 50%;
+      box-shadow: 0px 0px 4px $action-1;
+      
+      /* Responsive */
       @media (min-width: $mobile-plus) {
         width: 250px;
         height: 250px;
       }
-
-      border-radius: 50%;
-      box-shadow: 0px 0px 4px $action-1;
     }
+    
+    /* Link styles */
     a {
       display: inline-block;
     }
-    margin-bottom: 3vh;
   }
 
   .room-selection {
-    display: flex;
-    padding: 0;
-    padding-right: 1px;
-    @include lightShadow();
-
-    input, button {
-      @include homeFont();
-      padding: 4px 8px;
-      letter-spacing: -1px;
-      border: none;
-      margin: 0;
+    /* Wrap all styles in a nested block to avoid mixed declarations */
+    & {
+      /* Box model */
+      padding: 0;
+      padding-right: 1px;
+      
+      /* Layout */
+      display: flex;
+      
+      /* Visual */
+      @include lightShadow();
     }
 
+    /* Input and button styles */
+    input, button {
+      /* Box model */
+      padding: 4px 8px;
+      margin: 0;
+      border: none;
+      
+      /* Typography */
+      & {
+        @include homeFont();
+      }
+      
+      /* Letter spacing */
+      & {
+        letter-spacing: -1px;
+      }
+    }
+
+    /* Input styles */
     input {
+      /* Layout */
       flex: 1;
+      
+      /* Visual */
       background: white;
+      
+      /* States */
       &:focus, &:active {
         outline: none;
         // box-shadow: inherit;
       }
     }
 
-    ::placeholder {
+    /* Placeholder styles */
+    &::placeholder {
+      /* Typography */
       letter-spacing: -1px;
       color: #999;
     }
 
+    /* Submit button styles */
     button[type=submit] {
+      /* Box model */
       appearance: none;
       margin-right: -1px;
-      cursor: pointer;
+      
+      /* Layout */
       flex-shrink: 0;
+      
+      /* Visual */
       background: $white;
+      cursor: pointer;
+      
+      /* Include home symbol */
+      & {
+        @include homeSymbol();
+      }
+      
+      /* States */
       &:focus {
         outline: 1px dashed $action-2;
       }
-      @include homeSymbol();
+      
+      /* SVG icon */
       svg {
         width: 100%;
         height: 100%;
@@ -271,8 +337,18 @@ export default {
   }
 
   .hidden-room {
-    @include homeFont();
-    white-space: nowrap;
+    /* Wrap styles in a nested block to avoid mixed declarations */
+    & {
+      /* Typography */
+      @include homeFont();
+    }
+    
+    /* White space */
+    & {
+      white-space: nowrap;
+    }
+    
+    /* Link styles */
     a {
       color: $action-2;
     }
@@ -332,7 +408,9 @@ export default {
 
     li {
       margin: auto $small-spacing;
-      @include footerFont();
+      & {
+        @include footerFont();
+      }
     }
   }
 }

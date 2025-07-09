@@ -18,7 +18,7 @@ useHead({
 </script>
 
 <style lang="scss">
-@import "@/css/styles.scss";
+@use "@/css/styles.scss" as *;
 
 @font-face {
   font-family: WorkSans;

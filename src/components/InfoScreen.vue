@@ -59,37 +59,42 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/css/styles.scss';
+@use "@/css/styles" as *;
 /* See InfoPage.vue for main styling */
 
 .info-screen {
+  // Positioning
   position: fixed;
   z-index: 700;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
+  
+  // Visual
   opacity: 1;
+  outline: none;
+  overflow: auto;
+  
+  // Shadow effect
+  @include defaultShadow();
+  
+  // Responsive styles
   @media (min-width: $mobile-plus) {
-    & {
-      left: $medium-spacing;
-      top: $large-control-size * 2;
-      max-width: calc(100% - #{$medium-spacing * 2});
-      bottom: $medium-spacing;
-      opacity: 0.92;
-    }
+    left: $medium-spacing;
+    top: $large-control-size * 2;
+    max-width: calc(100% - #{$medium-spacing * 2});
+    bottom: $medium-spacing;
+    opacity: 0.92;
   }
 
   @media (min-width: $desktop) {
     width: $desktop;
   }
+  
   @media (min-width: $desktop-large) {
     width: $desktop-plus;
   }
-
-  @include defaultShadow();
-  outline: none;
-  overflow: auto;
 
   .close {
     @include inlineButton();

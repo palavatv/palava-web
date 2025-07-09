@@ -49,7 +49,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/css/styles.scss';
+@use '@/css/styles.scss' as *;
 
 .navigation {
   border-bottom: 1px solid $background;

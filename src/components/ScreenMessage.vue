@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/css/styles.scss';
+@use '@/css/styles.scss' as *;
 
 .screen-message {
   background: black;

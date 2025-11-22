@@ -28,8 +28,8 @@
 </template>
 
 <script>
-import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
-import Logo from '@/components/Logo.vue'
+import LanguageSwitcher from "./LanguageSwitcher.vue"
+import Logo from "./Logo.vue"
 
 export default {
   components: {

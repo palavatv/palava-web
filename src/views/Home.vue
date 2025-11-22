@@ -17,7 +17,7 @@
         >
           <inline-svg
             :alt="$t('palavaLogoAlt')"
-            src="require('@/assets/icons/palava.svg')"
+            :src="logo"
           />
         </router-link>
       </div>
@@ -37,7 +37,7 @@
           <inline-svg
             :alt="$t('home.goAlt')"
             :aria-label="$t('home.goAlt')"
-            src="require('@/assets/icons/people-outline.svg')"
+            :src="goButton"
           />
         </button>
       </div>
@@ -63,7 +63,7 @@
           to="/info/about"
           :title="$t('home.palavaLogoTitle')"
         >
-          <img
+          <inline-svg
             :alt="$t('palavaLogoAlt')"
             :src="logo"
           />
@@ -81,25 +81,13 @@
         <ul>
           <li>
             <a
-              href="https://blog.palava.tv"
-              :title="$t('home.blog')"
+              href="https://social.tchncs.de/@palavatv"
+              :title="$t('home.mastodon')"
             >
-              <img
-                :alt="$t('home.blog')"
-                :aria-label="$t('home.blog')"
-                :src="rssLogo"
-              />
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://twitter.com/palavatv"
-              :title="$t('home.twitter')"
-            >
-              <img
-                :alt="$t('home.twitter')"
-                :aria-label="$t('home.twitter')"
-                :src="twitterLogo"
+              <inline-svg
+                :alt="$t('home.mastodon')"
+                :aria-label="$t('home.mastodon')"
+                :src="mastodonLogo"
               />
             </a>
           </li>
@@ -108,7 +96,7 @@
               href="https://github.com/palavatv/palava"
               :title="$t('home.github')"
             >
-              <img
+              <inline-svg
                 :alt="$t('home.github')"
                 :aria-label="$t('home.github')"
                 :src="githubLogo"
@@ -136,16 +124,16 @@
 
 <script>
 import yyid from 'yyid';
-import { browserCanUseWebrtc } from '@/webrtc';
-import { detectLanguage } from '@/support';
-import i18nStrings from '@/i18nStrings';
-import LanguageSwitcher from '@/components/LanguageSwitcher.vue';
+import { browserCanUseWebrtc } from '../webrtc';
+import { detectLanguage } from '../support';
+import i18nStrings from '../i18nStrings';
+import LanguageSwitcher from '../components/LanguageSwitcher.vue';
 
 // Import SVGs
-import logo from '@/assets/icons/palava.svg';
-import rssLogo from '@/assets/icons/logo-rss.svg';
-import twitterLogo from '@/assets/icons/logo-twitter.svg';
-import githubLogo from '@/assets/icons/logo-github.svg';
+import logo from '../assets/icons/palava.svg';
+import goButton from '../assets/icons/people-outline.svg';
+import mastodonLogo from '../assets/icons/logo-mastodon.svg';
+import githubLogo from '../assets/icons/logo-github.svg';
 
 const lang = detectLanguage()
 
@@ -156,8 +144,8 @@ export default {
   data() {
     return {
       logo,
-      rssLogo,
-      twitterLogo,
+      goButton,
+      mastodonLogo,
       githubLogo,
       roomId: '',
     };
@@ -189,14 +177,14 @@ export default {
 </script>
 
 <style lang="scss">
-@use "@/css/styles.scss" as *;
+@use "../css/styles.scss" as *;
 
 .home {
   /* Layout */
   min-height: 100%;
   display: flex;
   flex-direction: column;
-  
+
   /* Typography */
   color: $shade;
 
@@ -205,11 +193,11 @@ export default {
     width: 90vw;
     margin: auto;
     margin-top: -$medium-plus-spacing; // language-switch
-    
+
     /* Layout */
     display: flex;
     flex-direction: column;
-    
+
     /* Responsive */
     @media (min-width: $mobile) {
       width: 450px;
@@ -227,24 +215,24 @@ export default {
   .logo {
     /* Box model */
     margin-bottom: 3vh;
-    
+
     /* SVG styles */
     svg {
       /* Sizing */
       width: 30vw;
       height: 30vw;
-      
+
       /* Visual */
       border-radius: 50%;
       box-shadow: 0px 0px 4px $action-1;
-      
+
       /* Responsive */
       @media (min-width: $mobile-plus) {
         width: 250px;
         height: 250px;
       }
     }
-    
+
     /* Link styles */
     a {
       display: inline-block;
@@ -257,10 +245,10 @@ export default {
       /* Box model */
       padding: 0;
       padding-right: 1px;
-      
+
       /* Layout */
       display: flex;
-      
+
       /* Visual */
       @include lightShadow();
     }
@@ -271,12 +259,12 @@ export default {
       padding: 4px 8px;
       margin: 0;
       border: none;
-      
+
       /* Typography */
       & {
         @include homeFont();
       }
-      
+
       /* Letter spacing */
       & {
         letter-spacing: -1px;
@@ -287,10 +275,10 @@ export default {
     input {
       /* Layout */
       flex: 1;
-      
+
       /* Visual */
       background: white;
-      
+
       /* States */
       &:focus, &:active {
         outline: none;
@@ -310,24 +298,24 @@ export default {
       /* Box model */
       appearance: none;
       margin-right: -1px;
-      
+
       /* Layout */
       flex-shrink: 0;
-      
+
       /* Visual */
       background: $white;
       cursor: pointer;
-      
+
       /* Include home symbol */
       & {
         @include homeSymbol();
       }
-      
+
       /* States */
       &:focus {
         outline: 1px dashed $action-2;
       }
-      
+
       /* SVG icon */
       svg {
         width: 100%;
@@ -342,12 +330,12 @@ export default {
       /* Typography */
       @include homeFont();
     }
-    
+
     /* White space */
     & {
       white-space: nowrap;
     }
-    
+
     /* Link styles */
     a {
       color: $action-2;

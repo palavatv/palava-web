@@ -23,6 +23,7 @@
         <ul class="gum-buttons">
           <li class="gum-choice gum-choice--video-and-audio">
             <button
+              type="button"
               autofocus
               :title="$t('room.gumChoiceVideoAndAudio')"
               @click="$emit('join-room', { video: videoConstraints, audio: true })"
@@ -42,6 +43,7 @@
 
           <li class="gum-choice gum-choice--video">
             <button
+              type="button"
               :title="$t('room.gumChoiceVideo')"
               @click="$emit('join-room', { video: videoConstraints, audio: false })"
             >
@@ -55,6 +57,7 @@
 
           <li class="gum-choice gum-choice--audio">
             <button
+              type="button"
               :title="$t('room.gumChoiceAudio')"
               @click="$emit('join-room', { video: false, audio: true })"
             >
@@ -80,9 +83,9 @@
 </template>
 
 <script>
-import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
-import Logo from '@/components/Logo.vue'
-import config from '@/config'
+import LanguageSwitcher from "./LanguageSwitcher.vue"
+import Logo from "./Logo.vue"
+import config from '../config'
 
 export default {
   components: {
@@ -110,7 +113,7 @@ export default {
 .gum .info-page {
   /* Box model */
   padding-top: $medium-spacing;
-  
+
   /* Typography */
   h1 {
     text-transform: none;
@@ -123,14 +126,14 @@ export default {
     margin-top: $medium-spacing;
     margin-bottom: -$medium-spacing;
     padding-left: 0;
-    
+
     /* Layout */
     display: flex;
     justify-content: space-between;
-    
+
     /* List styling */
     list-style: none;
-    
+
     /* Responsive styles */
     @media (min-width: $mobile) {
       margin-top: $medium-plus-spacing;
@@ -157,15 +160,15 @@ export default {
       width: 100%;
       padding: $small-spacing $medium-spacing;
       margin-bottom: $medium-spacing;
-      
+
       // Typography
       text-align: center;
       font-size: 12px;
       line-height: 16px;
-      
+
       // Interactive
       cursor: pointer;
-      
+
       // Responsive typography
       @media (min-width: $mobile) {
         font-size: 13px;

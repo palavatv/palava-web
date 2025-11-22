@@ -7,6 +7,8 @@
       >
         <router-link :to="`/info/${infoPage.id}`">
           <span
+            tabindex="0"
+            role="button"
             @click="checkScreen(infoPage.id, $event)"
             @keypress.enter="checkScreen(infoPage.id, $event)"
           >

@@ -26,15 +26,14 @@
 
 <script>
 import { Session } from "palava-client";
-import config from "@/config";
-import logger from "@/logger";
-// import { fancyNumber } from "@/support"
+import config from "../config";
+import logger from "../logger";
 
-import UserMediaConfigurator from "@/components/UserMediaConfigurator.vue";
-import ScreenMessage from "@/components/ScreenMessage.vue";
-import InfoScreen from "@/components/InfoScreen.vue";
-import RoomError from "@/components/RoomError.vue";
-import Party from "@/components/Party.vue";
+import UserMediaConfigurator from "../components/UserMediaConfigurator.vue";
+import ScreenMessage from "../components/ScreenMessage.vue";
+import InfoScreen from "../components/InfoScreen.vue";
+import RoomError from "../components/RoomError.vue";
+import Party from "../components/Party.vue";
 
 import enteringKnock from "../assets/sounds/entering-room-knock.mp3";
 import leavingBirds from "../assets/sounds/leaving-room-bird.mp3";
@@ -256,12 +255,6 @@ export default {
       this.infoPage = page;
     },
   },
-  // metaInfo() {
-  //   return {
-  //     title:
-  //       `${fancyNumber(this.peers.length) || this.$t("room.emptyTitle")} | ${decodeURIComponent(this.$route.params.roomId)}`,
-  //   }
-  // },
 };
 </script>
 

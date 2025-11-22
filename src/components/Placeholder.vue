@@ -1,11 +1,13 @@
 <template>
   <img
+    tabindex="0"
+    role="button"
     class="media media--orientation-landscape"
     src="@/assets/icons/placeholder.png"
     :alt="$t('peer.placeholderAlt', { color: background })"
     ref="placeholder"
     :style="{
-      background: background,
+      background,
     }"
     @click="$emit('click')"
     @keypress.enter="$emit('click')"

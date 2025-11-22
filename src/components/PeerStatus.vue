@@ -1,5 +1,7 @@
 <template>
   <div
+    tabindex="0"
+    role="button"
     class="peer-status"
     @click="$emit('click')"
     @keypress.enter="$emit('click')"
@@ -73,6 +75,7 @@ export default {
     },
     error: {
       type: String,
+      default: null,
     },
   },
   emits: ['click'],
@@ -110,7 +113,7 @@ export default {
   .symbol {
     fill: white;
     filter: drop-shadow(1px 1px 1px $black);
-    
+
     .peer--on-stage & {
       width: 10vw;
       height: 10vw;
@@ -125,7 +128,7 @@ export default {
     white-space: nowrap;
     text-shadow: 1px 1px 2px $black;
     line-height: 100%;
-    
+
     .peer--on-stage & {
       margin-top: $small-spacing;
       font-size: 4vw;
@@ -135,7 +138,7 @@ export default {
       font-size: 12px;
       line-height: 16px;
       margin-top: $tiny-spacing;
-      
+
       @media (min-width: $mobile) {
         font-size: 13px;
         line-height: 18px;

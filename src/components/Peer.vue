@@ -159,10 +159,10 @@
 <script>
 import yyid from "yyid"
 
-import Stream from "@/components/Stream.vue"
-import PeerStatus from "@/components/PeerStatus.vue"
-import Placeholder from "@/components/Placeholder.vue"
-import NetworkInfo from "@/components/NetworkInfo.vue"
+import Stream from "./Stream.vue"
+import PeerStatus from "./PeerStatus.vue"
+import Placeholder from "./Placeholder.vue"
+import NetworkInfo from "./NetworkInfo.vue"
 
 export default {
   props: {
@@ -248,14 +248,14 @@ export default {
   width: auto;
   height: auto;
   box-sizing: border-box;
-  
+
   /* Typography */
   font-size: 0;
-  
+
   /* Visual */
   opacity: 1;
   position: relative;
-  
+
   /* Include fade control mixin */
   @include fadeControl();
 
@@ -287,7 +287,7 @@ export default {
     /* Box model */
     border-top: $lobby-peer-padding solid transparent;
     border-left: $lobby-peer-padding solid transparent;
-    
+
     /* Media styles */
     .media {
       border-radius: $lobby-border-radius;
@@ -298,12 +298,12 @@ export default {
   .peer--party-landscape {
     /* Box model */
     border-right: $lobby-peer-padding solid transparent;
-    
+
     /* Last child in landscape */
     &:last-child {
       border-bottom: $lobby-peer-padding solid transparent;
     }
-    
+
     /* Media styles */
     .media {
       width: 100%;
@@ -314,12 +314,12 @@ export default {
   .peer--party-portrait {
     /* Box model */
     border-bottom: $lobby-peer-padding solid transparent;
-    
+
     /* Last child in portrait */
     &:last-child {
       border-right: $lobby-peer-padding solid transparent;
     }
-    
+
     /* Media styles */
     .media {
       height: 100%;
@@ -358,7 +358,7 @@ export default {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 50% 50%;
     padding: $stage-gap;
-    
+
     /* Media in grid */
     .peer .media {
       width: 100%;

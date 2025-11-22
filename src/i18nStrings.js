@@ -23,7 +23,7 @@ export default {
       `,
       palavaLogoTitle: "What is palava.tv?",
       roomIdPlaceholder: "Enter name of a meeting room",
-      twitter: "Twitter",
+      mastodon: "Mastodon",
     },
     info: {
       palavaLogoTitle: "Go to palava.tv home page",

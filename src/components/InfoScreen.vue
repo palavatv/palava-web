@@ -1,10 +1,12 @@
 <template>
   <aside
-    class="info-screen"
     tabindex="0"
+    role="button"
+    class="info-screen"
     @keydown.esc="$emit('close')"
   >
     <button
+      type="button"
       class="close"
       @click="$emit('close')"
     >
@@ -25,9 +27,9 @@
 </template>
 
 <script>
-import Navigation from '@/components/Navigation.vue'
-import i18nStrings from '@/i18nStrings'
-import { detectLanguage } from '@/support'
+import Navigation from "./Navigation.vue"
+import i18nStrings from '../i18nStrings'
+import { detectLanguage } from '../support'
 
 const lang = detectLanguage()
 
@@ -70,15 +72,15 @@ export default {
   right: 0;
   top: 0;
   bottom: 0;
-  
+
   // Visual
   opacity: 1;
   outline: none;
   overflow: auto;
-  
+
   // Shadow effect
   @include defaultShadow();
-  
+
   // Responsive styles
   @media (min-width: $mobile-plus) {
     left: $medium-spacing;
@@ -91,7 +93,7 @@ export default {
   @media (min-width: $desktop) {
     width: $desktop;
   }
-  
+
   @media (min-width: $desktop-large) {
     width: $desktop-plus;
   }

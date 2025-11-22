@@ -184,7 +184,16 @@ import Peer from "./Peer.vue";
 // const lang = detectLanguage()
 
 export default {
-  props: ["peers", "localPeer"],
+  props: {
+    peers: {
+      type: Array,
+      required: true
+    },
+    localPeer: {
+      type: Object,
+      required: true
+    },
+  },
   data() {
     return {
       partyMode: "landscape",
@@ -278,7 +287,8 @@ export default {
         do {
           newIndex = Math.floor(Math.random() * Math.floor(config.peerColors.length - 1));
         } while (this.peerColors[newIndex] !== null);
-        this.peerColors = this.peerColors.map((idOrNull, index) => (index === newIndex ? peer.id : idOrNull));
+        this.peerColors =
+          this.peerColors.map((idOrNull, index) => (index === newIndex ? peer.id : idOrNull));
       });
     },
     autoAdjustPeers(peers) {
@@ -356,11 +366,11 @@ export default {
   position: absolute;
   z-index: 1000;
   top: calc($small-control-size / 3);
-  
+
   /* Layout */
   display: flex;
   align-items: center;
-  
+
   /* Responsive styles */
   @media (min-width: $mobile) {
     top: calc($large-control-size / 3);
@@ -378,21 +388,21 @@ export default {
     /* Layout */
     height: $large-control-size;
     width: $large-control-size;
-    
+
     /* Visual */
     opacity: 0.7;
     filter: grayscale(1);
-    
+
     /* Mixins */
     @include knobLike();
     @include focusTitle();
-    
+
     /* Responsive */
     @media (min-width: $mobile) {
       height: $logo-control-size;
       width: $logo-control-size;
     }
-    
+
     /* States */
     &:focus,
     &:hover {
@@ -416,16 +426,16 @@ export default {
     /* Box model */
     height: $small-control-size;
     width: $small-control-size;
-    
+
     /* Include knob styles */
     @include knob();
-    
+
     /* Responsive */
     @media (min-width: $mobile) {
       height: $large-control-size;
       width: $large-control-size;
     }
-    
+
     /* States */
     &:focus,
     &:hover {
@@ -440,7 +450,7 @@ export default {
       font-size: calc($small-control-size / 2.2);
       text-transform: uppercase;
       transform: translate(-1px, 0px);
-      
+
       /* Responsive */
       @media (min-width: $mobile) {
         font-size: calc($large-control-size / 2.2);

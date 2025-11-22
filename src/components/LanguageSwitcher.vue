@@ -26,23 +26,23 @@ export default {
 .language-switcher {
   /* Typography */
   @include footerFont();
-  
+
   /* Wrap remaining styles in a nested block to avoid mixed declarations */
   & {
     /* Box model */
     padding: 0;
-    
+
     /* Typography */
     text-transform: uppercase;
     color: $shade;
-    
+
     /* Visual */
     border: none;
     background: none;
-    
+
     /* Interactive */
     cursor: pointer;
-    
+
     /* States */
     &:hover {
       color: $action-2;

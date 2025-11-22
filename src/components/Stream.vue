@@ -1,5 +1,7 @@
 <template>
   <video
+    tabindex="0"
+    role="button"
     autoplay
     playsinline
     :class="{
@@ -34,6 +36,7 @@ export default {
     },
     requestFullscreen: {
       type: String,
+      default: null,
     },
   },
   emits: ['click'],

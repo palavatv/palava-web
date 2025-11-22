@@ -31,11 +31,13 @@
     "@vue/eslint-config-airbnb": "^8.0.0",
     "eslint": "^8.57.1",
     "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-import-resolver-node": "^0.3.9",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-vue": "^9.33.0",
     "eslint-plugin-vuejs-accessibility": "^2.4.1",
     "path": "^0.12.7",
     "sass": "^1.89.2",
+    "sass-loader": "^16.0.5",
     "url": "^0.11.4",
     "vite": "^5.0.12"
   }

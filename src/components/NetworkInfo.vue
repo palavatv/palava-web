@@ -145,25 +145,25 @@ export default {
     /* Positioning */
     position: absolute;
     z-index: 700;
-    
+
     /* Box model */
     padding: 7px 8px 1px;
     border-radius: $lobby-border-radius;
-    
+
     /* Typography */
     text-align: left;
     font-size: 12px;
     line-height: 16px;
-    
+
     /* Visual */
     background: white;
     opacity: 0.8;
     color: $action-1;
-    
+
     /* Shadow effect */
     @include lightShadow();
   }
-  
+
   @media (min-width: $mobile) {
     font-size: 13px;
     line-height: 18px;
@@ -188,7 +188,7 @@ export default {
     font-size: 18px;
     line-height: 24px;
   }
-  
+
   .lobby & {
     position: fixed; // this is not correct...
   }

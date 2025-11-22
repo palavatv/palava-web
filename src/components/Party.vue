@@ -354,17 +354,17 @@ export default {
 .top-control {
   position: absolute;
   z-index: 1000;
-  top: calc($small-control-size / 3);
+  top: $small-control-size / 3;
   @media (min-width: $mobile) {
-    top: calc($large-control-size / 3);
+    top: $large-control-size / 3;
   }
   display: flex;
   align-items: center;
 
   .logo-control, .control {
-    margin-left: calc($small-control-size / 3);
+    margin-left: $small-control-size / 3;
     @media (min-width: $mobile) {
-      margin-left: calc($large-control-size / 3);
+      margin-left: $large-control-size / 3;
     }
   }
 
@@ -413,9 +413,9 @@ export default {
     }
 
     &--switch-language > * {
-      font-size: calc($small-control-size / 2.2);
+      font-size: $small-control-size / 2.2;
       @media (min-width: $mobile) {
-        font-size: calc($large-control-size / 2.2);
+        font-size: $large-control-size / 2.2;
       }
       transform: translate(-1px, 0px);
       text-transform: uppercase;

@@ -1,54 +1,13 @@
 {
-  "name": "palava-web",
-  "version": "1.1.0",
-  "author": "palava e. V.",
-  "license": "MIT",
-  "description": "The 2020 web front-end of palava.tv",
-  "keywords": [
-    "palava",
-    "webrtc",
-    "video chat"
-  ],
+  "name": "palava",
+  "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint"
+    "dev": "pnpm --filter @palava/web dev",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test"
   },
-  "dependencies": {
-    "@vue/compat": "^3.2.24",
-    "core-js": "^3.6.5",
-    "palava-client": "^2.2.1",
-    "register-service-worker": "^1.7.1",
-    "vue": "^3.2.24",
-    "vue-i18n": "^9.0.0",
-    "vue-inline-svg": "^1.3.1",
-    "vue-meta": "^2.3.3",
-    "vue-router": "^4.0.12",
-    "yyid": "2"
-  },
-  "devDependencies": {
-    "@babel/eslint-parser": "^7.16.3",
-    "@vue/cli-plugin-babel": "~4.5.15",
-    "@vue/cli-plugin-e2e-nightwatch": "~4.5.15",
-    "@vue/cli-plugin-eslint": "~4.5.15",
-    "@vue/cli-plugin-router": "~4.5.15",
-    "@vue/cli-plugin-unit-mocha": "~4.5.15",
-    "@vue/cli-plugin-vuex": "~4.5.15",
-    "@vue/cli-service": "~4.5.15",
-    "@vue/compiler-sfc": "^3.2.24",
-    "@vue/eslint-config-airbnb": "^6.0.0",
-    "@vue/test-utils": "^1.3.0",
-    "babel-eslint": "^10.1.0",
-    "chai": "^4.1.2",
-    "chromedriver": "88",
-    "eslint": "^7.0.0",
-    "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-vue": "^8.2.0",
-    "eslint-plugin-vuejs-accessibility": "^1.1.0",
-    "geckodriver": "^2.0.4",
-    "sass": "^1.44.0",
-    "sass-loader": "^10.0.0"
+  "engines": {
+    "node": ">=20"
   }
 }

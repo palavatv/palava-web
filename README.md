@@ -1,49 +1,35 @@
-# palava | web
+# palava
 
-[palava.tv](https://palava.tv) is a cost-free, simple to use, secure, and open source platform for video calls, built on top of the [WebRTC](https://webrtc.org/) technology.
+[palava.tv](https://palava.tv) is a cost-free, simple to use, secure, and open source platform for video calls, built on top of [WebRTC](https://webrtc.org/).
 
-This repository contains the current front-end web application of palava.tv. There is an overview of all parts of palava.tv at [palavatv/palava](https://github.com/palavatv/palava).
+This is a pnpm workspaces monorepo containing:
 
-## Setup
+- **[@palava/client](packages/client/)** — TypeScript WebRTC signaling library implementing the [palava protocol](https://github.com/nicwallace/palava-client/wiki/Protocol)
+- **[@palava/web](packages/web/)** — Vue 3 + TypeScript single-page app
 
-Make sure you have NodeJS and the YARN package manager installed. Then run:
+## Prerequisites
 
-    $ yarn install
+- [Node.js](https://nodejs.org/) >= 20
+- [pnpm](https://pnpm.io/) (`corepack enable` or `npm i -g pnpm`)
 
-You can then start the application on localhost:8080 using this command:
+## Getting Started
 
-    $ yarn serve
+```sh
+pnpm install
+pnpm dev
+```
 
-To build the static production version of the page, use:
+This starts the Vite dev server at `http://localhost:5173`. By default it connects to a local [signaltower](https://github.com/nicwallace/signaltower) instance at `ws://localhost:4233`.
 
-    $ yarn build
+## Scripts
 
-## Configuration
+| Command | Description |
+|---|---|
+| `pnpm dev` | Start Vite dev server |
+| `pnpm build` | Production build (both packages) |
+| `pnpm typecheck` | Type-check both packages |
 
-The following ENV variables can be passed to the above commands, or configured via an `.env.local` file:
+## License
 
-### `VUE_APP_RTC_URL`
-
-Sets the location to the palava signaling server. By default, it tries to reach a local [signaltower](https://github.com/farao/signaltower/) (or [palava-machine](https://github.com/palavatv/palava-machine/)) on port 4233. To use the palava.tv signaling server, start with:
-
-     VUE_APP_RTC_URL=wss://machine.palava.tv yarn serve
-
-### `VUE_APP_STUN_URL`
-
-The (required) [STUN server](https://en.wikipedia.org/wiki/STUN) to use, defaults to `stun:stun:stun.palava.tv`
-
-### `VUE_APP_TURN_URLS`
-
-The (optional) [TURN server](https://en.wikipedia.org/wiki/TURN) urls to use (comma separated).
-
-### `BUILD_NOT_MINIFIED`
-
-When set, the production build will not be minified.
-
-## Credits
-
-MIT License. Part of the [palava project](https://palava.tv).
-
-    Copyright (C) 2020 palava e. V.  contact@palava.tv
-
-Icon assets [Entypo+](http://www.entypo.com) by Daniel Bruce – CC BY-SA 4.0, and [Ionicons](https://ionicons.com/)
+- `packages/client` — [LGPL-3.0](packages/client/COPYING.LESSER)
+- `packages/web` — [MIT](packages/web/LICENSE)

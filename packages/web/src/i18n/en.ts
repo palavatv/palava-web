@@ -80,8 +80,17 @@ export default {
     microphoneAlt: 'microphone',
     screenShareTitle: 'Share screen',
     screenShareAlt: 'computer display',
+    chatTitle: 'Chat',
+    chatAlt: 'speech bubbles',
     hangUpTitle: 'Hang up',
     hangUpAlt: 'telephone handset facing downward',
+  },
+  chat: {
+    title: 'Chat',
+    closeTitle: 'Close chat',
+    emptyState: 'No messages yet',
+    inputPlaceholder: 'Type a message…',
+    sendButton: 'Send',
   },
   peer: {
     toggleEnlargeTitle: 'Enlarge',

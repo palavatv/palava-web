@@ -43,7 +43,7 @@
 
       <transition name="fade-control">
         <button
-          v-if="controlsActive && localPeer.hasVideo()"
+          v-if="controlsActive"
           :title="cameraOff ? t('party.turnOnCameraTitle') : t('party.turnOffCameraTitle')"
           class="control control--camera"
           @click="toggleCamera"
@@ -55,13 +55,25 @@
 
       <transition name="fade-control">
         <button
-          v-if="controlsActive && localPeer.hasAudio()"
+          v-if="controlsActive"
           :title="microphoneMuted ? t('party.unmuteMicrophoneTitle') : t('party.muteMicrophoneTitle')"
           class="control control--microphone"
           @click="toggleMicrophone"
         >
           <MicOffIcon v-if="microphoneMuted" :alt="t('party.microphoneAlt')" :aria-label="t('party.microphoneAlt')" />
           <MicIcon v-else :alt="t('party.microphoneAlt')" :aria-label="t('party.microphoneAlt')" />
+        </button>
+      </transition>
+
+      <transition name="fade-control">
+        <button
+          v-if="controlsActive"
+          :title="t('party.chatTitle')"
+          class="control control--chat"
+          @click="emit('toggle-chat')"
+        >
+          <ChatIcon :alt="t('party.chatAlt')" :aria-label="t('party.chatAlt')" />
+          <span v-if="unreadCount > 0" class="unread-badge">{{ unreadCount }}</span>
         </button>
       </transition>
 
@@ -138,6 +150,13 @@
         </transition-group>
       </div>
     </transition>
+
+    <ChatPanel
+      v-if="chatOpen"
+      :messages="chatMessages"
+      @close="emit('toggle-chat')"
+      @send="(text) => emit('send-chat-message', text)"
+    />
   </main>
 </template>
 
@@ -155,14 +174,22 @@ import VideoCameraOffIcon from '@/assets/icons/video-camera-off.svg?component'
 import MicIcon from '@/assets/icons/mic.svg?component'
 import MicOffIcon from '@/assets/icons/mic-off.svg?component'
 import PhoneIcon from '@/assets/icons/phone.svg?component'
+import ChatIcon from '@/assets/icons/chat.svg?component'
+import ChatPanel from '@/components/ChatPanel.vue'
+import type { DisplayMessage } from '@/components/ChatPanel.vue'
 
 const props = defineProps<{
   peers: Peer[]
   localPeer: LocalPeer
+  chatOpen: boolean
+  chatMessages: DisplayMessage[]
+  unreadCount: number
 }>()
 
 const emit = defineEmits<{
   'open-info-screen': [page: string]
+  'toggle-chat': []
+  'send-chat-message': [text: string]
 }>()
 
 const { t, locale } = useI18n()
@@ -266,20 +293,20 @@ function switchLanguage() {
 }
 
 function toggleMicrophone() {
+  const stream = props.localPeer.getStream()
+  if (!stream) return
   microphoneMuted.value = !microphoneMuted.value
-  if (microphoneMuted.value) {
-    props.localPeer.disableAudio()
-  } else {
-    props.localPeer.requestAudio()
+  for (const track of stream.getAudioTracks()) {
+    track.enabled = !microphoneMuted.value
   }
 }
 
 function toggleCamera() {
+  const stream = props.localPeer.getStream()
+  if (!stream) return
   cameraOff.value = !cameraOff.value
-  if (cameraOff.value) {
-    props.localPeer.disableVideo()
-  } else {
-    props.localPeer.requestVideo()
+  for (const track of stream.getVideoTracks()) {
+    track.enabled = !cameraOff.value
   }
 }
 
@@ -380,6 +407,23 @@ watch(() => props.peers, (newPeers, oldPeers) => {
       transform: rotate(225deg);
       fill: red;
     }
+  }
+
+  .unread-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: $action-3;
+    color: $white;
+    border-radius: 50%;
+    min-width: 16px;
+    height: 16px;
+    font-size: 10px;
+    line-height: 16px;
+    text-align: center;
+    padding: 0 3px;
+    filter: none;
+    opacity: 1;
   }
 
   @include fadeControl();

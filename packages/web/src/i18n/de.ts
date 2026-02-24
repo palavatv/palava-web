@@ -81,8 +81,17 @@ export default {
     microphoneAlt: 'Mikrofon',
     screenShareTitle: 'Bildschirm teilen',
     screenShareAlt: 'Desktop-Computer',
+    chatTitle: 'Chat',
+    chatAlt: 'Sprechblasen',
     hangUpTitle: 'Auflegen',
     hangUpAlt: 'Telefonhoerer nach unten zeigend',
+  },
+  chat: {
+    title: 'Chat',
+    closeTitle: 'Chat schliessen',
+    emptyState: 'Noch keine Nachrichten',
+    inputPlaceholder: 'Nachricht eingeben…',
+    sendButton: 'Senden',
   },
   peer: {
     toggleEnlargeTitle: 'Vergroessern',

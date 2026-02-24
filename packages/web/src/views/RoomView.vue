@@ -18,8 +18,13 @@
       v-bind="uiStateProps"
       :peers="peers"
       :localPeer="localPeer"
+      :chatOpen="chatOpen"
+      :chatMessages="chatMessages"
+      :unreadCount="unreadCount"
       @join-room="joinRoom"
       @open-info-screen="(page: string) => infoPage = page"
+      @toggle-chat="toggleChat"
+      @send-chat-message="sendChatMessage"
     />
   </div>
 </template>
@@ -28,7 +33,8 @@
 import { ref, computed, onBeforeUnmount, watchEffect, type Component, markRaw } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { Session, type Peer, type LocalPeer as LocalPeerType } from '@palava/client'
+import { Session, RemotePeer, type Peer, type LocalPeer as LocalPeerType } from '@palava/client'
+import type { DisplayMessage } from '@/components/ChatPanel.vue'
 import config from '@/config'
 import logger from '@/utils/logger'
 import { fancyNumber } from '@/utils/support'
@@ -52,6 +58,10 @@ const screenMessage = ref<string | null>(null)
 const peers = ref<Peer[]>([])
 const localPeer = ref<LocalPeerType | null>(null)
 const infoPage = ref<string | null>(null)
+const chatMessages = ref<DisplayMessage[]>([])
+const chatOpen = ref(false)
+const unreadCount = ref(0)
+let chatMessageId = 0
 let signalingState: 'initial' | 'connected' | 'reconnect_scheduled' | 'trying_to_reconnect' = 'initial'
 
 const joinSound = new Audio(enteringKnockUrl)
@@ -76,6 +86,53 @@ function updateUiState(component: Component, props: Record<string, unknown> = {}
   screenMessage.value = null
   uiStateComponent.value = markRaw(component)
   uiStateProps.value = props
+}
+
+function listenForChatMessages(peer: RemotePeer) {
+  peer.on('message', (data: unknown) => {
+    const msg = data as { type?: string; text?: string; timestamp?: number }
+    if (msg.type !== 'chat' || !msg.text) return
+    chatMessages.value = [...chatMessages.value, {
+      id: String(++chatMessageId),
+      peerId: peer.id,
+      peerName: peer.status.name || 'Peer',
+      text: msg.text,
+      timestamp: msg.timestamp || Date.now(),
+      own: false,
+    }]
+    if (!chatOpen.value) {
+      unreadCount.value++
+    }
+  })
+}
+
+function sendChatMessage(text: string) {
+  const timestamp = Date.now()
+  const payload = { type: 'chat', text, timestamp }
+
+  if (rtc.room) {
+    for (const peer of rtc.room.getRemotePeers()) {
+      if (peer instanceof RemotePeer) {
+        peer.sendMessage(payload)
+      }
+    }
+  }
+
+  chatMessages.value = [...chatMessages.value, {
+    id: String(++chatMessageId),
+    peerId: localPeer.value?.id || 'local',
+    peerName: 'You',
+    text,
+    timestamp,
+    own: true,
+  }]
+}
+
+function toggleChat() {
+  chatOpen.value = !chatOpen.value
+  if (chatOpen.value) {
+    unreadCount.value = 0
+  }
 }
 
 // Build session config
@@ -146,12 +203,20 @@ rtc.on('room_joined', (room) => {
 
   peers.value = allPeers
   localPeer.value = room.getLocalPeer()
+  for (const peer of room.getRemotePeers()) {
+    if (peer instanceof RemotePeer) {
+      listenForChatMessages(peer)
+    }
+  }
   updateUiState(PartyPanel)
 })
 
 rtc.on('peer_joined', (peer) => {
   logger.log('peer joined', peer)
   joinSound.play()
+  if (peer instanceof RemotePeer) {
+    listenForChatMessages(peer)
+  }
   if (rtc.room) peers.value = rtc.room.getAllPeers()
 })
 
@@ -171,6 +236,9 @@ rtc.on('peer_left', (peer) => {
 
 rtc.on('session_reconnect', () => {
   logger.log('trying to reconnect and rejoin room')
+  chatMessages.value = []
+  chatOpen.value = false
+  unreadCount.value = 0
 })
 
 rtc.on('session_before_destroy', () => {

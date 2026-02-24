@@ -102,7 +102,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { Peer, RemotePeer } from '@palava/client'
 import StreamVideo from '@/components/StreamVideo.vue'
@@ -135,13 +135,98 @@ const muted = ref(false)
 const peerMenuActiveInLobby = ref(true)
 const requestFullscreenToken = ref<string | null>(null)
 const networkInfoActive = ref(false)
+const isSpeaking = ref(false)
 
 const networkInfoBtn = ref<HTMLButtonElement>()
 const muteBtn = ref<HTMLButtonElement>()
 
+// Speaking detection (non-reactive locals)
+let audioContext: AudioContext | null = null
+let analyser: AnalyserNode | null = null
+let animFrameId: number | null = null
+
+function startSpeakingDetection() {
+  stopSpeakingDetection()
+
+  const stream = props.peer.getStream?.()
+  if (!stream) return
+
+  const audioTracks = stream.getAudioTracks()
+  if (!audioTracks.length) return
+
+  audioContext = new AudioContext()
+  const source = audioContext.createMediaStreamSource(stream)
+  analyser = audioContext.createAnalyser()
+  analyser.fftSize = 256
+  analyser.smoothingTimeConstant = 0.5
+  source.connect(analyser)
+
+  const dataArray = new Uint8Array(analyser.frequencyBinCount)
+
+  function poll() {
+    if (!analyser) return
+    analyser.getByteFrequencyData(dataArray)
+    let sum = 0
+    for (let i = 0; i < dataArray.length; i++) {
+      sum += dataArray[i]
+    }
+    const average = sum / dataArray.length
+    isSpeaking.value = average > 18
+    animFrameId = requestAnimationFrame(poll)
+  }
+
+  animFrameId = requestAnimationFrame(poll)
+}
+
+function stopSpeakingDetection() {
+  if (animFrameId !== null) {
+    cancelAnimationFrame(animFrameId)
+    animFrameId = null
+  }
+  if (audioContext) {
+    audioContext.close()
+    audioContext = null
+  }
+  analyser = null
+  isSpeaking.value = false
+}
+
+// Reactive trigger to re-evaluate status when peer stream changes
+const peerStreamVersion = ref(0)
+function onPeerStreamChange() {
+  peerStreamVersion.value++
+}
+
+function onStreamReady() {
+  onPeerStreamChange()
+  startSpeakingDetection()
+}
+
+function onStreamRemoved() {
+  onPeerStreamChange()
+  stopSpeakingDetection()
+}
+
+onMounted(() => {
+  props.peer.on('stream_ready', onStreamReady)
+  props.peer.on('stream_removed', onStreamRemoved)
+
+  // Start detection if the peer already has a stream
+  if (props.peer.hasAudio()) {
+    startSpeakingDetection()
+  }
+})
+onBeforeUnmount(() => {
+  props.peer.off('stream_ready', onStreamReady)
+  props.peer.off('stream_removed', onStreamRemoved)
+  stopSpeakingDetection()
+})
+
 const peerMenuActive = computed(() => peerMenuActiveInLobby.value)
 
 const status = computed(() => {
+  // Access reactive trigger so Vue recomputes on stream changes
+  void peerStreamVersion.value
   if (props.peer.error) return 'error'
   if (!props.peer.isReady()) return 'not-ready'
   if (props.peer.hasVideo()) return 'video'
@@ -162,6 +247,7 @@ const peerClasses = computed(() => ({
   'peer--has-media': props.peer.hasVideo(),
   'peer--has-no-video': !props.peer.hasVideo(),
   'peer--has-error': props.peer.hasError(),
+  'peer--is-speaking': isSpeaking.value,
   'peer--in-lobby': props.type === 'lobby',
   'peer--on-stage': props.type === 'stage',
   'peer--party-landscape': props.partyMode === 'landscape',
@@ -221,6 +307,20 @@ function hideNetworkInfo() {
 
   &--is-local {
     video { transform: scale(-1, 1); }
+  }
+
+  &--is-speaking .media {
+    outline: 3px solid rgba($action-1, 0.85);
+    outline-offset: -3px;
+    box-shadow: inset 0 0 14px rgba($action-1, 0.4);
+    transition: outline-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  &:not(.peer--is-speaking) .media {
+    outline: 3px solid transparent;
+    outline-offset: -3px;
+    box-shadow: inset 0 0 14px transparent;
+    transition: outline-color 0.3s ease, box-shadow 0.3s ease;
   }
 }
 

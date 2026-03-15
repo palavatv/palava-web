@@ -150,7 +150,7 @@ export class RemotePeer extends Peer<RemotePeerEvents> {
       }
     }
 
-    // Handle negotiationneeded event
+    // Handle negotiationneeded event - queue an offer
     this.peerConnection.onnegotiationneeded = () => {
       this.queueNegotiation(() => this.createAndSendOffer())
     }
@@ -212,15 +212,22 @@ export class RemotePeer extends Peer<RemotePeerEvents> {
       })
   }
 
-  /** Handles an incoming offer */
+  /**
+   * Handles an incoming offer
+   *
+   * This is queued via queueNegotiation to prevent race conditions
+   */
   private handleOffer(sdp: RTCSessionDescriptionInit): Promise<void> {
     if (!this.peerConnection) return Promise.resolve()
 
-    // If we're impolite and have a pending local offer, ignore incoming offer
+    // Check for offer collision: both peers sent offers at the same time
+    // If we're impolite (hasOfferPriority) and we have a pending local offer, ignore incoming offer
     if (this.hasOfferPriority && this.peerConnection.signalingState === 'have-local-offer') {
       return Promise.resolve()
     }
 
+    // If we're polite and have a pending local offer, implicit rollback will happen
+    // when we call setRemoteDescription with the incoming offer
     return this.peerConnection
       .setRemoteDescription(sdp)
       .then(() => this.peerConnection!.createAnswer())
@@ -234,7 +241,11 @@ export class RemotePeer extends Peer<RemotePeerEvents> {
       })
   }
 
-  /** Handles an incoming answer */
+  /**
+   * Handles an incoming answer
+   *
+   * This is queued via queueNegotiation to prevent race conditions
+   */
   private handleAnswer(sdp: RTCSessionDescriptionInit): Promise<void> {
     if (!this.peerConnection) return Promise.resolve()
 
@@ -246,13 +257,23 @@ export class RemotePeer extends Peer<RemotePeerEvents> {
     return this.peerConnection.setRemoteDescription(sdp)
   }
 
-  /** Adds a new track to this peer connection */
+  /**
+   * Adds a new track to this peer connection
+   *
+   * Used when the local user enables video/audio after initially joining
+   * without it. Triggers renegotiation via onnegotiationneeded
+   */
   addTrack(track: MediaStreamTrack, stream: MediaStream): void {
     if (!this.peerConnection) return
     this.peerConnection.addTrack(track, stream)
   }
 
-  /** Removes a track from this peer connection */
+  /**
+   * Removes a track from this peer connection
+   *
+   * Used when the local user disables video/audio. Triggers renegotiation via
+   * onnegotiationneeded.
+   */
   removeTrack(track: MediaStreamTrack): void {
     if (!this.peerConnection) return
     const sender = this.peerConnection.getSenders().find((s) => s.track === track)
@@ -335,7 +356,12 @@ export class RemotePeer extends Peer<RemotePeerEvents> {
     this.setupLocalPeerListeners()
   }
 
-  /** Listen for video/audio added/removed events from the local peer */
+  /**
+    * Add and remove local video/audio to the peerconnection
+    *
+    * Listen for video/audio added/removed events from the local peer. Adds the
+    * corresponding tracks to the peer connection.
+    */
   private setupLocalPeerListeners(): void {
     this.localPeerVideoAddedHandler = (track, stream) => {
       this.addTrack(track, stream)

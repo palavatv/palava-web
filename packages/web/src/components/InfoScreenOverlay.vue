@@ -1,5 +1,6 @@
 <template>
   <aside class="info-screen" tabindex="0" @keydown.esc="emit('close')">
+    <LanguageSwitcher class="info-screen__language-switcher" />
     <button class="close" @click="emit('close')">
       <CrossIcon :aria-label="t('closeAlt')" />
     </button>
@@ -18,6 +19,7 @@
 import { computed, ref, watch, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import NavigationBar from '@/components/NavigationBar.vue'
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import CrossIcon from '@/assets/icons/cross.svg?component'
 import en from '@/i18n/en'
 import de from '@/i18n/de'
@@ -73,6 +75,12 @@ watch(() => props.page, (newPage) => {
   @include defaultShadow();
   outline: none;
   overflow: auto;
+
+  .info-screen__language-switcher {
+    position: absolute;
+    top: $small-plus-spacing;
+    right: 48px;
+  }
 
   .close {
     @include inlineButton();

@@ -1,49 +1,71 @@
 <template>
-  <div class="peer-status" @click="emit('click')" @keypress.enter="emit('click')">
+  <div
+    tabindex="0"
+    role="button"
+    class="peer-status"
+    @click="emit('click')"
+    @keypress.enter="emit('click')"
+  >
     <div v-if="status === 'audio'">
-      <PhoneIcon class="symbol" :alt="t('peer.statusAudioAlt')" :aria-label="t('peer.statusAudioAlt')" />
+      <PhoneIcon class="symbol" :aria-label="t('peer.statusAudioAlt')" role="img" />
     </div>
     <div v-else-if="status === 'not-ready'">
-      <span class="symbol" role="img" :aria-label="t('peer.statusNotReadyAlt')">
-        <div class="lds-grid"><div /><div /><div /><div /><div /><div /><div /><div /><div /></div>
+      <span
+        class="symbol"
+        role="img"
+        :aria-label="t('peer.statusNotReadyAlt')"
+      >
+        <LoadingSpinner />
       </span>
-      <div class="description">{{ t('peer.waiting') }}</div>
+      <p class="description">
+        {{ t('peer.waiting') }}
+      </p>
     </div>
     <div v-else-if="status === 'no-media'">
-      <BlockIcon class="symbol" :aria-label="t('peer.statusNoMediaAlt')" :alt="t('peer.statusNoMediaAlt')" />
-      <div class="description">{{ t('peer.noMedia') }}</div>
+      <BlockIcon class="symbol" :aria-label="t('peer.statusNoMediaAlt')" role="img" />
+      <p class="description">
+        {{ t('peer.noMedia') }}
+      </p>
     </div>
     <div v-else-if="status === 'error'">
-      <CircleCrossIcon class="symbol" :aria-label="t('peer.statusErrorAlt')" :alt="t('peer.statusErrorAlt')" />
-      <div v-if="error === 'connection_closed'" class="description">{{ t('peer.errorConnectionClosed') }}</div>
-      <div v-else-if="error === 'connection_failed'" class="description">{{ t('peer.errorConnectionFailed') }}</div>
-      <div v-else-if="error === 'connection_disconnected'" class="description">{{ t('peer.errorConnectionDisconnected') }}</div>
+      <CircleWithCrossIcon class="symbol" :aria-label="t('peer.statusErrorAlt')" role="img" />
+      <p v-if="error === 'connection_closed'" class="description">
+        {{ t('peer.errorConnectionClosed') }}
+      </p>
+      <p v-else-if="error === 'connection_failed'" class="description">
+        {{ t('peer.errorConnectionFailed') }}
+      </p>
+      <p v-else-if="error === 'connection_disconnected'" class="description">
+        {{ t('peer.errorConnectionDisconnected') }}
+      </p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
 import PhoneIcon from '@/assets/icons/phone.svg?component'
 import BlockIcon from '@/assets/icons/block.svg?component'
-import CircleCrossIcon from '@/assets/icons/circle-with-cross.svg?component'
+import CircleWithCrossIcon from '@/assets/icons/circle-with-cross.svg?component'
+
+const { t } = useI18n()
 
 defineProps<{
   status: string
   error?: string | null
 }>()
 
-const emit = defineEmits<{ click: [] }>()
-const { t } = useI18n()
+const emit = defineEmits<{
+  click: []
+}>()
 </script>
 
 <style lang="scss">
 .peer-status {
   position: absolute;
-  left: $stage-gap;
-  right: $stage-gap;
-  top: $stage-gap;
-  bottom: $stage-gap;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
   overflow: hidden;
 
   display: flex;
@@ -92,37 +114,5 @@ const { t } = useI18n()
       line-height: 100%;
     }
   }
-}
-
-// based on https://loading.io/css/
-.lds-grid {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-  .peer--in-lobby & { transform: scale(80%); }
-  .peer--on-stage & { transform: scale(120%); }
-}
-.lds-grid div {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #fff;
-  animation: lds-grid 1.2s linear infinite;
-  box-shadow: 1px 1px 5px $black;
-}
-.lds-grid div:nth-child(1) { top: 8px; left: 8px; animation-delay: 0s; }
-.lds-grid div:nth-child(2) { top: 8px; left: 32px; animation-delay: -0.4s; }
-.lds-grid div:nth-child(3) { top: 8px; left: 56px; animation-delay: -0.8s; }
-.lds-grid div:nth-child(4) { top: 32px; left: 8px; animation-delay: -0.4s; }
-.lds-grid div:nth-child(5) { top: 32px; left: 32px; animation-delay: -0.8s; }
-.lds-grid div:nth-child(6) { top: 32px; left: 56px; animation-delay: -1.2s; }
-.lds-grid div:nth-child(7) { top: 56px; left: 8px; animation-delay: -0.8s; }
-.lds-grid div:nth-child(8) { top: 56px; left: 32px; animation-delay: -1.2s; }
-.lds-grid div:nth-child(9) { top: 56px; left: 56px; animation-delay: -1.6s; }
-@keyframes lds-grid {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
 }
 </style>

@@ -7,23 +7,22 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
-    "typecheck": "vue-tsc --noEmit",
-    "preview": "vite preview"
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "typecheck": "nuxt typecheck"
   },
   "dependencies": {
     "@palava/client": "workspace:*",
-    "vue": "^3.5.13",
-    "vue-router": "^4.5.0",
-    "vue-i18n": "^10.0.5"
+    "vue": "^3.5.13"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^5.2.1",
-    "vite": "^6.1.0",
-    "vite-svg-loader": "^5.1.0",
-    "vue-tsc": "^2.2.0",
+    "@nuxtjs/i18n": "^9.2.0",
+    "@vite-pwa/nuxt": "^0.10.6",
+    "nuxt": "^3.15.4",
+    "sass-embedded": "^1.83.4",
     "typescript": "^5.7.3",
-    "sass-embedded": "^1.83.4"
+    "vite-svg-loader": "^5.1.0"
   }
 }

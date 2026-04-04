@@ -4,7 +4,7 @@ export default {
   moreInfoAlt: 'Info Symbol',
   palavaLogoAlt: 'palava Papagei',
   switchLanguageTitle: 'Sprache umschalten',
-  switchLanguageAlt: 'Sprachkuerzel',
+  switchLanguageAlt: 'Sprachkürzel',
   home: {
     blog: 'Blog',
     github: 'GitHub',
@@ -12,59 +12,62 @@ export default {
     goAlt: 'Zwei Leute',
     hiddenRoomIntro: 'Oder starte ein',
     hiddenRoom: 'verstecktes Meeting',
-    hiddenRoomTitle: 'Erstelle ein Meetingraum mit einem zufaelligem Namen',
+    hiddenRoomTitle: 'Erstelle ein Meetingraum mit einem zufälligem Namen',
     noSupportMessage: `
-      Entschuldigung, aber wir konnten die benoetigte WebRTC-Technologie im Webbrowser nicht finden.<br/>
+      Entschuldigung, aber wir konnten die benötigte WebRTC-Technologie im Webbrowser nicht finden.<br/>
       <br/>
-      Um palava.tv benutzen zu koennen, musst du einen Webbrowser mit Unterstuetzung fuer WebRTC installieren, wie zum Beispiel Firefox.
+      Um palava.tv benutzen zu können, musst du einen Webbrowser mit Unterstützung für WebRTC installieren, wie zum Beispiel Firefox.
       Eventuell reicht es bereits aus, den jetzigen Browser auf die neuste Version upzudaten.
     `,
     palavaLogoTitle: 'Was ist palava.tv?',
     roomIdPlaceholder: 'Gib den Namen eines Meetingraums ein',
-    twitter: 'Twitter',
+    mastodon: 'Mastodon',
   },
   info: {
-    palavaLogoTitle: 'Zur palava.tv-Startseite',
+    palavaLogoTitle: 'Gehe zur palava.tv Startseite',
     confirmLeave: 'Dies wird die derzeitige palava.tv-Sitzung beenden. Fortfahren?',
   },
   room: {
-    aboutPalava: 'Mehr ueber palava.tv erfahren',
+    aboutPalava: 'Mehr über palava.tv erfahren',
     emptyTitle: 'Meetingraum',
     errorFullHeading: 'Dieser palava.tv Meetingraum ist voll',
     errorFullDescription: 'Du kannst diesen Meetingraum nicht betreten, weil die maximale Anzahl an Nutzern darin ereicht ist.',
     errorFullTryAgain: 'Versuche es nochmal!',
-    errorMaintenanceHeading: 'Entschuldigung, deine Verbindung wird zurueckgesetzt',
-    errorMaintenanceDescription: 'Wegen Wartungsarbeiten des palava.tv-Servers, verlierst du deine Verbindung. Wir entschuldingen uns fuer etwaige daraus entstandene Unannehmlichkeiten.',
+    errorMaintenanceHeading: 'Entschuldigung, deine Verbindung wird zurückgesetzt',
+    errorMaintenanceDescription: 'Wegen Wartungsarbeiten des palava.tv-Servers, verlierst du deine Verbindung. Wir entschuldingen uns für etwaige daraus entstandene Unannehmlichkeiten.',
     errorMaintenanceTryAgain: 'Bitte lade in einigen Augenblicken neu!',
-    errorConnectionHeading: 'Nicht moeglich diesen palava.tv Meetingraum zu betreten',
-    errorConnectionDescription: 'Die Verbindung zu palava.tv konnte nicht hergestellt werden. Der Grund dafuer koennte ein Fehler mit der Internetverbindung sein.',
+    errorConnectionHeading: 'Nicht möglich diesen palava.tv Meetingraum zu betreten',
+    errorConnectionDescription: 'Die Verbindung zu palava.tv konnte nicht hergestellt werden. Der Grund dafür könnte ein Fehler mit der Internetverbindung sein.',
     errorConnectionTryAgain: 'Versuche es nochmal!',
-    gumChooseMedia: 'Bitte waehle, ob du dein Video und Audio an die Anderen im Meetingraum senden moechtest, oder nur eins von beiden:',
+    gumChooseMedia: 'Bitte wähle, ob du dein Video und Audio an die Anderen im Meetingraum senden möchtest, oder nur eins von beiden:',
     gumChoiceVideoAndAudio: 'Video und Audio',
     gumChoiceVideo: 'Nur Video',
     gumChoiceAudio: 'Nur Audio',
     gumChoiceNoMedia: 'Nur Text',
     gumErrorReasons: `
       <p>
-        Moegliche Gruende und Loesungen:
+        Mögliche Gründe und Lösungen:
       </p>
+
       <ul>
-        <li>Du hast den Zugriff abgelehnt. Probier es nocheinmal, indem du auf einen der obigen Knoepfe drueckst.</li>
+        <li>Du hast den Zugriff abgelehnt. Probier es nocheinmal, indem du au einen der obigen Knöpfe drückst.</li>
         <li>Du hast bei einem vorigem Besuch den Zugriff von palava.tv auf dein Mikrofon oder deine Kamera nicht gestattet.
-        Du musst das Zugriffsverbot in deinen Browsereinstellungen aufheben, um dem Meetingraum beitreten zu koennen.
-        In den meisten Browsern ist das moeglich, indem man auf ein kleines Kamerasymbol in der Adresszeile klickt.</li>
+        Du musst das Zugriffsverbot in deinen Browsereinstellungen aufheben, um dem Meetingraum beitreten zu können.
+        In den meisten Browsern ist das möglich, indem man auf ein kleines Kamerasymbol in der Adresszeile klickt.</li>
         <li>Ein anderes Programm auf deinem Computer benutzt die Kamera. Beende das Programm und probiere es noch einmal.</li>
       </ul>
     `,
-    gumErrorHeading: 'palava.tv konnte nicht auf den gewuenschten Medienstrom zugreifen',
+    gumErrorHeading: 'palava.tv konnte nicht auf den gewünschten Medienstrom zugreifen',
     gumHeading: 'Du bist dabei, einen palava.tv Meetingraum zu betreten',
     gumIntro: `
-      Dies wird einem Videochat mit allen, die auch mit dieser Seite verbunden sind, beitreten oder einen neuen eroeffnen.
-      Aus technischen Gruenden werden deine IP-Adresse und andere persoenliche Daten ueber den palava.tv-Server an alle
-      anderen Teilnehmer_innen gesendet. Durch das Fortfahren, stimmst du unserer Datenschutzerklaerung zu,
+      Dies wird einem Videochat mit allen, die auch mit dieser Seite verbunden sind, beitreten oder einen neuen eröffnen.
+      Aus technischen Gründen werden deine IP-Adresse und andere persönliche Daten über den palava.tv-Server an alle
+      anderen Teilnehmer_innen gesendet. Durch das Fortfahren, stimmst du unserer Datenschutzerklärung zu,
       <a href="/info/privacy">du kannst sie hier lesen</a>.
     `,
-    waitingForUserMedia: 'Warte auf Medienstroeme',
+    gumNamePlaceholder: 'Dein Name (optional)',
+    gumSoundsEnabled: 'Soundeffekte wenn Leute beitreten/gehen',
+    waitingForUserMedia: 'Warte auf Medienströme',
     waitingForRoomServer: 'Internetverbindung instabil,<br/>versuche Server zu erreichen',
   },
   party: {
@@ -82,39 +85,41 @@ export default {
     screenShareTitle: 'Bildschirm teilen',
     screenShareAlt: 'Desktop-Computer',
     hangUpTitle: 'Auflegen',
-    hangUpAlt: 'Telefonhoerer nach unten zeigend',
+    hangUpAlt: 'Telefonhörer nach unten zeigend',
   },
   peer: {
-    toggleEnlargeTitle: 'Vergroessern',
+    toggleEnlargeTitle: 'Vergrößern',
     toggleEnlargeAlt: 'Pfeil mit Spitze nach oben links',
     toggleMinimizeTitle: 'Verkleinern',
     toggleMinimizeAlt: 'Pfeil mit Spitze nach unten rechts',
-    fullScreenTitle: 'Auf vollem Bildschirm anzeigen',
+    fullScreenTitle: 'Auf vollem Bild­schirm anzeigen',
     fullScreenAlt: 'Viereck aus vier Ecken',
-    networkInfoTitle: 'Netzwerkinformationen anzeigen',
+    networkInfoTitle: 'Netzwerk­infor­mationen anzeigen',
     networkInfoAlt: 'Erdkugel mit Netzwerk',
-    muteAudioTitle: 'Stummschalten',
-    unmuteAudioTitle: 'Lautschalten',
-    mutedAudioAlt: 'Lautsprecher ohne Geraeusch',
-    withAudioAlt: 'Lautsprecher mit Geraeusch',
-    placeholderAlt: 'Flaeche ausgefuellt mit der Farbe {color}',
-    statusAudioAlt: 'Telefonhoerer',
+    muteAudioTitle: 'Stumm­schalten',
+    unmuteAudioTitle: 'Laut­schalten',
+    mutedAudioAlt: 'Lautsprecher ohne Geräusch',
+    withAudioAlt: 'Lautsprecher mit Geräusch',
+    placeholderAlt: 'Fläche ausgefüllt mit der Farbe {color}',
+    statusAudioAlt: 'Telefonhörer',
     statusNotReadyAlt: 'Pulsierende Punkte',
     statusNoMediaAlt: 'Kreis mit diagonalem Balken',
     statusErrorAlt: 'Kreis mit Kreuz',
     errorConnectionClosed: 'Verbindung geschlossen',
     errorConnectionFailed: 'Keine Verbindung',
     errorConnectionDisconnected: 'Verbindung getrennt',
-    noMedia: 'Keine Medienstroeme',
+    noMedia: 'Keine Medienströme',
     waiting: 'Warte',
   },
   networkInfo: {
     directConnection: 'Direktverbindung',
-    relayedConnection: 'Verbindung ueber Zwischenstation',
+    relayedConnection: 'Verbindung über Zwischenstation',
     remoteIps: 'Ferne IP-Adressen',
     localIps: 'Deine IP-Adressen',
-    ipTitle: '',
-    ipAlt: '',
+    cLineIpTitle: 'Standard IP-Adresse',
+    cLineIpAlt: 'Stern',
+    iceIpTitle: 'Kandidaten IP-Adresse',
+    iceIpAlt: 'Kreis',
     ipIsRelay: 'Zwischenstation',
     unknownConnection: 'Unbekannter Verbindungsstatus',
   },
@@ -122,22 +127,12 @@ export default {
     {
       id: 'about',
       title: 'Info',
-      content: `
-        <h2>Info</h2>
-        <p>
-          Hier Informationen ueber die palava.tv-Installation einfuegen
-        </p>
-      `,
+      content: `Hier Informationen über die palava.tv-Installation einfügen`,
     },
     {
       id: 'contact',
       title: 'Kontakt',
-      content: `
-        <h2>Kontakt</h2>
-        <p>
-          Hier die Kontaktmoeglichkeiten eintragen
-        </p>
-      `,
+      content: `Hier die Kontaktmöglichkeiten eintragen`,
     },
     {
       id: 'network',
@@ -150,16 +145,17 @@ export default {
         </p>
         <br/>
         <ul>
-          <li><strong>Direkt:</strong> Dein Geraet ist direkt mit dem anderen Geraet verbunden</li>
-          <li><strong>Mit Zwischenstation:</strong> Beide Geraete senden ihre Daten an eine Zwischenstation. Das ist manchmal notwendig, um eine erfolgreiche Verbindung herstellen zu koennen. Der Zwischenuebertragungsserver hat keine Zugriff auf die Daten.</li>
+          <li><strong>Direkt:</strong> Dein Gerät ist direkt mit dem anderen Gerät verbunden</li>
+          <li><strong>Mit Zwischenstation:</strong> Beide Geräte senden ihre Daten an eine Zwischenstation. Das ist manchmal notwendig, um eine erfolgreiche Verbindung herstellen zu können. Der Zwischenübertragungsserver hat keine Zugriff auf die Daten.</li>
         </ul>
+        <p>Zur Zeit sind alle Verbindungen <strong>direkt</strong>. Wir arbeiten daran, demnächst Zwischenübertragungsserver bereit zu stellen.</p>
 
         <h2>Ferne &amp; Eigene IPs</h2>
         <p>
-          Um eine funktionierende Verbindung herzustellen, muessen beide Parteien sich gegenseitig alle ihre IP-Adressen senden, inklusive welche, aus dem eigenen (lokalen) Netzwerk.
+          Um eine funktionierende Verbindung herzustellen, müssen beide Parteien sich gegenseitig alle ihre IP-Adressen senden, inklusive welche, aus dem eigenen (lokalen) Netzwerk.
         </p>
         <p>
-          IP-Adressen koennen im IPv4-Format (X.X.X.X), oder im IPv6-Format vorkommen (X:X:X:X:X:X:X:X).
+          IP-Adressen können im IPv4-Fromat (X.X.X.X), oder im IPv6-Format vorkommen (X:X:X:X:X:X:X:X).
         </p>
       `,
     },
@@ -170,7 +166,7 @@ export default {
       content: `
         <h2>Nicht gefunden</h2>
         <p>
-          Die Seite konnte nicht gefunden werden. Der Inhalt koennte verschwunden sein, oder vielleicht hast du die URL falsch eingegeben.
+          Die Seite konnte nicht gefunden werden. Der Inhalt könnte verschwunden sein, oder vielleicht hast du die URL falsch eingegeben.
         </p>
       `,
     },

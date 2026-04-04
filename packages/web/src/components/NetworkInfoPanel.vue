@@ -1,14 +1,23 @@
 <template>
   <aside class="network-info">
-    <button class="close" @click="emit('close')">
-      <CrossIcon :alt="t('closeAlt')" :aria-label="t('closeAlt')" />
+    <button
+      type="button"
+      class="close"
+      @click="emit('close')"
+    >
+      <CrossIcon :aria-label="t('closeAlt')" role="img" />
     </button>
 
     <section>
       <h2>
         {{ relayStatusLocalized }}
-        <button class="more-info" @click="emit('open-info-screen', 'network')" :title="t('moreInfoTitle')">
-          <InfoIcon :alt="t('moreInfoAlt')" :aria-label="t('moreInfoAlt')" />
+        <button
+          type="button"
+          class="more-info"
+          @click="emit('open-info-screen', 'network')"
+          :title="t('moreInfoTitle')"
+        >
+          <InfoWithCircleIcon :aria-label="t('moreInfoAlt')" role="img" />
         </button>
       </h2>
     </section>
@@ -16,8 +25,12 @@
     <section>
       <h3>{{ t('networkInfo.remoteIps') }}</h3>
       <ul>
-        <li v-for="ip in allRemoteIps" :key="ip" :title="t('networkInfo.ipTitle')">
-          <DotIcon :aria-label="t('networkInfo.ipAlt')" :alt="t('networkInfo.ipAlt')" />
+        <li
+          v-for="ip in allRemoteIps"
+          :key="ip"
+          :title="t('networkInfo.ipTitle')"
+        >
+          <DotSingleIcon :aria-label="t('networkInfo.ipAlt')" role="img" />
           {{ ip }}
           <span v-if="allRelayIps.includes(ip)"> ({{ t('networkInfo.ipIsRelay') }})</span>
         </li>
@@ -27,8 +40,12 @@
     <section>
       <h3>{{ t('networkInfo.localIps') }}</h3>
       <ul>
-        <li v-for="ip in allLocalIps" :key="ip" :title="t('networkInfo.ipTitle')">
-          <DotIcon :aria-label="t('networkInfo.ipAlt')" :alt="t('networkInfo.ipAlt')" />
+        <li
+          v-for="ip in allLocalIps"
+          :key="ip"
+          :title="t('networkInfo.ipTitle')"
+        >
+          <DotSingleIcon :aria-label="t('networkInfo.ipAlt')" role="img" />
           {{ ip }}
           <span v-if="allRelayIps.includes(ip)"> ({{ t('networkInfo.ipIsRelay') }})</span>
         </li>
@@ -38,36 +55,24 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import { useI18n } from 'vue-i18n'
 import type { RemotePeer } from '@palava/client'
-import { getRemoteIps, getLocalIps, getRelayIps, getMyRelayStatus } from '@/composables/useWebrtc'
 import CrossIcon from '@/assets/icons/cross.svg?component'
-import InfoIcon from '@/assets/icons/info-with-circle.svg?component'
-import DotIcon from '@/assets/icons/dot-single.svg?component'
+import InfoWithCircleIcon from '@/assets/icons/info-with-circle.svg?component'
+import DotSingleIcon from '@/assets/icons/dot-single.svg?component'
 
-const props = defineProps<{ peer: RemotePeer }>()
+const { getRemoteIps, getLocalIps, getRelayIps, getMyRelayStatus } = useWebRTC()
+const { t } = useI18n()
+
+const props = defineProps<{
+  peer: RemotePeer
+}>()
+
 const emit = defineEmits<{
   close: []
   'open-info-screen': [page: string]
 }>()
 
-const { t } = useI18n()
-const relayStatus = ref<string | null>(null)
-
-onMounted(() => {
-  if (!props.peer.peerConnection) return
-
-  getMyRelayStatus(props.peer.peerConnection).then((iAmRelayed) => {
-    if (iAmRelayed) {
-      relayStatus.value = 'relayed'
-    } else if (allRemoteIps.value?.some((ip) => allRelayIps.value.includes(ip))) {
-      relayStatus.value = 'relayed'
-    } else {
-      relayStatus.value = 'direct'
-    }
-  })
-})
+const relayStatus = ref<'relayed' | 'direct' | null>(null)
 
 const allLocalIps = computed(() => getLocalIps(props.peer.peerConnection))
 const allRemoteIps = computed(() => getRemoteIps(props.peer.peerConnection))
@@ -78,12 +83,24 @@ const relayStatusLocalized = computed(() => {
   if (relayStatus.value === 'direct') return t('networkInfo.directConnection')
   return t('networkInfo.unknownConnection')
 })
+
+onMounted(async () => {
+  if (!props.peer.peerConnection) return
+
+  const iAmRelayed = await getMyRelayStatus(props.peer.peerConnection)
+  if (iAmRelayed) {
+    relayStatus.value = 'relayed'
+  } else if (allRemoteIps.value?.some((ip) => allRelayIps.value.includes(ip))) {
+    relayStatus.value = 'relayed'
+  } else {
+    relayStatus.value = 'direct'
+  }
+})
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .network-info {
   position: absolute;
-  .lobby & { position: fixed; }
   z-index: 700;
   border-radius: $lobby-border-radius;
   background: white;
@@ -93,29 +110,6 @@ const relayStatusLocalized = computed(() => {
   @include lightShadow();
   @include defaultFont();
   text-align: left;
-
-  .peer--on-stage & {
-    bottom: 60px;
-    left: calc(50% - 150px);
-  }
-
-  .peer--in-lobby.peer--party-landscape & {
-    right: $lobby-width-mobile + $small-spacing;
-    @media (min-width: $mobile-plus)  { right: $lobby-width-mobile-plus + $small-spacing; }
-    @media (min-width: $desktop)      { right: $lobby-width-desktop + $small-spacing; }
-    @media (min-width: $desktop-plus) { right: $lobby-width-desktop-plus + $small-spacing; }
-    @media (min-width: $desktop-large){ right: $lobby-width-desktop-large + $small-spacing; }
-    @media (min-width: $desktop-huge) { right: $lobby-width-desktop-huge + $small-spacing; }
-  }
-
-  .peer--in-lobby.peer--party-portrait & {
-    bottom: $lobby-height-mobile + $small-spacing;
-    @media (min-height: $mobile-plus-height)  { bottom: $lobby-height-mobile-plus + $small-spacing; }
-    @media (min-height: $desktop-height)      { bottom: $lobby-height-desktop + $small-spacing; }
-    @media (min-height: $desktop-plus-height) { bottom: $lobby-height-desktop-plus + $small-spacing; }
-    @media (min-height: $desktop-large-height){ bottom: $lobby-height-desktop-large + $small-spacing; }
-    @media (min-height: $desktop-huge-height) { bottom: $lobby-height-desktop-huge + $small-spacing; }
-  }
 
   li {
     white-space: nowrap;

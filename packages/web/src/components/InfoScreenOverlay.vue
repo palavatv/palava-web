@@ -1,85 +1,109 @@
 <template>
-  <aside class="info-screen" tabindex="0" @keydown.esc="emit('close')">
-    <button class="close" @click="emit('close')">
-      <CrossIcon :aria-label="t('closeAlt')" />
+  <aside
+    ref="infoScreenEl"
+    tabindex="0"
+    class="info-screen"
+    @keydown.esc="emit('close')"
+  >
+    <button
+      type="button"
+      class="close"
+      @click="emit('close')"
+    >
+      <CrossIcon :aria-label="t('closeAlt')" role="img" />
     </button>
-
     <NavigationBar
       type="screen"
       @open-info-screen="(page) => emit('open-info-screen', page)"
     />
-
-    <!-- eslint-disable-next-line vue/no-v-html -->
-    <div class="info-content" v-html="infoPage.content" />
+    <div
+      class="info-content"
+      v-html="infoPage?.content || ''"
+    />
   </aside>
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch, onMounted } from 'vue'
-import { useI18n } from 'vue-i18n'
-import NavigationBar from '@/components/NavigationBar.vue'
 import CrossIcon from '@/assets/icons/cross.svg?component'
-import en from '@/i18n/en'
-import de from '@/i18n/de'
 
-const props = defineProps<{ page: string }>()
+const { t, tm, rt } = useI18n()
+
+const props = defineProps<{
+  page: string
+}>()
+
 const emit = defineEmits<{
   close: []
   'open-info-screen': [page: string]
 }>()
 
-const { t, locale } = useI18n()
-const messages: Record<string, typeof en> = { en, de }
-
-const el = ref<HTMLElement>()
+const infoScreenEl = ref<HTMLElement>()
 
 const infoPage = computed(() => {
-  const msgs = messages[locale.value] ?? en
-  return msgs.infoPages.find((ip) => ip.id === props.page) ?? { id: '', title: '', content: '' }
+  const pages = tm('infoPages') as any[]
+  return pages
+    .map(p => ({
+      ...p,
+      id: rt(p.id),
+      title: rt(p.title),
+      content: rt(p.content),
+    }))
+    .find((ip: any) => ip.id === props.page) || {}
 })
 
 onMounted(() => {
-  if (props.page) el.value?.focus()
+  if (props.page) {
+    infoScreenEl.value?.focus()
+  }
 })
 
 watch(() => props.page, (newPage) => {
-  if (newPage) el.value?.focus()
+  if (newPage) {
+    infoScreenEl.value?.focus()
+  }
 })
 </script>
 
-<style lang="scss">
-/* See InfoPageView.vue for main styling */
+<style lang="scss" scoped>
+@use "@/css/info-shared" as *;
+
 .info-screen {
+  @include info-container();
+
   position: fixed;
   z-index: 700;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
-  opacity: 1;
-  @media (min-width: $mobile-plus) {
-    & {
-      left: $medium-spacing;
-      top: $large-control-size * 2;
-      max-width: calc(100% - #{$medium-spacing * 2});
-      bottom: $medium-spacing;
-      opacity: 0.92;
-    }
-  }
 
-  @media (min-width: $desktop) { width: $desktop; }
-  @media (min-width: $desktop-large) { width: $desktop-plus; }
-
-  @include defaultShadow();
   outline: none;
   overflow: auto;
+
+  @include defaultShadow();
+
+  @media (min-width: $mobile-plus) {
+    left: $medium-spacing;
+    top: $large-control-size * 2;
+    max-width: calc(100% - #{$medium-spacing * 2});
+    bottom: $medium-spacing;
+    opacity: 0.92;
+  }
+
+  @media (min-width: $desktop) {
+    width: $desktop;
+  }
+
+  @media (min-width: $desktop-large) {
+    width: $desktop-plus;
+  }
 
   .close {
     @include inlineButton();
     @include closeButton(36px);
   }
 
-  .navigation {
+  :deep(.navigation) {
     padding-top: 0;
     border-top: none;
     padding-right: 36px;

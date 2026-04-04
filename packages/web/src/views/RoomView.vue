@@ -6,212 +6,247 @@
 
     <transition name="fade">
       <InfoScreenOverlay
-        v-if="infoPage"
+        v-if="infoScreenIsVisible"
         :page="infoPage"
-        @close="infoPage = null"
-        @open-info-screen="(page) => infoPage = page"
+        @close="closeInfoScreen"
+        @open-info-screen="openInfoScreen"
       />
     </transition>
 
-    <component
-      :is="uiStateComponent"
-      v-bind="uiStateProps"
-      :peers="peers"
-      :localPeer="localPeer"
+    <!-- Media configuration screen -->
+    <UserMediaConfigurator
+      v-if="roomState === 'configure'"
+      :error="configError"
       @join-room="joinRoom"
-      @open-info-screen="(page: string) => infoPage = page"
+      @open-info-screen="openInfoScreen"
+    />
+
+    <!-- Error screen -->
+    <RoomError
+      v-else-if="roomState === 'error'"
+      :error="errorType"
+    />
+
+    <!-- Video call party -->
+    <PartyPanel
+      v-else-if="roomState === 'party'"
+      :peers="peers"
+      :local-peer="localPeer"
+      :initial-video-enabled="initialVideoEnabled"
+      :initial-audio-enabled="initialAudioEnabled"
+      @open-info-screen="openInfoScreen"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onBeforeUnmount, watchEffect, type Component, markRaw } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useI18n } from 'vue-i18n'
-import { Session, type Peer, type LocalPeer as LocalPeerType } from '@palava/client'
-import config from '@/config'
-import logger from '@/utils/logger'
-import { fancyNumber } from '@/utils/support'
-
-import UserMediaConfigurator from '@/components/UserMediaConfigurator.vue'
-import ScreenMessage from '@/components/ScreenMessage.vue'
-import InfoScreenOverlay from '@/components/InfoScreenOverlay.vue'
-import RoomError from '@/components/RoomError.vue'
-import PartyPanel from '@/components/PartyPanel.vue'
-
-import enteringKnockUrl from '@/assets/sounds/entering-room-knock.mp3'
-import leavingBirdsUrl from '@/assets/sounds/leaving-room-bird.mp3'
+import { Session, Identity, type Peer, type LocalPeer } from '@palava/client'
 
 const route = useRoute()
 const router = useRouter()
 const { t } = useI18n()
+const config = usePalavaConfig()
+const logger = useLogger()
 
-const uiStateComponent = ref<Component>(markRaw(UserMediaConfigurator))
-const uiStateProps = ref<Record<string, unknown>>({})
-const screenMessage = ref<string | null>(null)
+// Sounds
+const enteringKnock = import.meta.client ? new Audio('/sounds/entering-room-knock.mp3') : null
+const leavingBirds = import.meta.client ? new Audio('/sounds/leaving-room-bird.mp3') : null
+
+// State
+type RoomState = 'configure' | 'error' | 'party'
+const roomState = ref<RoomState>('configure')
+const configError = ref<string>()
+const errorType = ref<string>()
+const screenMessage = ref<string>()
 const peers = ref<Peer[]>([])
-const localPeer = ref<LocalPeerType | null>(null)
-const infoPage = ref<string | null>(null)
+const localPeer = ref<LocalPeer>()
+const infoPage = ref<string>()
+const soundsEnabled = ref(true)
+const initialVideoEnabled = ref(true)
+const initialAudioEnabled = ref(true)
+
+let rtc: Session | null = null
 let signalingState: 'initial' | 'connected' | 'reconnect_scheduled' | 'trying_to_reconnect' = 'initial'
 
-const joinSound = new Audio(enteringKnockUrl)
-const leavingSound = new Audio(leavingBirdsUrl)
+// Computed
+const infoScreenIsVisible = computed(() => !!infoPage.value)
 
-const roomId = computed(() => route.params.roomId as string)
+const roomId = computed(() => (route.params.roomid as string).toLowerCase())
 
-// Truncate room id
-if (roomId.value && roomId.value.length > 50) {
-  router.replace({ path: roomId.value.substring(0, 50) })
+// Parrot emoji page title (ported from Pascal's fancyNumber)
+function fancyNumber(n: number): string {
+  return n > 0 ? '🦜'.repeat(n) : ''
 }
 
-// Set page title reactively
-watchEffect(() => {
-  const peerCount = peers.value.length
-  const emoji = fancyNumber(peerCount) || t('room.emptyTitle')
-  const decoded = decodeURIComponent(roomId.value ?? '')
-  document.title = `palava.tv | ${emoji} | ${decoded}`
+useHead({
+  title: computed(() => {
+    const emoji = fancyNumber(peers.value.length) || t('room.emptyTitle')
+    const decoded = decodeURIComponent(roomId.value ?? '')
+    return `${emoji} | ${decoded}`
+  })
 })
 
-function updateUiState(component: Component, props: Record<string, unknown> = {}) {
+// Redirect to lowercase URL if needed
+function normalizeRoomIdInUrl() {
+  const rawRoomId = route.params.roomid as string
+  if (rawRoomId !== rawRoomId.toLowerCase()) {
+    router.replace(`/${rawRoomId.toLowerCase()}`)
+  }
+}
+
+function catchInvalidRoomId(id: string) {
+  if (id.length > 50) {
+    router.replace(`/${id.substring(0, 50)}`)
+  }
+}
+
+// UI state transitions
+function showConfigure(error: string | null = null) {
   screenMessage.value = null
-  uiStateComponent.value = markRaw(component)
-  uiStateProps.value = props
+  roomState.value = 'configure'
+  configError.value = error
 }
 
-// Build session config
-const sessionConfig = {
-  roomId: roomId.value,
-  webSocketAddress: config.env.rtcUrl || config.defaultRtcUrl,
-  stun: config.env.stunUrl || config.defaultStunUrl,
-  joinTimeout: config.defaultJoinTimeout,
-  filterIceCandidateTypes: config.env.filterIceCandidateTypes,
-  turnUrls: config.env.turnUrls,
+function showError(error: string) {
+  screenMessage.value = null
+  roomState.value = 'error'
+  errorType.value = error
 }
 
-const rtc = new Session(sessionConfig)
+function showParty() {
+  screenMessage.value = null
+  roomState.value = 'party'
+}
 
-// Wire up RTC events
-rtc.on('webrtc_no_support', () => {
-  logger.error('webrtc not supported')
-  if (route.query.supported === '1') return
-  router.push({ path: '/', query: { supported: '0' } })
-})
+// RTC event setup
+function setupRtc(rtcSession: Session) {
+  rtcSession.on('webrtc_no_support', () => {
+    logger.error('webrtc not supported')
+    if (route.query.supported === '1') return
+    router.push({ path: '/', query: { supported: '0' } })
+  })
 
-rtc.on('signaling_not_reachable', () => {
-  logger.error('signaling server not reachable')
-  reconnectRtcWhenOnLine()
-})
-
-rtc.on('signaling_error', (errorType, error) => {
-  logger.error('signaling error', errorType, error)
-  if (errorType === 'socket' || errorType === 'missing_pongs') {
+  rtcSession.on('signaling_not_reachable', () => {
+    logger.error('signaling server not reachable')
     reconnectRtcWhenOnLine()
-  }
-})
+  })
 
-rtc.on('signaling_shutdown', (seconds) => {
-  logger.warn(`Sorry, your connection will be reset in ${seconds} seconds!`)
-  updateUiState(RoomError, { error: 'maintenance' })
-})
+  rtcSession.on('signaling_error', (errorType, error) => {
+    logger.error('signaling error', errorType, error)
+    if (errorType === 'socket' || errorType === 'missing_pongs') {
+      reconnectRtcWhenOnLine()
+    }
+  })
 
-rtc.on('local_stream_error', (error) => {
-  logger.error('local stream error', error)
-  updateUiState(UserMediaConfigurator, { error: 'local_stream_error' })
-})
+  rtcSession.on('signaling_shutdown', (seconds) => {
+    logger.warn(`Sorry, your connection will be reset in ${seconds} seconds!`)
+    showError('maintenance')
+  })
 
-rtc.on('local_stream_ready', (stream) => {
-  logger.log('local stream ready', stream)
-})
+  rtcSession.on('local_stream_error', (error) => {
+    logger.error('local stream error', error)
+    showConfigure('local_stream_error')
+  })
 
-rtc.on('room_join_error', () => {
-  logger.error('room join error (timeout)')
-  updateUiState(RoomError, { error: 'connection_error' })
-})
+  rtcSession.on('local_stream_ready', (stream) => {
+    logger.log('local stream ready', stream)
+  })
 
-rtc.on('room_full', () => {
-  logger.error('room full')
-  updateUiState(RoomError, { error: 'room_full' })
-})
+  rtcSession.on('room_join_error', () => {
+    logger.error('room join error (timeout)')
+    showError('connection_error')
+  })
 
-rtc.on('room_joined', (room) => {
-  logger.log(`room joined with ${room.getRemotePeers().length} other peers`)
-  signalingState = 'connected'
+  rtcSession.on('room_full', () => {
+    logger.error('room full')
+    showError('room_full')
+  })
 
-  const allPeers = room.getAllPeers()
-  if (allPeers.length > config.maximumPeers) {
-    rtc.destroy()
-    updateUiState(RoomError, { error: 'room_full' })
-    return
-  }
+  rtcSession.on('room_joined', (room) => {
+    logger.log(`room joined with ${room.getRemotePeers().length} other peers`)
+    signalingState = 'connected'
 
-  peers.value = allPeers
-  localPeer.value = room.getLocalPeer()
-  updateUiState(PartyPanel)
-})
+    const allPeers = room.getAllPeers()
 
-rtc.on('peer_joined', (peer) => {
-  logger.log('peer joined', peer)
-  joinSound.play()
-  if (rtc.room) peers.value = rtc.room.getAllPeers()
-})
+    if (allPeers.length > config.maximumPeers) {
+      rtcSession.destroy()
+      showError('room_full')
+      return
+    }
 
-rtc.on('peer_stream_ready', (peer) => {
-  logger.log('peer stream ready', peer)
-})
+    peers.value = allPeers
+    localPeer.value = room.getLocalPeer()
+    showParty()
+  })
 
-rtc.on('peer_stream_removed', (peer) => {
-  logger.log('peer stream removed', peer)
-})
+  rtcSession.on('peer_joined', (peer) => {
+    logger.log('peer joined', peer)
+    if (soundsEnabled.value) {
+      enteringKnock?.play()
+    }
+    if (rtcSession.room) peers.value = rtcSession.room.getAllPeers()
+  })
 
-rtc.on('peer_left', (peer) => {
-  logger.log('peer left', peer)
-  leavingSound.play()
-  if (rtc.room) peers.value = rtc.room.getAllPeers()
-})
+  rtcSession.on('peer_stream_ready', (peer) => {
+    logger.log('peer stream ready', peer)
+  })
 
-rtc.on('session_reconnect', () => {
-  logger.log('trying to reconnect and rejoin room')
-})
+  rtcSession.on('peer_stream_removed', (peer) => {
+    logger.log('peer stream removed', peer)
+  })
 
-rtc.on('session_before_destroy', () => {
-  logger.log('destroying rtc session')
-})
+  rtcSession.on('peer_left', (peer) => {
+    logger.log('peer left', peer)
+    if (soundsEnabled.value) {
+      leavingBirds?.play()
+    }
+    if (rtcSession.room) peers.value = rtcSession.room.getAllPeers()
+  })
 
-rtc.on('peer_connection_pending', (peer) => {
-  logger.log('peer connection pending', peer)
-})
+  rtcSession.on('session_reconnect', () => {
+    logger.log('trying to reconnect and rejoin room')
+  })
 
-rtc.on('peer_connection_established', (peer) => {
-  logger.log('peer connection established', peer)
-})
+  rtcSession.on('session_before_destroy', () => {
+    logger.log('destroying rtc session')
+  })
 
-rtc.on('peer_connection_disconnected', (peer) => {
-  logger.warn('peer connection disconnected', peer)
-})
+  rtcSession.on('peer_connection_pending', (peer) => {
+    logger.log('peer connection pending', peer)
+  })
 
-rtc.on('peer_connection_closed', (peer) => {
-  logger.warn('peer connection closed', peer)
-})
+  rtcSession.on('peer_connection_established', (peer) => {
+    logger.log('peer connection established', peer)
+  })
 
-rtc.on('peer_connection_failed', (peer) => {
-  logger.error('peer connection failed', peer)
-})
+  rtcSession.on('peer_connection_disconnected', (peer) => {
+    logger.warn('peer connection disconnected', peer)
+  })
 
-function joinRoom(userMediaConfig: MediaStreamConstraints) {
-  screenMessage.value = t('room.waitingForUserMedia')
-  rtc.connect({ userMediaConfig })
+  rtcSession.on('peer_connection_closed', (peer) => {
+    logger.warn('peer connection closed', peer)
+  })
+
+  rtcSession.on('peer_connection_failed', (peer) => {
+    logger.error('peer connection failed', peer)
+  })
+
+  return rtcSession
 }
 
-function onlineEventListener() {
-  logger.log('now online, trying to reconnect')
-  window.removeEventListener('online', onlineEventListener)
+function joinRoom(joinConfig: { userMediaConfig: any, name: string, soundsEnabled: boolean }) {
+  screenMessage.value = t('room.waitingForUserMedia')
+  soundsEnabled.value = joinConfig.soundsEnabled
 
-  if (signalingState === 'reconnect_scheduled') {
-    signalingState = 'trying_to_reconnect'
-    rtc.reconnect()
-  } else if (signalingState === 'trying_to_reconnect') {
-    setTimeout(() => rtc.reconnect(), config.reconnectTimeout)
-  }
+  initialVideoEnabled.value = !!joinConfig.userMediaConfig.video
+  initialAudioEnabled.value = !!joinConfig.userMediaConfig.audio
+
+  const identity = new Identity({
+    userMediaConfig: joinConfig.userMediaConfig,
+    name: joinConfig.name,
+  })
+
+  rtc!.connect({ identity })
 }
 
 function reconnectRtcWhenOnLine() {
@@ -222,18 +257,69 @@ function reconnectRtcWhenOnLine() {
     window.addEventListener('online', onlineEventListener)
     if (navigator.onLine) window.dispatchEvent(new Event('online'))
   } else {
-    updateUiState(RoomError, { error: 'connection_error' })
+    showError('connection_error')
   }
 }
 
+function onlineEventListener() {
+  logger.log('now online, trying to reconnect')
+  window.removeEventListener('online', onlineEventListener)
+
+  if (signalingState === 'reconnect_scheduled') {
+    signalingState = 'trying_to_reconnect'
+    rtc!.reconnect()
+  } else if (signalingState === 'trying_to_reconnect') {
+    setTimeout(() => rtc!.reconnect(), config.reconnectTimeout)
+  }
+}
+
+function closeInfoScreen() {
+  infoPage.value = null
+}
+
+function openInfoScreen(page: string) {
+  infoPage.value = page
+}
+
+// Lifecycle
+onMounted(() => {
+  normalizeRoomIdInUrl()
+
+  const currentRoomId = roomId.value
+  catchInvalidRoomId(currentRoomId)
+
+  const sessionConfig = {
+    roomId: currentRoomId,
+    webSocketAddress: config.env.rtcUrl || config.defaultRtcUrl,
+    stun: config.env.stunUrl || config.defaultStunUrl,
+    joinTimeout: config.defaultJoinTimeout,
+    filterIceCandidateTypes: config.env.filterIceCandidateTypes,
+    turnUrls: config.env.turnUrls,
+  }
+
+  rtc = setupRtc(new Session(sessionConfig))
+})
+
 onBeforeUnmount(() => {
-  rtc.destroy()
+  rtc?.destroy()
   window.removeEventListener('online', onlineEventListener)
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .room {
   height: 100%;
+}
+
+.fade-enter-active {
+  transition: opacity .3s ease-in;
+}
+
+.fade-leave-active {
+  transition: opacity .5s ease-out;
+}
+
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
 }
 </style>

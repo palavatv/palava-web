@@ -22,7 +22,7 @@ export default {
     `,
     palavaLogoTitle: 'What is palava.tv?',
     roomIdPlaceholder: 'Enter name of a meeting room',
-    twitter: 'Twitter',
+    mastodon: 'Mastodon',
   },
   info: {
     palavaLogoTitle: 'Go to palava.tv home page',
@@ -49,6 +49,7 @@ export default {
       <p>
         Possible reasons and solutions:
       </p>
+
       <ul>
         <li>You have denied access. Try again by pressing one of the above buttons.</li>
         <li>You have previously denied palava.tv to access you microphone or camera. You will need to unblock it in your browser settings to be able to join this room. In most browsers, this can be done by clicking on a small camera symbol in the address bar</li>
@@ -63,6 +64,8 @@ export default {
       participants via the palava.tv server. By continuing, you consent to our privacy policy,
       <a href="/info/privacy">you can read it here</a>.
     `,
+    gumNamePlaceholder: 'Your Name (optional)',
+    gumSoundsEnabled: 'Sound effects when people join/leave',
     waitingForUserMedia: 'waiting for media streams',
     waitingForRoomServer: 'internet connection unstable,<br/>trying to reach server',
   },
@@ -121,22 +124,12 @@ export default {
     {
       id: 'about',
       title: 'Info',
-      content: `
-        <h2>Info</h2>
-        <p>
-          Insert information about this palava.tv installation here
-        </p>
-      `,
+      content: `Insert information about this palava.tv installation here`
     },
     {
       id: 'contact',
       title: 'Contact',
-      content: `
-        <h2>Contact</h2>
-        <p>
-          Insert contact details here
-        </p>
-      `,
+      content: `Insert contact details here`
     },
     {
       id: 'network',
@@ -160,7 +153,7 @@ export default {
         <p>
           IP addresses can come in IPv4 format (X.X.X.X) or IPv6 format (X:X:X:X:X:X:X:X).
         </p>
-      `,
+      `
     },
     {
       id: 'not-found',
@@ -171,7 +164,7 @@ export default {
         <p>
           The page could not be found. The content might be gone, or maybe you have mistyped the URL.
         </p>
-      `,
-    },
-  ],
+      `
+    }
+  ]
 }

@@ -1,34 +1,33 @@
 <template>
   <button
-    :title="t('switchLanguageTitle')"
+    type="button"
     class="language-switcher"
+    :title="t('switchLanguageTitle')"
     @click="switchLanguage"
   >
-    <span :aria-label="t('switchLanguageAlt')">{{ locale }}</span>
+    <span :aria-label="t('switchLanguageAlt')">{{ locale.toUpperCase() }}</span>
   </button>
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-
-const { t, locale } = useI18n()
+const { t, locale, setLocale } = useI18n()
 
 function switchLanguage() {
-  locale.value = locale.value === 'de' ? 'en' : 'de'
+  setLocale(locale.value === 'de' ? 'en' : 'de')
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .language-switcher {
-  text-transform: uppercase;
-  padding: 0;
-  border: none;
-  background: none;
-  cursor: pointer;
-  @include footerFont();
-  color: $shade;
-  &:hover {
-    color: $action-2;
+  @include knob();
+  height: $small-control-size;
+  width: $small-control-size;
+  font-size: calc($small-control-size / 2.2);
+
+  @media (min-width: $mobile) {
+    height: $large-control-size;
+    width: $large-control-size;
+    font-size: calc($large-control-size / 2.2);
   }
 }
 </style>

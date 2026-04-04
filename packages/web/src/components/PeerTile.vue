@@ -2,10 +2,10 @@
   <li :class="peerClasses">
     <transition name="fade-control">
       <NetworkInfoPanel
-        v-if="networkInfoActive && !peer.isLocal()"
+        v-if="networkInfoActive"
         @close="hideNetworkInfo()"
         @open-info-screen="(page) => emit('open-info-screen', page)"
-        :peer="(peer as RemotePeer)"
+        :peer="peer"
       />
     </transition>
 
@@ -16,84 +16,96 @@
       @click="togglePeerMenu()"
     />
 
+    <span v-if="peerName" class="peer-name">{{ peerName }}</span>
+
     <div class="frame">
       <PlaceholderImage
-        v-if="status !== 'video'"
-        :colorIndex="colorIndex"
+        v-if="status !== 'video' || !videoReady"
+        :color-index="colorIndex"
+        :class="{ 'placeholder--hidden': status === 'video' && !videoReady }"
         @click="togglePeerMenu()"
       />
       <StreamVideo
         v-if="status === 'video' || status === 'audio'"
         :peer="peer"
         :status="status"
-        :requestFullscreen="requestFullscreenToken"
+        :request-fullscreen="requestFullscreen"
         :muted="muted"
+        :class="{ 'stream--loading': status === 'video' && !videoReady }"
         @click="togglePeerMenu()"
+        @video-ready="videoReady = true"
       />
-      <nav :class="{
-        'peer-menu': true,
-        'peer-menu--in-lobby': type === 'lobby',
-        'peer-menu--on-stage': type === 'stage',
-      }">
+      <nav
+        :class="{
+          'peer-menu': true,
+          'peer-menu--in-lobby': type === 'lobby',
+          'peer-menu--on-stage': type === 'stage',
+        }"
+      >
         <transition name="fade-control">
           <button
-            v-if="peerMenuActive && type === 'lobby'"
+            type="button"
             :title="t('peer.toggleEnlargeTitle')"
             class="menu-control menu-control--toggle"
+            v-if="peerMenuActive && type === 'lobby'"
             @click="togglePeer()"
           >
-            <LevelUpIcon :alt="t('peer.toggleEnlargeAlt')" :aria-label="t('peer.toggleEnlargeAlt')" />
+            <LevelUpIcon :aria-label="t('peer.toggleEnlargeAlt')" role="img" />
           </button>
         </transition>
 
         <transition name="fade-control">
           <button
-            v-if="peerMenuActive && type === 'stage'"
+            type="button"
             :title="t('peer.toggleMinimizeTitle')"
             class="menu-control menu-control--toggle"
+            v-if="peerMenuActive && type === 'stage'"
             @click="togglePeer()"
           >
-            <LevelDownIcon :alt="t('peer.toggleMinimizeAlt')" :aria-label="t('peer.toggleMinimizeAlt')" />
+            <LevelDownIcon :aria-label="t('peer.toggleMinimizeAlt')" role="img" />
           </button>
         </transition>
 
         <transition name="fade-control">
           <button
-            v-if="peerMenuActive && status === 'video'"
+            type="button"
             :title="t('peer.fullScreenTitle')"
             class="menu-control menu-control--full-screen"
+            v-if="peerMenuActive && status === 'video'"
             @click="makePeerFullScreen()"
           >
-            <ResizeIcon :alt="t('peer.fullScreenAlt')" :aria-label="t('peer.fullScreenAlt')" />
+            <ResizeFullScreenIcon :aria-label="t('peer.fullScreenAlt')" role="img" />
           </button>
         </transition>
 
         <transition name="fade-control">
           <button
-            v-if="peerMenuActive && !peer.isLocal()"
+            type="button"
             :title="t('peer.networkInfoTitle')"
             class="menu-control menu-control--network-info"
-            ref="networkInfoBtn"
+            ref="networkInfoButton"
+            v-if="peerMenuActive && !peer.isLocal()"
             @click="toggleNetworkInfo()"
           >
-            <NetworkIcon :alt="t('peer.networkInfoAlt')" :aria-label="t('peer.networkInfoAlt')" />
+            <NetworkIcon :aria-label="t('peer.networkInfoAlt')" role="img" />
           </button>
         </transition>
 
         <transition name="fade-control">
           <button
-            v-if="peerMenuActive && !peer.isLocal() && peer.hasAudio() && !peer.hasError()"
+            type="button"
             :title="muted ? t('peer.unmuteAudioTitle') : t('peer.muteAudioTitle')"
             :class="{
               'menu-control': true,
               'menu-control--mute': !muted,
               'menu-control--unmute': muted,
             }"
-            ref="muteBtn"
+            ref="muteButton"
+            v-if="peerMenuActive && !peer.isLocal() && peer.hasAudio() && !peer.hasError()"
             @click="toggleMute()"
           >
-            <VolumeOffIcon v-if="muted" :alt="t('peer.mutedAudioAlt')" :aria-label="t('peer.mutedAudioAlt')" />
-            <VolumeUpIcon v-else :alt="t('peer.withAudioAlt')" :aria-label="t('peer.withAudioAlt')" />
+            <VolumeOffIcon v-if="muted" :aria-label="t('peer.mutedAudioAlt')" role="img" />
+            <VolumeUpIcon v-else :aria-label="t('peer.withAudioAlt')" role="img" />
           </button>
         </transition>
       </nav>
@@ -102,51 +114,48 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useI18n } from 'vue-i18n'
-import type { Peer, RemotePeer } from '@palava/client'
-import StreamVideo from '@/components/StreamVideo.vue'
-import PeerStatusIndicator from '@/components/PeerStatusIndicator.vue'
-import PlaceholderImage from '@/components/PlaceholderImage.vue'
-import NetworkInfoPanel from '@/components/NetworkInfoPanel.vue'
+import type { Peer } from '@palava/client'
 import LevelUpIcon from '@/assets/icons/level-up.svg?component'
 import LevelDownIcon from '@/assets/icons/level-down.svg?component'
-import ResizeIcon from '@/assets/icons/resize-full-screen.svg?component'
+import ResizeFullScreenIcon from '@/assets/icons/resize-full-screen.svg?component'
 import NetworkIcon from '@/assets/icons/network.svg?component'
 import VolumeOffIcon from '@/assets/icons/volume-off.svg?component'
 import VolumeUpIcon from '@/assets/icons/volume-up.svg?component'
 
+const { t } = useI18n()
+
 const props = defineProps<{
   peer: Peer
-  colorIndex?: number
-  type: 'stage' | 'lobby'
-  partyMode: string
-  stageMode: string
+  colorIndex: number
+  type: 'lobby' | 'stage'
+  partyMode: 'landscape' | 'portrait'
+  stageMode: 'landscape' | 'portrait'
 }>()
 
 const emit = defineEmits<{
-  togglePeer: []
+  'toggle-peer': []
   'open-info-screen': [page: string]
 }>()
 
-const { t } = useI18n()
+// Template refs
+const networkInfoButton = ref<HTMLButtonElement>()
+const muteButton = ref<HTMLButtonElement>()
 
+// State
 const muted = ref(false)
 const peerMenuActiveInLobby = ref(true)
-const requestFullscreenToken = ref<string | null>(null)
+const requestFullscreen = ref<string>()
 const networkInfoActive = ref(false)
+const status = ref<'error' | 'not-ready' | 'video' | 'audio' | 'no-media'>('not-ready')
+const videoReady = ref(false)
 
-const networkInfoBtn = ref<HTMLButtonElement>()
-const muteBtn = ref<HTMLButtonElement>()
+// Computed
+const peerMenuActive = computed(() => {
+  return peerMenuActiveInLobby.value
+})
 
-const peerMenuActive = computed(() => peerMenuActiveInLobby.value)
-
-const status = computed(() => {
-  if (props.peer.error) return 'error'
-  if (!props.peer.isReady()) return 'not-ready'
-  if (props.peer.hasVideo()) return 'video'
-  if (props.peer.hasAudio()) return 'audio'
-  return 'no-media'
+const peerName = computed(() => {
+  return props.peer.status?.name || ''
 })
 
 const peerClasses = computed(() => ({
@@ -170,26 +179,69 @@ const peerClasses = computed(() => ({
   'peer--stage-portrait': props.stageMode === 'portrait',
 }))
 
+function updateStatus() {
+  const oldStatus = status.value
+
+  if (props.peer.error) {
+    status.value = 'error'
+  } else if (!props.peer.isReady()) {
+    status.value = 'not-ready'
+  } else if (props.peer.hasVideo()) {
+    status.value = 'video'
+  } else if (props.peer.hasAudio()) {
+    status.value = 'audio'
+  } else {
+    status.value = 'no-media'
+  }
+
+  // Reset videoReady when transitioning away from video status
+  if (oldStatus === 'video' && status.value !== 'video') {
+    videoReady.value = false
+  }
+}
+
+onMounted(() => {
+  updateStatus()
+  props.peer.on('stream_ready', updateStatus)
+  props.peer.on('stream_removed', updateStatus)
+  props.peer.on('error', updateStatus)
+  props.peer.on('video_added', updateStatus)
+  props.peer.on('audio_added', updateStatus)
+  props.peer.on('video_removed', updateStatus)
+  props.peer.on('audio_removed', updateStatus)
+})
+
+onBeforeUnmount(() => {
+  props.peer.off('stream_ready', updateStatus)
+  props.peer.off('stream_removed', updateStatus)
+  props.peer.off('error', updateStatus)
+  props.peer.off('video_added', updateStatus)
+  props.peer.off('audio_added', updateStatus)
+  props.peer.off('video_removed', updateStatus)
+  props.peer.off('audio_removed', updateStatus)
+})
+
+// Methods
 function togglePeerMenu() {
   peerMenuActiveInLobby.value = !peerMenuActiveInLobby.value
 }
 
 function togglePeer() {
-  emit('togglePeer')
+  emit('toggle-peer')
 }
 
 function makePeerFullScreen() {
-  requestFullscreenToken.value = crypto.randomUUID()
+  requestFullscreen.value = crypto.randomUUID()
 }
 
 function toggleMute() {
   muted.value = !muted.value
-  muteBtn.value?.blur()
+  muteButton.value?.blur()
 }
 
 function toggleNetworkInfo() {
   networkInfoActive.value = !networkInfoActive.value
-  networkInfoBtn.value?.blur()
+  networkInfoButton.value?.blur()
 }
 
 function hideNetworkInfo() {
@@ -197,118 +249,106 @@ function hideNetworkInfo() {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .peer {
+  width: auto;
+  height: auto;
+  box-sizing: border-box;
   font-size: 0;
   opacity: 1;
   position: relative;
-  box-sizing: border-box;
-  width: auto;
-  height: auto;
+
   @include fadeControl();
 
   .frame {
+    display: block;
     position: relative;
-    display: inline;
+    width: 100%;
+    height: 100%;
   }
 
-  .media {
-    height: auto;
+  :deep(.media) {
     width: auto;
-    max-height: 100%;
+    height: auto;
     max-width: 100%;
+    max-height: 100%;
   }
 
   &--is-local {
-    video { transform: scale(-1, 1); }
+    :deep(video) {
+      transform: scale(-1, 1);
+    }
+  }
+
+  &--in-lobby {
+    :deep(.lds-grid) {
+      transform: scale(80%);
+    }
+  }
+
+  &--on-stage {
+    :deep(.lds-grid) {
+      transform: scale(120%);
+    }
+  }
+
+  &--on-stage {
+    :deep(.network-info) {
+      bottom: 60px;
+      left: calc(50% - 150px);
+    }
+  }
+
+  &--in-lobby {
+    &.peer--party-landscape :deep(.network-info) {
+      right: $lobby-width-mobile + $small-spacing;
+      @media (min-width: $mobile-plus)  { right: $lobby-width-mobile-plus + $small-spacing; }
+      @media (min-width: $desktop)      { right: $lobby-width-desktop + $small-spacing; }
+      @media (min-width: $desktop-plus) { right: $lobby-width-desktop-plus + $small-spacing; }
+      @media (min-width: $desktop-large){ right: $lobby-width-desktop-large + $small-spacing; }
+      @media (min-width: $desktop-huge) { right: $lobby-width-desktop-huge + $small-spacing; }
+    }
+
+    &.peer--party-portrait :deep(.network-info) {
+      bottom: $lobby-height-mobile + $small-spacing;
+      @media (min-height: $mobile-plus-height)  { bottom: $lobby-height-mobile-plus + $small-spacing; }
+      @media (min-height: $desktop-height)      { bottom: $lobby-height-desktop + $small-spacing; }
+      @media (min-height: $desktop-plus-height) { bottom: $lobby-height-desktop-plus + $small-spacing; }
+      @media (min-height: $desktop-large-height){ bottom: $lobby-height-desktop-large + $small-spacing; }
+      @media (min-height: $desktop-huge-height) { bottom: $lobby-height-desktop-huge + $small-spacing; }
+    }
   }
 }
 
-.lobby {
-  .peer {
-    border-top: $lobby-peer-padding solid transparent;
-    border-left: $lobby-peer-padding solid transparent;
-    .media { border-radius: $lobby-border-radius; }
+.peer-name {
+  position: absolute;
+  bottom: $small-spacing;
+  left: $small-spacing;
+  z-index: 400;
+
+  padding: 2px 8px;
+  font-size: 14px;
+  line-height: 1.4;
+
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+
+  pointer-events: none;
+  max-width: calc(100% - #{$small-spacing * 2});
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  @media (min-width: $mobile) {
+    font-size: 15px;
+    bottom: $small-plus-spacing;
+    left: $small-plus-spacing;
   }
 
-  .peer--party-landscape {
-    border-right: $lobby-peer-padding solid transparent;
-    &:last-child { border-bottom: $lobby-peer-padding solid transparent; }
-    .media { width: 100%; }
-  }
-
-  .peer--party-portrait {
-    border-bottom: $lobby-peer-padding solid transparent;
-    &:last-child { border-right: $lobby-peer-padding solid transparent; }
-    .media { height: 100%; }
-  }
-}
-
-.stage {
-  .spotlight {
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-  }
-
-  .peer { padding: $stage-gap; }
-  .media { object-fit: cover; border-radius: $stage-border-radius; }
-
-  .spotlight--three, .spotlight--four {
-    padding: $stage-gap;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 50% 50%;
-    .peer .media { width: 100%; height: 100%; }
-  }
-
-  .spotlight--five, .spotlight--six {
-    padding: $stage-gap;
-    display: grid;
-    .peer .media { width: 100%; height: 100%; }
-  }
-}
-
-.stage--landscape {
-  .spotlight--empty, .spotlight--one {
-    text-align: center;
-    .peer, .peer .media { height: 100%; max-width: 100%; }
-  }
-
-  .spotlight--two {
-    padding: $stage-gap;
-    display: flex;
-    align-items: center;
-    .peer, .peer .media { max-height: 100%; }
-    .peer { width: 50%; }
-    .media { width: 100%; }
-  }
-
-  .spotlight--five, .spotlight--six {
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 50% 50%;
-  }
-}
-
-.stage--portrait {
-  .spotlight--empty, .spotlight--one {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    .peer, .peer .media { width: 100%; max-height: 100%; }
-  }
-
-  .spotlight--two {
-    padding: $stage-gap;
-    text-align: center;
-    .peer, .peer .media { max-width: 100%; }
-    .peer { height: 50%; }
-    .media { height: 100%; }
-  }
-
-  .spotlight--five, .spotlight--six {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+  @media (min-width: $desktop) {
+    font-size: 16px;
+    bottom: $medium-spacing;
+    left: $medium-spacing;
   }
 }
 
@@ -326,8 +366,11 @@ function hideNetworkInfo() {
 
   .menu-control {
     @include knob();
-    &:focus, &:hover {
-      &::after { bottom: 120%; right: 0; }
+    &:focus-visible, &:hover {
+      &::after {
+        bottom: 120%;
+        right: 0;
+      }
     }
   }
 
@@ -362,5 +405,15 @@ function hideNetworkInfo() {
       }
     }
   }
+}
+
+.placeholder--hidden {
+  visibility: hidden;
+  position: absolute;
+}
+
+.stream--loading {
+  position: absolute;
+  opacity: 0;
 }
 </style>

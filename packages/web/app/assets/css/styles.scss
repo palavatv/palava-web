@@ -1,0 +1,428 @@
+// COLORS
+
+$action-1: #2c5aa0;
+$action-2: #F89406;
+$action-3: #FF0000;
+$heading-1: #333;
+$white: white;
+$gray: #bfc2c7;
+$button-background: #d7d7d7;
+$shade: #999;
+$black: black;
+$background: #f0f0f0;
+
+// BREAKPOINTS
+
+$mobile: 576px;
+$mobile-plus: 768px;
+$desktop: 1024px;
+$desktop-plus: 1300px;
+$desktop-large: 1600px;
+$desktop-huge: 1900px;
+
+$mobile-height: 500px;
+$mobile-plus-height: 600px;
+$desktop-height: 700px;
+$desktop-plus-height: 900px;
+$desktop-large-height: 1200px;
+$desktop-huge-height: 1400px;
+
+// RESPONSIVE MEASURES
+
+$lobby-width-mobile: 156px;
+$lobby-width-mobile-plus: 182px;
+$lobby-width-desktop: 220px;
+$lobby-width-desktop-plus: 260px;
+$lobby-width-desktop-large: 280px;
+$lobby-width-desktop-huge: 370px;
+
+$lobby-height-mobile: 86px;
+$lobby-height-mobile-plus: 106px;
+$lobby-height-desktop: 116px;
+$lobby-height-desktop-plus: 130px;
+$lobby-height-desktop-large: 190px;
+$lobby-height-desktop-huge: 250px;
+
+// SPACINGS / GENERAL
+
+$tiny-spacing: 4px;
+$tiny-plus-spacing: 6px;
+$small-spacing: 8px;
+$small-plus-spacing: 12px;
+$medium-spacing: 16px;
+$medium-plus-spacing: 24px;
+$large-spacing: 32px;
+$large-plus-spacing: 48px;
+
+// SPACINGS / OTHER
+
+$logo-info-size: 100px;
+$home-social-size: 28px;
+
+$logo-control-size: 54px;
+$large-control-size: 40px;
+$small-control-size: 30px;
+
+$gum-choice-size: 30px;
+$gum-choice-mobile-size: 40px;
+
+// MIXINS
+
+@mixin size($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin fadeControl() {
+  .fade-control-enter-active {
+    transition: opacity 0.4s ease;
+  }
+
+  .fade-control-leave-active {
+    transition: opacity 0.4s ease;
+  }
+
+  .fade-control-enter, .fade-control-leave-to {
+    opacity: 0;
+  }
+}
+
+@mixin focusTitlePseudo() {
+  &::after {
+    /* Positioning */
+    position: absolute;
+    content: attr(title);
+    
+    /* Box model */
+    padding: 2px 7px 2px 5px;
+    
+    /* Typography */
+    color: $action-1;
+    text-align: left;
+    white-space: nowrap;
+    font-size: 12px;
+    line-height: 16px;
+    
+    /* Visual */
+    background: $white;
+    
+    /* Responsive typography */
+    @media (min-width: $mobile) {
+      font-size: 13px;
+      line-height: 18px;
+    }
+    @media (min-width: $mobile-plus) {
+      font-size: 14px;
+      line-height: 20px;
+    }
+    @media (min-width: $desktop) {
+      font-size: 15px;
+      line-height: 21px;
+    }
+    @media (min-width: $desktop-plus) {
+      font-size: 16px;
+      line-height: 22px;
+    }
+    @media (min-width: $desktop-large) {
+      font-size: 17px;
+      line-height: 23px;
+    }
+    @media (min-width: $desktop-huge) {
+      font-size: 18px;
+      line-height: 24px;
+    }
+    
+    /* Shadow effect */
+    @include lightShadow();
+    
+    /* Lobby-specific styles */
+    .lobby & {
+      white-space: normal;
+    }
+  }
+}
+
+@mixin focusTitle() {
+  // Wrap all declarations in a nested block to avoid mixed declarations
+  & {
+    // Positioning
+    position: relative;
+  }
+  
+  // States
+  &:focus-visible {
+    @include focusTitlePseudo();
+  }
+  
+  // Mobile hover state
+  @media (max-width: ($mobile-plus - 1px)) {
+    &:hover {
+      @include focusTitlePseudo();
+      z-index: 900;
+    }
+  }
+}
+
+@mixin knobLike() {
+  & {
+    /* Box model */
+    border: none;
+    border-radius: 50%;
+    padding: 0;
+    
+    /* Interactive */
+    cursor: pointer;
+    user-select: none;
+    
+    /* Visual */
+    box-shadow: 1px 1px 4px $black;
+  }
+}
+
+@mixin knob() {
+  // Include knobLike first
+  @include knobLike();
+  
+  // Include focusTitle before any nested rules
+  @include focusTitle();
+  
+  // Main knob styles in a nested block
+  & {
+    /* Layout and box model */
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Visual styling */
+    background: $white;
+    opacity: 0.5;
+    
+    /* Typography */
+    color: $action-1;
+  }
+  
+  /* Nested elements */
+  & > * {
+    display: inline-block;
+    fill: $action-1;
+    filter: grayscale(1);
+    width: calc(50% + 4px);
+    height: calc(50% + 4px);
+  }
+  
+  /* States */
+  &:focus-visible,
+  &:hover {
+    outline: none;
+    opacity: 1;
+    box-shadow: 1px 1px 3px #555;
+    
+    & > * {
+      filter: grayscale(0);
+    }
+  }
+}
+
+@mixin inlineButton() {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  user-select: none;
+  box-sizing: border-box;
+  color: $action-1;
+  background: white;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px $action-1;
+  }
+}
+
+@mixin closeButton($size) {
+  position: absolute;
+  height: $size;
+  width: $size;
+  font-size: calc($size / 1.7);
+  top: calc($size / 4);
+  right: calc($size / 4);
+  fill: $action-1;
+}
+
+@mixin defaultShadow() {
+  box-shadow: 1px 1px 4px $black;
+}
+
+@mixin lightShadow() {
+  & {
+    box-shadow: 1px 1px 3px rgba(83, 83, 83, 0.4);
+  }
+}
+
+@mixin mediumShadow() {
+  box-shadow: 0px 0px 3px $shade;
+}
+
+// FONTS
+
+@mixin hugeFont() {
+  font-size: 30px;
+  line-height: 34px;
+
+  @media (min-width: $mobile-plus) {
+    font-size: 42px;
+    line-height: 48px;
+  }
+
+  @media (min-width: $desktop) {
+    font-size: 54px;
+    line-height: 58px;
+  }
+
+  @media (min-width: $desktop-plus) {
+    font-size: 60px;
+    line-height: 68px;
+  }
+
+  @media (min-width: $desktop-large) {
+    font-size: 68px;
+    line-height: 74px;
+  }
+}
+
+@mixin headingFont() {
+  font-size: 22px;
+  line-height: 34px;
+
+  @media (min-width: $mobile) {
+    font-size: 24px;
+    line-height: 36px;
+  }
+
+  @media (min-width: $mobile-plus) {
+    font-size: 26px;
+    line-height: 38px;
+  }
+
+  @media (min-width: $desktop) {
+    font-size: 30px;
+    line-height: 44px;
+  }
+
+  @media (min-width: $desktop-plus) {
+    font-size: 32px;
+    line-height: 46px;
+  }
+
+  @media (min-width: $desktop-large) {
+    font-size: 34px;
+    line-height: 48px;
+  }
+
+  @media (min-width: $desktop-huge) {
+    font-size: 36px;
+    line-height: 52px;
+  }
+}
+
+@mixin subheadingFont() {
+  font-size: 16px;
+  line-height: 22px;
+
+  @media (min-width: $mobile) {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  @media (min-width: $mobile-plus) {
+    font-size: 20px;
+    line-height: 26px;
+  }
+
+  @media (min-width: $desktop) {
+    font-size: 22px;
+    line-height: 28px;
+  }
+
+  @media (min-width: $desktop-plus) {
+    font-size: 23px;
+    line-height: 30px;
+  }
+
+  @media (min-width: $desktop-large) {
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  @media (min-width: $desktop-large) {
+    font-size: 26px;
+    line-height: 36px;
+  }
+}
+
+@mixin defaultFont() {
+  // Base styles
+  font-size: 12px;
+  line-height: 16px;
+
+  // Media queries
+  @media (min-width: $mobile) {
+    font-size: 13px;
+    line-height: 18px;
+  }
+  @media (min-width: $mobile-plus) {
+    font-size: 14px;
+    line-height: 20px;
+  }
+  @media (min-width: $desktop) {
+    font-size: 15px;
+    line-height: 21px;
+  }
+  @media (min-width: $desktop-plus) {
+    font-size: 16px;
+    line-height: 22px;
+  }
+  @media (min-width: $desktop-large) {
+    font-size: 17px;
+    line-height: 23px;
+  }
+  @media (min-width: $desktop-huge) {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
+
+@mixin homeFont() {
+  font-size: 16px;
+  line-height: 27px;
+
+  @media (min-width: $mobile-plus) {
+    font-size: 18px;
+    line-height: 28px;
+  }
+}
+
+@mixin homeSymbol() {
+  height: 35px;
+  width: 35px;
+
+  @media (min-width: $mobile-plus) {
+    height: 36px;
+    width: 36px;
+  }
+}
+
+@mixin footerFont() {
+  font-size: 16px;
+  line-height: 25px;
+
+  @media (min-width: $mobile-plus) {
+    font-size: 18px;
+    line-height: 25px;
+  }
+}

@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import PalavaIcon from '@/assets/icons/palava.svg?component'
+import PalavaIcon from '~/assets/icons/palava.svg?component'
 
 withDefaults(defineProps<{ to?: string }>(), { to: '/' })
 const { t } = useI18n()

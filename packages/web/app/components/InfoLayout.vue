@@ -14,7 +14,7 @@
 </script>
 
 <style lang="scss" scoped>
-@use "@/css/info-shared" as *;
+@use "~/assets/css/info-shared" as *;
 
 .info {
   display: flex;

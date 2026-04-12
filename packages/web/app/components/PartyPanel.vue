@@ -155,14 +155,14 @@
 
 <script setup lang="ts">
 import type { Peer as PeerType, LocalPeer } from '@palava/client'
-import PalavaIcon from '@/assets/icons/palava.svg?component'
-import InfoWithCircleIcon from '@/assets/icons/info-with-circle.svg?component'
-import LinkIcon from '@/assets/icons/link.svg?component'
-import VideoCameraIcon from '@/assets/icons/video-camera.svg?component'
-import VideoCameraOffIcon from '@/assets/icons/video-camera-off.svg?component'
-import MicIcon from '@/assets/icons/mic.svg?component'
-import MicOffIcon from '@/assets/icons/mic-off.svg?component'
-import PhoneIcon from '@/assets/icons/phone.svg?component'
+import PalavaIcon from '~/assets/icons/palava.svg?component'
+import InfoWithCircleIcon from '~/assets/icons/info-with-circle.svg?component'
+import LinkIcon from '~/assets/icons/link.svg?component'
+import VideoCameraIcon from '~/assets/icons/video-camera.svg?component'
+import VideoCameraOffIcon from '~/assets/icons/video-camera-off.svg?component'
+import MicIcon from '~/assets/icons/mic.svg?component'
+import MicOffIcon from '~/assets/icons/mic-off.svg?component'
+import PhoneIcon from '~/assets/icons/phone.svg?component'
 
 const { t, locale, setLocale } = useI18n()
 const config = usePalavaConfig()
@@ -311,7 +311,7 @@ function switchLanguage() {
   switchLanguageButton.value?.blur()
 }
 
-function toggleCamera() {
+async function toggleCamera() {
   if (cameraOff.value) {
     try {
       await props.localPeer.requestVideo(config.gumVideoConstraints)
@@ -325,7 +325,7 @@ function toggleCamera() {
   }
 }
 
-function toggleMicrophone() {
+async function toggleMicrophone() {
   if (microphoneMuted.value) {
     try {
       await props.localPeer.requestAudio()

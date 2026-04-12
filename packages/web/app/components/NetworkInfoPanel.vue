@@ -56,9 +56,9 @@
 
 <script setup lang="ts">
 import type { RemotePeer } from '@palava/client'
-import CrossIcon from '@/assets/icons/cross.svg?component'
-import InfoWithCircleIcon from '@/assets/icons/info-with-circle.svg?component'
-import DotSingleIcon from '@/assets/icons/dot-single.svg?component'
+import CrossIcon from '~/assets/icons/cross.svg?component'
+import InfoWithCircleIcon from '~/assets/icons/info-with-circle.svg?component'
+import DotSingleIcon from '~/assets/icons/dot-single.svg?component'
 
 const { getRemoteIps, getLocalIps, getRelayIps, getMyRelayStatus } = useWebRTC()
 const { t } = useI18n()
@@ -102,7 +102,6 @@ onMounted(async () => {
 .network-info {
   position: absolute;
   z-index: 700;
-  border-radius: $lobby-border-radius;
   background: white;
   opacity: 0.8;
   color: $action-1;

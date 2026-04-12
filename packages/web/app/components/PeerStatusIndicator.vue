@@ -43,9 +43,9 @@
 </template>
 
 <script setup lang="ts">
-import PhoneIcon from '@/assets/icons/phone.svg?component'
-import BlockIcon from '@/assets/icons/block.svg?component'
-import CircleWithCrossIcon from '@/assets/icons/circle-with-cross.svg?component'
+import PhoneIcon from '~/assets/icons/phone.svg?component'
+import BlockIcon from '~/assets/icons/block.svg?component'
+import CircleWithCrossIcon from '~/assets/icons/circle-with-cross.svg?component'
 
 const { t } = useI18n()
 

@@ -16,7 +16,15 @@
       @click="togglePeerMenu()"
     />
 
-    <span v-if="peerName" class="peer-name">{{ peerName }}</span>
+    <div v-if="peerName || (status === 'video' && !hasAudio)" class="peer-name">
+      <MicOffIcon
+        v-if="status === 'video' && !hasAudio"
+        class="peer-name__icon"
+        :aria-label="t('peer.mutedMicrophoneAlt')"
+        role="img"
+      />
+      <span v-if="peerName" class="peer-name__text">{{ peerName }}</span>
+    </div>
 
     <div class="frame">
       <PlaceholderImage
@@ -115,12 +123,13 @@
 
 <script setup lang="ts">
 import type { Peer } from '@palava/client'
-import LevelUpIcon from '@/assets/icons/level-up.svg?component'
-import LevelDownIcon from '@/assets/icons/level-down.svg?component'
-import ResizeFullScreenIcon from '@/assets/icons/resize-full-screen.svg?component'
-import NetworkIcon from '@/assets/icons/network.svg?component'
-import VolumeOffIcon from '@/assets/icons/volume-off.svg?component'
-import VolumeUpIcon from '@/assets/icons/volume-up.svg?component'
+import LevelUpIcon from '~/assets/icons/level-up.svg?component'
+import LevelDownIcon from '~/assets/icons/level-down.svg?component'
+import ResizeFullScreenIcon from '~/assets/icons/resize-full-screen.svg?component'
+import NetworkIcon from '~/assets/icons/network.svg?component'
+import VolumeOffIcon from '~/assets/icons/volume-off.svg?component'
+import VolumeUpIcon from '~/assets/icons/volume-up.svg?component'
+import MicOffIcon from '~/assets/icons/mic-off.svg?component'
 
 const { t } = useI18n()
 
@@ -148,6 +157,8 @@ const requestFullscreen = ref<string>()
 const networkInfoActive = ref(false)
 const status = ref<'error' | 'not-ready' | 'video' | 'audio' | 'no-media'>('not-ready')
 const videoReady = ref(false)
+const hasAudio = ref(false)
+const hasVideo = ref(false)
 
 // Computed
 const peerMenuActive = computed(() => {
@@ -182,13 +193,17 @@ const peerClasses = computed(() => ({
 function updateStatus() {
   const oldStatus = status.value
 
+  // Sync reactive flags so the template re-renders when audio/video toggle
+  hasAudio.value = props.peer.hasAudio()
+  hasVideo.value = props.peer.hasVideo()
+
   if (props.peer.error) {
     status.value = 'error'
   } else if (!props.peer.isReady()) {
     status.value = 'not-ready'
-  } else if (props.peer.hasVideo()) {
+  } else if (hasVideo.value) {
     status.value = 'video'
-  } else if (props.peer.hasAudio()) {
+  } else if (hasAudio.value) {
     status.value = 'audio'
   } else {
     status.value = 'no-media'
@@ -338,6 +353,23 @@ function hideNetworkInfo() {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  &__icon {
+    width: 1em;
+    height: 1em;
+    fill: white;
+    filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.8));
+    flex-shrink: 0;
+  }
+
+  &__text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   @media (min-width: $mobile) {
     font-size: 15px;

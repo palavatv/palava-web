@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import CrossIcon from '@/assets/icons/cross.svg?component'
+import CrossIcon from '~/assets/icons/cross.svg?component'
 
 const { t, tm, rt } = useI18n()
 
@@ -65,7 +65,7 @@ watch(() => props.page, (newPage) => {
 </script>
 
 <style lang="scss" scoped>
-@use "@/css/info-shared" as *;
+@use "~/assets/css/info-shared" as *;
 
 .info-screen {
   @include info-container();

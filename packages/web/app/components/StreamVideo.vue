@@ -47,7 +47,12 @@ function isMuted() {
 
 function attachPeerStream() {
   if (!videoEl.value) return
-  attachMediaStream(videoEl.value, props.peer.getStream(), isMuted())
+  const stream = props.peer.getStream()
+  // Skip re-attach if the same MediaStream is already bound — re-assigning
+  // srcObject to the same stream causes a one-frame flicker in the local
+  // preview when tracks are added/removed live.
+  if (videoEl.value.srcObject === stream) return
+  attachMediaStream(videoEl.value, stream, isMuted())
   attached.value = true
 }
 

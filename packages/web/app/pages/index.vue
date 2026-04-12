@@ -104,10 +104,10 @@
 </template>
 
 <script setup lang="ts">
-import PalavaIcon from '@/assets/icons/palava.svg?component'
-import SubmitIcon from '@/assets/icons/people-outline.svg?component'
-import LogoGithubIcon from '@/assets/icons/logo-github.svg?component'
-import LogoMastodonIcon from '@/assets/icons/logo-mastodon.svg?component'
+import PalavaIcon from '~/assets/icons/palava.svg?component'
+import SubmitIcon from '~/assets/icons/people-outline.svg?component'
+import LogoGithubIcon from '~/assets/icons/logo-github.svg?component'
+import LogoMastodonIcon from '~/assets/icons/logo-mastodon.svg?component'
 
 const { t, tm, rt } = useI18n()
 const router = useRouter()

@@ -6,9 +6,9 @@
     />
     <div class="info-content">
       <p>
-        <router-link to="/info/about">
+        <NuxtLink to="/info/about">
           {{ t('room.aboutPalava') }}
-        </router-link>
+        </NuxtLink>
       </p>
       <p v-html="t('room.gumIntro')" />
 
@@ -39,7 +39,6 @@
         <li class="gum-choice gum-choice--video-and-audio">
           <button
             type="button"
-            autofocus
             :title="t('room.gumChoiceVideoAndAudio')"
             @click="emit('join-room', { userMediaConfig: { video: videoConstraints, audio: true }, name: userName, soundsEnabled })"
           >
@@ -81,8 +80,8 @@
 </template>
 
 <script setup lang="ts">
-import VideoCameraIcon from '@/assets/icons/video-camera.svg?component'
-import MicIcon from '@/assets/icons/mic.svg?component'
+import VideoCameraIcon from '~/assets/icons/video-camera.svg?component'
+import MicIcon from '~/assets/icons/mic.svg?component'
 
 const { t } = useI18n()
 const config = usePalavaConfig()
@@ -219,15 +218,24 @@ const videoConstraints = computed(() => config.gumVideoConstraints)
     }
 
     button {
-      width: 100%;
-      padding: $small-spacing $medium-spacing;
+      @include knob();
+      @include size($gum-choice-mobile-size * 1.8);
       margin-bottom: $medium-spacing;
-      text-align: center;
-      @include defaultFont();
-      cursor: pointer;
 
-      &:hover {
-        svg { fill: $action-2; }
+      @media (min-width: $mobile) {
+        @include size($gum-choice-mobile-size * 2.2);
+      }
+
+      // Override knob's default child sizing (& > *) with smaller icons.
+      // Use !important because the selectors have equal specificity and
+      // the mixin expansion order is fragile.
+      & > * {
+        width: 36% !important;
+        height: 36% !important;
+      }
+
+      &:hover svg {
+        fill: $action-2;
       }
     }
   }

@@ -22,12 +22,33 @@ export default defineNuxtConfig({
 
   vite: {
     plugins: [
-      svgLoader(),
+      svgLoader({
+        svgoConfig: {
+          plugins: [
+            {
+              name: 'preset-default',
+              params: {
+                overrides: {
+                  removeViewBox: false,
+                },
+              },
+            },
+          ],
+        },
+      }),
     ],
+    optimizeDeps: {
+      include: [
+        'webrtc-adapter',
+      ],
+    },
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@use "@/css/styles" as *;\n`,
+          additionalData: (source: string, filename: string) => {
+            if (filename.endsWith('styles.scss')) return source
+            return `@use "~/assets/css/styles" as *;\n${source}`
+          },
           api: 'modern-compiler',
         },
       },
@@ -40,7 +61,7 @@ export default defineNuxtConfig({
       { code: 'de', iso: 'de-DE', name: 'Deutsch', file: 'de.ts' },
     ],
     defaultLocale: 'en',
-    langDir: '../i18n/locales',
+    langDir: 'locales',
     compilation: {
       strictMessage: false,
     },
@@ -74,8 +95,6 @@ export default defineNuxtConfig({
       ],
     },
   },
-
-  css: ['./src/css/styles.scss'],
 
   app: {
     head: {
